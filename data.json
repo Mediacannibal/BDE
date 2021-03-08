@@ -1,0 +1,504 @@
+{
+    "info": {
+        "_postman_id": "36a1d745-1d62-4637-a4bd-dcbb8f06fe05",
+        "name": "Fox_Stake",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [{
+            "name": "user",
+            "item": [{
+                    "name": "{{url}}user\/social\/signup\/",
+                    "id": "66d53607-1bf9-4fdd-8ca1-b929b7f4ac73",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n \"email_or_username\": \"aniadmin4\",\r\n\"password\" : \"password@123\"\r\n }"
+                        },
+                        "url": {
+                            "raw": "{{url}}user\/social\/signup\/",
+                            "host": [
+                                "{{url}}user"
+                            ],
+                            "path": [
+                                "social",
+                                "signup",
+                                ""
+                            ],
+                            "query": [{
+                                    "key": "username",
+                                    "value": "admin",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "admin@123",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}user\/profile_list\/",
+                    "id": "cf003eac-0718-47fc-a20b-587fdaa7b9ce",
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}user\/profile_list\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}user\/profile\/38\/",
+                    "id": "5ddb3bc3-062f-4bf8-a761-eb417c3f0b3b",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [{
+                                "key": "pk",
+                                "value": "38",
+                                "type": "text",
+                                "disabled": true
+                            }]
+                        },
+                        "url": "{{url}}user\/profile\/39\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}user\/social\/signup\/admin\/",
+                    "id": "76dcf7f2-2d4c-4d96-b15e-5d15f8309f53",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\"username\" :\"aniadmiwweedddd\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"9008699748\",\r\n \"email\": \"akaees@gmail.com\",\r\n\"user_type\": \"NORMAL\",\r\n\"firstname\": \"nuwddll\",\r\n\"lastname\": \"ndwdwull\"\r\n }"
+                        },
+                        "url": "{{url}}user\/social\/signup\/admin\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}user\/social\/signup\/normal\/",
+                    "id": "50c46f73-44e2-451b-be35-a1450d888dd5",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\"username\" :\"aniadmin44q\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"9008699748\",\r\n\"email\": \"akashadiqq@gmail.com\",\r\n\"user_type\": \"NORMAL\",\r\n\"firstname\": \"nuwddll\",\r\n\"lastname\": \"ndwdwull\"\r\n }"
+                        },
+                        "url": "{{url}}user\/social\/signup\/normal\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}user\/edit_profile\/38\/",
+                    "id": "d7535b22-cd78-4e7a-9aa9-ef1214a278ee",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [{
+                                    "key": "firstname",
+                                    "value": "animal",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "user_type",
+                                    "value": "NORMAL",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "admin@foxstake.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "phone",
+                                    "value": "9008699748",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "lastname",
+                                    "value": "gowda",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}user\/edit_profile\/45\/"
+                    },
+                    "response": []
+                }
+            ],
+            "id": "d8c11e40-3264-46c7-a103-960cd568f8aa"
+        },
+        {
+            "name": "appdata",
+            "item": [{
+                    "name": "{{url}}appdata\/bidrecordlist\/",
+                    "id": "ce0a5113-996c-4863-9037-44fbbed72b34",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{url}}appdata\/bidrecordlist\/?user_id=57&number=2",
+                            "host": [
+                                "{{url}}appdata"
+                            ],
+                            "path": [
+                                "bidrecordlist",
+                                ""
+                            ],
+                            "query": [{
+                                    "key": "user_id",
+                                    "value": "57"
+                                },
+                                {
+                                    "key": "number",
+                                    "value": "2"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatadetail\/2\/",
+                    "id": "68611ad2-9971-4bfc-97e5-598ad7e69395",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}appdata\/gamedatadetail\/18\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatalist\/",
+                    "id": "2df08f0d-5715-4828-a279-d95d0eb9eed1",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\r\n    {\r\n        \"Date\": \"2021-02-15\",\r\n        \"Daynumber\": \"1,2,3,4,5,6\",\r\n        \"Nightnumber\": \"6,5,4,3,2,1\",\r\n        \"Position\": \"LL\"\r\n    }\r\n]"
+                        },
+                        "url": "{{url}}appdata\/gamedatalist\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatadetail\/28\/",
+                    "id": "485abddf-5ebc-481e-bde6-e4bc37b7314b",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"date\": \"2021-02-22\",\r\n    \"daynumbers\": 31,\r\n    \"nightnumber\": 20,\r\n    \"is_deleted\": false,\r\n    \"user\": 5\r\n}"
+                        },
+                        "url": "{{url}}appdata\/gamedatadetail\/3\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatadetail\/29\/",
+                    "id": "01a9c026-0480-4abc-803e-65acb87d1d81",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "url": "{{url}}appdata\/gamedatadetail\/29\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/bidrecorddetail\/6\/",
+                    "id": "ef884121-4788-424e-a06b-c191a8701dbb",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": "{{url}}appdata\/bidrecorddetail\/3\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/bidrecorddetail\/6\/",
+                    "id": "c5e995e5-c042-445a-9ed7-f43baadc2d0f",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"naveen\",\r\n    \"bookeddate\": \"2021-02-21\",\r\n    \"dayornight\": \"DAY\",\r\n    \"bracketcombination\": \"00\",\r\n    \"number\": 2,\r\n    \"amount\": \"16000.00\",\r\n    \"is_deleted\": false,\r\n    \"user\": 5\r\n}"
+                        },
+                        "url": "{{url}}appdata\/bidrecorddetail\/3\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedata\/currentday\/",
+                    "id": "ec51968b-bb1e-4b88-94f1-79d44ed5bf47",
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application\/json",
+                            "type": "text"
+                        }],
+                        "url": "{{url}}appdata\/gamedata\/currentday\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedata\/result\/",
+                    "id": "4c4ac36a-e7ee-4298-ba46-d0541b819610",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}appdata\/gamedata\/result\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/bidrecord\/count\/",
+                    "id": "36d8a151-0379-47c8-af64-052992939684",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n \"BookedDate\":\"2021-02-22\",\r\n \"DayNight\": \"NIGHT\"\r\n}"
+                        },
+                        "url": "{{url}}appdata\/bidrecord\/count\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/bidrecord\/count\/agent\/",
+                    "id": "9ba76c9d-3077-43da-af7b-76ab77d97296",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n \"BookedDate\":\"2021-02-21\",\r\n \"DayNight\": \"DAY\"\r\n}"
+                        },
+                        "url": "{{url}}appdata\/bidrecord\/count\/agent\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/bidrecordlist\/",
+                    "id": "a6e74b49-209f-4570-bd25-c9ce24a0b553",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\r\n    {\r\n        \"Name\": \"Naveen P\",\r\n        \"BookedDate\": \"2021-02-22\",\r\n        \"DayNight\": \"DAY\",\r\n        \"BracketCombination\": \"00\",\r\n        \"Number\": 21,\r\n        \"Amount\": \"16000.00\"\r\n    }\r\n]"
+                        },
+                        "url": "{{url}}appdata\/bidrecordlist\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatalist\/future\/",
+                    "id": "9aa5170f-ed15-4cd0-b36a-665844eeea61",
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}appdata\/gamedatalist\/future\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}appdata\/gamedatalist\/present\/",
+                    "id": "0f3428e5-694c-4706-9f2b-c4d311e0765f",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [{
+                                "key": "date",
+                                "value": "22",
+                                "type": "text"
+                            }]
+                        },
+                        "url": {
+                            "raw": "{{url}}appdata\/gamedatalist\/present\/?start_date=2021-2-23",
+                            "host": [
+                                "{{url}}appdata"
+                            ],
+                            "path": [
+                                "gamedatalist",
+                                "present",
+                                ""
+                            ],
+                            "query": [{
+                                "key": "start_date",
+                                "value": "2021-2-23"
+                            }]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "id": "3190ee9c-98a9-469c-b5a3-57106ad36782"
+        }
+    ]
+}

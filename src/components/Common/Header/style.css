@@ -1,0 +1,33 @@
+.header_left {
+    display: flex;
+    z-index: 1;
+}
+
+.header_addicon {
+    object-fit: contain;
+    width: 6vw;
+    height: 6vh;
+    vertical-align: text-bottom;
+}
+
+.header_center {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 88.3%;
+}
+
+.header_subcontainer {
+    display: flex;
+    z-index: 1;
+}
+
+.header_right {
+    display: flex;
+    z-index: 1;
+}
+
+.header_center_subcontainer {
+    display: flex;
+}

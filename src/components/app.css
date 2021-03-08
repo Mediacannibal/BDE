@@ -1,0 +1,169 @@
+:root {
+    --TS1: calc(1.15vw + 3.45vh + 1.15vmin);
+    --TS2: calc(0.79vw + 2.37vh + 0.79vmin);
+    --TS3: calc(0.33vw + 0.99vh + 0.33vmin);
+    --TS4: calc(0.6vw + 1.8vh + 0.6vmin);
+    --TS5: calc(0.5vw + 1.5vh + 0.5vmin);
+    --TS6: calc(0.4vw + 1.2vh + 0.4vmin);
+    --TS7: calc(0.3vw + 0.9vh + 0.3vmin);
+    --color_1: #F36621;
+    --color_2: #01003c;
+    --color_3: #ff0000;
+    --color_4: #242446;
+    --color_5: #ffffff;
+    --color_6: #000000ed;
+    --color_7: #f36621;
+    --color_8: #EAC952;
+    --color_9: rgb(234, 201, 82);
+    --color_10: #21b502;
+    --color_11: #dc0000;
+    --color_12: #efecec;
+    --color_13: #00008b;
+    --color_14: #449698;
+    --color_15: #ddd;
+    --color_16: #378587;
+    --color_17: #639A4D;
+    --color_18: #fc595a;
+    --color_19: #4fb5ff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.main {
+    height: 100vh;
+    width: 100vw;
+    text-align-last: center;
+    display: flex;
+    background-color: var(--color_8);
+}
+
+.body {
+    background-color: var(--color_8);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 2vh 0 5vh 0;
+    align-self: center;
+}
+
+.title {
+    color: var(--color_2);
+    font-size: var(--TS4);
+    text-align: center;
+    font-weight: 600;
+    padding: 2vh 0;
+    text-decoration: underline;
+    text-underline-offset: 2vh;
+    text-decoration-color: var(--color_7);
+}
+
+/* table css */
+
+.table_column_td {
+    background-color: var(--color_13) !important;
+    font-size: var(--TS4);
+    font-weight: 600;
+    padding: 0 calc(0.3vw + 0.9vh + 0.3vmin) !important;
+}
+
+tr:nth-child(even) {
+    background-color: var(--color_4);
+}
+
+/* internal_table css */
+
+.internal_table {
+    justify-content: center;
+    width: 95%;
+    overflow-y: hidden;
+}
+
+#internal_table {
+    background-color: var(--color_4);
+    color: var(--color_5);
+    border-color: var(--color_1);
+    border-width: calc(0.07vw + 0.21vh + 0.07vmin);
+    border-style: solid;
+    border-radius: calc(0.3vw + 0.9vh + 0.3vmin);
+    font-size: var(--TS4);
+    line-height: 6vh;
+    overflow: hidden;
+    margin: 2vh 0;
+}
+
+#internal_table thead {
+    background-color: var(--color_13);
+}
+
+#internal_table td, #internal_table th {
+    border: 1px solid var(--color_1);
+    padding: calc(0.1vw + 0.3vh + 0.1vmin) calc(0.2vw + 0.6vh + 0.2vmin);
+    line-height: calc(0.6vw + 1.8vh + 0.6vmin);
+}
+
+#internal_table tr:hover {
+    background-color: var(--color_5);
+    color: var(--color_4);
+}
+
+.opration {
+    text-align: center;
+}
+
+.table_horizontal_scroll {
+    overflow-x: scroll;
+}
+
+#internal_table.th {
+    display: table;
+}
+
+#internal_table.tv {
+    display: none;
+}
+
+@media screen and (max-aspect-ratio: 3/4) {
+    .site_navtitle {
+        display: none;
+    }
+    #internal_table.th {
+        display: none;
+    }
+    #internal_table.tv {
+        display: table;
+    }
+}
+
+.inputfield_sub_container {
+    padding: 2vh 0;
+    display: flex;
+}
+
+.textinput_box {
+    font-size: var(--TS4);
+    line-height: 1.15;
+    border-radius: 25vw;
+    border-color: transparent;
+    margin: 0 1vw;
+    text-align: center;
+}
+
+/* invalid form entry */
+
+.invalid_entry_container {
+    border-color: var(--color_3) !important;
+    border-style: solid;
+    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
+}
+
+.invalid_entry {
+    color: var(--color_3);
+    font-weight: 600;
+    padding-top: 1vh;
+}
+
+.name_text {
+    margin: 0.5vh 0vh 0vh 0vh;
+    font-weight: 600;
+    font-size: var(--TS4);
+}
