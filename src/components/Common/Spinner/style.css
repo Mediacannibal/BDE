@@ -1,0 +1,54 @@
+.loader_logoicon_containers {
+    position: absolute;
+    display: grid;
+    min-height: 100vh;
+    width: 100vw;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    justify-items: center;
+    z-index: 250;
+}
+
+.loader {
+    border: calc(0.25vw + 0.75vh + 0.25vmin) solid var(--color_7);
+    border-radius: 50%;
+    border-top: calc(0.25vw + 0.75vh + 0.25vmin) solid var(--color_5);
+    animation: spin 2s linear infinite;
+    z-index: 100;
+    width: calc(2.9vw + 8.7vh + 2.9vmin);
+    height: calc(2.9vw + 8.7vh + 2.9vmin);
+}
+
+.loader_logoicon {
+    object-fit: contain;
+    width: calc(2.5vw + 7.5vh + 2.5vmin);
+    height: calc(2.5vw + 7.5vh + 2.5vmin);
+    position: absolute;
+    border: calc(0.3vw + 0.9vh + 0.3vmin) solid var(--color_5);
+    border-radius: 50%;
+    z-index: 100;
+}
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

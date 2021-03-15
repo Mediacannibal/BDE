@@ -1,0 +1,158 @@
+.Booking_dropdowcontainer {
+    height: 30vh;
+    position: relative;
+}
+
+.Booking_dropdow1 {
+    margin-top: 2%;
+}
+
+.Booking_dropdow2 {
+    margin-top: 2%;
+}
+
+.Booking_Text {
+    display: block;
+    color: var(--color_2);
+    font-size: var(--TS4);
+    text-align: center;
+    margin: 2vh 2vh 2vh 0;
+}
+
+.Booking_input {
+    width: 10vw;
+    height: 8vh;
+    border-radius: 25vw;
+    border-color: transparent;
+    margin: 0 1vw;
+}
+
+.Booking_textinput_container {
+    height: 14vh;
+}
+
+.Bookng_backicon {
+    object-fit: contain;
+    width: 6vw;
+    height: 6vh;
+}
+
+.react-datepicker-wrapper>div>input {
+    font-size: var(--TS4);
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    width: 70%;
+}
+
+.react-datepicker__close-icon::after {
+    width: calc(0.5vw + 1.5vh + 0.5vmin) !important;
+    height: calc(0.5vw + 1.5vh + 0.5vmin) !important;
+    font-size: var(--TS5) !important;
+    background-color: var(--color_7)!important;
+}
+
+.Booking_textinput_amount {
+    font-family: inherit;
+    font-size: var(--TS4);
+    line-height: 1.15;
+    margin: 0;
+    border-radius: 25vw;
+    border-color: transparent;
+    width: 50%;
+}
+
+.Usertype_dropdown {
+    display: flex;
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    background-color: white;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.Usertype_dropdown:focus-within {
+    border-color: var(--color_1);
+    border-width: calc(0.06vw + 0.18vh + 0.06vmin);
+    border-style: solid;
+}
+
+.dropdown_box {
+    font-size: var(--TS4);
+    line-height: 1.15;
+    padding: 0px 2vw;
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    width: 90%;
+    background-color: white;
+}
+
+.dropdown_box:focus {
+    outline: none !important;
+}
+
+#slot>option:nth-child(1) {
+    font-size: var(--TS4);
+}
+
+/* table vertical */
+
+#internal_table.tv {
+    overflow: hidden;
+}
+
+#internal_table.tv thead {
+    float: left;
+}
+
+#internal_table.tv tr {
+    display: block;
+    float: left;
+}
+
+#internal_table.tv tr tr {
+    display: block;
+    float: left;
+}
+
+#internal_table.tv th, #internal_table.tv td {
+    display: block;
+}
+
+.edit_password {
+    background-color: var(--color_11);
+    border-radius: calc(0.6vw + 0.6vh);
+    border-color: transparent;
+    display: flex;
+    align-items: center;
+    padding: 1vh 2vw;
+    margin: 2vh 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.textinput_box_container_password {
+    position: relative;
+    display: flex;
+    border-radius: 25vw;
+    border-color: transparent;
+    background-color: white;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.Password_visibility_icon {
+    object-fit: contain;
+    width: calc(0.7vw + 2.1vh + 0.7vmin);
+    height: calc(0.7vw + 2.1vh + 0.7vmin);
+}
+
+#eye {
+    align-items: center;
+    display: flex;
+    z-index: 10;
+}
+
+#eye:hover {
+    color: #fa6c00;
+    cursor: pointer;
+}

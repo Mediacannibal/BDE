@@ -6,21 +6,36 @@ import * as add from '../../../assets/add.svg'
 import * as back from '../../../assets/previous.svg'
 import { useHistory } from 'react-router-dom';
 import * as menu from '../../../assets/menu.svg'
-const Header = () => {
+const Header = ({ screen, Headerinfofunction, isaddform }) => {
 
     const history = useHistory();
 
     const [menuorback, setmenuorback] = useState(true)
-    const [addiconvisible, setaddiconvisible] = useState(false)
+    const [addiconvisible, setaddiconvisible] = useState(true)
     const [menu_popup, setmenu_popup] = useState(false)
     const [menuitems, setmenuitems] = useState(true)
     const [usertype, setusertype] = useState("NORMAL")
+    const [loggedin, setloggedin] = useState(false)
+
+    useEffect(() => {
+        let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
+        if (screen === "Home" || screen === "Login") { setmenuitems(false) }
+        if (UserDetails !== null) {
+            setloggedin(true)
+            let usertype1 = UserDetails.user_type
+            console.log(screen, usertype1)
+            setusertype(usertype1)
+            if (screen === "BidLog" || screen === "Admin" || screen === "UserManagement") { setaddiconvisible(true) }
+            if (screen === "Booking" || screen === "BracketEntry") { setmenuorback(false) }
+            if (screen === "Home" || screen === "Login") { setmenuitems(true) }
+        }
+    }, [])
 
     return (
         <>
             <div className="header">
 
-                {/* {menuitems ?
+                {menuitems ?
                     <div className='header_left'>
                         {menuorback ?
                             <div onClick={() => {
@@ -47,28 +62,28 @@ const Header = () => {
                             </div>
                         }
                     </div>
-                    : null} */}
+                    : null}
 
                 <div className='header_center'>
                     <div className='header_center_subcontainer'>
-                        {/* <img className='header_logo' src={logo}></img> */}
-                        <div className='site_title'>FOX TOSS</div>
+                        <img className='header_logo' src={logo}></img>
+                        <div className='site_title'>MC BDE</div>
                     </div>
                 </div>
 
-                {/* {menuitems ?
+                {menuitems ?
                     <div className='header_right'>
                         {addiconvisible ?
                             <div onClick={() => {
-                                if (screen === "BidLog")
-                                    history.replace('/Booking')
-                                else if (screen === "Admin")
-                                    history.replace('/BracketEntry')
-                                else if (screen === "UserManagement") {
-                                    setmenuorback(false)
-                                    Headerinfofunction(true)
-                                    setaddiconvisible(false)
-                                }
+                                // if (screen === "BidLog")
+                                //     history.replace('/Booking')
+                                // else if (screen === "Admin")
+                                //     history.replace('/BracketEntry')
+                                // else if (screen === "UserManagement") {
+                                //     setmenuorback(false)
+                                //     Headerinfofunction(true)
+                                //     setaddiconvisible(false)
+                                // }
                             }} className='header_subcontainer'>
                                 <div className='site_navtitle'>Add</div>
                                 <img className='header_icon' src={add} />
@@ -77,10 +92,10 @@ const Header = () => {
                             null
                         }
                     </div>
-                    : null} */}
+                    : null}
             </div>
 
-            {/* {menu_popup ?
+            {menu_popup ?
                 <div className="menu_popup_bg"
                     onClick={() => {
                         setmenu_popup(false)
@@ -122,9 +137,19 @@ const Header = () => {
                                         onClick={() => {
                                             history.replace('/UserManagement')
                                         }}
-                                    >User Management</div></>
+                                    >User Management</div>
+                                </>
                                 :
                                 null
+                            }
+                            {loggedin ?
+                                <div className='menu_title'
+                                    onClick={() => {
+                                        localStorage.clear()
+                                        window.location.reload()
+                                    }}
+                                >Logout</div>
+                                : null
                             }
                             <div
                                 onClick={() => {
@@ -137,7 +162,7 @@ const Header = () => {
                 </div>
                 :
                 null
-            } */}
+            }
         </>
     )
 }

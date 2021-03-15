@@ -1,0 +1,30 @@
+.input_outer_div {
+    display: flex;
+    font-size: var(--TS4);
+    line-height: 1.15;
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    background-color: var(--color_5);
+    text-align: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input_innerLeft_div {
+    display: flex;
+    margin-left: calc(0.3vw + 0.9vh + 0.3vmin);
+    position: absolute;
+    left: 0;
+}
+
+.input_innerCenter_div {}
+
+.input_innerRight_div {
+    display: flex;
+    margin-right: calc(0.3vw + 0.9vh + 0.3vmin);
+    position: absolute;
+    right: 0;
+}

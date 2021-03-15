@@ -1,0 +1,12 @@
+.footer {
+    width: 100%;
+    background-color: var(--color_4);
+    color: var(--color_5);
+    text-align: center;
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: flex-end;
+    font-size: var(--TS7);
+}
