@@ -16,6 +16,7 @@ import UserManagement from './UserManagement';
 import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
 import AddEditTestItem from './AddEditTestItem';
+import HomeScreen from './HomeScreen';
 
 
 const App = () => {
@@ -24,6 +25,10 @@ const App = () => {
       <Switch>
 
         <Route exact path='/'>
+          <HomeScreen />
+        </Route>
+
+        <Route exact path='/Login'>
           <LoginScreen />
         </Route>
 
@@ -31,11 +36,11 @@ const App = () => {
           <CalenderScreen />
         </Route>
 
-        <Route exact path='/ProjectScreen'>
+        <Route exact path='/Project'>
           <ProjectScreen />
         </Route>
 
-        <Route exact path='/MeetingScreen'>
+        <Route exact path='/Meeting'>
           <MeetingScreen />
         </Route>
 

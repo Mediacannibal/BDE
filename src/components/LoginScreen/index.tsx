@@ -7,19 +7,25 @@ import { Sociallogin } from '../../utils/actions'
 
 import './style.css'
 import '../../components/app.css'
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import Header from 'components/common/Header';
 
 
 const LoginScreen = () => {
 
   const [isSocialdone, setisSocialdone] = useState(true)
+  const [ispassword, setispassword] = useState(true)
+  const [isotpsent, setisotpsent] = useState(true)
+  const [activetab, setactivetab] = useState(true)
+
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
       // handleLogin()
     }
   }
+  useEffect(() => {
 
+  }, [])
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
       console.log('response ' + JSON.stringify(data));
@@ -46,97 +52,182 @@ const LoginScreen = () => {
 
   return (
     <div className="main">
-      
-      <div className="body">
+      <Header />
 
-        <div className='title'>LOGIN</div>
-        <div className='loginDescription_Text'>Please select your preferred method to login.</div>
+      {isotpsent ?
+        <div className="body">
 
-        <div className=" login_popupformcontainer">
+          <div className='title'>LOGIN</div>
+          <div className='loginDescription_Text'>Please select your preferred method to login.</div>
 
-          <div className="SMlogin_button_container">
+          <div className="admincontainer">
+            <input type="checkbox" id="admin" name="As Admin" value={true} />
+            <div className="admin_text">Are you Company Admin?</div>
+          </div>
 
-            <GoogleLogin
-              clientId="581422038025-rte3a06d7kumasu887n64uikerfigmiv.apps.googleusercontent.com"
-              render={(renderProps: { onClick: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; disabled: boolean | undefined; }) => (
-                <button className="login_googlebutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                  <img src={google} className="login_SMicon" />
-                  <div className="login_buttontext">Continue with Google</div>
-                </button>
-              )}
-              buttonText="Login"
-              onSuccess={(Response: { profileObj: any; }) => {
-                console.log(Response)
-                var formData = new FormData()
-                let userInfo = Response.profileObj
-                formData.append('lastname', userInfo.familyName);
-                formData.append('firstname', userInfo.givenName);
-                formData.append('photo_url', userInfo.imageUrl);
-                formData.append('auth_provider', "google");
-                formData.append('email', userInfo.email);
-                let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")))
-                console.log("=========>", userdetails.user);
-                formData.append('username', userdetails.user);
-                Sociallogin(loginCallback, formData)
-              }}
-              onFailure={(Response: any) => { console.log(Response) }}
-              cookiePolicy={'single_host_origin'}
-            />
+          <div className=" login_popupformcontainer">
 
-            <FacebookProvider appId="976961256166749">
-              <Login
-                scope="email"
-                onResponse={(response: any) => {
-                  console.log(response.profile)
-                  //  email: "medi.cann6@gmail.com"
-                  // first_name: "Medi"
-                  // id: "213891626989372"
-                  // last_name: "Cann"
-                  // name: "Medi Cann"
-                  console.log(Response)
-                  var formData = new FormData()
-                  let userInfo = response.profile
-                  formData.append('lastname', userInfo.first_name);
-                  formData.append('firstname', userInfo.last_name);
-                  formData.append('photo_url', "");
-                  formData.append('auth_provider', "fb");
+            <div className="SMlogin_button_container">
+
+              <GoogleLogin
+                clientId="581422038025-rte3a06d7kumasu887n64uikerfigmiv.apps.googleusercontent.com"
+                render={(renderProps: { onClick: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; disabled: boolean | undefined; }) => (
+                  <button className="login_googlebutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                    <img src={google} className="login_SMicon" />
+                    <div className="login_buttontext">Continue with Google</div>
+                  </button>
+                )}
+                buttonText="Login"
+                onSuccess={(Response: { profileObj: any; }) => {
+                  console.log(Response);
+                  var formData = new FormData();
+                  let userInfo = Response.profileObj;
+                  formData.append('lastname', userInfo.familyName);
+                  formData.append('firstname', userInfo.givenName);
+                  formData.append('photo_url', userInfo.imageUrl);
+                  formData.append('auth_provider', "google");
                   formData.append('email', userInfo.email);
-                  let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")))
+                  let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")));
                   console.log("=========>", userdetails.user);
                   formData.append('username', userdetails.user);
-                  Sociallogin(loginCallback, formData)
+                  Sociallogin(loginCallback, formData);
                 }}
-                onError={(response: any) => {
-                  console.log(response)
-                }}
-              >
-                <button className="login_facebookbutton">
-                  <img src={facebook} className="login_SMicon" />
-                  <div className="login_buttontext">Continue with Facebook</div>
-                </button>
-              </Login>
-            </FacebookProvider>
+                onFailure={(Response: any) => { console.log(Response); }}
+                cookiePolicy={'single_host_origin'} />
 
-          </div>
+              <FacebookProvider appId="976961256166749">
+                <Login
+                  scope="email"
+                  onResponse={(response: any) => {
+                    console.log(response.profile);
+                    //  email: "medi.cann6@gmail.com"
+                    // first_name: "Medi"
+                    // id: "213891626989372"
+                    // last_name: "Cann"
+                    // name: "Medi Cann"
+                    console.log(Response);
+                    var formData = new FormData();
+                    let userInfo = response.profile;
+                    formData.append('lastname', userInfo.first_name);
+                    formData.append('firstname', userInfo.last_name);
+                    formData.append('photo_url', "");
+                    formData.append('auth_provider', "fb");
+                    formData.append('email', userInfo.email);
+                    let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")));
+                    console.log("=========>", userdetails.user);
+                    formData.append('username', userdetails.user);
+                    Sociallogin(loginCallback, formData);
+                  }}
+                  onError={(response: any) => {
+                    console.log(response);
+                  }}
+                >
+                  <button className="login_facebookbutton">
+                    <img src={facebook} className="login_SMicon" />
+                    <div className="login_buttontext">Continue with Facebook</div>
+                  </button>
+                </Login>
+              </FacebookProvider>
 
-          <div className="login_button_container">
-            <input id="username" type="text" placeholder="User Name" className="login_input" />
-          </div>
+            </div>
 
-          <div className="login_button_container">
-            <input id="password" type="password" placeholder="Password" className="login_input" onKeyPress={handleKeyPress} />
-          </div>
 
-          <div className="login_button_container">
-            <button onClick={handleLogin} className="login_validatebutton">
-              <div className="login_buttontext">Login</div>
-            </button>
+
+            <div className="results_container">
+              <div className="Tab_day_night_container">
+
+                <div className="tab_day_night">
+                  <div onClick={() => {
+                    setispassword(!ispassword)
+                  }} className={ispassword ? "tab_active" : "tab_inactive"}>PASSWORD</div>
+
+                  <div onClick={() => {
+                    setispassword(!ispassword)
+                  }} className={ispassword ? "tab_inactive" : "tab_active"}>OTP</div>
+                </div>
+
+
+
+                {ispassword ?
+                  <>
+                    <div className="login_container">
+                      <div className="login_button_container">
+                        <input id="username" type="text" placeholder="User Name" className="login_input" />
+                      </div>
+
+                      <div className="login_button_container">
+                        <input id="password" type="password" placeholder="Password" className="login_input" onKeyPress={handleKeyPress} />
+                      </div>
+
+                      <div className="login_button_container">
+                        <button onClick={handleLogin} className="login_validatebutton">
+                          <div className="login_buttontext">Login</div>
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                  :
+                  <>
+                    <div className="login_container">
+                      <div className="login_button_container">
+                        <input id="username" type="text" placeholder="User Name" className="login_input" />
+                      </div>
+
+                      <div className="login_button_container">
+                        <button onClick={() => {
+                          setisotpsent(!isotpsent)
+                        }} className="login_validatebutton">
+                          <div className="login_buttontext">Get OTP</div>
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                }
+
+              </div>
+            </div>
+
           </div>
 
         </div>
 
-      </div>
-    </div>
+        :
+        <div className="body">
+
+          <div className='title'>Enter OTP</div>
+          <div className='loginDescription_Text'>Please check SMS or E-mail for OTP.</div>
+
+          <div className=" login_popupformcontainer">
+            <div className="login_button_container">
+              <input id="password" type="password" placeholder="Enter OTP" className="login_input" onKeyPress={handleKeyPress} />
+            </div>
+
+            <div className="login_button_container">
+              <button onClick={handleLogin} className="login_validatebutton">
+                <div className="login_buttontext">Submit</div>
+              </button>
+            </div>
+
+            <div className="login_button_container">
+              <button onClick={handleLogin} className="login_validatebutton">
+                <div className="login_buttontext">Resend OTP</div>
+              </button>
+            </div>
+
+            <div className="login_button_container">
+              <button onClick={() => {
+                setisotpsent(!isotpsent)
+              }} className="login_validatebutton">
+                <div className="login_buttontext">Change Email</div>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      }
+    </div >
+
   );
 }
 

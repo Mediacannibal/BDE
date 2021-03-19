@@ -8,13 +8,10 @@ import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
 import Header from 'components/common/Header';
-import { createaccount, getuserList, postAppdata, updateProfile } from 'utils/api';
+// import { createaccount, getuserList, postAppdata, updateProfile } from 'utils/api';
 
 
-import * as edit from '../../assets/edit.png'
 import Spinner from 'components/Common/Spinner';
-import Popup from 'components/common/Popup';
-import { Button } from '@material-ui/core';
 import TextFieldWithRef from 'components/common/TextFieldWithRef';
 import TextField from 'components/common/TextFieldWithRef';
 
@@ -64,19 +61,19 @@ const UserManagement = () => {
 
   const getuserlistdata = () => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    getuserList((data: any, errorresponse: any) => {
+    // getuserList((data: any, errorresponse: any) => {
 
-      if (data.status === 200) {
-        setspinner(false)
-        console.log('response ' + JSON.stringify(data));
-        setlist(data.data)
+    //   if (data.status === 200) {
+    //     setspinner(false)
+    //     console.log('response ' + JSON.stringify(data));
+    //     setlist(data.data)
 
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      };
-    }, token)
+    //   } else {
+    //     setspinner(false)
+    //     console.log('error ' + JSON.stringify(data));
+    //     console.log('error ' + JSON.stringify(errorresponse));
+    //   };
+    // }, token)
   }
 
   const phonenumberformatter = (value: any) => {
@@ -117,17 +114,17 @@ const UserManagement = () => {
         console.log(selecteduser, data)
         let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-        updateProfile((data: any, errorresponse: any) => {
+        // updateProfile((data: any, errorresponse: any) => {
 
-          if (data.status === 200) {
-            console.log('response ' + JSON.stringify(data));
-            window.location.reload();
+        //   if (data.status === 200) {
+        //     console.log('response ' + JSON.stringify(data));
+        //     window.location.reload();
 
-          } else {
-            console.log('error ' + JSON.stringify(data));
-            console.log('error ' + JSON.stringify(errorresponse));
-          };
-        }, token, data, selecteduser.id)
+        //   } else {
+        //     console.log('error ' + JSON.stringify(data));
+        //     console.log('error ' + JSON.stringify(errorresponse));
+        //   };
+        // }, token, data, selecteduser.id)
       }
     }
     else {
@@ -144,19 +141,19 @@ const UserManagement = () => {
         console.log(selecteduser, data)
         let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-        createaccount((data: any, errorresponse: any) => {
+        // createaccount((data: any, errorresponse: any) => {
 
-          if (data.status === 200) {
+        //   if (data.status === 200) {
 
-            console.log('response ' + JSON.stringify(data));
+        //     console.log('response ' + JSON.stringify(data));
 
-            window.location.reload();
-          } else {
+        //     window.location.reload();
+        //   } else {
 
-            console.log('error ' + JSON.stringify(data));
-            console.log('error ' + JSON.stringify(errorresponse));
-          };
-        }, data, token)
+        //     console.log('error ' + JSON.stringify(data));
+        //     console.log('error ' + JSON.stringify(errorresponse));
+        //   };
+        // }, data, token)
         // create user part 
       }
 
