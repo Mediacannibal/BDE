@@ -146,7 +146,7 @@ const TaskList = () => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Name', 'Date/Time Booked', 'Date', 'Slot', 'Combi', 'Number', 'Amount',]
+    let headerElement = ['Project Name', 'Title', 'Description', 'Assignee', 'Updated By']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -213,7 +213,7 @@ const TaskList = () => {
       <div className="body">
 
         <div className='title'>
-          Bid Records
+          Task List
           {(usertype === "SUPERUSER") ?
             <select
               className="agent bidrecord_noformat_dropdown"

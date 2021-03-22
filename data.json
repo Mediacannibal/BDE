@@ -1,7 +1,7 @@
 {
     "info": {
-        "_postman_id": "fac4d9b5-64cd-49e6-8516-7edc025d5dc2",
-        "name": "mcc_backend",
+        "_postman_id": "dff6f4ea-3a9c-4ef3-a33c-90ba085600ba",
+        "name": "mcc_backend_server",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
     "item": [
@@ -10,7 +10,7 @@
             "item": [
                 {
                     "name": "{{url}}api\/user\/social\/signup\/",
-                    "id": "3a49abad-c208-43fb-90a7-36b89671e283",
+                    "id": "485af5ab-3d12-4b58-8cfc-4dbfa57ed782",
                     "protocolProfileBehavior": {
                         "disabledSystemHeaders": {}
                     },
@@ -85,7 +85,7 @@
                 },
                 {
                     "name": "{{url}}api\/auth\/profile",
-                    "id": "ad891794-5379-40b0-9ca4-8d2355ace3c3",
+                    "id": "2f434329-53c7-4d86-8177-05e474d64759",
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     },
@@ -130,7 +130,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/edit_profile_image\/1\/",
-                    "id": "32cf7e40-07da-40b2-b670-3f42ead75543",
+                    "id": "a81659ee-2eda-45bc-b149-09bcbfaa787e",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -150,7 +150,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/phone\/email\/otp_verify\/",
-                    "id": "a249efee-40cc-4e4c-903f-eac1d292e0a9",
+                    "id": "dda79715-6197-4ce2-bed5-55e415025b0b",
                     "protocolProfileBehavior": {
                         "disabledSystemHeaders": {}
                     },
@@ -178,7 +178,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/edit_profile\/1\/",
-                    "id": "ab80543c-9f9e-479e-9efe-797bcd9d2246",
+                    "id": "57d50efc-dc55-42ca-a7f1-968b7c8e0064",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -204,7 +204,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/forgot_password\/",
-                    "id": "20d5d601-f0e6-432f-b435-7302a441da95",
+                    "id": "59407777-30e0-4050-93e0-bece4480ffce",
                     "request": {
                         "method": "POST",
                         "header": [],
@@ -239,7 +239,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/logout\/",
-                    "id": "46ac8d33-e8af-45aa-b36b-b87b32979dc5",
+                    "id": "941a7f47-aa86-43dc-821a-4e34a6e42d10",
                     "request": {
                         "method": "POST",
                         "header": [],
@@ -249,7 +249,7 @@
                 },
                 {
                     "name": "{{url}}api\/user\/logoutall\/",
-                    "id": "f027b5d5-1986-427a-b379-012e3bcd2455",
+                    "id": "12b49e4a-2ff6-47d9-a8c0-3f7cab40065e",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -268,14 +268,14 @@
                     "response": []
                 }
             ],
-            "id": "35245e9b-c28d-481f-9283-7c0ab16d15fc"
+            "id": "3db04f0c-154b-41e1-aba5-1d8a396eeb23"
         },
         {
             "name": "task",
             "item": [
                 {
                     "name": "{{url}}api\/task\/project\/add\/",
-                    "id": "138ecaff-516d-41b8-aeda-59f6d995f592",
+                    "id": "de08e5f3-8628-4f58-b2d1-ecfa5bf50767",
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     },
@@ -315,7 +315,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/project\/edit\/1\/",
-                    "id": "55eaadc1-5001-41b3-913e-8847ffad3dfc",
+                    "id": "83d3ce86-bfdd-4899-9e32-c007ddc2bdee",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -347,7 +347,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/task\/edit\/1\/",
-                    "id": "28bda9eb-6a8d-4468-8fe0-45c400f2481c",
+                    "id": "d69b5bcf-e048-47a2-a66a-7792421338e1",
                     "request": {
                         "method": "PUT",
                         "header": [],
@@ -367,7 +367,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/task\/list\/",
-                    "id": "67149ca1-6ed0-4a97-a0eb-5c7955dfd409",
+                    "id": "39e46d33-458c-4e4c-9e51-bde0eac7f853",
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     },
@@ -390,7 +390,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/project\/add\/",
-                    "id": "cff01940-c124-4fc0-9681-5ecb5ac20131",
+                    "id": "0dc00a53-2782-4cbb-9d14-60e7bb0ca7d2",
                     "protocolProfileBehavior": {
                         "disabledSystemHeaders": {}
                     },
@@ -419,7 +419,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/dashboad_create\/",
-                    "id": "cb98fb18-f802-40a0-9200-ae5e3c399450",
+                    "id": "acdffa6f-17b1-40da-a08e-53a76aec1fc3",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -440,7 +440,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/dashboad_create\/",
-                    "id": "7db52fbf-2c42-469d-87e7-e795093a3355",
+                    "id": "f8369e28-e9a6-4441-ac64-dc7fd2a0ad5f",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -464,18 +464,8 @@
                     "response": []
                 },
                 {
-                    "name": "{{url}}api\/task\/project\/add\/",
-                    "id": "a37b30ed-03b9-40e5-8e1a-5d8310f8f53c",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": "{{url}}api\/task\/project\/add\/"
-                    },
-                    "response": []
-                },
-                {
                     "name": "{{url}}api\/task\/company\/add\/",
-                    "id": "a436caed-b357-4fb8-b011-7c0f12921281",
+                    "id": "37572918-a86e-4ad1-8570-7a7a38f8d1cb",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -485,7 +475,7 @@
                 },
                 {
                     "name": "{{url}}api\/task\/company\/add\/",
-                    "id": "637f5c4e-5408-4980-8727-3fac9f4c7e3a",
+                    "id": "e3e519a8-7fd1-481b-b999-50d52699fe01",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -502,21 +492,15 @@
                             }
                         ],
                         "body": {
-                            "mode": "formdata",
-                            "formdata": [
-                                {
-                                    "key": "name",
-                                    "value": "media cannibalff",
-                                    "type": "text"
-                                }
-                            ]
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"hp\",\r\n    \"location\": \"mandya\",\r\n    \"rigterted_number\": \"123648fe\",\r\n    \"company_size\": \"big\",\r\n    \"address\": \"k r pet mandya\",\r\n    \"is_deleted\": false\r\n}"
                         },
                         "url": "{{url}}api\/task\/company\/add\/"
                     },
                     "response": []
                 }
             ],
-            "id": "a317fee7-6eab-4e23-a24b-b6e0c2c97e9e"
+            "id": "55bae860-1a3d-4b85-aa4f-e77bc441a9ad"
         }
     ]
 }
