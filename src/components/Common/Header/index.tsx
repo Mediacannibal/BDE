@@ -104,19 +104,19 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                         <div className="menu_popup">
                             <div className='menu_title'
                                 onClick={() => {
-                                    history.replace('/Home')
+                                    history.replace('/HomeScreen')
                                 }}
                             >Home</div>
                             <div className='menu_title'
                                 onClick={() => {
-                                    history.replace('/Booking')
+                                    history.replace('/TaskList')
                                 }}
-                            >Booking</div>
+                            >TaskList</div>
                             <div className='menu_title'
                                 onClick={() => {
-                                    history.replace('/Bidlog')
+                                    history.replace('/TaskDetails')
                                 }}
-                            >Bid Records</div>
+                            >TaskDetails</div>
                             {(usertype === "SUPERUSER") ?
                                 <>  <div className='menu_title'
                                     onClick={() => {

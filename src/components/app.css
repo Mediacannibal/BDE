@@ -444,7 +444,7 @@ tr:nth-child(even) {
 
 .menu_popup_bg {
     height: 100%;
-    width: 100%;
+    width: 30%;
     position: fixed;
     top: 0;
     left: 0;
@@ -473,7 +473,7 @@ tr:nth-child(even) {
     border: solid;
     border-color: var(--color_7);
     color: var(--color_1);
-    font-size: var(--TS7);
+    font-size: var(--TS2);
     width: calc(0.6vw + 1.8vh + 1.6vmin);
     height: calc(0.6vw + 1.8vh + 1.6vmin);
     justify-content: center;

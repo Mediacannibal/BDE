@@ -72,6 +72,10 @@ const App = () => {
           <AddEditTestItem />
         </Route>
 
+        <Route exact path='/HomeScreen'>
+          <HomeScreen />
+        </Route>
+
       </Switch>
     </Router>
   )

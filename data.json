@@ -285,7 +285,8 @@
                             {
                                 "key": "Authorization",
                                 "value": "Token {{token}}",
-                                "type": "text"
+                                "type": "text",
+                                "disabled": true
                             }
                         ],
                         "body": {
@@ -321,7 +322,8 @@
                             {
                                 "key": "Authorization",
                                 "value": "Token {{token}}",
-                                "type": "text"
+                                "type": "text",
+                                "disabled": true
                             },
                             {
                                 "key": "Content-Type",
@@ -330,8 +332,14 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"LOCKED\",\r\n                \"data\": \"mcdata1\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 1,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"mcdata2\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"LOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 2,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 3,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"UNLOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 3,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 4,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"UNLOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 4,\r\n               \r\n                \"gamedatalog\": [\r\n                    {\r\n                        \r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 5,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"UNLOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 5,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"LOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 6,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"LOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 6,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 7,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"UNLOCKED\",\r\n                \"data\": \"\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 7,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 8,\r\n        \"ScreenLog\": [\r\n            {\r\n                \"status\": \"LOCKED\",\r\n                \"data\": \"mcdata8\"\r\n            }\r\n        ],\r\n        \"gamedata\": [\r\n            {\r\n                \"id\": 8,\r\n                \"gamedatalog\": [\r\n                    {\r\n                        \"data\": \"\",\r\n                        \"misc\": null,\r\n                        \"status\": \"UNLOCKED\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n]"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "shangedowda",
+                                    "type": "text"
+                                }
+                            ]
                         },
                         "url": "{{url}}api\/task\/project\/edit\/1\/"
                     },
@@ -383,34 +391,27 @@
                 {
                     "name": "{{url}}api\/task\/project\/add\/",
                     "id": "cff01940-c124-4fc0-9681-5ecb5ac20131",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                    },
                     "request": {
                         "method": "POST",
                         "header": [
                             {
                                 "key": "Authorization",
                                 "value": "Token {{token}}",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
                                 "type": "text"
                             }
                         ],
                         "body": {
-                            "mode": "formdata",
-                            "formdata": [
-                                {
-                                    "key": "name",
-                                    "value": "foxsatkesdsd",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "key",
-                                    "value": "FS",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "type",
-                                    "value": "next page2",
-                                    "type": "text"
-                                }
-                            ]
+                            "mode": "raw",
+                            "raw": " {\r\n        \"name\": \"akash adi\",\r\n        \"title\": \"god is great one \",\r\n        \"description\": \"this is one of the mostfd \",\r\n        \"status\": \"TO DO\",\r\n   \r\n        \"start_date_at\": \"2021-03-15T06:00:00Z\",\r\n        \"end_date_at\": \"2021-03-10T12:00:00Z\",\r\n        \"is_deleted\": false,\r\n        \"user\": 1\r\n    }"
                         },
                         "url": "{{url}}api\/task\/project\/add\/"
                     },
@@ -459,6 +460,58 @@
                             "raw": "{\r\n        \"name\": \"this is Dashboard one \",\r\n        \"description\": \"add the new projects is one of the most de \",\r\n        \"access\": \"2\"\r\n    }"
                         },
                         "url": "{{url}}api\/task\/dashboad_create\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/project\/add\/",
+                    "id": "a37b30ed-03b9-40e5-8e1a-5d8310f8f53c",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}api\/task\/project\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/company\/add\/",
+                    "id": "a436caed-b357-4fb8-b011-7c0f12921281",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}api\/task\/company\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/company\/add\/",
+                    "id": "637f5c4e-5408-4980-8727-3fac9f4c7e3a",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "media cannibalff",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}api\/task\/company\/add\/"
                     },
                     "response": []
                 }

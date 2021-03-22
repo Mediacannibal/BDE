@@ -143,3 +143,22 @@ export const createDashboard = (callback: (arg0: any, arg1: string) => void) => 
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))
 }
+
+export const addCompany = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`/task/company/add/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const companyAdd = (callback: (arg0: any, arg1: string) => void) => {
+  instance.post(`/task/company/add/`, {
+    headers: {
+      'Authorization': 'Token'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}

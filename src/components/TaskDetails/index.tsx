@@ -71,7 +71,7 @@ const TaskDetails = () => {
       if (params.id === undefined) {
         // getBidlogdata(async (data: any, errorresponse: any) => {
         //   if (data.status === 200) {
-        //     setspinner(false)
+            setspinner(false)
         //     setlistItems(data.data)
         //     let amount_arry: Iterable<any> | null | undefined = []
         //     let bookeddate_arry: Iterable<any> | null | undefined = []
