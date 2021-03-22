@@ -27,7 +27,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
             setusertype(usertype1)
             if (screen === "BidLog" || screen === "Admin" || screen === "UserManagement") { setaddiconvisible(true) }
             if (screen === "Booking" || screen === "BracketEntry") { setmenuorback(false) }
-            if (screen === "Home" || screen === "Login") { setmenuitems(true) }
+            if (screen === "HomeScreen" || screen === "Login") { setmenuitems(true) }
         }
     }, [])
 
@@ -50,11 +50,11 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                     history.replace('/BidLog')
                                 else if (screen === "BracketEntry")
                                     history.replace('/Admin')
-                                else if (screen === "UserManagement") {
-                                    setmenuorback(true)
+                                else if (screen === "HomeScreen") {
+                                    setmenuorback(false)
                                     Headerinfofunction(false)
-                                    isaddform(true)
-                                    setaddiconvisible(true)
+                                    isaddform(false)
+                                    setaddiconvisible(false)
                                 }
                             }} className='header_subcontainer'>
                                 <img className='header_icon' src={back} />
@@ -156,7 +156,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                     console.log("***CANCEL***")
                                     setmenu_popup(false)
                                 }}
-                                className='menu_popup_cancel_button'>x</div>
+                                className='menu_popup_cancel_button'> {"<"} </div>
                         </div>
                     </div>
                 </div>
