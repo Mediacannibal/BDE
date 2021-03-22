@@ -27,7 +27,7 @@ const HomeScreen = () => {
     <div className="main">
       <Header />
       <div className="body">
-        <div>
+        <div className="xyz">
 
         </div>
       </div>

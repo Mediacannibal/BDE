@@ -3,7 +3,7 @@ import instance from 'utils/axios'
 // User
 
 export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/social/signup/`, data, {
+  instance.post(`/api/user/social/signup/`, data, {
     headers: {
       "Content-Type": "application/json",
     }
@@ -12,7 +12,7 @@ export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: a
 }
 
 export const profile = (callback: (arg0: any, arg1: string) => void) => {
-  instance.get(`/user/auth/profile/`, {
+  instance.get(`/api/user/auth/profile/`, {
     headers: {
       'Authorization': 'Token'
     }
@@ -21,7 +21,7 @@ export const profile = (callback: (arg0: any, arg1: string) => void) => {
 }
 
 export const editProfileImage = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/user/edit_profile_image/` + id + `/`, data, {
+  instance.put(`/api/user/edit_profile_image/` + id + `/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const editProfileImage = (callback: (arg0: any, arg1: string) => void, to
 }
 
 export const otpVerify = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/phone/email/otp_verify/`, data, {
+  instance.post(`/api/user/phone/email/otp_verify/`, data, {
     headers: {
       "Content-Type": "application/json",
     }
@@ -40,7 +40,7 @@ export const otpVerify = (callback: (arg0: any, arg1: string) => void, data: any
 }
 
 export const editProfile = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/user/edit_profile/` + id + `/`, data, {
+  instance.put(`/api/user/edit_profile/` + id + `/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export const editProfile = (callback: (arg0: any, arg1: string) => void, token: 
 }
 
 export const forgotPassword = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/forgot_password/`, data, {
+  instance.post(`/api/user/forgot_password/`, data, {
     headers: {
       "username_email_or_phone": "adiakash3@gmail.com",
     }
@@ -59,7 +59,7 @@ export const forgotPassword = (callback: (arg0: any, arg1: string) => void, data
 }
 
 export const logout = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/logout/`, data, {
+  instance.post(`/api/user/logout/`, data, {
     headers: {
       "Content-Type": "application/json",
     }
@@ -68,7 +68,7 @@ export const logout = (callback: (arg0: any, arg1: string) => void, data: any) =
 }
 
 export const logoutall = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/logoutall/`, data, {
+  instance.post(`/api/user/logoutall/`, data, {
     headers: {
       "Authorization": "Token",
     }
@@ -79,7 +79,7 @@ export const logoutall = (callback: (arg0: any, arg1: string) => void, data: any
 // Task
 
 export const addProject = (callback: (arg0: any, arg1: string) => void) => {
-  instance.get(`/task/project/add/`, {
+  instance.get(`/api/task/project/add/`, {
     headers: {
       'Authorization': 'Token'
     }
@@ -88,7 +88,7 @@ export const addProject = (callback: (arg0: any, arg1: string) => void) => {
 }
 
 export const editProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/task/project/edit/` + id + `/`, data, {
+  instance.put(`/api/task/project/edit/` + id + `/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ export const editProject = (callback: (arg0: any, arg1: string) => void, token: 
 }
 
 export const editTask = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/task/task/edit/` + id + `/`, data, {
+  instance.put(`/api/task/task/edit/` + id + `/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ export const editTask = (callback: (arg0: any, arg1: string) => void, token: any
 }
 
 export const taskList = (callback: (arg0: any, arg1: string) => void) => {
-  instance.get(`/task/task/list/`, {
+  instance.get(`/api/task/task/list/`, {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -117,7 +117,7 @@ export const taskList = (callback: (arg0: any, arg1: string) => void) => {
 }
 
 export const projectAdd = (callback: (arg0: any, arg1: string) => void) => {
-  instance.post(`/task/project/add/`, {
+  instance.post(`/api/task/project/add/`, {
     headers: {
       'Authorization': 'Token'
     }
@@ -126,7 +126,7 @@ export const projectAdd = (callback: (arg0: any, arg1: string) => void) => {
 }
 
 export const dashboardCreate = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/task/dashboad_create/`, {
+  instance.get(`/api/task/dashboad_create/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ export const dashboardCreate = (callback: (arg0: any, arg1: string) => void, tok
 }
 
 export const createDashboard = (callback: (arg0: any, arg1: string) => void) => {
-  instance.post(`/task/dashboad_create/`, {
+  instance.post(`/api/task/dashboad_create/`, {
     headers: {
       'Authorization': 'Token'
     }
@@ -145,7 +145,7 @@ export const createDashboard = (callback: (arg0: any, arg1: string) => void) => 
 }
 
 export const addCompany = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/task/company/add/`, {
+  instance.get(`/api/task/company/add/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -155,7 +155,7 @@ export const addCompany = (callback: (arg0: any, arg1: string) => void, token: a
 }
 
 export const companyAdd = (callback: (arg0: any, arg1: string) => void) => {
-  instance.post(`/task/company/add/`, {
+  instance.post(`/api/task/company/add/`, {
     headers: {
       'Authorization': 'Token'
     }

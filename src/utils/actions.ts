@@ -1,7 +1,7 @@
 import instance from 'utils/axios'
 
 export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: any) => {
-  instance.post(`/user/social/signup/`, data, {
+  instance.post(`/api/user/social/signup/`, data, {
     headers: {
       "Content-Type": "application/json",
     }
