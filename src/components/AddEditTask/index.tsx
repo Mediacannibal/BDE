@@ -14,7 +14,7 @@ import TextFieldWithRef from 'components/common/TextFieldWithRef';
 import TextField from 'components/common/TextFieldWithRef';
 
 
-const AddEditBugItem = () => {
+const AddEditTask = () => {
   const history = useHistory();
   const [number, setnumber] = useState(0)
   const [number00, setnumber00] = useState("00")
@@ -72,15 +72,6 @@ const AddEditBugItem = () => {
     history.replace('/' + param)
   }
 
-  const { register, handleSubmit, errors, reset } = useForm();
-
-  const onSubmit = (data, e) => {
-    e.target.reset(); // reset after form submit
-    console.log(data);
-  };
-
-  console.log(errors);
-
   const renderHeader = () => {
     let headerElement = ['Name', 'Date', 'Slot', 'Combi', 'Number', 'Amount']
 
@@ -105,14 +96,14 @@ const AddEditBugItem = () => {
     )
   }
 
-  // // const { register, handleSubmit, errors, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
 
-  // // const onSubmit = (data, e) => {
-  // //   e.target.reset(); // reset after form submit
-  // //   console.log(data);
-  // // };
+  const onSubmit = (data, e) => {
+    e.target.reset(); // reset after form submit
+    console.log(data);
+  };
 
-  // console.log(errors);
+  console.log(errors);
 
 
   const parsetime = (time: any) => {
@@ -164,55 +155,18 @@ const AddEditBugItem = () => {
 
       <div className="body">
 
-        <div className='title'>Add / Edit Bug Item</div>
+        <div className='title'>Add / Edit Task</div>
 
         <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Bug Title"}
-                id="bugtitle_data"
-                name={`data.BugTitle`}
-                inputtype="Text"
-                type="text"
-                min_length="3"
-                required={true} />
-            </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <DatePicker
-              selected={startDate}
-              onChange={(date: React.SetStateAction<Date>) => setStartDate(date)}
-              placeholderText="Select A Date!"
-            />
-            {isdateemptyerror ? <div className="invalid_entry">Please select a Date!</div> : null}
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="Booking_slot_dropdown">
-              <select id="Orientation" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                required={isslotemptyerror}
-                value={isselectslot}
-                onChange={(e) => {
-                  setslotemptyerror(false)
-                  setisselectslot(e.target.value)
-                }}
-              >
-                <option hidden value="">ORIENTATION</option>
-                <option value="DAY">LANDSCAPE</option>
-                <option value="NIGHT">PORTRAIT</option>
-              </select>
-            </div>
-            {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
-          </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Device"}
-                id="device_data"
-                name={`data.Device`}
+                label={"Project Name"}
+                id="projectname_data"
+                name={`data.ProjectName`}
                 inputtype="Text"
                 type="text"
                 min_length="3"
@@ -224,9 +178,9 @@ const AddEditBugItem = () => {
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Remarks"}
-                id="remarks_data"
-                name={`data.Remarks`}
+                label={"Title"}
+                id="title_data"
+                name={`data.Title`}
                 inputtype="Text"
                 type="text"
                 min_length="3"
@@ -238,9 +192,37 @@ const AddEditBugItem = () => {
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Image Link"}
-                id="imagelink_data"
-                name={`data.ImageLink`}
+                label={"Description"}
+                id="description_data"
+                name={`data.Description`}
+                inputtype="Text"
+                type="text"
+                min_length="3"
+                required={true}
+              />
+            </div>
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="textinput_box_container">
+              <TextField
+                label={"Assignee"}
+                id="assignee_data"
+                name={`data.Assignee`}
+                inputtype="Text"
+                type="text"
+                min_length="3"
+                required={true}
+              />
+            </div>
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="textinput_box_container">
+              <TextField
+                label={"Updates By"}
+                id="updatesby_data"
+                name={`data.UpdatesBy`}
                 inputtype="Text"
                 type="text"
                 min_length="3"
@@ -309,4 +291,4 @@ const AddEditBugItem = () => {
   )
 }
 
-export default AddEditBugItem
+export default AddEditTask

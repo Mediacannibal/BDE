@@ -79,11 +79,11 @@
 }
 
 .inputfield_main_container {
-    padding: 3vh 0;
+    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
 .inputfield_sub_container {
-    padding: 2vh 0;
+    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
 .textinput_box_container:focus-within {
@@ -92,15 +92,7 @@
     border-style: solid;
 }
 
-.textinput_box {
-    font-size: var(--TS4);
-    line-height: 1.15;
-    /* border-radius: 25vw; */
-    /* border-color: transparent; */
-    /* margin: 0 1vw; */
-    text-align: center;
-    /* height: calc(0.7vw + 2.1vh + 0.7vmin);*/
-}
+.textinput_box {}
 
 .textinput_box:focus {
     outline: none !important;
@@ -418,8 +410,6 @@ tr:nth-child(even) {
     font-size: var(--TS7);
 }
 
-
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 .site_title {
     font-weight: 600;
@@ -444,7 +434,7 @@ tr:nth-child(even) {
 
 .menu_popup_bg {
     height: 100%;
-    width: 30%;
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
@@ -473,7 +463,7 @@ tr:nth-child(even) {
     border: solid;
     border-color: var(--color_7);
     color: var(--color_1);
-    font-size: var(--TS2);
+    font-size: var(--TS4);
     width: calc(0.6vw + 1.8vh + 1.6vmin);
     height: calc(0.6vw + 1.8vh + 1.6vmin);
     justify-content: center;
@@ -543,61 +533,6 @@ tr:nth-child(even) {
     align-items: center;
     justify-items: center;
     display: flex;
-}
-
-.inputfield_title_text {
-    display: block;
-    color: var(--color_2);
-    font-size: var(--TS4);
-    text-align: center;
-    padding-bottom: 1vh;
-}
-
-.inputfield_main_container {
-    padding: 3vh 0;
-}
-
-.textinput_box_container:focus-within {
-    border-color: var(--color_1);
-    border-width: calc(0.06vw + 0.18vh + 0.06vmin);
-    border-style: solid;
-}
-
-.textinput_box {
-    font-size: var(--TS4);
-    line-height: 1.15;
-    border-radius: 25vw;
-    border-color: transparent;
-    margin: 0 1vw;
-    text-align: center;
-    height: calc(0.7vw + 2.1vh + 0.7vmin);
-}
-
-.textinput_box:focus {
-    outline: none !important;
-}
-
-.add_button_container {
-    margin: 1vh 0;
-}
-
-.add_edit_button {
-    background-color: var(--color_4);
-    border-radius: 7vw;
-    border-color: var(--color_7);
-    border-width: calc(0.07vw + 0.21vh + 0.07vmin);
-    border-style: solid;
-    padding: 1vh 2vw;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add_edit_buttontext {
-    font-size: var(--TS4);
-    text-align: center;
-    font-weight: 700;
-    color: var(--color_1);
 }
 
 #bidlog>thead>tr>th {
@@ -838,65 +773,4 @@ tr:nth-child(even) {
 .chevron.button {
     cursor: pointer;
     display: flex;
-}
-
-/* custom input-box */
-
-.textinput_box_container {
-    display: flex;
-    position: relative;
-    justify-content: center;
-}
-
-.textinput_box_container input {
-    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
-    border-color: transparent;
-    text-align: center;
-    margin-top: 0vh;
-}
-
-.textinput_box_container label {
-    color: #999;
-    pointer-events: none;
-    transform-origin: top left;
-    transition: all 0.2s ease-out;
-    z-index: 10;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.textinput_box_container:focus-within label {
-    transform: translate(calc(0.2vw + 0.6vh + 0.2vmin), calc(-0.5vw - 1.5vh - 0.5vmin)) scale(0.6);
-    border-color: var(--color_1);
-    color: var(--color_1);
-    font-size: var(--TS5);
-    justify-content: flex-start;
-}
-
-.textinput_box_container .Active {
-    transform: translate(calc(0.2vw + 0.6vh + 0.2vmin), calc(-0.5vw - 1.5vh - 0.5vmin)) scale(0.6);
-    border-color: var(--color_1);
-    color: var(--color_1);
-    font-size: var(--TS5);
-    justify-content: flex-start;
-}
-
-.textinput_box_container input:focus-within {
-    border-color: var(--color_1);
-    border-width: calc(0.06vw + 0.18vh + 0.06vmin);
-    border-style: solid;
-}
-
-.textinput_box_container input:focus {
-    outline: none !important;
-}
-
-.textinput_box_container:focus-within {
-    border-color: transparent;
-    border-width: calc(0.06vw + 0.18vh + 0.06vmin);
-    border-style: solid;
 }

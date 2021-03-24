@@ -20,7 +20,7 @@ const LoginScreen = () => {
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
-      // handleLogin()
+      handleLogin()
     }
   }
   useEffect(() => {
@@ -31,8 +31,6 @@ const LoginScreen = () => {
       console.log('response ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-      localStorage.setItem('UsedSocialLoginMethod', "true");
-      setisSocialdone(false)
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
@@ -60,11 +58,6 @@ const LoginScreen = () => {
           <div className='title'>LOGIN</div>
           <div className='loginDescription_Text'>Please select your preferred method to login.</div>
 
-          <div className="admincontainer">
-            <input type="checkbox" id="admin" name="As Admin" value={true} />
-            <div className="admin_text">Are you Company Admin?</div>
-          </div>
-
           <div className=" login_popupformcontainer">
 
             <div className="SMlogin_button_container">
@@ -80,17 +73,16 @@ const LoginScreen = () => {
                 buttonText="Login"
                 onSuccess={(Response: { profileObj: any; }) => {
                   console.log(Response);
-                  var formData = new FormData();
                   let userInfo = Response.profileObj;
-                  formData.append('lastname', userInfo.familyName);
-                  formData.append('firstname', userInfo.givenName);
-                  formData.append('photo_url', userInfo.imageUrl);
-                  formData.append('auth_provider', "google");
-                  formData.append('email', userInfo.email);
-                  let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")));
-                  console.log("=========>", userdetails.user);
-                  formData.append('username', userdetails.user);
-                  Sociallogin(loginCallback, formData);
+                  let data = {
+                    "lastname": userInfo.familyName,
+                    "firstname": userInfo.givenName,
+                    "photo_url": userInfo.imageUrl,
+                    "auth_provider": "google",
+                    "email": userInfo.email,
+                    "username": userInfo.googleId
+                  }
+                  Sociallogin(loginCallback, data);
                 }}
                 onFailure={(Response: any) => { console.log(Response); }}
                 cookiePolicy={'single_host_origin'} />
@@ -106,17 +98,16 @@ const LoginScreen = () => {
                     // last_name: "Cann"
                     // name: "Medi Cann"
                     console.log(Response);
-                    var formData = new FormData();
                     let userInfo = response.profile;
-                    formData.append('lastname', userInfo.first_name);
-                    formData.append('firstname', userInfo.last_name);
-                    formData.append('photo_url', "");
-                    formData.append('auth_provider', "fb");
-                    formData.append('email', userInfo.email);
-                    let userdetails = JSON.parse(String(localStorage.getItem("UserDetails")));
-                    console.log("=========>", userdetails.user);
-                    formData.append('username', userdetails.user);
-                    Sociallogin(loginCallback, formData);
+                    let data = {
+                      "lastname": userInfo.first_name,
+                      "firstname": userInfo.last_name,
+                      "photo_url": "",
+                      "auth_provider": "fb",
+                      "email": userInfo.email,
+                      "username": ""
+                    }
+                    Sociallogin(loginCallback, data);
                   }}
                   onError={(response: any) => {
                     console.log(response);
@@ -145,8 +136,6 @@ const LoginScreen = () => {
                     setispassword(!ispassword)
                   }} className={ispassword ? "tab_inactive" : "tab_active"}>OTP</div>
                 </div>
-
-
 
                 {ispassword ?
                   <>
@@ -186,9 +175,7 @@ const LoginScreen = () => {
 
               </div>
             </div>
-
           </div>
-
         </div>
 
         :
@@ -203,13 +190,13 @@ const LoginScreen = () => {
             </div>
 
             <div className="login_button_container">
-              <button onClick={handleLogin} className="login_validatebutton">
+              <button onClick={() => { }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>
             </div>
 
             <div className="login_button_container">
-              <button onClick={handleLogin} className="login_validatebutton">
+              <button onClick={() => { }} className="login_validatebutton">
                 <div className="login_buttontext">Resend OTP</div>
               </button>
             </div>
@@ -222,9 +209,7 @@ const LoginScreen = () => {
               </button>
             </div>
           </div>
-
         </div>
-
       }
     </div >
 

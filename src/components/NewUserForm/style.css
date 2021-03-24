@@ -1,0 +1,18 @@
+.login_buttontext {
+    font-size: var(--TS5);
+    text-align: center;
+    font-weight: 500;
+    color: var(--color_5);
+}
+
+.login_validatebutton {
+    z-index: 19;
+    position: relative;
+    padding: 0.5vh;
+    justify-self: center;
+    background-color: var(--color_7);
+    border-radius: calc(0.6vw + 0.6vh);
+    border-color: transparent;
+    height: 6vh;
+    width: 50%;
+}

@@ -62,7 +62,7 @@ const TestingChecklist = () => {
       if (params.id === undefined) {
         // getBidlogdata(async (data: any, errorresponse: any) => {
         //   if (data.status === 200) {
-        //     setspinner(false)
+        setspinner(false)
         //     setlistItems(data.data)
         //     let amount_arry: Iterable<any> | null | undefined = []
         //     let bookeddate_arry: Iterable<any> | null | undefined = []
@@ -208,8 +208,7 @@ const TestingChecklist = () => {
         </div> :
         null
       }
-      <Header screen={"BidLog"}
-        isaddform={[]} />
+      <Header screen={"TestingChecklist"} />
 
       <div className="body">
 

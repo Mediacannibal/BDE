@@ -17,6 +17,8 @@ import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
 import AddEditTestItem from './AddEditTestItem';
 import HomeScreen from './HomeScreen';
+import NewUserForm from './NewUserForm';
+import AddEditTask from './AddEditTask';
 
 
 const App = () => {
@@ -32,7 +34,7 @@ const App = () => {
           <LoginScreen />
         </Route>
 
-        <Route exact path='/CalenderScreen'>
+        <Route exact path='/Calender'>
           <CalenderScreen />
         </Route>
 
@@ -72,8 +74,12 @@ const App = () => {
           <AddEditTestItem />
         </Route>
 
-        <Route exact path='/HomeScreen'>
-          <HomeScreen />
+        <Route exact path='/NewUserForm'>
+          <NewUserForm />
+        </Route>
+
+        <Route exact path='/AddEditTask'>
+          <AddEditTask />
         </Route>
 
       </Switch>

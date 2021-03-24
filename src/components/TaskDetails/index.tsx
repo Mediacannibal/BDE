@@ -8,6 +8,8 @@ import * as sendIcon from '../../assets/send.png'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 // import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
+import SimpleEditor from 'react-simple-image-editor';
+
 
 const TaskDetails = () => {
 
@@ -71,7 +73,7 @@ const TaskDetails = () => {
       if (params.id === undefined) {
         // getBidlogdata(async (data: any, errorresponse: any) => {
         //   if (data.status === 200) {
-            setspinner(false)
+        setspinner(false)
         //     setlistItems(data.data)
         //     let amount_arry: Iterable<any> | null | undefined = []
         //     let bookeddate_arry: Iterable<any> | null | undefined = []

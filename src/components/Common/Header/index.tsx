@@ -75,15 +75,17 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                     <div className='header_right'>
                         {addiconvisible ?
                             <div onClick={() => {
-                                // if (screen === "BidLog")
-                                //     history.replace('/Booking')
-                                // else if (screen === "Admin")
-                                //     history.replace('/BracketEntry')
-                                // else if (screen === "UserManagement") {
-                                //     setmenuorback(false)
-                                //     Headerinfofunction(true)
-                                //     setaddiconvisible(false)
-                                // }
+                                if (screen === "BugList")
+                                    history.replace('/AddEditBugItem')
+                                else if (screen === "UserManagement") {
+                                    history.replace('/NewUserForm')
+                                }
+                                else if (screen === "TaskList") {
+                                    history.replace('/AddEditTask')
+                                }
+                                else if (screen === "TestingChecklist") {
+                                    history.replace('/AddEditTestItem')
+                                }
                             }} className='header_subcontainer'>
                                 <div className='site_navtitle'>Add</div>
                                 <img className='header_icon' src={add} />
@@ -104,7 +106,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                         <div className="menu_popup">
                             <div className='menu_title'
                                 onClick={() => {
-                                    history.replace('/HomeScreen')
+                                    history.replace('/Home')
                                 }}
                             >Home</div>
                             <div className='menu_title'
@@ -117,7 +119,33 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                     history.replace('/TaskDetails')
                                 }}
                             >TaskDetails</div>
-                            {(usertype === "SUPERUSER") ?
+                            <div className='menu_title'
+                                onClick={() => {
+                                    history.replace('/BugList')
+                                }}
+                            >Bug List</div>
+                            <div className='menu_title'
+                                onClick={() => {
+                                    history.replace('/Meeting')
+                                }}
+                            >Meeting</div>
+                            <div className='menu_title'
+                                onClick={() => {
+                                    history.replace('/Project')
+                                }}
+                            >Project</div>
+                            <div className='menu_title'
+                                onClick={() => {
+                                    history.replace('/TestingChecklist')
+                                }}
+                            >Testing Checklist</div>
+                            <div className='menu_title'
+                                onClick={() => {
+                                    history.replace('/UserManagement')
+                                }}
+                            >User Management</div>
+
+                            {/* {(usertype === "SUPERUSER") ?
                                 <>  <div className='menu_title'
                                     onClick={() => {
                                         history.replace('/BidLogOverview')
@@ -141,7 +169,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                 </>
                                 :
                                 null
-                            }
+                            } */}
                             {loggedin ?
                                 <div className='menu_title'
                                     onClick={() => {
@@ -156,7 +184,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                     console.log("***CANCEL***")
                                     setmenu_popup(false)
                                 }}
-                                className='menu_popup_cancel_button'> {"<"} </div>
+                                className='menu_popup_cancel_button'> x</div>
                         </div>
                     </div>
                 </div>

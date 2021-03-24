@@ -59,88 +59,88 @@ const TaskList = () => {
       // history.push("/")
 
 
-    if (params.id === undefined) {
-      // getBidlogdata(async (data: any, errorresponse: any) => {
-      //   if (data.status === 200) {
-          setspinner(false)
-      //     setlistItems(data.data)
-      //     let amount_arry: Iterable<any> | null | undefined = []
-      //     let bookeddate_arry: Iterable<any> | null | undefined = []
-      //     let bracketcombination_arry: Iterable<any> | null | undefined = []
-      //     let dayornight_arry: Iterable<any> | null | undefined = []
-      //     let name_arry: Iterable<any> | null | undefined = []
-      //     let number_arry: Iterable<any> | null | undefined = []
-      //     let user_arry: Iterable<any> | null | undefined = []
-      //     data.data.forEach((element: any) => {
-      //       amount_arry.push(element.amount)
-      //       bookeddate_arry.push(element.bookeddate)
-      //       bracketcombination_arry.push(element.bracketcombination)
-      //       dayornight_arry.push(element.dayornight)
-      //       name_arry.push(element.name)
-      //       number_arry.push(element.number)
-      //       user_arry.push(element.user)
-      //     });
-      //     setunique_amount_arry(Array.from(new Set(amount_arry)));
-      //     setunique_bookeddate_arry(Array.from(new Set(bookeddate_arry)))
-      //     setunique_bracketcombination_arry(Array.from(new Set(bracketcombination_arry)))
-      //     setunique_dayornight_arry(Array.from(new Set(dayornight_arry)))
-      //     setunique_name_arry(Array.from(new Set(name_arry)))
-      //     setunique_number_arry(Array.from(new Set(number_arry)))
-      //     setunique_user_arry(Array.from(new Set(user_arry)))
-
-      //     console.log(
-      //       unique_amount_arry,
-      //       unique_bookeddate_arry,
-      //       unique_bracketcombination_arry,
-      //       unique_dayornight_arry,
-      //       unique_name_arry,
-      //       unique_number_arry,
-      //       unique_user_arry
-      //     );
-
-
-      //   } else {
-      //     setspinner(false)
-      //     console.log('error ' + JSON.stringify(data));
-      //     console.log('error ' + JSON.stringify(errorresponse));
-      //   }
-      // }, token)
-    }
-    else {
-
-
-
-      if (params.number !== undefined && params.pattren !== undefined) {
-
-
-        console.log("================>", params.id, params.number, params.pattren)
-
-        // getBidlogbyagentnumberdata(async (data: any, errorresponse: any) => {
+      if (params.id === undefined) {
+        // getBidlogdata(async (data: any, errorresponse: any) => {
         //   if (data.status === 200) {
-        //     setspinner(false)
+        setspinner(false)
         //     setlistItems(data.data)
+        //     let amount_arry: Iterable<any> | null | undefined = []
+        //     let bookeddate_arry: Iterable<any> | null | undefined = []
+        //     let bracketcombination_arry: Iterable<any> | null | undefined = []
+        //     let dayornight_arry: Iterable<any> | null | undefined = []
+        //     let name_arry: Iterable<any> | null | undefined = []
+        //     let number_arry: Iterable<any> | null | undefined = []
+        //     let user_arry: Iterable<any> | null | undefined = []
+        //     data.data.forEach((element: any) => {
+        //       amount_arry.push(element.amount)
+        //       bookeddate_arry.push(element.bookeddate)
+        //       bracketcombination_arry.push(element.bracketcombination)
+        //       dayornight_arry.push(element.dayornight)
+        //       name_arry.push(element.name)
+        //       number_arry.push(element.number)
+        //       user_arry.push(element.user)
+        //     });
+        //     setunique_amount_arry(Array.from(new Set(amount_arry)));
+        //     setunique_bookeddate_arry(Array.from(new Set(bookeddate_arry)))
+        //     setunique_bracketcombination_arry(Array.from(new Set(bracketcombination_arry)))
+        //     setunique_dayornight_arry(Array.from(new Set(dayornight_arry)))
+        //     setunique_name_arry(Array.from(new Set(name_arry)))
+        //     setunique_number_arry(Array.from(new Set(number_arry)))
+        //     setunique_user_arry(Array.from(new Set(user_arry)))
+
+        //     console.log(
+        //       unique_amount_arry,
+        //       unique_bookeddate_arry,
+        //       unique_bracketcombination_arry,
+        //       unique_dayornight_arry,
+        //       unique_name_arry,
+        //       unique_number_arry,
+        //       unique_user_arry
+        //     );
+
+
         //   } else {
         //     setspinner(false)
         //     console.log('error ' + JSON.stringify(data));
         //     console.log('error ' + JSON.stringify(errorresponse));
         //   }
-        // }, token, params.id, params.number, params.pattren)
-
-
+        // }, token)
       }
       else {
-        getBidlogbyagentdata(async (data: any, errorresponse: any) => {
-          if (data.status === 200) {
-            setspinner(false)
-            setlistItems(data.data)
-          } else {
-            setspinner(false)
-            console.log('error ' + JSON.stringify(data));
-            console.log('error ' + JSON.stringify(errorresponse));
-          }
-        }, token, params.id)
+
+
+
+        if (params.number !== undefined && params.pattren !== undefined) {
+
+
+          console.log("================>", params.id, params.number, params.pattren)
+
+          // getBidlogbyagentnumberdata(async (data: any, errorresponse: any) => {
+          //   if (data.status === 200) {
+          //     setspinner(false)
+          //     setlistItems(data.data)
+          //   } else {
+          //     setspinner(false)
+          //     console.log('error ' + JSON.stringify(data));
+          //     console.log('error ' + JSON.stringify(errorresponse));
+          //   }
+          // }, token, params.id, params.number, params.pattren)
+
+
+        }
+        else {
+          getBidlogbyagentdata(async (data: any, errorresponse: any) => {
+            if (data.status === 200) {
+              setspinner(false)
+              setlistItems(data.data)
+            } else {
+              setspinner(false)
+              console.log('error ' + JSON.stringify(data));
+              console.log('error ' + JSON.stringify(errorresponse));
+            }
+          }, token, params.id)
+        }
       }
-    }
 
   }, [])
 
@@ -208,7 +208,7 @@ const TaskList = () => {
         </div> :
         null
       }
-      <Header screen={"BidLog"} />
+      <Header screen={"TaskList"} />
 
       <div className="body">
 

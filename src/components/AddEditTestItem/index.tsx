@@ -11,6 +11,7 @@ import Spinner from 'components/Common/Spinner';
 import Popup from 'components/common/Popup';
 import { postAppdata } from 'utils/api';
 import TextFieldWithRef from 'components/common/TextFieldWithRef';
+import TextField from 'components/common/TextFieldWithRef';
 
 
 const AddEditTestItem = () => {
@@ -160,202 +161,86 @@ const AddEditTestItem = () => {
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Enter Test Name!"}
-                labelid={"Test"}
-                isActive={name.isActive}
-                className={isnameemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                id="input_value1"
+              <TextField
+                label={"Test Name"}
+                id="TestName_data"
+                name={`data.TestName`}
+                inputtype="Text"
                 type="text"
-                name={`data.name`}
-                value={name.value}
-                required
-                onChange={(event: any) => {
-                  setnameemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setname({ "value": "", "error": "Please enter Client Name!", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (a.length < 4) {
-                      setname({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "Minimum 4 characters needed", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setname({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
           </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Landscape!"}
-                labelid={"device"}
-                isActive={amount.isActive}
-                id="booking_amount"
+              <TextField
+                label={"LandScape"}
+                id="LandScape_data"
+                name={`data.LandScape`}
+                inputtype="Text"
                 type="text"
-                min="1"
-                pattern="^(?=.*[0-9])[- +()0-9]+$"
-                name={`data.Amount`}
-                value={amount.value}
-                required
-                className={isamountemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                onChange={(event: any) => {
-                  setamountemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setamount({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (!/^[0-9]+$/.test(a)) {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
-            {isamountemptyerror ? <div className="invalid_entry">Please enter the Device Name!</div> : null}
-            <div className="invalid_entry">{amount.error}</div>
           </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Portrait!"}
-                labelid={"Remarks"}
-                isActive={amount.isActive}
-                id="booking_amount"
+              <TextField
+                label={"Portrait"}
+                id="Portrait_data"
+                name={`data.Portrait`}
+                inputtype="Text"
                 type="text"
-                min="1"
-                pattern="^(?=.*[0-9])[- +()0-9]+$"
-                name={`data.Amount`}
-                value={amount.value}
-                required
-                className={isamountemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                onChange={(event: any) => {
-                  setamountemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setamount({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (!/^[0-9]+$/.test(a)) {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
-            {isamountemptyerror ? <div className="invalid_entry">Please enter the Remarks!</div> : null}
-            <div className="invalid_entry">{amount.error}</div>
           </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Enter Device!"}
-                labelid={"Device"}
-                isActive={amount.isActive}
-                id="booking_amount"
+              <TextField
+                label={"Device"}
+                id="PDevice_data"
+                name={`data.Device`}
+                inputtype="Text"
                 type="text"
-                min="1"
-                pattern="^(?=.*[0-9])[- +()0-9]+$"
-                name={`data.Amount`}
-                value={amount.value}
-                required
-                className={isamountemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                onChange={(event: any) => {
-                  setamountemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setamount({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (!/^[0-9]+$/.test(a)) {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
-            {isamountemptyerror ? <div className="invalid_entry">Please enter the Device!</div> : null}
-            <div className="invalid_entry">{amount.error}</div>
           </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Enter Remarks!"}
-                labelid={"Remarks"}
-                isActive={amount.isActive}
-                id="booking_amount"
+              <TextField
+                label={"Remarks"}
+                id="remarks_data"
+                name={`data.Remarks`}
+                inputtype="Text"
                 type="text"
-                min="1"
-                pattern="^(?=.*[0-9])[- +()0-9]+$"
-                name={`data.Amount`}
-                value={amount.value}
-                required
-                className={isamountemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                onChange={(event: any) => {
-                  setamountemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setamount({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (!/^[0-9]+$/.test(a)) {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
-            {isamountemptyerror ? <div className="invalid_entry">Please enter the Device!</div> : null}
-            <div className="invalid_entry">{amount.error}</div>
           </div>
 
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
-              <TextFieldWithRef
-                label={"Enter Image Link!"}
-                labelid={"Image_Link"}
-                isActive={amount.isActive}
-                id="booking_amount"
+              <TextField
+                label={"Image Link"}
+                id="imagelink_data"
+                name={`data.ImageLink`}
+                inputtype="Text"
                 type="text"
-                min="1"
-                pattern="^(?=.*[0-9])[- +()0-9]+$"
-                name={`data.Amount`}
-                value={amount.value}
-                required
-                className={isamountemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                onChange={(event: any) => {
-                  setamountemptyerror(false)
-                  let a = event.target.value
-                  if (a.length === 0) {
-                    setamount({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-                  }
-                  else
-                    if (!/^[0-9]+$/.test(a)) {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                    else {
-                      setamount({ "value": a.replace(/[^0-9]/, ''), "error": "", "isvalid": "false", "isActive": true })
-                    }
-                }}
+                min_length="3"
+                required={true}
               />
             </div>
-            {isamountemptyerror ? <div className="invalid_entry">Please enter the Device!</div> : null}
-            <div className="invalid_entry">{amount.error}</div>
           </div>
 
 
