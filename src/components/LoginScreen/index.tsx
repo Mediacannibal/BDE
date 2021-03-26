@@ -8,6 +8,7 @@ import { Sociallogin } from '../../utils/actions'
 import './style.css'
 import '../../components/app.css'
 import Header from 'components/common/Header';
+import { useHistory } from 'react-router-dom';
 
 
 const LoginScreen = () => {
@@ -16,6 +17,7 @@ const LoginScreen = () => {
   const [ispassword, setispassword] = useState(true)
   const [isotpsent, setisotpsent] = useState(true)
   const [activetab, setactivetab] = useState(true)
+  const history = useHistory();
 
 
   const handleKeyPress = (event: { key: string; }) => {
@@ -31,6 +33,7 @@ const LoginScreen = () => {
       console.log('response ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      history.push('/NewUserForm')
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
@@ -97,17 +100,16 @@ const LoginScreen = () => {
                     // id: "213891626989372"
                     // last_name: "Cann"
                     // name: "Medi Cann"
-                    console.log(Response);
-                    let userInfo = response.profile;
-                    let data = {
-                      "lastname": userInfo.first_name,
-                      "firstname": userInfo.last_name,
-                      "photo_url": "",
-                      "auth_provider": "fb",
-                      "email": userInfo.email,
-                      "username": ""
-                    }
-                    Sociallogin(loginCallback, data);
+                    console.log(Response)
+                    var formData = new FormData()
+                    let userInfo = response.profile
+                    formData.append('lastname', userInfo.first_name);
+                    formData.append('firstname', userInfo.last_name);
+                    formData.append('photo_url', "");
+                    formData.append('auth_provider', "fb");
+                    formData.append('email', userInfo.email);
+                    formData.append('username', userInfo.id);
+                    Sociallogin(loginCallback, formData)
                   }}
                   onError={(response: any) => {
                     console.log(response);
@@ -119,7 +121,6 @@ const LoginScreen = () => {
                   </button>
                 </Login>
               </FacebookProvider>
-
             </div>
 
 
@@ -147,11 +148,20 @@ const LoginScreen = () => {
                       <div className="login_button_container">
                         <input id="password" type="password" placeholder="Password" className="login_input" onKeyPress={handleKeyPress} />
                       </div>
+                      <div className="login_button_sub_container">
+                        <div className="login_button_container">
+                          <button onClick={handleLogin} className="login_validatebutton">
+                            <div className="login_buttontext">Login</div>
+                          </button>
+                        </div>
 
-                      <div className="login_button_container">
-                        <button onClick={handleLogin} className="login_validatebutton">
-                          <div className="login_buttontext">Login</div>
-                        </button>
+                        <div className="login_button_container">
+                          <button onClick={() => {
+                            history.push('/CreatePassword')
+                          }} className="login_validatebutton">
+                            <div className="login_buttontext">Sign Up</div>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </>

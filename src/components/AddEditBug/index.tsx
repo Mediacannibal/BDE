@@ -8,40 +8,34 @@ import { useForm } from 'react-hook-form';
 import Header from 'components/common/Header';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
-import { taskAdd } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
+import { addBug, taskAdd } from 'utils/api';
 import * as trash from '../../assets/trash.svg'
 import * as edit from '../../assets/edit.png'
 
-
-
-const AddEditTask = () => {
+const AddEditBug = () => {
   const history = useHistory();
+  const [number, setnumber] = useState(0)
+  const [number00, setnumber00] = useState("00")
+  const [name, setname] = useState('');
+  const [amount, setamount] = useState('');
 
-  const [projectname, setprojectname] = useState('')
-  const [title, settitle] = useState('')
-  const [description, setdescription] = useState('')
-  const [assignee, setassignee] = useState('')
-  const [updatesby, setupdatesby] = useState('')
-
+  const [isSelect, setisSelect] = useState('value')
+  const [isselectslot, setisselectslot] = useState('value')
+  const [bugtitle, setbugtitle] = useState('')
+  const [device, setdevice] = useState('')
+  const [remarks, setremarks] = useState('')
   const [startDate, setStartDate] = useState(new Date());
   const [spinner, setspinner] = useState(false)
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
-
-  const [name, setname] = useState('');
-  const [amount, setamount] = useState('');
-  const [number, setnumber] = useState(0)
-  const [number00, setnumber00] = useState("00")
-  const [isSelect, setisSelect] = useState('value')
-  const [isselectslot, setisselectslot] = useState('value')
+  const [inputvalue, setinputvalue] = useState("")
 
 
-  const [emptyprojectname, setemptyprojectname] = useState(false)
-  const [emptytitle, setemptytitle] = useState(false)
-  const [emptydescription, setemptydescription] = useState(false)
-  const [emptyassignee, setemptyassignee] = useState(false)
-  const [emptyupdatesby, setemptyupdatesby] = useState(false)
+  const [emptybugtitle, setemptybugtitle] = useState(false)
+  const [emptydevice, setemptydevice] = useState(false)
+  const [emptyremarkse, setemptyremarkse] = useState(false)
+
 
 
   const [isnameemptyerror, setnameemptyerror] = useState(false)
@@ -54,26 +48,25 @@ const AddEditTask = () => {
   const [ispopup, setispopup] = useState(false)
   const [showtable, setshowtable] = useState(false)
   const [list, setlist] = useState([{
-    "project_name": "",
-    "title": "",
-    "description": "",
-    "assignee": "",
-    "updated_by": "",
+    "bug_title": "",
+    "orientation": "",
+    "device": "",
+    "remarks": "",
+    "image_link": "",
   }])
 
   const updateinputdata = (data: any) => {
 
     let buff = []
     list.forEach(element => {
-      if (element.project_name.length !== 0)
+      if (element.bug_title.length !== 0)
         buff.push(element)
     });
-
     buff.push(data)
     setlist(buff)
     console.log(buff)
-
   }
+
 
   useEffect(() => {
 
@@ -85,7 +78,7 @@ const AddEditTask = () => {
   }
 
   const renderHeader = () => {
-    let headerElement = ['', 'Project Name', 'Title', 'Description', 'Assignee', 'Updated By', '']
+    let headerElement = ['', 'bug title', 'orientation', 'device', 'remarks', 'image', '']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -100,11 +93,11 @@ const AddEditTask = () => {
     for (let i = 0; i < x.length; i++) {
       if (i !== index) { a.push(x[i]) }
       else {
-        setname(x[i].project_name)
-        setisselectslot(x[i].title)
-        setisSelect(x[i].description)
-        setnumber(Number(x[i].assignee))
-        setamount(x[i].updated_by)
+        setname(x[i].bug_title)
+        setisselectslot(x[i].orientation)
+        setisSelect(x[i].device)
+        setnumber(Number(x[i].remarks))
+        setamount(x[i].image_link)
 
         a.push(x[i])
 
@@ -130,12 +123,11 @@ const AddEditTask = () => {
     }
     setlist(a);
   }
-
   const renderBody = (element: any, index: any) => {
 
     return (
       <>
-        <tr key={element.project_name}>
+        <tr key={element.bug_title}>
           <div className='senddiv'>
             <img onClick={() => {
               editrow(element, index)
@@ -143,11 +135,11 @@ const AddEditTask = () => {
             }}
               className='sendicon' src={edit} />
           </div>
-          <td>{element.project_name}</td>
-          <td>{element.title}</td>
-          <td>{element.description}</td>
-          <td>{element.assignee}</td>
-          <td>{element.updated_by}</td>
+          <td>{element.bug_title}</td>
+          <td>{element.orientation}</td>
+          <td>{element.device}</td>
+          <td>{element.remarks}</td>
+          <td>{element.image_link}</td>
           <div className='senddiv'>
             <img onClick={() => removerow(element, index)}
               className='sendicon' src={trash} />
@@ -156,9 +148,10 @@ const AddEditTask = () => {
       </>
     )
   }
+
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
@@ -174,35 +167,41 @@ const AddEditTask = () => {
   }
 
   const Validate = () => {
-    let project_name = String(document.getElementById("project_name_data").value);
-    let title = String(document.getElementById("title_data").value);
-    let description = String(document.getElementById("description_data").value);
-    let assignee = String(document.getElementById("assignee_data").value);
-    let updated_by = String(document.getElementById("updateby_data").value);
+    let bug_title = String(document.getElementById("bugtitle_data").value);
+    let orientation = String(document.getElementById("orientation").value);
+    let device = String(document.getElementById("device_data").value);
+    let remarks = String(document.getElementById("remarks_data").value);
+    let image_link = String(document.getElementById("activity_input_value").value);
     let temp = true
-    if (project_name.length === 0 || title.length === 0 || description.length === 0 || assignee.length === 0 || updated_by.length === 0) {
+    if (bug_title.length === 0 || orientation.length === 0 || device.length === 0 || remarks.length === 0 || image_link.length === 0) {
       temp = false
-      if (project_name.length === 0) {
+      if (bug_title.length === 0) {
         setnameemptyerror(true);
-        console.log("ProjectName is empty")
-      } if (title.length === 0)
+        console.log("Bug Title is empty")
+      } if (orientation.length === 0)
         setslotemptyerror(true);
-      console.log("Title is empty")
-      if (description.length === 0)
+      console.log("Orientation is empty")
+      if (device.length === 0)
         setcombinationemptyerror(true);
-      console.log("Description is empty")
-      if (assignee.length === 0)
+      console.log("device is empty")
+      if (remarks.length === 0)
         setamountemptyerror(true);
-      console.log("Assignee is empty")
-      if (updated_by.length === 0)
+      console.log("remarks is empty")
+      if (image_link.length === 0)
         setamountemptyerror(true);
-      console.log("UpdatedBy is empty")
+      console.log("image_link is empty")
     }
 
     return temp
   }
 
-
+  const _onChangeHandler = (data: any) => {
+    console.log(data.target.files[0])
+    let formdata = new FormData()
+    let filedata = data.target.files[0]
+    formdata.append("file", filedata)
+    // imageUpload(Callback, formdata)
+  }
 
   return (
 
@@ -213,29 +212,61 @@ const AddEditTask = () => {
         </div> :
         null
       }
-      <Header screen={"AddEditTask"} />
+      <Header screen={"Booking"} />
 
       <div className="body">
 
-        <div className='title'>Add / Edit Task</div>
+        <div className='title'>Add / Edit Bug Item</div>
 
         <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
-
-
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Project Name"}
-                id="project_name_data"
-                name={`data.project_name`}
+                label={"Bug Title"}
+                id="bugtitle_data"
+                name={`data.BugTitle`}
                 inputtype="Text"
                 type="text"
                 min_length="1"
                 required={true}
-                valid={setemptyprojectname}
-                value={setprojectname}
-                setvalue={projectname}
+                valid={setemptybugtitle}
+                value={setbugtitle}
+                setvalue={bugtitle}
+              />
+            </div>
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="Booking_slot_dropdown">
+              <select id="orientation" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                required={isslotemptyerror}
+                value={isselectslot}
+                onChange={(e) => {
+                  setslotemptyerror(false)
+                  setisselectslot(e.target.value)
+                }}
+              >
+                <option hidden value="">ORIENTATION</option>
+                <option value="DAY">LANDSCAPE</option>
+                <option value="NIGHT">PORTRAIT</option>
+              </select>
+            </div>
+            {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="textinput_box_container">
+              <TextField
+                label={"Device"}
+                id="device_data"
+                name={`data.Device`}
+                inputtype="Text"
+                type="text"
+                min_length="1"
+                required={true}
+                valid={setemptydevice}
+                value={setdevice}
+                setvalue={device}
               />
             </div>
           </div>
@@ -243,88 +274,48 @@ const AddEditTask = () => {
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Title"}
-                id="title_data"
-                name={`data.Title`}
+                label={"Remarks"}
+                id="remarks_data"
+                name={`data.Remarks`}
                 inputtype="Text"
                 type="text"
                 min_length="1"
                 required={true}
-                valid={setemptytitle}
-                value={settitle}
-                setvalue={title}
+                valid={setemptyremarkse}
+                value={setremarks}
+                setvalue={remarks}
               />
             </div>
           </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Description"}
-                id="description_data"
-                name={`data.Description`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptydescription}
-                value={setdescription}
-                setvalue={description}
-              />
-            </div>
+          <div className="upload-wrap">
+            <button type="button" className="nice-button">upload_file</button>
+            <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
           </div>
-
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Assignee"}
-                id="assignee_data"
-                name={`data.Assignee`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyassignee}
-                value={setassignee}
-                setvalue={assignee}
-              />
-            </div>
-          </div>
-
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Update By"}
-                id="updateby_data"
-                name={`data.UpdatesBy`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyupdatesby}
-                value={setupdatesby}
-                setvalue={updatesby}
-              />
-            </div>
-          </div>
+          {
+            (inputvalue !== null) ? <div>
+              <img
+                className='activity_selectedimage' src={inputvalue} />
+            </div> : null
+          }
         </form>
 
         <div className="add_button_container">
           <button
             onClick={() => {
-              let project_name = String(document.getElementById("project_name_data").value);
-              let title = String(document.getElementById("title_data").value);
-              let description = String(document.getElementById("description_data").value);
-              let assignee = String(document.getElementById("assignee_data").value);
-              let updated_by = String(document.getElementById("updateby_data").value);
+              let bug_title = String(document.getElementById("bugtitle_data").value);
+              let orientation = String(document.getElementById("orientation").value);
+              let device = String(document.getElementById("device_data").value);
+              let remarks = String(document.getElementById("remarks_data").value);
+              let image_link = String(document.getElementById("activity_input_value").value);
               if (Validate()) {
                 setshowtable(true)
                 let temp = {
-                  "project_name": project_name,
-                  "title": title,
-                  "description": description,
-                  "assignee": assignee,
-                  "updated_by": updated_by,
+                  "bug_title": bug_title,
+                  "orientation": orientation,
+                  "device": device,
+                  "remarks": remarks,
+                  "image_link": image_link,
                 }
                 updateinputdata(temp)
 
@@ -369,14 +360,14 @@ const AddEditTask = () => {
           <>
             <div>
               <Popup
-                title={"Add / Edit Task?"}
-                desc1={"The following Task will be placed!"}
+                title={"Add / Edit Bug?"}
+                desc1={"The following Bug will be placed!"}
                 desc2={"Please click 'Confirm' to proceed?"}
-                listitems={list}
+                listitems2={list}
                 confirmClick1={() => {
                   console.log("***SUBMIT***", list)
                   let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                  taskAdd(async (data: any, errorresponse: any) => {
+                  addBug(async (data: any, errorresponse: any) => {
                     if (data.status === 200) {
                       setispopup(false)
                       console.log('Sucess ' + JSON.stringify(data));
@@ -411,4 +402,4 @@ const AddEditTask = () => {
   )
 }
 
-export default AddEditTask
+export default AddEditBug

@@ -76,7 +76,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                         {addiconvisible ?
                             <div onClick={() => {
                                 if (screen === "BugList")
-                                    history.replace('/AddEditBugItem')
+                                    history.replace('/AddEditBug')
                                 else if (screen === "UserManagement") {
                                     history.replace('/NewUserForm')
                                 }

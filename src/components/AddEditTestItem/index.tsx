@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import Header from 'components/common/Header';
 import DatePicker from "react-datepicker";
 import Spinner from 'components/Common/Spinner';
-import Popup from 'components/common/Popup';
+import Popup from 'components/Common/Popup'
 import { postAppdata } from 'utils/api';
 import TextFieldWithRef from 'components/common/TextFieldWithRef';
 import TextField from 'components/common/TextFieldWithRef';

@@ -6,14 +6,14 @@ import * as userIcon from '../../assets/user_icon.svg'
 import './style.css'
 
 const MeetingScreen = () => {
-  const [popup, setpopup] = useState(true)
+  const [ispopup, setpopup] = useState(true)
   const [mic, setmic] = useState(true)
 
 
   return (
     <div className="main">
       <div className="body">
-        {popup ?
+        {ispopup ?
           <>
             <div>
               <Popup

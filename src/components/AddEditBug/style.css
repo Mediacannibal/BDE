@@ -105,3 +105,22 @@
 .opration {
     text-align: center;
 }
+
+.upload-wrap {
+    margin: 5vh 0;
+    display: flex;
+    justify-content: center;
+}
+
+.upload-btn {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    width: 100vw;
+}
+
+.activity_selectedimage {
+    width: 20vw;
+    height: 20vh;
+    object-fit: contain;
+}

@@ -30,54 +30,8 @@
                             }
                         ],
                         "body": {
-                            "mode": "formdata",
-                            "formdata": [
-                                {
-                                    "key": "email",
-                                    "value": "adiakash3@gmail.com",
-                                    "type": "text",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "auth_provider",
-                                    "value": "MC",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "photo_url",
-                                    "type": "file",
-                                    "src": [],
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "lastname",
-                                    "value": "adi",
-                                    "type": "text",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "firstname",
-                                    "value": "akash",
-                                    "type": "text",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "username",
-                                    "value": "adiakashdeveloper@gmail.com",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "fcm_token",
-                                    "value": "dcoIqXZLTS6y9oO5-F-z7p:APA91bH6bI0-PnqJs8vea3pycr_Lo164V6sFqGExGSABmffS6-B5uamJiZ97_DH1YOsFoB7V4opoPxULK-u7PUhvMXL6NJt_Ptb-h0tfAXQLorG_jPBSPbzpKUWcL_g-VADEICZES8Q5",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "code",
-                                    "value": "",
-                                    "type": "text",
-                                    "disabled": true
-                                }
-                            ]
+                            "mode": "raw",
+                            "raw": "{\r\n\"lastname\": \"Raj\",\r\n\"firstname\": \"Kiran\",\r\n\"photo_url\": \"https:\/\/lh3.googleusercontent.com\/a-\/AOh14GiTcY1rZiU49zG0ptwZwZR3USNE3ds5O0QSPVAs8w=s96-c\",\r\n\"auth_provider\": \"google\",\r\n\"email\": \"kiranraj4939@gmail.com\",\r\n\"username\": \"102798085686014309438\"\r\n}"
                         },
                         "url": "{{url}}api\/user\/social\/signup\/"
                     },
@@ -496,6 +450,113 @@
                             "raw": "{\r\n    \"name\": \"hp\",\r\n    \"location\": \"mandya\",\r\n    \"rigterted_number\": \"123648fe\",\r\n    \"company_size\": \"big\",\r\n    \"address\": \"k r pet mandya\",\r\n    \"is_deleted\": false\r\n}"
                         },
                         "url": "{{url}}api\/task\/company\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/add\/",
+                    "id": "312fb923-cce2-4d9a-be5a-67e042d50c61",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}api\/task\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/add\/",
+                    "id": "83e1fb52-d442-49be-9c8b-363d51640721",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\r\n    {\r\n        \"project_name\": \"ecocs\",\r\n        \"title\": \"this is most popular\",\r\n        \"description\": \"add the all the fields\",\r\n        \"assignee\": \"kiran\",\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"project_name\": \"fox_stake\",\r\n        \"title\": \"this is most popular one\",\r\n        \"description\": \"add the all the fields add\",\r\n        \"assignee\": \"hemanth\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
+                        },
+                        "url": "{{url}}api\/task\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/upload\/file\/",
+                    "id": "b018a7ba-9c16-43bd-9cba-2a1949e25b41",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "\/C:\/Users\/user\/Pictures\/Screenshots\/csv_database_write.csv"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}api\/task\/upload\/file\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/buglist\/add\/",
+                    "id": "de5c7a90-ee37-4d6e-97f0-e6e6701359ea",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}api\/task\/buglist\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/task\/buglist\/add\/",
+                    "id": "58c3d162-0bfd-4136-a16a-e69350ed0e78",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"https:\/\/meet.google.com\/dwh-qimn-mvj\",\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"https:\/\/meet.google.com\/dwh-qimn-mvj\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
+                        },
+                        "url": "{{url}}api\/task\/buglist\/add\/"
                     },
                     "response": []
                 }

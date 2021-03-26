@@ -11,7 +11,7 @@ import ProjectScreen from './ProjectScreen';
 import MeetingScreen from './MeetingScreen';
 import TaskList from './TaskList';
 import TaskDetails from './TaskDetails';
-import AddEditBugItem from './AddEditBugItem';
+import AddEditBug from './AddEditBug';
 import UserManagement from './UserManagement';
 import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
@@ -19,6 +19,7 @@ import AddEditTestItem from './AddEditTestItem';
 import HomeScreen from './HomeScreen';
 import NewUserForm from './NewUserForm';
 import AddEditTask from './AddEditTask';
+import CreatePassword from './CreatePassword';
 
 
 const App = () => {
@@ -62,8 +63,8 @@ const App = () => {
           <BugList />
         </Route>
 
-        <Route exact path='/AddEditBugItem'>
-          <AddEditBugItem />
+        <Route exact path='/AddEditBug'>
+          <AddEditBug />
         </Route>
 
         <Route exact path='/UserManagement'>
@@ -80,6 +81,10 @@ const App = () => {
 
         <Route exact path='/AddEditTask'>
           <AddEditTask />
+        </Route>
+
+        <Route exact path='/CreatePassword'>
+          <CreatePassword />
         </Route>
 
       </Switch>

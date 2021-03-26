@@ -2,82 +2,82 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import './style.css'
 
-const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems, confirmClick1, cancelClick2, bracketentry_values }) => {
+const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, confirmClick1, cancelClick2, bracketentry_values }) => {
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
   const [popup_Title_Text, setpopup_Title_Text] = useState(true);
   const [popup_description_Text, setpopup_description_Text] = useState(true);
   const [internal_table, setinternal_table] = useState(true);
-  const [popup, setpopup] = useState(true)
+  const [ispopup, setispopup] = useState(true)
   const [result_container, setresult_container] = useState([])
   const [popup_buttons, setpopup_buttons] = useState(true)
   const [popup_videoscreen, setpopup_videoscreen] = useState(true)
+  const [is_tableheader1, setis_tableheader1] = useState(false);
+  const [is_tableheader2, setis_tableheader2] = useState(false);
+  const [is_tableheader3, setis_tableheader3] = useState(false);
 
 
-  const [list, setlist] = useState(listitems)
+  const [list1, setlist1] = useState(listitems1)
+  const [list2, setlist2] = useState(listitems2)
+
   const [activetab, setactivetab] = useState(true)
-  const renderHeader = () => {
-    let headerElement = ['Name', 'Date', 'Slot', 'Combi', 'Number', 'Amount']
+
+  useEffect(() => {
+
+  }, [])
+
+  const renderHeader1 = () => {
+    let headerElement = ['Project Name', 'Title', 'Description', 'Assignee', 'Updated By']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
     })
   }
 
-  const calculateres = (data: any, position: any) => {
-    let temp = String(data).split("")
-    let a = Number(temp[0]) + Number(temp[1]) + Number(temp[2])
-    if (position !== undefined) {
-      let p = position.split("")
-      let xa = ""
-      if (p[0] === "L")
-        xa = String(a).padStart(2, "0").substr(0, 1)
-      else
-        xa = String(a).padStart(2, "0").slice(-1)
-
-      return (String(data) === "XXX") ? "X" : xa
-
-    } else {
-      let xa = (String(a).length === 2) ? String(a).slice(-1) : String(a)
-      return (String(data) === "XXX") ? "X" : xa
-    }
-  }
-  useEffect(() => {
-    console.log(bracketentry_values);
-    if (bracketentry_values !== undefined) {
-      let a = String(bracketentry_values.Daynumber).split(",")
-      console.log(a);
-      let b = String(bracketentry_values.Nightnumber).split(",")
-      console.log(a);
-      setresult_container([...a, ...b])
-      console.log([...a, ...b]);
-    }
-
-  },
-    []
-  )
-
-  const renderBody = (element: any) => {
+  const renderBody1 = (element: any) => {
     console.log(element, "===")
     return (
       <>
-        <tr key={element.Name}>
-          <td>{element.Name}</td>
-          <td>{element.BookedDate}</td>
-          <td>{element.DayNight}</td>
-          <td>{element.BracketCombination}</td>
-          <td>{element.Number}</td>
-          <td>{element.Amount}</td>
+        <tr key={element.projectname}>
+          <td>{element.project_name}</td>
+          <td>{element.title}</td>
+          <td>{element.description}</td>
+          <td>{element.assignee}</td>
+          <td>{element.updated_by}</td>
         </tr>
       </>
     )
   }
 
+  const renderHeader2 = () => {
+    let headerElement = ['bug title', 'orientation', 'device', 'remarks', 'image']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
+  const renderBody2 = (element: any) => {
+    console.log(element, "===")
+    return (
+      <>
+        <tr key={element.bug_title}>
+          <td>{element.bug_title}</td>
+          <td>{element.orientation}</td>
+          <td>{element.device}</td>
+          <td>{element.remarks}</td>
+          <td>{element.image_link}</td>
+        </tr>
+      </>
+    )
+  }
+
+
   return (
 
     <div>
-      {popup ?
+      {ispopup ?
         <div className="popup_bg">
           <div className="popup_container">
             <div className="popup">
@@ -86,7 +86,7 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems, confirmClick1
                 <>
                   <div className='title'>{backendresponse}</div>
                   {/* <div className='popup_description'>
-                  <div className='popup_Text'>The following Bracket Entry will be updated!</div>
+                  <div className='popup_text'>The following Bracket Entry will be updated!</div>
                   </div> */}
                   <div className='popup_button_container'>
                     <div
@@ -100,7 +100,7 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems, confirmClick1
                 :
                 <>
                   {popup_Title_Text ?
-                    < div className='popup_Title'>
+                    < div className='popup_title'>
                       {title}
                     </div>
                     :
@@ -126,38 +126,70 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems, confirmClick1
 
                   {popup_description_Text ?
                     <div className='popup_description'>
-                      <div className='popup_Text'>
+                      <div className='popup_text'>
                         {desc1}
                       </div>
-                      <div className='popup_Text'>
+                      <div className='popup_text'>
                         {desc2}
                       </div>
                     </div>
                     :
                     null
                   }
-                  {listitems.length !== 0 ?
+                  {listitems1 !== 0 ?
                     <>
                       {internal_table ?
-                        <div className="internal_table">
-                          <table id='internal_table'>
-                            <thead>
-                              <tr>{renderHeader()}</tr>
-                            </thead>
-                            <tbody>
-                              {
-                                list.map(renderBody)
-                              }
-                            </tbody>
-                          </table>
-                        </div>
+                        <>
+                          {is_tableheader1 ?
+                            <div className="internal_table">
+                              <table id='internal_table'>
+                                <thead>
+                                  <tr>{renderHeader1()}</tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    list1.map(renderBody1)
+                                  }
+                                </tbody>
+                              </table>
+                            </div>
+                            : null
+                          }
+                        </>
                         :
                         null
                       }
                     </>
-                    :
-                    null
+                    : null
                   }
+
+                  {listitems2 !== 0 ?
+                    <>
+                      {internal_table ?
+                        <>
+                          {is_tableheader2 ?
+                            <div className="internal_table">
+                              <table id='internal_table'>
+                                <thead>
+                                  <tr>{renderHeader2()}</tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    list2.map(renderBody2)
+                                  }
+                                </tbody>
+                              </table>
+                            </div>
+                            : null
+                          }
+                        </>
+                        :
+                        null
+                      }
+                    </>
+                    : null
+                  }
+
                   {title === "Bracket Entry" ?
 
                     <div className="results_container_main_div">
@@ -208,18 +240,19 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems, confirmClick1
                   <div className='popup_button_container'>
                     <div
                       onClick={confirmClick1}
-                      className='popup_submit_button'>Join</div>
+                      className='popup_submit_button'>Comfirm</div>
                     <div
                       onClick={cancelClick2}
                       className='popup_cancel_button'>Cancel</div>
                   </div>
                 </>
+
               }
+
             </div>
-          </div>
-        </div >
-        :
-        null
+          </div >
+        </div>
+        : null
       }
     </div>
   )
