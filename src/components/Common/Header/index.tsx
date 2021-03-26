@@ -84,7 +84,7 @@ const Header = ({ screen, Headerinfofunction, isaddform }) => {
                                     history.replace('/AddEditTask')
                                 }
                                 else if (screen === "TestingChecklist") {
-                                    history.replace('/AddEditTestItem')
+                                    history.replace('/AddEditTest')
                                 }
                             }} className='header_subcontainer'>
                                 <div className='site_navtitle'>Add</div>

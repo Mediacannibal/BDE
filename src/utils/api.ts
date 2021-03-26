@@ -204,3 +204,23 @@ export const addBug = (callback: (arg0: any, arg1: string) => void, token: any, 
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))
 }
+
+export const testListing = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`/api/task/testing/checkinglist/add/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const addTest = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`/api/task/testing/checkinglist/add/`, data, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}

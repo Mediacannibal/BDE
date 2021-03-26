@@ -15,7 +15,7 @@ import AddEditBug from './AddEditBug';
 import UserManagement from './UserManagement';
 import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
-import AddEditTestItem from './AddEditTestItem';
+import AddEditTest from './AddEditTest';
 import HomeScreen from './HomeScreen';
 import NewUserForm from './NewUserForm';
 import AddEditTask from './AddEditTask';
@@ -71,8 +71,8 @@ const App = () => {
           <UserManagement />
         </Route>
 
-        <Route exact path='/AddEditTestItem'>
-          <AddEditTestItem />
+        <Route exact path='/AddEditTest'>
+          <AddEditTest />
         </Route>
 
         <Route exact path='/NewUserForm'>

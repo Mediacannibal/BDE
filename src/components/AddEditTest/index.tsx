@@ -9,34 +9,45 @@ import Header from 'components/common/Header';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import TextField from 'components/common/TextFieldWithRef';
-import { addBug, taskAdd } from 'utils/api';
 import * as trash from '../../assets/trash.svg'
 import * as edit from '../../assets/edit.png'
+import { addTest } from 'utils/api';
 
-const AddEditBug = () => {
+
+const AddEditTest = () => {
   const history = useHistory();
   const [number, setnumber] = useState(0)
   const [number00, setnumber00] = useState("00")
-  const [name, setname] = useState('');
-  const [amount, setamount] = useState('');
 
   const [isSelect, setisSelect] = useState('value')
   const [isselectslot, setisselectslot] = useState('value')
-  const [bugtitle, setbugtitle] = useState('')
-  const [device, setdevice] = useState('')
-  const [remarks, setremarks] = useState('')
+  const [isbracketSelect, setbracketSelect] = useState(false)
   const [startDate, setStartDate] = useState(new Date());
   const [spinner, setspinner] = useState(false)
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
+
+  const [num, setnum] = useState('');
+  const [test, settest] = useState('');
+  const [portrait, setportrait] = useState('');
+  const [landscape, setlandscape] = useState('');
+  const [device, setdevice] = useState('');
+  const [remarks, setremarks] = useState('');
+
+  const [emptynumber, setemptynumber] = useState(false)
+  const [emptytest, setemptytest] = useState(false)
+  const [emptyportrait, setemptyportrait] = useState(false)
+  const [emptylandscape, setemptylandscape] = useState(false)
+  const [emptydevice, setemptydevice] = useState(false)
+  const [emptyremarks, setemptyremarks] = useState(false)
+
   const [inputvalue, setinputvalue] = useState("")
 
 
-  const [emptybugtitle, setemptybugtitle] = useState(false)
-  const [emptydevice, setemptydevice] = useState(false)
-  const [emptyremarkse, setemptyremarkse] = useState(false)
+  const [isbracketSelecterror, setbracketSelecterror] = useState(false)
 
-
+  const [name, setname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false });
+  const [amount, setamount] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false });
 
   const [isnameemptyerror, setnameemptyerror] = useState(false)
   const [isdateemptyerror, setdateemptyerror] = useState(false)
@@ -48,18 +59,20 @@ const AddEditBug = () => {
   const [ispopup, setispopup] = useState(false)
   const [showtable, setshowtable] = useState(false)
   const [list, setlist] = useState([{
-    "bug_title": "",
-    "orientation": "",
+    "number": "",
+    "test": "",
+    "portrait": "",
+    "landscape": "",
     "device": "",
     "remarks": "",
-    "image_link": "",
+    "image_link": ""
   }])
 
   const updateinputdata = (data: any) => {
 
     let buff = []
     list.forEach(element => {
-      if (element.bug_title.length !== 0)
+      if (element.test.length !== 0)
         buff.push(element)
     });
     buff.push(data)
@@ -77,14 +90,6 @@ const AddEditBug = () => {
     history.replace('/' + param)
   }
 
-  const renderHeader = () => {
-    let headerElement = ['', 'bug title', 'orientation', 'device', 'remarks', 'image', '']
-
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
-  }
-
   const editrow = (element: any, index: any) => {
 
     console.log(list, element, index)
@@ -93,8 +98,8 @@ const AddEditBug = () => {
     for (let i = 0; i < x.length; i++) {
       if (i !== index) { a.push(x[i]) }
       else {
-        setname(x[i].bug_title)
-        setisselectslot(x[i].orientation)
+        setname(x[i].test)
+        setisselectslot(x[i].portrait)
         setisSelect(x[i].device)
         setnumber(Number(x[i].remarks))
         setamount(x[i].image_link)
@@ -123,6 +128,15 @@ const AddEditBug = () => {
     }
     setlist(a);
   }
+
+  const renderHeader = () => {
+    let headerElement = ['', 'No.', 'Test', 'Portrait', 'Landscape', 'Device', 'Remarks', 'Image link', '']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
   const renderBody = (element: any, index: any) => {
 
     return (
@@ -135,8 +149,10 @@ const AddEditBug = () => {
             }}
               className='sendicon' src={edit} />
           </div>
-          <td>{element.bug_title}</td>
-          <td>{element.orientation}</td>
+          <td>{element.number}</td>
+          <td>{element.test}</td>
+          <td>{element.portrait}</td>
+          <td>{element.landscape}</td>
           <td>{element.device}</td>
           <td>{element.remarks}</td>
           <td>{element.image_link}</td>
@@ -165,24 +181,31 @@ const AddEditBug = () => {
     console.log(time, d)
     return a
   }
-
   const Validate = () => {
-    let bug_title = String(document.getElementById("bugtitle_data").value);
-    let orientation = String(document.getElementById("orientation").value);
+    let number = String(document.getElementById("number_data").value);
+    let test = String(document.getElementById("test_data").value);
+    let portrait = String(document.getElementById("portrait_data").value);
+    let landscape = String(document.getElementById("landscape_data").value);
     let device = String(document.getElementById("device_data").value);
     let remarks = String(document.getElementById("remarks_data").value);
     let image_link = String(document.getElementById("activity_input_value").value);
     let temp = true
-    if (bug_title.length === 0 || orientation.length === 0 || device.length === 0 || remarks.length === 0 || image_link.length === 0) {
+    if (number.length === 0 || test.length === 0 || portrait.length === 0 || landscape.length === 0 || device.length === 0 || remarks.length === 0 || image_link.length === 0) {
       temp = false
-      if (bug_title.length === 0) {
+      if (number.length === 0) {
         setnameemptyerror(true);
-        console.log("Bug Title is empty")
-      } if (orientation.length === 0)
+        console.log("number is empty")
+      } if (test.length === 0)
         setslotemptyerror(true);
-      console.log("Orientation is empty")
-      if (device.length === 0)
+      console.log("test is empty")
+      if (portrait.length === 0)
         setcombinationemptyerror(true);
+      console.log("portrait is empty")
+      if (landscape.length === 0)
+        setamountemptyerror(true);
+      console.log("landscape is empty")
+      if (device.length === 0)
+        setamountemptyerror(true);
       console.log("device is empty")
       if (remarks.length === 0)
         setamountemptyerror(true);
@@ -212,46 +235,80 @@ const AddEditBug = () => {
         </div> :
         null
       }
-      <Header screen={"Booking"} />
+      <Header screen={"AddEditTest"} />
 
       <div className="body">
 
-        <div className='title'>Add / Edit Bug Item</div>
+        <div className='title'>Add / Edit Test Item</div>
 
         <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+
           <div className="inputfield_sub_container">
             <div className="textinput_box_container">
               <TextField
-                label={"Bug Title"}
-                id="bugtitle_data"
-                name={`data.BugTitle`}
+                label={"Number of Test"}
+                id="number_data"
+                name={`data.number`}
                 inputtype="Text"
                 type="text"
                 min_length="1"
                 required={true}
-                valid={setemptybugtitle}
-                value={setbugtitle}
-                setvalue={bugtitle}
+                valid={setemptynumber}
+                value={setnum}
+                setvalue={num}
               />
             </div>
           </div>
 
           <div className="inputfield_sub_container">
-            <div className="Booking_slot_dropdown">
-              <select id="orientation" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                required={isslotemptyerror}
-                value={isselectslot}
-                onChange={(e) => {
-                  setslotemptyerror(false)
-                  setisselectslot(e.target.value)
-                }}
-              >
-                <option hidden value="">ORIENTATION</option>
-                <option value="DAY">LANDSCAPE</option>
-                <option value="NIGHT">PORTRAIT</option>
-              </select>
+            <div className="textinput_box_container">
+              <TextField
+                label={"Test"}
+                id="test_data"
+                name={`data.test`}
+                inputtype="Text"
+                type="text"
+                min_length="1"
+                required={true}
+                valid={setemptytest}
+                value={settest}
+                setvalue={test}
+              />
             </div>
-            {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="textinput_box_container">
+              <TextField
+                label={"Portrait"}
+                id="portrait_data"
+                name={`data.Portrait`}
+                inputtype="Text"
+                type="text"
+                min_length="1"
+                required={true}
+                valid={setemptyportrait}
+                value={setportrait}
+                setvalue={portrait}
+              />
+            </div>
+          </div>
+
+          <div className="inputfield_sub_container">
+            <div className="textinput_box_container">
+              <TextField
+                label={"Landscape"}
+                id="landscape_data"
+                name={`data.landscape`}
+                inputtype="Text"
+                type="text"
+                min_length="1"
+                required={true}
+                valid={setemptylandscape}
+                value={setlandscape}
+                setvalue={landscape}
+              />
+            </div>
           </div>
 
           <div className="inputfield_sub_container">
@@ -259,7 +316,7 @@ const AddEditBug = () => {
               <TextField
                 label={"Device"}
                 id="device_data"
-                name={`data.Device`}
+                name={`data.device`}
                 inputtype="Text"
                 type="text"
                 min_length="1"
@@ -276,12 +333,12 @@ const AddEditBug = () => {
               <TextField
                 label={"Remarks"}
                 id="remarks_data"
-                name={`data.Remarks`}
+                name={`data.remarks`}
                 inputtype="Text"
                 type="text"
                 min_length="1"
                 required={true}
-                valid={setemptyremarkse}
+                valid={setemptyremarks}
                 value={setremarks}
                 setvalue={remarks}
               />
@@ -306,27 +363,25 @@ const AddEditBug = () => {
         <div className="add_button_container">
           <button
             onClick={() => {
-              let bug_title = String(document.getElementById("bugtitle_data").value);
-              let orientation = String(document.getElementById("orientation").value);
+              let number = String(document.getElementById("number_data").value);
+              let test = String(document.getElementById("test_data").value);
+              let portrait = String(document.getElementById("portrait_data").value);
+              let landscape = String(document.getElementById("landscape_data").value);
               let device = String(document.getElementById("device_data").value);
               let remarks = String(document.getElementById("remarks_data").value);
               let image_link = String(document.getElementById("activity_input_value").value);
               if (Validate()) {
                 setshowtable(true)
                 let temp = {
-                  "bug_title": bug_title,
-                  "orientation": orientation,
+                  "number": number,
+                  "test": test,
+                  "portrait": portrait,
+                  "landscape": landscape,
                   "device": device,
                   "remarks": remarks,
                   "image_link": image_link,
                 }
                 updateinputdata(temp)
-
-                setname('')
-                setisselectslot('value')
-                setisSelect('value')
-                setnumber(0)
-                setamount('')
               }
             }}
             className="add_edit_button">
@@ -363,14 +418,14 @@ const AddEditBug = () => {
           <>
             <div>
               <Popup
-                title={"Add / Edit Bug?"}
-                desc1={"The following Bug will be placed!"}
+                title={"Add / Edit Test?"}
+                desc1={"The following Test will be placed!"}
                 desc2={"Please click 'Confirm' to proceed?"}
                 listitems2={list}
                 confirmClick1={() => {
                   console.log("***SUBMIT***", list)
                   let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                  addBug(async (data: any, errorresponse: any) => {
+                  addTest(async (data: any, errorresponse: any) => {
                     if (data.status === 200) {
                       setispopup(false)
                       console.log('Sucess ' + JSON.stringify(data));
@@ -405,4 +460,4 @@ const AddEditBug = () => {
   )
 }
 
-export default AddEditBug
+export default AddEditTest
