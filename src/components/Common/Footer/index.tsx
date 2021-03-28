@@ -7,7 +7,7 @@ const Footer = () => {
     return (
 
         <div className="footer">
-            Copyright 2020 FOX TOSS All rights reserved.   |   Privacy Policy
+            Copyright 2020 MEDIA CANNIBAL LLP | All rights reserved.   |   Privacy Policy
         </div>
 
     )

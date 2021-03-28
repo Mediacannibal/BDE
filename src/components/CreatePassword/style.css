@@ -1,91 +1,16 @@
 /* login */
 
-.loginDescription_Text {
-    display: block;
-    color: var(--color_2);
-    font-size: var(--TS5);
-    text-align: center;
-    font-weight: 500;
-    width: 80%;
-    margin: 5vh 0;
-}
-
 .login_popupformcontainer {
     display: grid;
     justify-items: center;
     align-items: center;
 }
 
-.login_button_container {
-    margin: 1vh 1vw;
-    width: 100%;
-}
-
-.SMlogin_button_container {
-    width: 50%;
-    margin: 0 0 2vh 0;
-}
-
-.login_googlebutton {
-    background-color: var(--color_18);
-    border-radius: calc(0.6vw + 0.6vh);
-    border-color: transparent;
-    display: flex;
-    align-items: center;
-    padding: 1vh 2vw;
-    margin: 2vh 0;
-    width: 100%;
-}
-
-.login_facebookbutton {
-    background-color: var(--color_19);
-    border-radius: calc(0.6vw + 0.6vh);
-    border-color: transparent;
-    display: flex;
-    align-items: center;
-    padding: 1vh 2vw;
-    margin: 2vh 0;
-    width: 100%;
-}
-
-.login_input {
-    padding: 0.5vh;
-    background-color: var(--color_12);
-    border-radius: calc(0.6vw + 0.6vh);
-    border-color: transparent;
-    height: 5vh;
-    font-size: var(--TS5);
-    text-align: center;
-    font-weight: 600;
-    color: var(--color_2);
-    width: 30vh;
-    box-sizing: border-box;
-}
-
-.login_validatebutton {
-    z-index: 19;
-    position: relative;
-    padding: 0.5vh;
-    justify-self: center;
-    background-color: var(--color_7);
-    border-radius: calc(0.6vw + 0.6vh);
-    border-color: transparent;
-    height: 7.5vh;
-    width: 20vh;
-}
-
-.login_buttontext {
-    font-size: var(--TS5);
-    text-align: center;
-    font-weight: 500;
-    color: var(--color_5);
-}
-
 .login_SMicon {
     object-fit: contain;
-    width: calc(0.7vw + 2.1vh + 0.7vmin);
-    height: calc(0.7vw + 2.1vh + 0.7vmin);
-    margin-right: 2vw;
+    width: calc(0.5vw + 1.5vh + 0.5vmin);
+    height: calc(0.5vw + 1.5vh + 0.5vmin);
+    margin-right: calc(0.3vw + 0.9vh + 0.3vmin);
 }
 
 .admincontainer {
@@ -100,24 +25,6 @@
     text-align: center;
     font-weight: 500;
     width: 70%;
-}
-
-.results_container {
-    background-color: var(--color_14);
-    color: var(--color_5);
-    border-color: var(--color_1);
-    border-width: calc(0.1vw + 0.3vh + 0.1vmin);
-    border-style: solid;
-    border-radius: 2vw;
-    width: calc(50vw + 10vh + 10vmin);
-    margin: 6vh 0;
-}
-
-.tab_day_night {
-    display: flex;
-    text-align: center;
-    font-size: var(--TS2);
-    font-weight: 600;
 }
 
 .tab_active {

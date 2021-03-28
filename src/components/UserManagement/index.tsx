@@ -264,14 +264,8 @@ const UserManagement = () => {
         </div> :
         null
       }
-      <Header screen={"UserManagement"} Headerinfofunction={(data: any) => {
-        setupdating(false)
-        seteditable(data)
-      }} Headerinfovalue={setupdating} />
 
       <div className="body">
-
-
 
         {iseditable ?
           <>
@@ -590,7 +584,6 @@ const UserManagement = () => {
           </>
           :
           <>
-            <div className='title'>User List</div>
             <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
 
               <table id='internal_table'>

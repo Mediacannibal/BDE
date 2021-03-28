@@ -1,12 +1,13 @@
 .footer {
-    width: 100%;
-    background-color: var(--color_4);
+    background-color: var(--color_1);
     color: var(--color_5);
     text-align: center;
-    height: 5vh;
+    padding: calc(0.1vw + 0.3vh + 0.1vmin);
     justify-content: center;
     align-items: center;
     display: flex;
     align-self: flex-end;
-    font-size: var(--TS7);
+    font-size: var(--TS10);
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
+    width: 100%;
 }

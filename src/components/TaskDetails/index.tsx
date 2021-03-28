@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import Header from 'components/common/Header';
-import * as sendIcon from '../../assets/send.png'
+import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 // import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
@@ -219,11 +219,8 @@ const TaskDetails = () => {
         </div> :
         null
       }
-      <Header screen={"BidLog"} />
 
       <div className="body">
-
-        <div className='title'>Task Details</div>
 
         <div className="MAINsomwethin">
 

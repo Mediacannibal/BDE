@@ -143,30 +143,8 @@ const TestingChecklist = () => {
         </div> :
         null
       }
-      <Header screen={"TestingChecklist"} />
 
       <div className="body">
-
-        <div className='title'>
-          Testing Check List
-          {/* {(usertype === "SUPERUSER") ?
-            <select
-              className="agent bidrecord_noformat_dropdown"
-              id="noformat_dropdown"
-              value={""}
-              onChange={(e) => {
-                console.log(e.target.value)
-              }} >
-              <option hidden value="">All Agents</option>
-              {
-                unique_user_arry.map((element) => {
-                  return <option value={element}>{element}</option>
-                })
-              }
-            </select>
-            :
-            null} */}
-        </div>
 
         {/* <div className="bidlog_filterfield_container">
 

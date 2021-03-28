@@ -66,7 +66,6 @@ const NewUserForm = () => {
   return (
 
     <div className="main">
-      <Header />
       <div className="body">
         <div className="title">Add / Edit User</div>
         <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>

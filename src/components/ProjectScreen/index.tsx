@@ -54,7 +54,6 @@ const ProjectScreen = () => {
   return (
 
     <div className="main">
-      <Header/>
       <div className="body">
         <div className="inputfield_sub_container">
           <div className="name_text">Name:</div>

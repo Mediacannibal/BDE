@@ -20,11 +20,13 @@ import HomeScreen from './HomeScreen';
 import NewUserForm from './NewUserForm';
 import AddEditTask from './AddEditTask';
 import CreatePassword from './CreatePassword';
+import Header from './common/Header';
 
 
 const App = () => {
   return (
     <Router>
+
       <Switch>
 
         <Route exact path='/'>
@@ -40,27 +42,27 @@ const App = () => {
         </Route>
 
         <Route exact path='/Project'>
-          <ProjectScreen />
+        <Header page={<ProjectScreen />} page_name="Project"/>
         </Route>
 
         <Route exact path='/Meeting'>
-          <MeetingScreen />
+          <Header page={<MeetingScreen />} page_name="Meetings" />
         </Route>
 
         <Route exact path='/TaskDetails'>
-          <TaskDetails />
+        <Header page={<TaskDetails />} page_name="Task Details" />
         </Route>
 
         <Route exact path='/TaskList'>
-          <TaskList />
+          <Header page={<TaskList />} page_name="Task List" />
         </Route>
 
         <Route exact path='/TestingChecklist'>
-          <TestingChecklist />
+          <Header page={<TestingChecklist />} page_name="Testing Checklist" />
         </Route>
 
         <Route exact path='/BugList'>
-          <BugList />
+          <Header page={<BugList />} page_name="Bug Log" />
         </Route>
 
         <Route exact path='/AddEditBug'>
@@ -68,7 +70,7 @@ const App = () => {
         </Route>
 
         <Route exact path='/UserManagement'>
-          <UserManagement />
+          <Header page={<UserManagement />} page_name="User Management" />
         </Route>
 
         <Route exact path='/AddEditTest'>
@@ -88,6 +90,7 @@ const App = () => {
         </Route>
 
       </Switch>
+
     </Router>
   )
 }
