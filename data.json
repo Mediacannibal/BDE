@@ -63,7 +63,7 @@
                             ]
                         },
                         "url": {
-                            "raw": "{{url}}api\/user\/profile\/?profile=1",
+                            "raw": "{{url}}api\/user\/profile\/?profile=31",
                             "host": [
                                 "{{url}}api"
                             ],
@@ -75,7 +75,7 @@
                             "query": [
                                 {
                                     "key": "profile",
-                                    "value": "1"
+                                    "value": "31"
                                 }
                             ]
                         }
@@ -147,12 +147,12 @@
                             "formdata": [
                                 {
                                     "key": "firstname",
-                                    "value": "eco-cs",
+                                    "value": "eco-csmk",
                                     "type": "text"
                                 }
                             ]
                         },
-                        "url": "{{url}}api\/user\/edit_profile\/1\/"
+                        "url": "{{url}}api\/user\/edit_profile\/31\/"
                     },
                     "response": []
                 },
@@ -258,6 +258,16 @@
                             "raw": "{\r\n\"company_name\": \"akash collage\",\r\n\"department\": \"ec\",\r\n\"username\" :\"admin14\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869974\",\r\n\"user_type\":\"NORMAL\",\r\n\"email\": \"akashts14@gmail.com\",\r\n\"firstname\":\"firstname\",\r\n\"lastname\":\"lastname\"\r\n\r\n }"
                         },
                         "url": "{{url}}api\/user\/social\/signup\/normal\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/list\/",
+                    "id": "cbfb1bb4-c713-4c62-be94-763d192eacf9",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}api\/user\/list\/"
                     },
                     "response": []
                 }
