@@ -8,10 +8,21 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, 
   const [backendresponse, setbackendresponse] = useState('');
   const [popup_Title_Text, setpopup_Title_Text] = useState(true);
   const [popup_description_Text, setpopup_description_Text] = useState(true);
+  const [internal_table, setinternal_table] = useState(true);
   const [ispopup, setispopup] = useState(true)
   const [result_container, setresult_container] = useState([])
   const [popup_buttons, setpopup_buttons] = useState(true)
- 
+  const [popup_videoscreen, setpopup_videoscreen] = useState(true)
+  const [is_tableheader1, setis_tableheader1] = useState(false);
+  const [is_tableheader2, setis_tableheader2] = useState(false);
+  const [is_tableheader3, setis_tableheader3] = useState(false);
+
+
+  const [list1, setlist1] = useState(listitems1)
+  const [list2, setlist2] = useState(listitems2)
+
+  const [activetab, setactivetab] = useState(true)
+
   useEffect(() => {
 
   }, [])
