@@ -15,11 +15,11 @@ import UserManagement, { header_options } from './UserManagement';
 import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
 import HomeScreen from './HomeScreen';
-// import NewUserForm from './NewUserForm';
 import Dashboard from './Dashboard';
 import AddEditTest from './Forms/AddEditTest';
 import AddEditBug from './Forms/AddEditBug';
 import AddEditTask from './Forms/AddEditTask';
+import NewUserForm from './Forms/NewUserForm';
 
 const dashboard_screen = [
   { path: '/', component: HomeScreen, header: header_options },
@@ -37,8 +37,7 @@ const dashboard_screen = [
 const fullpage_screen = [
   { path: '/Login', component: LoginScreen, header: header_options },
   { path: '/Calender', component: CalenderScreen, header: header_options },
-  // { path: '/NewUserForm', component: NewUserForm, header: header_options },
-  // { path: '/CreatePassword', component: CreatePassword, header: header_options }
+  { path: '/NewUserForm', component: NewUserForm, header: header_options },
 ]
 
 

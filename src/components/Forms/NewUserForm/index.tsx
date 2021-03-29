@@ -208,7 +208,7 @@ const NewUserForm = () => {
     <>
       { !ispopup ?
         <Popup
-          title={"Add / Edit Bug"}
+          title={"Add / Edit User"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
