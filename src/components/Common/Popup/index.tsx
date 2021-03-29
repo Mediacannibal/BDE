@@ -12,7 +12,8 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
   const [ispopup, setispopup] = useState(true)
 
   useEffect(() => {
-    if ((desc1 === null) || (desc2 === null)) {
+    console.log(title, desc1, desc2, popup_body, confirmClick, cancelClick)
+    if (((desc1 === null) || (desc1 === undefined)) && ((desc2 === null) || (desc2 === undefined))) {
       setPopup_description_Text(false)
     }
   }, [])
@@ -73,7 +74,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
                   <div className='popup_button_container'>
                     <div
                       onClick={confirmClick}
-                      className='popup_submit_button'>Comfirm</div>
+                      className='popup_submit_button'>Confirm</div>
                     <div
                       onClick={cancelClick}
                       className='popup_cancel_button'>Cancel</div>

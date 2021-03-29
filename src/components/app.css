@@ -100,11 +100,10 @@
 }
 
 .inputfield_main_container {
-    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
 .inputfield_sub_container {
-    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
+    padding: calc(0.25vw + 0.75vh + 0.25vmin) 0 0;
 }
 
 .textinput_box_container:focus-within {
@@ -113,7 +112,13 @@
     border-style: solid;
 }
 
-.textinput_box {}
+.textinput_box {
+    font-size: var(--TS5);
+    line-height: 1.15;
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
+    border-color: transparent;
+    text-align: center;
+}
 
 .textinput_box:focus {
     outline: none !important;
@@ -143,19 +148,6 @@
 }
 
 /* invalid form entry */
-
-.invalid_entry_container {
-    border-color: var(--color_3) !important;
-    border-style: solid;
-    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
-}
-
-.invalid_entry {
-    color: var(--color_3);
-    font-weight: 500;
-    padding-top: 1vh;
-    font-size: var(--TS7);
-}
 
 .senddiv {
     margin: 2vh 0vw;
@@ -280,28 +272,7 @@ tr:nth-child(even) {
     }
 }
 
-.textinput_box {
-    font-size: var(--TS4);
-    line-height: 1.15;
-    border-radius: 25vw;
-    border-color: transparent;
-    margin: 0 1vw;
-    text-align: center;
-}
-
 /* invalid form entry */
-
-.invalid_entry_container {
-    border-color: var(--color_3) !important;
-    border-style: solid;
-    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
-}
-
-.invalid_entry {
-    color: var(--color_3);
-    font-weight: 600;
-    padding-top: 1vh;
-}
 
 .name_text {
     margin: 0.5vh 0vh 0vh 0vh;
@@ -317,7 +288,7 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--color_14);
+    background-color: #000000d6;
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;
@@ -334,32 +305,38 @@ tr:nth-child(even) {
 
 .popup {
     z-index: 200;
-    border-radius: 2vw;
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border-color: var(--color_7);
     border-style: solid;
     text-align: -webkit-center;
     background-color: var(--color_8);
-    overflow-y: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2vh 2vw;
+    /* padding: 2vh 2vw; */
     align-items: center;
+    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
+    padding: calc(0.4vw + 1.2vh + 0.4vmin);
 }
 
 .popup_title {
-    font-size: var(--TS5);
     text-align: center;
-    padding: 2vh 0;
+    padding-bottom: calc(0.4vw + 1.2vh + 0.4vmin);
     font-weight: 600;
+    color: var(--color_1);
+    font-size: var(--TS6);
+    align-self: center;
+    text-decoration: underline;
+    text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
+    text-decoration-color: var(--color_7);
 }
 
 .popup_description {
-    padding: 5vh 0;
+    
 }
 
 .popup_text {
-    font-size: var(--TS4);
+    font-size: var(--TS7);
     text-align: center;
     font-weight: 500;
     color: var(--color_2);
@@ -367,8 +344,9 @@ tr:nth-child(even) {
 
 .popup_button_container {
     display: flex;
-    justify-content: center;
-    margin: 2vh;
+    justify-content: space-evenly;
+    padding-top: calc(0.5vw + 1.5vh + 0.5vmin);
+    width: 100%;
 }
 
 .popup_video_screen {
@@ -405,27 +383,29 @@ tr:nth-child(even) {
 }
 
 .popup_submit_button {
-    padding: 2vh 2vw;
-    font-weight: 700;
-    margin: 2vh 2vw;
+    padding: calc(0.15vw + 0.45vh + 0.15vmin) calc(0.25vw + 0.75vh + 0.25vmin);
+    font-weight: 600;
     background-color: var(--color_10);
-    border-radius: calc(1vw + 3vh + 1vmin);
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border: solid;
     border-color: var(--color_4);
     color: var(--color_4);
     font-size: var(--TS7);
+    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
+    margin: 0 calc(0.25vw + 0.75vh + 0.25vmin);
 }
 
 .popup_cancel_button {
-    padding: 2vh 2vw;
-    font-weight: 700;
-    margin: 2vh 2vw;
+    padding: calc(0.15vw + 0.45vh + 0.15vmin) calc(0.25vw + 0.75vh + 0.25vmin);
+    font-weight: 600;
     background-color: var(--color_11);
-    border-radius: calc(1vw + 3vh + 1vmin);
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border: solid;
     border-color: var(--color_4);
     color: var(--color_4);
     font-size: var(--TS7);
+    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
+    margin: 0 calc(0.25vw + 0.75vh + 0.25vmin);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -504,21 +484,6 @@ tr:nth-child(even) {
 
 #bidlog>thead>tr>th {
     font-weight: 500;
-}
-
-/* invalid form entry */
-
-.invalid_entry_container {
-    border-color: var(--color_3) !important;
-    border-style: solid;
-    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
-}
-
-.invalid_entry {
-    color: var(--color_3);
-    font-weight: 600;
-    padding-top: 1vh;
-    font-size: var(--TS7);
 }
 
 /* header */
