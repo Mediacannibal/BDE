@@ -9,7 +9,7 @@ import Spinner from 'components/Common/Spinner';
 import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 
-const TaskList = (props:any) => {
+const TaskList = (props: any) => {
 
   const [listItems, setlistItems] = useState([
     {
@@ -130,7 +130,9 @@ const TaskList = (props:any) => {
       }
 
       {popup ?
-        <AddEditTask />
+        <AddEditTask
+          setPopup={setPopup(false)}
+        />
         :
         <div onClick={() => { setPopup(true) }}>click me</div>
       }
