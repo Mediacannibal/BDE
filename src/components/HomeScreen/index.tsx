@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
-import Header from 'components/common/Header';
 
 
 const HomeScreen = () => {
@@ -25,7 +24,6 @@ const HomeScreen = () => {
 
   return (
     <div className="main">
-      <Header />
       <div className="body">
         <div className="xyz">
 

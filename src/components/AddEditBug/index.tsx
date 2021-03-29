@@ -5,7 +5,6 @@ import * as send from '../../assets/send.svg'
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
-import Header from 'components/common/Header';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import TextField from 'components/common/TextFieldWithRef';
@@ -212,7 +211,6 @@ const AddEditBug = () => {
         </div> :
         null
       }
-      <Header screen={"Booking"} />
 
       <div className="body">
 

@@ -1,38 +1,54 @@
 import './style.css'
 import React, { useEffect, useState } from 'react'
-import '../../../components/app.css'
-import * as logofull from '../../../assets/MC_logo_with_title.svg'
-import * as logo from '../../../assets/MC_logo.svg'
-import * as add from '../../../assets/add.svg'
-import * as back from '../../../assets/previous.svg'
+import '../../components/app.css'
+import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
-import * as menu from '../../../assets/menu.svg'
-import * as home from '../../../assets/home (2).svg'
-import * as tasklist from '../../../assets/tasklist.svg'
-import * as bug from '../../../assets/bug2.svg'
-import * as meeting from '../../../assets/meeting.svg'
-import * as tested from '../../../assets/tested.svg'
-import * as team from '../../../assets/team.svg'
-import * as user from '../../../assets/user_icon.svg'
-import * as up_down_arrow from '../../../assets/up_down.svg'
-import * as bell from '../../../assets/bell.svg'
-import * as settings from '../../../assets/settings.svg'
 
-const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
+import HomeScreen from '../HomeScreen';
+import ProjectScreen from '../ProjectScreen';
+import TaskList from '../TaskList';
+import TestingChecklist from '../Testing Checklist';
+import BugList from '../BugList';
+import MeetingScreen from '../MeetingScreen';
+import UserManagement from '../UserManagement';
+
+
+import * as logofull from '../../assets/MC_logo_with_title.svg'
+import * as logo from '../../assets/MC_logo.svg'
+import * as add from '../../assets/add.svg'
+import * as back from '../../assets/previous.svg'
+
+import * as menu from '../../assets/menu.svg'
+import * as home from '../../assets/home (2).svg'
+import * as tasklist from '../../assets/tasklist.svg'
+import * as bug from '../../assets/bug.svg'
+import * as meeting from '../../assets/meeting.svg'
+import * as tested from '../../assets/tested.svg'
+import * as team from '../../assets/team.svg'
+import * as user from '../../assets/user_icon.svg'
+import * as up_down_arrow from '../../assets/up_down.svg'
+import * as bell from '../../assets/bell.svg'
+import * as chat from '../../assets/chat.svg'
+import * as settings from '../../assets/settings.svg'
+
+const Dashboard = ({ screen, screen_name, header_options }) => {
 
     const history = useHistory();
 
     const [menu_open, setMenu_open] = useState(true)
     const [usertype, setusertype] = useState("NORMAL")
     const [username, setUsername] = useState("")
-    const [loggedin, setloggedin] = useState(false)
 
     const [user_menu_open, setUser_menu_open] = useState(false)
 
+    const location = useLocation();
+
     useEffect(() => {
+
+        console.log("screenlocation: ", location.pathname);
+
         let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
         if (UserDetails !== null) {
-            setloggedin(true)
             let usertype1 = UserDetails.user_type
             let username1 = UserDetails.firstname
             console.log(screen, usertype1)
@@ -40,6 +56,24 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
             setUsername(username1)
         }
     }, [])
+
+    const menu_items = [
+        { path: '/Home', icon: home, title: 'Home' },
+        { path: '/Project', icon: menu, title: 'Project' },
+        { path: '/TaskList', icon: tasklist, title: 'Tasks' },
+        { path: '/TestingChecklist', icon: tested, title: 'Test Center' },
+        { path: '/BugList', icon: bug, title: 'Bug Log' },
+        { path: '/Meeting', icon: meeting, title: 'Meeting' },
+        { path: '/UserManagement', icon: team, title: 'Users' }]
+
+    const screens = [
+        { path: '/', component: HomeScreen, header: header_options },
+        { path: '/Project', component: ProjectScreen, header: header_options },
+        { path: '/TaskList', component: TaskList, header: header_options },
+        { path: '/TestingChecklist', component: TestingChecklist, header: header_options },
+        { path: '/BugList', component: BugList, header: header_options },
+        { path: '/Meeting', component: MeetingScreen, header: header_options },
+        { path: '/UserManagement', component: UserManagement, header: header_options },]
 
     return (
         <div className="main_wrapper">
@@ -57,53 +91,13 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
 
                 <div className="menu_items_wrapper">
 
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/Home') }} >
-                        <img className='main_menu_item_icon' src={home} />
-                        {menu_open ? <div className='main_menu_item_title'>Home</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/TaskList') }} >
-                        <img className='main_menu_item_icon' src={tasklist} />
-                        {menu_open ? <div className='main_menu_item_title'>Tasks</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/TaskDetails') }} >
-                        <img className='main_menu_item_icon' src={menu} />
-                        {menu_open ? <div className='main_menu_item_title'>TaskDetails</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/BugList') }} >
-                        <img className='main_menu_item_icon' src={bug} />
-                        {menu_open ? <div className='main_menu_item_title'>Bug Log</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/Meeting') }} >
-                        <img className='main_menu_item_icon' src={meeting} />
-                        {menu_open ? <div className='main_menu_item_title'>Meeting</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/Project') }} >
-                        <img className='main_menu_item_icon' src={menu} />
-                        {menu_open ? <div className='main_menu_item_title'>Project</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/TestingChecklist') }} >
-                        <img className='main_menu_item_icon' src={tested} />
-                        {menu_open ? <div className='main_menu_item_title'>Test Center</div> : null}
-                    </div>
-
-                    <div className='menu_title'
-                        onClick={() => { history.replace('/UserManagement') }} >
-                        <img className='main_menu_item_icon' src={team} />
-                        {menu_open ? <div className='main_menu_item_title'>Users</div> : null}
-                    </div>
+                    {menu_items.map((data: any) =>
+                        <div className='menu_title'
+                            onClick={() => { history.replace(data.path) }} >
+                            <img className='main_menu_item_icon' src={data.icon} />
+                            {menu_open ? <div className='main_menu_item_title'>{data.title}</div> : null}
+                        </div>
+                    )}
 
                     {/* {(usertype === "SUPERUSER") ?
                                 <>  <div className='menu_title'
@@ -162,7 +156,7 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
                 <div className="header">
 
                     <div className='header_left'>
-                        <div className='header_page_title'>{page_name}</div>
+                        <div className='header_page_title'>{screen_name}{header_options}</div>
                     </div>
 
                     <div className='header_center'>
@@ -174,6 +168,7 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
 
                         <div
                             className='header_subcontainer'>
+                            <img className='header_icon' src={chat} />
                             <img className='header_icon' src={bell} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
                                 <img className='user_icon' src={user} />
@@ -197,11 +192,11 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
                                             <div className='header_title'>Settings</div>
                                         </div>
                                         <div className='user_menu_item'
-                                        onClick={() => {
-                                            localStorage.clear()
-                                            window.location.reload()
-                                            history.replace('/Login')
-                                        }}>
+                                            onClick={() => {
+                                                localStorage.clear()
+                                                window.location.reload()
+                                                history.replace('/Login')
+                                            }}>
                                             <img className='header_icon' src={back} />
                                             <div className='header_title'>Logout</div>
                                         </div>
@@ -218,7 +213,7 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
 
                 </div>
 
-                {page}
+                {screen}
 
             </div>
 
@@ -226,4 +221,4 @@ const Header = ({ screen, Headerinfofunction, isaddform, page, page_name }) => {
     )
 }
 
-export default Header
+export default Dashboard

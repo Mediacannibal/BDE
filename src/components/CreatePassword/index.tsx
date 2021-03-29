@@ -3,7 +3,6 @@ import { Sociallogin } from '../../utils/actions'
 
 import './style.css'
 import '../../components/app.css'
-import Header from 'components/common/Header';
 import { useHistory } from 'react-router-dom';
 import TextField from 'components/common/TextFieldWithRef';
 import { useForm } from 'react-hook-form';
@@ -67,7 +66,6 @@ const CreatePassword = () => {
 
   return (
     <div className="main">
-      <Header />
       <div className="body">
 
         <div className='title'>Sign Up </div>

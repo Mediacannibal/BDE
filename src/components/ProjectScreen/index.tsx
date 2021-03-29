@@ -1,4 +1,3 @@
-import Header from 'components/common/Header'
 import React, { useState } from 'react'
 import './style.css'
 
