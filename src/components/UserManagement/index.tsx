@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import Spinner from 'components/Common/Spinner';
 import TextFieldWithRef from 'components/common/TextFieldWithRef';
 import TextField from 'components/common/TextFieldWithRef';
+import { userListing } from 'utils/api';
 
 export const header_options = () => <div>Hello</div>
 
@@ -34,13 +35,23 @@ const UserManagement = () => {
   const [isusertypeemptyerror, setusertypeemptyerror] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-  const [fisrtname_data, setfisrtname_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [lastname_data, setlastname_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [emailID_data, setemailID_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [phoneno_data, setphoneno_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [username_data, setusername_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [password_data, setpassword_data] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [company_name, setcompany_name] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [department, setdepartment] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [username, setusername] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [firstname, setfirstname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [lastname, setlastname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [email, setemail] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [phone, setphone] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [password, setpassword] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
 
+  const [emptycompany_name, setemptycompany_name] = useState(false)
+  const [emptydepartment, setemptydepartment] = useState(false)
+  const [emptyfirstname, setemptyfirstname] = useState(false)
+  const [emptylastname, setemptylastname] = useState(false)
+  const [emptyemail, setemptyemail] = useState(false)
+  const [emptyphone, setemptyphone] = useState(false)
+  const [emptypassword, setemptypassword] = useState(false)
+  
   const [editpassword, seteditpassword] = useState(false)
 
   const [passwordShown, setpasswordShown] = useState(false);
@@ -63,25 +74,25 @@ const UserManagement = () => {
 
   const getuserlistdata = () => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    // getuserList((data: any, errorresponse: any) => {
+    userListing((data: any, errorresponse: any) => {
 
-    //   if (data.status === 200) {
-    //     setspinner(false)
-    //     console.log('response ' + JSON.stringify(data));
-    //     setlist(data.data)
+      if (data.status === 200) {
+        setspinner(false)
+        console.log('response ' + JSON.stringify(data));
+        setlist(data.data)
 
-    //   } else {
-    //     setspinner(false)
-    //     console.log('error ' + JSON.stringify(data));
-    //     console.log('error ' + JSON.stringify(errorresponse));
-    //   };
-    // }, token)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      };
+    }, token)
   }
 
   const phonenumberformatter = (value: any) => {
     var prefix = "+91"
     if (value.indexOf(prefix) !== 0) {
-      setphoneno_data({ "value": prefix + value, "error": "", "isvalid": "false" });
+      setphone({ "value": prefix + value, "error": "", "isvalid": "false" });
       return prefix + value
     }
 
@@ -96,20 +107,23 @@ const UserManagement = () => {
         let data = {}
         if (editpassword) {
           data = {
-            "firstname": fisrtname_data.value,
-            "lastname": lastname_data.value,
-            "email": emailID_data.value,
-            "phone": phonenumberformatter(phoneno_data.value),
+            "company_name": company_name.value,
+            "department": department.value,
+            "username": username.value,
+            "firstname": firstname.value,
+            "lastname": lastname.value,
+            "email": email.value,
+            "phone": phonenumberformatter(phone.value),
             "user_type": isSelect,
-            "password": password_data.value,
+            "password": password.value,
           }
         }
         else {
           data = {
-            "firstname": fisrtname_data.value,
-            "lastname": lastname_data.value,
-            "email": emailID_data.value,
-            "phone": phonenumberformatter(phoneno_data.value),
+            "firstname": firstname.value,
+            "lastname": lastname.value,
+            "email": email.value,
+            "phone": phonenumberformatter(phone.value),
             "user_type": isSelect,
           }
         }
@@ -132,12 +146,12 @@ const UserManagement = () => {
     else {
       if (Validate()) {
         let data = {
-          "username": username_data.value,
-          "password": password_data.value,
-          "firstname": fisrtname_data.value,
-          "lastname": lastname_data.value,
-          "email": emailID_data.value,
-          "phone": phonenumberformatter(phoneno_data.value),
+          "company_name": company_name.value,
+          "department": department.value,
+          "username": username.value,
+          "password": password.value,
+          "email": email.value,
+          "phone": phonenumberformatter(phone.value),
           "user_type": isSelect,
         }
         console.log(selecteduser, data)
@@ -173,12 +187,12 @@ const UserManagement = () => {
     //   }
     // }
 
-    // getuserlistdata()
+    getuserlistdata()
 
   }, [])
 
   const renderHeader = () => {
-    let headerElement = ['First Name', 'Last Name', 'Email', 'Phone', 'User Name', 'Password', 'UserType']
+    let headerElement = ['Company Name', 'Department', 'User Name', 'First Name', 'Last Name', 'Email', 'Phone', 'Password', 'UserType']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -196,14 +210,19 @@ const UserManagement = () => {
 
           setupdating(true)
 
-          setfisrtname_data({ "value": element.firstname, "error": "", "isvalid": "false", "isActive": true });
-          setlastname_data({ "value": element.lastname, "error": "", "isvalid": "false", "isActive": true });
-          setemailID_data({ "value": element.email, "error": "", "isvalid": "false", "isActive": true });
-          setphoneno_data({ "value": element.phone, "error": "", "isvalid": "false", "isActive": true });
-          setusername_data({ "value": element.email, "error": "", "isvalid": "false", "isActive": true });
+          setcompany_name({ "value": element.company_name, "error": "", "isvalid": "false", "isActive": true });
+          setdepartment({ "value": element.department, "error": "", "isvalid": "false", "isActive": true });
+          setusername({ "value": element.username, "error": "", "isvalid": "false", "isActive": true });
+          setfirstname({ "value": element.firstname, "error": "", "isvalid": "false", "isActive": true });
+          setlastname({ "value": element.lastname, "error": "", "isvalid": "false", "isActive": true });
+          setemail({ "value": element.email, "error": "", "isvalid": "false", "isActive": true });
+          setphone({ "value": element.phone, "error": "", "isvalid": "false", "isActive": true });
           setisSelect(element.user_type)
           console.log("csajdkfhj")
         }}>
+          <td>{element.company_name}</td>
+          <td>{element.department}</td>
+          <td>{element.email}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
           <td>{element.email}</td>
@@ -228,27 +247,33 @@ const UserManagement = () => {
   const Validate = () => {
 
     let temp = true
-    if (String(fisrtname_data.value).length === 0 || String(lastname_data.value).length === 0 || String(emailID_data.value).length === 0 || String(phoneno_data.value).length === 0 || String(isSelect).length === 0 || String(password_data.value).length === 0) {
+    if (String(company_name.value).length === 0 || String(department.value).length === 0 || String(username.value).length === 0 || String(firstname.value).length === 0 || String(lastname.value).length === 0 || String(email.value).length === 0 || String(phone.value).length === 0 || String(isSelect).length === 0 || String(password.value).length === 0) {
       temp = false
-      if (String(fisrtname_data.value).length === 0) {
+      if (String(company_name.value).length === 0) {
         setfirstnameemptyerror(true);
-        console.log("Fist Name is empty")
-      } if (String(lastname_data.value).length === 0)
+        console.log("company name is empty")
+      } if (String(department.value).length === 0)
         setlastnameemptyerror(true);
-      console.log("Last Name is empty")
-      if (String(emailID_data.value).length === 0)
+      console.log("department is empty")
+      if (String(username.value).length === 0)
         setemailIDemptyerror(true);
-      console.log("Email ID is empty")
-      if (String(phoneno_data.value).length === 3)
+      console.log("username is empty")
+      if (String(firstname.value).length === 3)
         setphonenumberemptyerror(true);
-      console.log("Phone Number is empty")
-      if (String(username_data.value).length === 0)
+      console.log("firstname is empty")
+      if (String(lastname.value).length === 0)
         setusernameemptyerror(true);
-      console.log("User Name is empty")
-      if (String(password_data.value).length === 0)
+      console.log("lastname is empty")
+      if (String(email.value).length === 0)
+        setpasswordemptyerror(true);
+      console.log("email is empty")
+      if (String(phone.value).length === 0)
+        setpasswordemptyerror(true);
+      console.log("phone is empty")
+      if (String(password.value).length === 0)
         setpasswordemptyerror(true);
       console.log("Password is empty")
-      if (String(isSelect.value).length === 0)
+      if (String(isSelect).length === 0)
         setusertypeemptyerror(true);
       console.log("User Type is empty")
     }
@@ -279,33 +304,33 @@ const UserManagement = () => {
                 <div className="textinput_box_container">
                   <TextFieldWithRef
                     label={"First Name"}
-                    labelid={"fisrtname_data"}
-                    isActive={fisrtname_data.isActive}
+                    labelid={"firstname_data"}
+                    isActive={firstname_data.isActive}
                     className={isfirstnameemptyerror ? "textinput_box invalid_entry_container" : "textinput_box"}
-                    id="fisrtname_data"
-                    value={fisrtname_data.value}
+                    id="firstname_data"
+                    value={firstname_data.value}
                     type="text"
                     name={`data.FirstName`}
                     required={isfirstnameemptyerror}
                     onChange={(data: any) => {
-                      setfisrtname_data(data.target.value)
+                      setfirstname_data(data.target.value)
                       setfirstnameemptyerror(false)
                       let a = data.target.value
                       if (a.length === 0) {
-                        setfisrtname_data({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+                        setfirstname_data({ "value": "", "error": "", "isvalid": "false", "isActive": false })
                       }
                       else
                         if (a.length < 4) {
-                          setfisrtname_data({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "Minimum 4 characters needed.", "isvalid": "false", "isActive": true })
+                          setfirstname_data({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "Minimum 4 characters needed.", "isvalid": "false", "isActive": true })
                         }
                         else {
-                          setfisrtname_data({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "", "isvalid": "true", "isActive": true })
+                          setfirstname_data({ "value": a.replace(/[`~!@#$%^&*()\ \ |+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''), "error": "", "isvalid": "true", "isActive": true })
                         }
                     }}
                   />
                 </div>
                 {isfirstnameemptyerror ? <div className="invalid_entry">Please enter First Name!</div> :
-                  <div className="invalid_entry">{fisrtname_data.error}</div>
+                  <div className="invalid_entry">{firstname_data.error}</div>
                 }
               </div>
 
