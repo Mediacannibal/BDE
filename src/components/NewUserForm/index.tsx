@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import * as trash from '../../assets/trash.svg'
 import * as edit from '../../assets/edit.png'
 import * as send from '../../assets/send.svg'
+import { newUserSignup } from 'utils/api';
+import Popup from 'components/Common/Popup';
 
 
 const NewUserForm = () => {
@@ -343,19 +345,28 @@ const NewUserForm = () => {
         <div className="add_button_container">
           <button
             onClick={() => {
-              let bug_title = String(document.getElementById("bugtitle_data").value);
-              let orientation = String(document.getElementById("orientation").value);
-              let device = String(document.getElementById("device_data").value);
-              let remarks = String(document.getElementById("remarks_data").value);
-              let image_link = String(document.getElementById("activity_input_value").value);
+              let company_name = String(document.getElementById("companyname_data").value);
+              let department = String(document.getElementById("Department_data").value);
+              let username = String(document.getElementById("email_data").value);
+              let firstname = String(document.getElementById("firstname_data").value);
+              let lastname = String(document.getElementById("lastname_data").value);
+              let email = String(document.getElementById("email_data").value);
+              let phone = String(document.getElementById("phoneno_data").value);
+              let user_type = String(document.getElementById("user_type_data").value);
+              let password = String(document.getElementById("password_data").value);
+
               if (Validate()) {
                 setshowtable(true)
                 let temp = {
-                  "bug_title": bug_title,
-                  "orientation": orientation,
-                  "device": device,
-                  "remarks": remarks,
-                  "image_link": image_link,
+                  "company_name": company_name,
+                  "department": department,
+                  "username": username,
+                  "firstname": firstname,
+                  "lastname": lastname,
+                  "email": email,
+                  "phone": phone,
+                  "user_type": user_type,
+                  "password": password,
                 }
                 updateinputdata(temp)
 
@@ -407,7 +418,7 @@ const NewUserForm = () => {
                 confirmClick1={() => {
                   console.log("***SUBMIT***", list)
                   let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                  addBug(async (data: any, errorresponse: any) => {
+                  newUserSignup(async (data: any, errorresponse: any) => {
                     if (data.status === 200) {
                       setispopup(false)
                       console.log('Sucess ' + JSON.stringify(data));
@@ -433,9 +444,8 @@ const NewUserForm = () => {
           :
           null
         }
-      </div>
 
-      {/* <div>
+        {/* <div>
           <SimpleEditor
             editorUI={{
               theme: 'blue',
@@ -444,14 +454,14 @@ const NewUserForm = () => {
           />
         </div> */}
 
-      <div className="login_button_container">
-        <button onClick={() => { }} className="login_validatebutton">
-          <div className="login_buttontext">Submit</div>
-        </button>
+        {/* <div className="login_button_container">
+          <button onClick={() => { }} className="login_validatebutton">
+            <div className="login_buttontext">Submit</div>
+          </button>
+        </div> */}
+
       </div>
     </div>
-    </div >
-
   );
 }
 export default NewUserForm

@@ -85,10 +85,11 @@ export const phoneEmailVerify = (callback: (arg0: any, arg1: string) => void, da
     .catch(err => callback(err, err.response))
 }
 
-export const newUserSignup = (callback: (arg0: any, arg1: string) => void, data: any) => {
+export const newUserSignup = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
   instance.post(`/api/user/social/signup/normal/`, data, {
     headers: {
-      "Authorization": "Token",
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
     }
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))
