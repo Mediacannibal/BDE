@@ -31,7 +31,7 @@ import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
 
-const Dashboard = ({ screen, screen_name, header_options }) => {
+const Dashboard = ({ screen_name, header_options }) => {
 
     const history = useHistory();
 
@@ -40,6 +40,8 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
     const [username, setUsername] = useState("")
 
     const [user_menu_open, setUser_menu_open] = useState(false)
+
+    const [activeScreen, setActiveScreen] = useState("/Home")
 
     const location = useLocation();
 
@@ -66,14 +68,26 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' }]
 
-    const screens = [
-        { path: '/', component: HomeScreen, header: header_options },
-        { path: '/Project', component: ProjectScreen, header: header_options },
-        { path: '/TaskList', component: TaskList, header: header_options },
-        { path: '/TestingChecklist', component: TestingChecklist, header: header_options },
-        { path: '/BugList', component: BugList, header: header_options },
-        { path: '/Meeting', component: MeetingScreen, header: header_options },
-        { path: '/UserManagement', component: UserManagement, header: header_options },]
+    const screen = (data: any) => {
+        switch (data) {
+            case "/Home":
+                return <HomeScreen />
+            case "/ProjectScreen":
+                return <ProjectScreen />
+            case "/TaskList":
+                return <TaskList />
+            case "/TestingChecklist":
+                return <TestingChecklist />
+            case "/BugList":
+                return <BugList />
+            case "/Meeting":
+                return <MeetingScreen />
+            case "/UserManagement":
+                return <UserManagement />
+            default:
+                return <HomeScreen />
+        }
+    }
 
     return (
         <div className="main_wrapper">
@@ -93,7 +107,7 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
 
                     {menu_items.map((data: any) =>
                         <div className='menu_title'
-                            onClick={() => { history.replace(data.path) }} >
+                            onClick={() => { setActiveScreen(data.path) }} >
                             <img className='main_menu_item_icon' src={data.icon} />
                             {menu_open ? <div className='main_menu_item_title'>{data.title}</div> : null}
                         </div>

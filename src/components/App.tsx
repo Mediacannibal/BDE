@@ -55,11 +55,9 @@ const App = () => {
           </Route>
         )}
 
-        {dashboard_screen.map((Data: any) =>
-          <Route exact path={Data.path}>
-            <Dashboard screen={<Data.component />} screen_name={Data.path} header_options={header_options} />
-          </Route>
-        )}
+        <Route exact path='/Dashboard'>
+          <Dashboard />
+        </Route>
 
       </Switch>
 

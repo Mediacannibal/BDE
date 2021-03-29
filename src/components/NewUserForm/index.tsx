@@ -449,7 +449,6 @@ const NewUserForm = () => {
         </button>
       </div>
     </div>
-    </div >
 
   );
 }
