@@ -229,6 +229,44 @@ const AddEditTask = () => {
             </div>
 
             <div className="inputfield_sub_container">
+              <div className="Booking_slot_dropdown">
+                <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                  required={isslotemptyerror}
+                  value={isselectslot}
+                  onChange={(e) => {
+                    setslotemptyerror(false)
+                    setisselectslot(e.target.value)
+                  }}
+                >
+                  <option hidden value="">DOMAIN</option>
+                  <option value="DAY">FRONT END</option>
+                  <option value="NIGHT">BACK END</option>
+                  <option value="NIGHT">UI</option>
+                </select>
+              </div>
+              {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div className="Booking_slot_dropdown">
+                <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                  required={isslotemptyerror}
+                  value={isselectslot}
+                  onChange={(e) => {
+                    setslotemptyerror(false)
+                    setisselectslot(e.target.value)
+                  }}
+                >
+                  <option hidden value="">TASK TYPE</option>
+                  <option value="DAY">FEATURE</option>
+                  <option value="NIGHT">TEST</option>
+                  <option value="NIGHT">BUG</option>
+                </select>
+              </div>
+              {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+            </div>
+
+            <div className="inputfield_sub_container">
               <div className="textinput_box_container">
                 <TextField
                   label={"Title"}

@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata, listingTask } from 'utils/api';
+import { listingTask } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -90,7 +90,7 @@ const TaskList = () => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Project Name', 'Title', 'Description', 'Assignee', 'Updated By']
+    let headerElement = ['Project Name','Domain','Task Type', 'Title', 'Description', 'Assignee', 'Updated By']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -102,6 +102,8 @@ const TaskList = () => {
       <tr key={element.project_name}>
 
         <td>{element.project_name}</td>
+        <td>...</td>
+        <td>...</td>
         <td>{element.title}</td>
         <td>{element.description}</td>
         <td>{element.assignee}</td>
