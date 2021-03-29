@@ -233,7 +233,7 @@ const NewUserForm = () => {
                 name={`data.Department`}
                 inputtype="Department"
                 type="text"
-                min_length="3"
+                min_length="1"
                 required={true}
                 valid={setemptydepartment}
                 value={setdepartment}
@@ -250,7 +250,7 @@ const NewUserForm = () => {
                 name={`data.FirstName`}
                 inputtype="firstname"
                 type="text"
-                min_length="3"
+                min_length="1"
                 required={true}
                 valid={setemptyfirstname}
                 value={setfirstname}
