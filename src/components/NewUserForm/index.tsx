@@ -8,9 +8,12 @@ import * as edit from '../../assets/edit.png'
 import * as send from '../../assets/send.svg'
 import { newUserSignup } from 'utils/api';
 import Popup from 'components/Common/Popup';
+import { useHistory } from 'react-router-dom';
 
 
 const NewUserForm = () => {
+  const history = useHistory();
+
   const [emptycompany_name, setemptycompany_name] = useState(false)
   const [emptydepartment, setemptydepartment] = useState(false)
   const [emptyfirstname, setemptyfirstname] = useState(false)
@@ -421,7 +424,9 @@ const NewUserForm = () => {
                     if (data.status === 200) {
                       setispopup(false)
                       console.log('Sucess ' + JSON.stringify(data));
-                      window.location.reload()
+                      localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
+                      localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+                      history.push('/')
                       // alert("successfully added")
                       setbackendresponse("Successfully Added!")
                       setbackendresponse_popup(true)
@@ -431,7 +436,7 @@ const NewUserForm = () => {
                       console.log('error ' + JSON.stringify(data));
                       console.log('error ' + JSON.stringify(errorresponse));
                     }
-                  }, token, list)
+                  }, token, list[0])
                 }}
                 cancelClick2={() => {
                   console.log("***CANCEL***")
