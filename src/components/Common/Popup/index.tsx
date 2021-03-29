@@ -68,7 +68,6 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
 
                     ? popup_body 
                     : null
-
                   }
 
                   <div className='popup_button_container'>
@@ -80,9 +79,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
                       className='popup_cancel_button'>Cancel</div>
                   </div>
                 </>
-
               }
-
             </div>
           </div >
         </div>

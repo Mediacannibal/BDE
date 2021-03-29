@@ -13,7 +13,7 @@ import * as edit from '../../../assets/edit.png'
 
 
 
-const AddEditTask = (props:any) => {
+const AddEditTask = ({setPopup}) => {
   const history = useHistory();
 
   const [projectname, setprojectname] = useState('')
@@ -338,7 +338,7 @@ const AddEditTask = (props:any) => {
           cancelClick={() => {
             console.log("***CANCEL***")
             // history.push("/TaskList")
-            props.setPopup(false)
+            // setPopup
           }}
         />
         :

@@ -8,6 +8,7 @@ import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
 import { listingBug } from 'utils/api';
+import AddEditBug from 'components/Forms/AddEditBug';
 
 const BugList = () => {
 
@@ -30,6 +31,7 @@ const BugList = () => {
   const [unique_remarks, setunique_remarks] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
+  const [popup, setPopup] = useState(false)
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -59,7 +61,7 @@ const BugList = () => {
     //   if (params.id === undefined) {
     listingBug(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        console.log("!!!!!!!!!!!!!!!!",data.data)
+        console.log("!!!!!!!!!!!!!!!!", data.data)
         setspinner(false)
         setlistItems(data.data)
         let bug_title: Iterable<any> | null | undefined = []
@@ -134,6 +136,15 @@ const BugList = () => {
         </div> :
         null
       }
+
+      {popup ?
+        <AddEditBug
+          setPopup={setPopup(false)}
+        />
+        :
+        <div onClick={() => { setPopup(true) }}>click me</div>
+      }
+
 
       <div className="body">
 
