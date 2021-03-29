@@ -65,7 +65,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
 
                   {popus_body_container
 
-                    ? { popup_body }
+                    ? popup_body 
                     : null
 
                   }

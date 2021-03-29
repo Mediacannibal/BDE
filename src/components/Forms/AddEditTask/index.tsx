@@ -14,7 +14,7 @@ import * as edit from '../../../assets/edit.png'
 
 
 
-const AddEditTask = () => {
+const AddEditTask = (props:any) => {
   const history = useHistory();
 
   const [projectname, setprojectname] = useState('')
@@ -203,7 +203,7 @@ const AddEditTask = () => {
 
   return (
     <>
-      { ispopup ?
+      { !ispopup ?
         <Popup
           title={"Add / Edit Task"}
           popup_body={
@@ -338,10 +338,10 @@ const AddEditTask = () => {
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
-            history.push("/TaskList")
+            // history.push("/TaskList")
+            props.setPopup(false)
           }}
         />
-
         :
         <Popup
           title={"Add / Edit Task?"}
@@ -368,7 +368,7 @@ const AddEditTask = () => {
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
-            setispopup(false)
+            props.setispopup(false)
           }}
         />
       }
