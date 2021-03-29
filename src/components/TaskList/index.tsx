@@ -9,7 +9,7 @@ import Spinner from 'components/Common/Spinner';
 import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 
-const TaskList = () => {
+const TaskList = (props:any) => {
 
   const [listItems, setlistItems] = useState([
     {

@@ -3,7 +3,6 @@ import './style.css'
 import { useHistory } from 'react-router-dom';
 import * as send from '../../../assets/send.svg'
 import '../../../components/app.css'
-import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
@@ -368,7 +367,7 @@ const AddEditTask = (props:any) => {
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
-            props.setispopup(false)
+            setispopup(false)
           }}
         />
       }
