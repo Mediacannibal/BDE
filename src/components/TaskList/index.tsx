@@ -129,6 +129,12 @@ const TaskList = () => {
         null
       }
 
+      {popup ?
+        <AddEditTask />
+        :
+        <div onClick={() => { setPopup(true) }}>click me</div>
+      }
+
       <div className="body">
 
         <div className="bidlog_filterfield_container">
@@ -303,12 +309,6 @@ const TaskList = () => {
         </div>
 
       </div>
-
-      {popup ?
-        <AddEditTask />
-        :
-        <div onClick={() => {setPopup(true)}}>click me</div>
-      }
 
       <Footer />
     </div >
