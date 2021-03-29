@@ -30,6 +30,7 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
+import AddEditBug from 'components/Forms/AddEditBug';
 
 const Dashboard = ({ screen, screen_name, header_options }) => {
 
@@ -161,6 +162,14 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
 
                     <div className='header_center'>
                         <div className='header_center_subcontainer'>
+
+                            <div onClick={() => {
+                                history.push("/AddEditBug")
+                            }} className='header_subcontainer'>
+                                <div className='site_navtitle'>Add</div>
+                                <img className='header_icon' src={add} />
+                            </div>
+
                         </div>
                     </div>
 

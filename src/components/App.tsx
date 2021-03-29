@@ -11,16 +11,15 @@ import ProjectScreen from './ProjectScreen';
 import MeetingScreen from './MeetingScreen';
 import TaskList from './TaskList';
 import TaskDetails from './TaskDetails';
-import AddEditBug from './AddEditBug';
+import AddEditBug from './Forms/AddEditBug';
 import UserManagement, { header_options } from './UserManagement';
 import TestingChecklist from './Testing Checklist';
 import BugList from './BugList';
-import AddEditTest from './AddEditTest';
 import HomeScreen from './HomeScreen';
-import NewUserForm from './NewUserForm';
-import AddEditTask from './AddEditTask';
-import CreatePassword from './CreatePassword';
+import NewUserForm from './Forms/NewUserForm';
 import Dashboard from './Dashboard';
+import AddEditTest from './Forms/AddEditTest';
+import AddEditTask from './Forms/AddEditTask';
 
 const dashboard_screen = [
   { path: '/', component: HomeScreen, header: header_options },
@@ -33,13 +32,14 @@ const dashboard_screen = [
   { path: '/AddEditBug', component: AddEditBug, header: header_options },
   { path: '/UserManagement', component: UserManagement, header: header_options },
   { path: '/AddEditTest', component: AddEditTest, header: header_options },
-  { path: '/AddEditTask', component: AddEditTask, header: header_options },]
+  { path: '/AddEditTask', component: AddEditTask, header: header_options },
+]
 
 const fullpage_screen = [
   { path: '/Login', component: LoginScreen, header: header_options },
   { path: '/Calender', component: CalenderScreen, header: header_options },
   { path: '/NewUserForm', component: NewUserForm, header: header_options },
-  { path: '/CreatePassword', component: CreatePassword, header: header_options }]
+]
 
 
 const App = () => {

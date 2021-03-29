@@ -317,7 +317,7 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--color_6);
+    background-color: var(--color_14);
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;

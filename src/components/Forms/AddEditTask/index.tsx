@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-import * as send from '../../assets/send.svg'
-import '../../components/app.css'
+import * as send from '../../../assets/send.svg'
+import '../../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import { taskAdd } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
-import * as trash from '../../assets/trash.svg'
-import * as edit from '../../assets/edit.png'
+import * as trash from '../../../assets/trash.svg'
+import * as edit from '../../../assets/edit.png'
 
 
 
@@ -204,164 +204,117 @@ const AddEditTask = () => {
 
 
   return (
+    <div className="popup_bg">
+      <div className="popup_container">
+        <div className="popup">
 
-    <div className="main">
-      {spinner ?
-        <div className="spinner_fullscreen_div">
-          <Spinner />
-        </div> :
-        null
-      }
+          <div className='title'>Add / Edit Task</div>
 
-      <div className="body">
-
-        <div className='title'>Add / Edit Task</div>
-
-        <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
-
-
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Project Name"}
-                id="project_name_data"
-                name={`data.project_name`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyprojectname}
-                value={setprojectname}
-                setvalue={projectname}
-              />
+          <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Project Name"}
+                  id="project_name_data"
+                  name={`data.project_name`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptyprojectname}
+                  value={setprojectname}
+                  setvalue={projectname}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Title"}
-                id="title_data"
-                name={`data.Title`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptytitle}
-                value={settitle}
-                setvalue={title}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Title"}
+                  id="title_data"
+                  name={`data.Title`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptytitle}
+                  value={settitle}
+                  setvalue={title}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Description"}
-                id="description_data"
-                name={`data.Description`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptydescription}
-                value={setdescription}
-                setvalue={description}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Description"}
+                  id="description_data"
+                  name={`data.Description`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptydescription}
+                  value={setdescription}
+                  setvalue={description}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Assignee"}
-                id="assignee_data"
-                name={`data.Assignee`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyassignee}
-                value={setassignee}
-                setvalue={assignee}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Assignee"}
+                  id="assignee_data"
+                  name={`data.Assignee`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptyassignee}
+                  value={setassignee}
+                  setvalue={assignee}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Update By"}
-                id="updateby_data"
-                name={`data.UpdatesBy`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyupdatesby}
-                value={setupdatesby}
-                setvalue={updatesby}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Update By"}
+                  id="updateby_data"
+                  name={`data.UpdatesBy`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptyupdatesby}
+                  value={setupdatesby}
+                  setvalue={updatesby}
+                />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
 
-        <div className="add_button_container">
-          <button
-            onClick={() => {
-              let project_name = String(document.getElementById("project_name_data").value);
-              let title = String(document.getElementById("title_data").value);
-              let description = String(document.getElementById("description_data").value);
-              let assignee = String(document.getElementById("assignee_data").value);
-              let updated_by = String(document.getElementById("updateby_data").value);
-              if (Validate()) {
-                setshowtable(true)
-                let temp = {
-                  "project_name": project_name,
-                  "title": title,
-                  "description": description,
-                  "assignee": assignee,
-                  "updated_by": updated_by,
-                }
-                updateinputdata(temp)
-
-                setname('')
-                setisselectslot('value')
-                setisSelect('value')
-                setnumber(0)
-                setamount('')
-              }
+          <div className='senddiv'>
+            <img onClick={() => {
+              console.log("***SEND***")
+              setispopup(true)
             }}
-            className="add_edit_button">
-            <div className="add_edit_buttontext">Add</div>
-          </button>
-        </div>
-
-        {showtable ?
-          <><div className="internal_table">
-
-            <table id='internal_table'>
-              <thead>
-                <tr>{renderHeader()}</tr>
-              </thead>
-              <tbody>
-                {
-                  list.map(renderBody)
-                }
-              </tbody>
-            </table>
+              className='sendicon' src={send} />
           </div>
-            <div className='senddiv'>
-              <img onClick={() => {
-                console.log("***SEND***")
-                setispopup(true)
-              }}
-                className='sendicon' src={send} />
-            </div></>
-          :
-          null
-        }
+
+          <div
+            onClick={() => {
+              console.log("***CANCEL***")
+              history.push("/TaskList")
+            }}
+            className='menu_popup_cancel_button'>
+            x
+          </div>
+
+        </div>
 
         {ispopup ?
           <>
@@ -370,7 +323,6 @@ const AddEditTask = () => {
                 title={"Add / Edit Task?"}
                 desc1={"The following Task will be placed!"}
                 desc2={"Please click 'Confirm' to proceed?"}
-                listitems={list}
                 confirmClick1={() => {
                   console.log("***SUBMIT***", list)
                   let token = JSON.parse(String(localStorage.getItem("AuthToken")))
@@ -401,10 +353,7 @@ const AddEditTask = () => {
           null
         }
       </div>
-
-      <Footer />
-
-    </div >
+    </div>
 
   )
 }
