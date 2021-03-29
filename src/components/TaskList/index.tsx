@@ -3,10 +3,11 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata, listingTask } from 'utils/api';
+import { listingTask } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
+import AddEditTask from 'components/Forms/AddEditTask';
 
 const TaskList = () => {
 
@@ -29,7 +30,6 @@ const TaskList = () => {
   const [unique_assignee, setunique_assignee] = useState([])
   const [unique_updated_by, setunique_updated_by] = useState([])
 
-
   const [filterindicator, setfilterindicator] = useState(false)
 
   const history = useHistory();
@@ -37,6 +37,8 @@ const TaskList = () => {
 
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
+
+  const [popup, setPopup] = useState(false)
 
   let params = useParams();
   useEffect(() => {
@@ -90,7 +92,7 @@ const TaskList = () => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Project Name', 'Title', 'Description', 'Assignee', 'Updated By']
+    let headerElement = ['Project Name', 'Domain', 'Task Type', 'Title', 'Description', 'Assignee', 'Updated By']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -102,6 +104,8 @@ const TaskList = () => {
       <tr key={element.project_name}>
 
         <td>{element.project_name}</td>
+        <td>...</td>
+        <td>...</td>
         <td>{element.title}</td>
         <td>{element.description}</td>
         <td>{element.assignee}</td>
@@ -299,6 +303,12 @@ const TaskList = () => {
         </div>
 
       </div>
+
+      {popup ?
+        <AddEditTask />
+        :
+        <div onClick={() => {setPopup(true)}}>click me</div>
+      }
 
       <Footer />
     </div >

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-import * as send from '../../assets/send.svg'
-import '../../components/app.css'
+import * as send from '../../../assets/send.svg'
+import '../../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import TextField from 'components/common/TextFieldWithRef';
-import * as trash from '../../assets/trash.svg'
-import * as edit from '../../assets/edit.png'
+import * as trash from '../../../assets/trash.svg'
+import * as edit from '../../../assets/edit.png'
 import { addTest } from 'utils/api';
 
 
@@ -226,191 +226,144 @@ const AddEditTest = () => {
   }
 
   return (
+    <div className="popup_bg">
+      < div className="popup_container" >
+        <div className="popup">
+          <div className='title'>Add / Edit Test Item</div>
 
-    <div className="main">
-      {spinner ?
-        <div className="spinner_fullscreen_div">
-          <Spinner />
-        </div> :
-        null
-      }
-      
-      <div className="body">
+          <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
-        <div className='title'>Add / Edit Test Item</div>
-
-        <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Number of Test"}
-                id="number_data"
-                name={`data.number`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptynumber}
-                value={setnum}
-                setvalue={num}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Number of Test"}
+                  id="number_data"
+                  name={`data.number`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptynumber}
+                  value={setnum}
+                  setvalue={num}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Test"}
-                id="test_data"
-                name={`data.test`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptytest}
-                value={settest}
-                setvalue={test}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Test"}
+                  id="test_data"
+                  name={`data.test`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptytest}
+                  value={settest}
+                  setvalue={test}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Portrait"}
-                id="portrait_data"
-                name={`data.Portrait`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyportrait}
-                value={setportrait}
-                setvalue={portrait}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Portrait"}
+                  id="portrait_data"
+                  name={`data.Portrait`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptyportrait}
+                  value={setportrait}
+                  setvalue={portrait}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Landscape"}
-                id="landscape_data"
-                name={`data.landscape`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptylandscape}
-                value={setlandscape}
-                setvalue={landscape}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Landscape"}
+                  id="landscape_data"
+                  name={`data.landscape`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptylandscape}
+                  value={setlandscape}
+                  setvalue={landscape}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Device"}
-                id="device_data"
-                name={`data.device`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptydevice}
-                value={setdevice}
-                setvalue={device}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Device"}
+                  id="device_data"
+                  name={`data.device`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptydevice}
+                  value={setdevice}
+                  setvalue={device}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="textinput_box_container">
-              <TextField
-                label={"Remarks"}
-                id="remarks_data"
-                name={`data.remarks`}
-                inputtype="Text"
-                type="text"
-                min_length="1"
-                required={true}
-                valid={setemptyremarks}
-                value={setremarks}
-                setvalue={remarks}
-              />
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <TextField
+                  label={"Remarks"}
+                  id="remarks_data"
+                  name={`data.remarks`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="1"
+                  required={true}
+                  valid={setemptyremarks}
+                  value={setremarks}
+                  setvalue={remarks}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="inputfield_sub_container">
-            <div className="upload-wrap">
-              <button type="button" className="nice-button">upload_file</button>
-              <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
-            </div>
-            {
-              (inputvalue !== null) ? <div>
-                <img
-                  className='activity_selectedimage' src={inputvalue} />
-              </div> : null
-            }
-          </div>
-
-        </form>
-
-        <div className="add_button_container">
-          <button
-            onClick={() => {
-              let number = String(document.getElementById("number_data").value);
-              let test = String(document.getElementById("test_data").value);
-              let portrait = String(document.getElementById("portrait_data").value);
-              let landscape = String(document.getElementById("landscape_data").value);
-              let device = String(document.getElementById("device_data").value);
-              let remarks = String(document.getElementById("remarks_data").value);
-              let image_link = String(document.getElementById("activity_input_value").value);
-              if (Validate()) {
-                setshowtable(true)
-                let temp = {
-                  "number": number,
-                  "test": test,
-                  "portrait": portrait,
-                  "landscape": landscape,
-                  "device": device,
-                  "remarks": remarks,
-                  "image_link": image_link,
-                }
-                updateinputdata(temp)
+            <div className="inputfield_sub_container">
+              <div className="upload-wrap">
+                <button type="button" className="nice-button">upload_file</button>
+                <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+              </div>
+              {
+                (inputvalue !== null) ? <div>
+                  <img
+                    className='activity_selectedimage' src={inputvalue} />
+                </div> : null
               }
+            </div>
+          </form>
+
+          <div className='senddiv'>
+            <img onClick={() => {
+              console.log("***SEND***")
+              setispopup(true)
             }}
-            className="add_edit_button">
-            <div className="add_edit_buttontext">Add</div>
-          </button>
-        </div>
-
-        {showtable ?
-          <><div className="internal_table">
-
-            <table id='internal_table'>
-              <thead>
-                <tr>{renderHeader()}</tr>
-              </thead>
-              <tbody>
-                {
-                  list.map(renderBody)
-                }
-              </tbody>
-            </table>
+              className='sendicon' src={send} />
           </div>
-            <div className='senddiv'>
-              <img onClick={() => {
-                console.log("***SEND***")
-                setispopup(true)
-              }}
-                className='sendicon' src={send} />
-            </div></>
-          :
-          null
-        }
+
+          <div
+            onClick={() => {
+              console.log("***CANCEL***")
+              history.push("/BugList")
+            }}
+            className='menu_popup_cancel_button'>x</div>
+        </div>
 
         {ispopup ?
           <>
@@ -450,11 +403,7 @@ const AddEditTest = () => {
           null
         }
       </div>
-
-      <Footer />
-
-    </div >
-
+    </div>
   )
 }
 

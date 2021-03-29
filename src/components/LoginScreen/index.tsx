@@ -164,7 +164,7 @@ const LoginScreen = () => {
 
                       <div className="login_button_container">
                         <button onClick={() => {
-                          history.push('/CreatePassword')
+                          history.push('/NewUserForm')
                         }} className="login_validatebutton">
                           <div className="login_buttontext">Sign Up</div>
                         </button>
