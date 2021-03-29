@@ -204,208 +204,192 @@ const NewUserForm = () => {
   }
 
   return (
-    <div className="popup_bg">
-      <div className="popup_container">
-        <div className="popup">
-          <div className="title">Add / Edit User</div>
 
-          <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Company Name"}
-                  id="companyname_data"
-                  name={`data.CompanyName`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptycompany_name}
-                  value={setcompany_name}
-                  setvalue={company_name}
-                />
+    <>
+      { !ispopup ?
+        <Popup
+          title={"Add / Edit Bug"}
+          popup_body={
+            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Company Name"}
+                    id="companyname_data"
+                    name={`data.CompanyName`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptycompany_name}
+                    value={setcompany_name}
+                    setvalue={company_name}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Department"}
-                  id="Department_data"
-                  name={`data.Department`}
-                  inputtype="Department"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptydepartment}
-                  value={setdepartment}
-                  setvalue={department}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Department"}
+                    id="Department_data"
+                    name={`data.Department`}
+                    inputtype="Department"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptydepartment}
+                    value={setdepartment}
+                    setvalue={department}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"First Name"}
-                  id="firstname_data"
-                  name={`data.FirstName`}
-                  inputtype="firstname"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptyfirstname}
-                  value={setfirstname}
-                  setvalue={firstname}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"First Name"}
+                    id="firstname_data"
+                    name={`data.FirstName`}
+                    inputtype="firstname"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptyfirstname}
+                    value={setfirstname}
+                    setvalue={firstname}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Last Name"}
-                  id={"lastname_data"}
-                  name={`data.LastName`}
-                  inputtype="lastname"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptylastname}
-                  value={setlastname}
-                  setvalue={lastname} />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Last Name"}
+                    id={"lastname_data"}
+                    name={`data.LastName`}
+                    inputtype="lastname"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptylastname}
+                    value={setlastname}
+                    setvalue={lastname} />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Email ID"}
-                  id={"email_data"}
-                  inputtype="email"
-                  type="text"
-                  name={`data.EmailID`}
-                  required={true}
-                  valid={setemptyemail}
-                  value={setemail}
-                  setvalue={email} />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Email ID"}
+                    id={"email_data"}
+                    inputtype="email"
+                    type="text"
+                    name={`data.EmailID`}
+                    required={true}
+                    valid={setemptyemail}
+                    value={setemail}
+                    setvalue={email} />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Phone Number"}
-                  id={"phoneno_data"}
-                  inputtype="phone"
-                  type="text"
-                  name={`data.Phone`}
-                  maxLength="10"
-                  input_inner_leftprop={<div>+91</div>}
-                  required={true}
-                  valid={setemptyphone}
-                  value={setphone}
-                  setvalue={phone}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Phone Number"}
+                    id={"phoneno_data"}
+                    inputtype="phone"
+                    type="text"
+                    name={`data.Phone`}
+                    maxLength="10"
+                    input_inner_leftprop={<div>+91</div>}
+                    required={true}
+                    valid={setemptyphone}
+                    value={setphone}
+                    setvalue={phone}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="Booking_slot_dropdown">
-                <select id="user_type_data" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                  required={isslotemptyerror}
-                  value={isselectslot}
-                  onChange={(e) => {
-                    setslotemptyerror(false)
-                    setisselectslot(e.target.value)
-                  }}
-                >
-                  <option hidden value="">USER TYPE</option>
-                  <option value="DAY">ADMIN</option>
-                  <option value="NIGHT">USER</option>
-                </select>
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="user_type_data" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={isselectslot}
+                    onChange={(e) => {
+                      setslotemptyerror(false)
+                      setisselectslot(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">USER TYPE</option>
+                    <option value="DAY">ADMIN</option>
+                    <option value="NIGHT">USER</option>
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a UserType!</div> : null}
               </div>
-              {isslotemptyerror ? <div className="invalid_entry">Please select a UserType!</div> : null}
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"New Password"}
-                  id="password_data"
-                  name={`data.password`}
-                  inputtype="password"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptypassword}
-                  value={setpassword}
-                  setvalue={password}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"New Password"}
+                    id="password_data"
+                    name={`data.password`}
+                    inputtype="password"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptypassword}
+                    value={setpassword}
+                    setvalue={password}
+                  />
+                </div>
               </div>
-            </div>
-          </form>
-
-          <div className='senddiv'>
-            <img onClick={() => {
-              console.log("***SEND***")
-              setispopup(true)
-            }}
-              className='sendicon' src={send} />
-          </div>
-
-          <div
-            onClick={() => {
-              console.log("***CANCEL***")
-              history.push("/Login")
-            }}
-            className='menu_popup_cancel_button'>
-            x
-          </div>
-
-          {ispopup ?
-            <>
-              <div>
-                <Popup
-                  title={"Add / Edit User?"}
-                  desc1={"The following User will be placed!"}
-                  desc2={"Please click 'Confirm' to proceed?"}
-                  listitems2={list}
-                  confirmClick1={() => {
-                    console.log("***SUBMIT***", list)
-                    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                    newUserSignup(async (data: any, errorresponse: any) => {
-                      if (data.status === 200) {
-                        setispopup(false)
-                        console.log('Sucess ' + JSON.stringify(data));
-                        localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
-                        localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-                        history.push('/')
-                        // alert("successfully added")
-                        setbackendresponse("Successfully Added!")
-                        setbackendresponse_popup(true)
-                      } else {
-                        setispopup(false)
-                        setbackendresponse("Failed, Please Try Again!")
-                        console.log('error ' + JSON.stringify(data));
-                        console.log('error ' + JSON.stringify(errorresponse));
-                      }
-                    }, token, list[0])
-                  }}
-                  cancelClick2={() => {
-                    console.log("***CANCEL***")
-                    setispopup(false)
-                  }}
-                />
-              </div>
-            </>
-            :
-            null
+            </form>
           }
-        </div>
-      </div>
-    </div>
-
+          confirmClick={() => {
+            console.log("***SEND***")
+            setispopup(true)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            // history.push("/TaskList")
+            // setPopup
+          }}
+        />
+        :
+        <Popup
+          title={"Add / Edit User?"}
+          desc1={"The following User will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            newUserSignup(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
+                localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+                history.push('/')
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list[0])
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+      }
+    </>
   );
 }
 export default NewUserForm

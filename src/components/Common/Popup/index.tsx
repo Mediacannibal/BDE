@@ -72,7 +72,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
                   <div className='popup_button_container'>
                     <div
                       onClick={confirmClick}
-                      className='popup_submit_button'>Comfirm</div>
+                      className='popup_submit_button'>Confirm</div>
                     <div
                       onClick={cancelClick}
                       className='popup_cancel_button'>Cancel</div>

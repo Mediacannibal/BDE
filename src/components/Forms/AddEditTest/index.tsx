@@ -226,184 +226,171 @@ const AddEditTest = () => {
   }
 
   return (
-    <div className="popup_bg">
-      < div className="popup_container" >
-        <div className="popup">
-          <div className='title'>Add / Edit Test Item</div>
+    <>
+      { !ispopup ?
+        <Popup
+          title={"Add / Edit Test"}
+          popup_body={
+            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
-          <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Number of Test"}
-                  id="number_data"
-                  name={`data.number`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptynumber}
-                  value={setnum}
-                  setvalue={num}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Number of Test"}
+                    id="number_data"
+                    name={`data.number`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptynumber}
+                    value={setnum}
+                    setvalue={num}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Test"}
-                  id="test_data"
-                  name={`data.test`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptytest}
-                  value={settest}
-                  setvalue={test}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Test"}
+                    id="test_data"
+                    name={`data.test`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptytest}
+                    value={settest}
+                    setvalue={test}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Portrait"}
-                  id="portrait_data"
-                  name={`data.Portrait`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptyportrait}
-                  value={setportrait}
-                  setvalue={portrait}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Portrait"}
+                    id="portrait_data"
+                    name={`data.Portrait`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptyportrait}
+                    value={setportrait}
+                    setvalue={portrait}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Landscape"}
-                  id="landscape_data"
-                  name={`data.landscape`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptylandscape}
-                  value={setlandscape}
-                  setvalue={landscape}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Landscape"}
+                    id="landscape_data"
+                    name={`data.landscape`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptylandscape}
+                    value={setlandscape}
+                    setvalue={landscape}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Device"}
-                  id="device_data"
-                  name={`data.device`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptydevice}
-                  value={setdevice}
-                  setvalue={device}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Device"}
+                    id="device_data"
+                    name={`data.device`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptydevice}
+                    value={setdevice}
+                    setvalue={device}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="textinput_box_container">
-                <TextField
-                  label={"Remarks"}
-                  id="remarks_data"
-                  name={`data.remarks`}
-                  inputtype="Text"
-                  type="text"
-                  min_length="1"
-                  required={true}
-                  valid={setemptyremarks}
-                  value={setremarks}
-                  setvalue={remarks}
-                />
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Remarks"}
+                    id="remarks_data"
+                    name={`data.remarks`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptyremarks}
+                    value={setremarks}
+                    setvalue={remarks}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="inputfield_sub_container">
-              <div className="upload-wrap">
-                <button type="button" className="nice-button">upload_file</button>
-                <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+              <div className="inputfield_sub_container">
+                <div className="upload-wrap">
+                  <button type="button" className="nice-button">upload_file</button>
+                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                </div>
+                {
+                  (inputvalue !== null) ? <div>
+                    <img
+                      className='activity_selectedimage' src={inputvalue} />
+                  </div> : null
+                }
               </div>
-              {
-                (inputvalue !== null) ? <div>
-                  <img
-                    className='activity_selectedimage' src={inputvalue} />
-                </div> : null
+            </form>
+          }
+
+          confirmClick={() => {
+            console.log("***SEND***")
+            setispopup(true)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            // history.push("/TaskList")
+            // setPopup
+          }}
+        />
+        :
+        <Popup
+          title={"Add / Edit Test?"}
+          desc1={"The following Test will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            addTest(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
               }
-            </div>
-          </form>
-
-          <div className='senddiv'>
-            <img onClick={() => {
-              console.log("***SEND***")
-              setispopup(true)
-            }}
-              className='sendicon' src={send} />
-          </div>
-
-          <div
-            onClick={() => {
-              console.log("***CANCEL***")
-              history.push("/BugList")
-            }}
-            className='menu_popup_cancel_button'>x</div>
-        </div>
-
-        {ispopup ?
-          <>
-            <div>
-              <Popup
-                title={"Add / Edit Test?"}
-                desc1={"The following Test will be placed!"}
-                desc2={"Please click 'Confirm' to proceed?"}
-                listitems2={list}
-                confirmClick1={() => {
-                  console.log("***SUBMIT***", list)
-                  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                  addTest(async (data: any, errorresponse: any) => {
-                    if (data.status === 200) {
-                      setispopup(false)
-                      console.log('Sucess ' + JSON.stringify(data));
-                      window.location.reload()
-                      // alert("successfully added")
-                      setbackendresponse("Successfully Added!")
-                      setbackendresponse_popup(true)
-                    } else {
-                      setispopup(false)
-                      setbackendresponse("Failed, Please Try Again!")
-                      console.log('error ' + JSON.stringify(data));
-                      console.log('error ' + JSON.stringify(errorresponse));
-                    }
-                  }, token, list)
-                }}
-                cancelClick2={() => {
-                  console.log("***CANCEL***")
-                  setispopup(false)
-                }}
-              />
-            </div>
-          </>
-          :
-          null
-        }
-      </div>
-    </div>
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+      }
+    </>
   )
 }
 

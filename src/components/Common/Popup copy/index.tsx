@@ -240,7 +240,7 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, 
                   <div className='popup_button_container'>
                     <div
                       onClick={confirmClick1}
-                      className='popup_submit_button'>Comfirm</div>
+                      className='popup_submit_button'>Confirm</div>
                     <div
                       onClick={cancelClick2}
                       className='popup_cancel_button'>Cancel</div>
