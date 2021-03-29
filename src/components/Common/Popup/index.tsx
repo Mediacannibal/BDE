@@ -12,10 +12,10 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
   const [ispopup, setispopup] = useState(true)
 
   useEffect(() => {
-    console.log(title, desc1, desc2, popup_body, confirmClick, cancelClick)
-    if (((desc1 === null) || (desc1 === undefined)) && ((desc2 === null) || (desc2 === undefined))) {
-      setPopup_description_Text(false)
-    }
+    // console.log(title, desc1, desc2, popup_body, confirmClick, cancelClick)
+    // if (((desc1 === null) || (desc1 === undefined)) && ((desc2 === null) || (desc2 === undefined))) {
+    //   setPopup_description_Text(false)
+    // }
   }, [])
 
   return (
