@@ -3,7 +3,6 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import Header from 'components/common/Header';
 // import { getBidlogbyagentdata,  getBidlogdata } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 

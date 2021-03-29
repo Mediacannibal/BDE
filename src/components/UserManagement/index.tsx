@@ -7,13 +7,15 @@ import * as eye_invisible from '../../assets/eye-invisible.svg'
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
-import Header from 'components/common/Header';
 // import { createaccount, getuserList, postAppdata, updateProfile } from 'utils/api';
 
 
 import Spinner from 'components/Common/Spinner';
 import TextFieldWithRef from 'components/common/TextFieldWithRef';
 import TextField from 'components/common/TextFieldWithRef';
+
+export const header_options = () => <div>Hello</div>
+
 
 
 const UserManagement = () => {

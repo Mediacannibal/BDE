@@ -5,7 +5,6 @@ import * as send from '../../assets/send.svg'
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
-import Header from 'components/common/Header';
 import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import { taskAdd } from 'utils/api';
@@ -213,7 +212,6 @@ const AddEditTask = () => {
         </div> :
         null
       }
-      <Header screen={"AddEditTask"} />
 
       <div className="body">
 

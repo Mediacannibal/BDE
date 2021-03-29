@@ -1,4 +1,3 @@
-import Header from 'components/common/Header'
 import TextField from 'components/common/TextFieldWithRef'
 import SimpleEditor from 'react-simple-image-editor';
 import React, { useState } from 'react'

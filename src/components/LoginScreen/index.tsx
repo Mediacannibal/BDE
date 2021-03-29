@@ -9,7 +9,6 @@ import { Sociallogin } from '../../utils/actions'
 
 import './style.css'
 import '../../components/app.css'
-import Header from 'components/common/Header';
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 
