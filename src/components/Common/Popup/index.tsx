@@ -11,6 +11,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick }) =
   const [popus_body_container, setPopus_body_container] = useState(true);
   const [ispopup, setispopup] = useState(true)
 
+
   useEffect(() => {
     // console.log(title, desc1, desc2, popup_body, confirmClick, cancelClick)
     // if (((desc1 === null) || (desc1 === undefined)) && ((desc2 === null) || (desc2 === undefined))) {

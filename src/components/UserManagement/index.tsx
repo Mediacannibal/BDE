@@ -295,7 +295,9 @@ const UserManagement = (props: any) => {
 
       {popup ?
         <NewUserForm
-          setPopup={setpopup(false)}
+          setPopup={() => {
+            setpopup(false)
+          }}
         />
         :
         <div onClick={() => { setpopup(true) }}>click me </div>

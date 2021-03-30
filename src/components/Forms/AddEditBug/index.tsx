@@ -12,7 +12,7 @@ import { addBug } from 'utils/api';
 import * as trash from '../../../assets/trash.svg'
 import * as edit from '../../../assets/edit.png'
 
-const AddEditBug = () => {
+const AddEditBug = ({ setPopup }) => {
   const history = useHistory();
   const [number, setnumber] = useState(0)
   const [number00, setnumber00] = useState("00")
@@ -296,11 +296,7 @@ const AddEditBug = () => {
             console.log("***SEND***")
             setispopup(true)
           }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            // history.push("/TaskList")
-            // setPopup
-          }}
+          cancelClick={setPopup}
         />
         :
         <Popup

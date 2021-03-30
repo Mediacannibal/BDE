@@ -335,11 +335,7 @@ const AddEditTask = ({ setPopup }) => {
             console.log("***SEND***")
             setispopup(true)
           }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            // history.push("/TaskList")
-            setPopup
-          }}
+          cancelClick={setPopup}
         />
         :
         <Popup

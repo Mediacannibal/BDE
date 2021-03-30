@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import './style.css'
 
 
-const NewUserForm = (setPopup) => {
+const NewUserForm = ({ setPopup }) => {
   const history = useHistory();
 
   const [emptycompany_name, setemptycompany_name] = useState(false)
@@ -351,11 +351,7 @@ const NewUserForm = (setPopup) => {
             console.log("***SEND***")
             setispopup(true)
           }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            // history.push("/TaskList")
-            setPopup
-          }}
+          cancelClick={setPopup}
         />
         :
         <Popup

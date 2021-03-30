@@ -147,7 +147,9 @@ const TestingChecklist = (props: any) => {
 
       {popup ?
         <AddEditTest
-          setPopup={setpopup(false)}
+          setPopup={() => {
+            setpopup(false)
+          }}
         />
         :
         <div onClick={() => { setpopup(true) }}>click me </div>

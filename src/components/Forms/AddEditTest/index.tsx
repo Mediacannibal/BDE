@@ -13,7 +13,7 @@ import * as edit from '../../../assets/edit.png'
 import { addTest } from 'utils/api';
 
 
-const AddEditTest = (setPopup: any) => {
+const AddEditTest = ({ setPopup }) => {
   const history = useHistory();
   const [number, setnumber] = useState(0)
   const [number00, setnumber00] = useState("00")
@@ -353,11 +353,7 @@ const AddEditTest = (setPopup: any) => {
             console.log("***SEND***")
             setispopup(true)
           }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            // history.push("/TaskList")
-            setPopup
-          }}
+          cancelClick={setPopup}
         />
         :
         <Popup

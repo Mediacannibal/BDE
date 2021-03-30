@@ -9,7 +9,7 @@ import * as filter from '../../assets/filter.png'
 import { listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 
-const BugList = () => {
+const BugList = (props: any) => {
 
   const [listItems, setlistItems] = useState([
     {
@@ -30,7 +30,7 @@ const BugList = () => {
   const [unique_remarks, setunique_remarks] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
-  const [popup, setPopup] = useState(false)
+  const [popup, setpopup] = useState(false)
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -138,10 +138,12 @@ const BugList = () => {
 
       {popup ?
         <AddEditBug
-          setPopup={setPopup(false)}
+          setPopup={() => {
+            setpopup(false)
+          }}
         />
         :
-        <div onClick={() => { setPopup(true) }}>click me</div>
+        <div onClick={() => { setpopup(true) }}>click me</div>
       }
 
 
