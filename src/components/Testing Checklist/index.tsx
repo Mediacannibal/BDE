@@ -7,8 +7,9 @@ import { testListing } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
+import AddEditTest from 'components/Forms/AddEditTest';
 
-const TestingChecklist = () => {
+const TestingChecklist = (props: any) => {
 
   const [listItems, setlistItems] = useState([
     {
@@ -37,6 +38,8 @@ const TestingChecklist = () => {
 
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
+
+  const [popup, setpopup] = useState(false)
 
 
   // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -94,7 +97,6 @@ const TestingChecklist = () => {
           unique_image_link
         );
 
-
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -143,166 +145,15 @@ const TestingChecklist = () => {
         null
       }
 
+      {popup ?
+        <AddEditTest
+          setPopup={setpopup(false)}
+        />
+        :
+        <div onClick={() => { setpopup(true) }}>click me </div>
+      }
+
       <div className="body">
-
-        {/* <div className="bidlog_filterfield_container">
-
-          <select
-            className="customer bidrecord_dropdown"
-            id="customerpicker"
-          >
-            <option hidden value="">Customer</option>
-            {
-              unique_name_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bookeddate bidrecord_dropdown"
-            id="dropdown"
-            value={""}
-            onChange={(e) => {
-              console.log(e.target.value)
-            }} >
-            <option hidden value="">Booked Date</option>
-            <option value="a">a</option>
-            <option value="b">b</option>
-            <option value="c">c</option>
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="biddatepicker"
-          >
-            <option hidden value="">Bid Date</option>
-            {
-              unique_bookeddate_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="dayornightpicker"
-          >
-            <option hidden value="">Slot</option>
-            {
-              unique_dayornight_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="bracketcombinationpicker"
-          >
-            <option hidden value="">Combi</option>
-            {
-              unique_bracketcombination_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="numberpicker"
-          >
-            <option hidden value="">Number</option>
-            {
-              unique_number_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="amountpicker"
-          >
-            <option value={""}>Amount</option>
-            {
-              unique_amount_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <button className="bidrecord_filterandclose_button"
-            onClick={() => {
-              let data = {
-                "amount": document.getElementById("amountpicker").value,
-                "bookeddate": document.getElementById("biddatepicker").value,
-                "bracketcombination": document.getElementById("bracketcombinationpicker").value,
-                "dayornight": document.getElementById("dayornightpicker").value,
-                "name": document.getElementById("customerpicker").value,
-                "number": document.getElementById("numberpicker").value,
-                // "user": document.getElementById("userpicker").value,
-              }
-              console.log(data);
-              let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-              getBidlogfiltereddata(async (data: any, errorresponse: any) => {
-                if (data.status === 200) {
-                  setspinner(false)
-                  setlistItems(data.data)
-                  let amount_arry: Iterable<any> | null | undefined = []
-                  let bookeddate_arry: Iterable<any> | null | undefined = []
-                  let bracketcombination_arry: Iterable<any> | null | undefined = []
-                  let dayornight_arry: Iterable<any> | null | undefined = []
-                  let name_arry: Iterable<any> | null | undefined = []
-                  let number_arry: Iterable<any> | null | undefined = []
-                  let user_arry: Iterable<any> | null | undefined = []
-                  data.data.forEach((element: any) => {
-                    amount_arry.push(element.amount)
-                    bookeddate_arry.push(element.bookeddate)
-                    bracketcombination_arry.push(element.bracketcombination)
-                    dayornight_arry.push(element.dayornight)
-                    name_arry.push(element.name)
-                    number_arry.push(element.number)
-                    // user_arry.push(element.user)
-                  });
-                  setunique_amount_arry(Array.from(new Set(amount_arry)));
-                  setunique_bookeddate_arry(Array.from(new Set(bookeddate_arry)))
-                  setunique_bracketcombination_arry(Array.from(new Set(bracketcombination_arry)))
-                  setunique_dayornight_arry(Array.from(new Set(dayornight_arry)))
-                  setunique_name_arry(Array.from(new Set(name_arry)))
-                  setunique_number_arry(Array.from(new Set(number_arry)))
-                  // setunique_user_arry(Array.from(new Set(user_arry)))
-
-                  console.log(
-                    unique_amount_arry,
-                    unique_bookeddate_arry,
-                    unique_bracketcombination_arry,
-                    unique_dayornight_arry,
-                    unique_name_arry,
-                    unique_number_arry,
-                    // unique_user_arry
-                  );
-                  setfilterindicator(true)
-                } else {
-                  setspinner(false)
-                  console.log('error ' + JSON.stringify(data));
-                  console.log('error ' + JSON.stringify(errorresponse));
-                }
-              }, token, data)
-
-            }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
-
-          {filterindicator ?
-            <button className="bidrecord_filterandclose_button"
-              onClick={() => {
-                window.location.reload()
-              }}>X</button>
-            :
-            null
-          }
-
-        </div> */}
-
         <div className="internal_table">
           <table id='internal_table'>
             <thead>
@@ -315,7 +166,6 @@ const TestingChecklist = () => {
             </tbody>
           </table>
         </div>
-
       </div>
 
       <Footer />

@@ -255,7 +255,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\r\n\"company_name\": \"akash collage\",\r\n\"department\": \"ec\",\r\n\"username\" :\"admin14\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869974\",\r\n\"user_type\":\"NORMAL\",\r\n\"email\": \"akashts14@gmail.com\",\r\n\"firstname\":\"firstname\",\r\n\"lastname\":\"lastname\"\r\n\r\n }"
+                            "raw": "{\r\n\"company_name\": \"akash collageccc\",\r\n\"department\": \"ecc\",\r\n\"username\" :\"admin146\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869974\",\r\n\"user_type\":\"NORMAL\",\r\n\"email\": \"akashts146@gmail.com\",\r\n\"firstname\":\"firstname\",\r\n\"lastname\":\"lastname\"\r\n\r\n }\r\n "
                         },
                         "url": "{{url}}api\/user\/social\/signup\/normal\/"
                     },
@@ -318,38 +318,6 @@
                     "response": []
                 },
                 {
-                    "name": "{{url}}api\/task\/project\/edit\/1\/",
-                    "id": "55eaadc1-5001-41b3-913e-8847ffad3dfc",
-                    "request": {
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Token {{token}}",
-                                "type": "text",
-                                "disabled": true
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "formdata",
-                            "formdata": [
-                                {
-                                    "key": "name",
-                                    "value": "shangedowda",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": "{{url}}api\/task\/project\/edit\/1\/"
-                    },
-                    "response": []
-                },
-                {
                     "name": "{{url}}api\/task\/task\/edit\/1\/",
                     "id": "28bda9eb-6a8d-4468-8fe0-45c400f2481c",
                     "request": {
@@ -383,7 +351,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "[\r\n    {\r\n        \r\n        \"project_name\": \"ew\",\r\n        \"title\": \"sdfghghgdwfghrer\",\r\n        \"description\": \"sdafgfgg\",\r\n        \"assignee\": \"wergtr\",\r\n        \"is_deleted\": false\r\n      \r\n    },\r\n    {\r\n        \"project_name\": \"ewr\",\r\n        \"title\": \"sdfghghgerwhyrere\",\r\n        \"description\": \"sdafgfggewregtr\",\r\n        \"assignee\": \"ergtyj\",\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n\r\n        \"project_name\": \"ew\",\r\n        \"title\": \"sdfghghgefrgthyukilo;\",\r\n        \"description\": \"sdafgfggfdsjkl\",\r\n        \"assignee\": \"ghjklu\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
+                            "raw": "[\r\n    {\r\n        \"project_name\": \"Akash Collage website\",\r\n        \"domain\": \"Frontend\",\r\n        \"title\": \"web list\",\r\n        \"task_type\": \"BUG\",\r\n        \"description\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"assignee\": \"akash\",\r\n        \"portrait\": \"ctfygbhn\",\r\n        \"landscape\": \"right\",\r\n        \"device_or_browser\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"remarks\": \"no\",\r\n        \"image_link\": \"http:\/\/127.0.0.1:8000\/admin\/core\/devtasks\/add\/\"\r\n    },   \r\n    {\r\n        \"project_name\": \"Akash Collage website1\",\r\n        \"domain\": \"Backend\",\r\n        \"title\": \"web list1\",\r\n        \"task_type\": \"BUG\",\r\n        \"description\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"assignee\": \"akash adi\",\r\n        \"portrait\": \"ctfygbhn\",\r\n        \"landscape\": \"right\",\r\n        \"device_or_browser\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"remarks\": \"no\",\r\n        \"image_link\": \"http:\/\/127.0.0.1:8000\/admin\/core\/devtasks\/add\/\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
                         },
                         "url": "{{url}}api\/task\/add\/"
                     },
@@ -401,8 +369,7 @@
                             {
                                 "key": "Authorization",
                                 "value": "Token {{token}}",
-                                "type": "text",
-                                "disabled": true
+                                "type": "text"
                             },
                             {
                                 "key": "Content-Type",
@@ -412,7 +379,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": " {\r\n        \"name\": \"akash adi\",\r\n        \"title\": \"god is great one \",\r\n        \"description\": \"this is one of the mostfd \",\r\n        \"status\": \"TO DO\",\r\n   \r\n        \"start_date_at\": \"2021-03-15T06:00:00Z\",\r\n        \"end_date_at\": \"2021-03-10T12:00:00Z\",\r\n        \"is_deleted\": false,\r\n        \"user\": 1\r\n    }"
+                            "raw": "[\r\n    {\r\n        \"branch\": \"akash adi\",\r\n        \"project_type\": null,\r\n        \"title\": \"god is great one\",\r\n        \"description\": \"this is one of the mostfd\",\r\n        \"file_links\": null,\r\n        \"logo\": \"https:\/\/trtappfiles.s3.amazonaws.com\/file\/avatar\/none.png\",\r\n        \"status\": \"TO DO\",\r\n        \"start_date\": null,\r\n        \"end_date\": null,\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"branch\": \"akash adi\",\r\n        \"project_type\": null,\r\n        \"title\": \"god is great one\",\r\n        \"description\": \"this is one of the mostfd\",\r\n        \"file_links\": null,\r\n        \"logo\": \"https:\/\/trtappfiles.s3.amazonaws.com\/file\/avatar\/none.png\",\r\n        \"status\": \"TO DO\",\r\n        \"start_date\": null,\r\n        \"end_date\": null,\r\n        \"is_deleted\": false\r\n    }]"
                         },
                         "url": "{{url}}api\/task\/project\/add\/"
                     },
@@ -557,7 +524,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "[\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
+                            "raw": "[\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"remarks\": null\r\n    },\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"remarks\": null\r\n    }\r\n]"
                         },
                         "url": "{{url}}api\/task\/buglist\/add\/"
                     },

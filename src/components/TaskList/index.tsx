@@ -38,7 +38,7 @@ const TaskList = (props: any) => {
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
 
-  const [popup, setPopup] = useState(false)
+  const [popup, setpopup] = useState(false)
 
   let params = useParams();
   useEffect(() => {
@@ -102,7 +102,6 @@ const TaskList = (props: any) => {
   const renderBody = (element: any) => {
     return (
       <tr key={element.project_name}>
-
         <td>{element.project_name}</td>
         <td>...</td>
         <td>...</td>
@@ -131,10 +130,10 @@ const TaskList = (props: any) => {
 
       {popup ?
         <AddEditTask
-          setPopup={setPopup(false)}
+          setPopup={setpopup(false)}
         />
         :
-        <div onClick={() => { setPopup(true) }}>click me</div>
+        <div onClick={() => { setpopup(true) }}>click me </div>
       }
 
       <div className="body">

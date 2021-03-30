@@ -54,6 +54,7 @@
         "css-loader": "^5.0.1",
         "moment": "^2.29.1",
         "react": "^16.11.0",
+        "react-chat-window": "^1.2.1",
         "react-countdown-hook": "^1.0.2",
         "react-custom-scrollbars": "^4.2.1",
         "react-datepicker": "^3.6.0",

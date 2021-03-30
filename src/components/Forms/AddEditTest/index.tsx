@@ -13,7 +13,7 @@ import * as edit from '../../../assets/edit.png'
 import { addTest } from 'utils/api';
 
 
-const AddEditTest = () => {
+const AddEditTest = (setPopup: any) => {
   const history = useHistory();
   const [number, setnumber] = useState(0)
   const [number00, setnumber00] = useState("00")
@@ -84,7 +84,7 @@ const AddEditTest = () => {
 
   }, [])
 
-  const navigate = (param) => {
+  const navigate = (param: string) => {
     console.log("///////////////")
     history.replace('/' + param)
   }
@@ -232,7 +232,6 @@ const AddEditTest = () => {
           title={"Add / Edit Test"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
@@ -357,7 +356,7 @@ const AddEditTest = () => {
           cancelClick={() => {
             console.log("***CANCEL***")
             // history.push("/TaskList")
-            // setPopup
+            setPopup
           }}
         />
         :

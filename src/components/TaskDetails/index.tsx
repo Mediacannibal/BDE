@@ -8,6 +8,7 @@ import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 // import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
+import { Launcher } from 'react-chat-window'
 
 
 const TaskDetails = () => {
@@ -63,7 +64,7 @@ const TaskDetails = () => {
 
   let params = useParams();
   useEffect(() => {
-    setspinner(true)
+    setspinner(false)
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     if (token === null)
       // history.push("/")
@@ -255,6 +256,18 @@ const TaskDetails = () => {
                   <img className="iconimg" src={sendIcon} />
                 </div>
               </div>
+            </div>
+
+            <div>
+              {/* <Launcher
+                agentProfile={{
+                  teamName: 'react-chat-window',
+                  imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+                }}
+                // onMessageWasSent={this._onMessageWasSent.bind(this)}
+                // messageList={this.state.messageList}
+                showEmoji
+              /> */}
             </div>
           </div>
         </div>
