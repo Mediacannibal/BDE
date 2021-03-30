@@ -83,7 +83,7 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
                 <div className="menu_logo_wrapper">
 
                     <div
-                        onClick={() => { history.replace('/Home') }} >
+                        onClick={() => { history.replace('/') }} >
                         <img className='main_menu_logo' src={menu_open ? logofull : logo} />
                     </div>
 
