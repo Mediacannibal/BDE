@@ -20,6 +20,8 @@ import AddEditTest from './Forms/AddEditTest';
 import AddEditBug from './Forms/AddEditBug';
 import AddEditTask from './Forms/AddEditTask';
 import NewUserForm from './Forms/NewUserForm';
+import UserProfile from './UserMenuItems/UserProfile';
+import UserSettings from './UserMenuItems/UserSettings';
 
 const dashboard_screen = [
   { path: '/', component: HomeScreen, header: header_options },
@@ -32,7 +34,10 @@ const dashboard_screen = [
   { path: '/AddEditBug', component: AddEditBug, header: header_options },
   { path: '/UserManagement', component: UserManagement, header: header_options },
   { path: '/AddEditTest', component: AddEditTest, header: header_options },
-  { path: '/AddEditTask', component: AddEditTask, header: header_options },]
+  { path: '/AddEditTask', component: AddEditTask, header: header_options },
+  { path: '/UserProfile', component: UserProfile, header: header_options },
+  { path: '/UserSettings', component: UserSettings, header: header_options },
+]
 
 const fullpage_screen = [
   { path: '/Login', component: LoginScreen, header: header_options },

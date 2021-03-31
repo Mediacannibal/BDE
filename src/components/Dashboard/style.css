@@ -177,3 +177,7 @@
 .header_center_subcontainer {
     display: flex;
 }
+
+.header_settings{
+    display: flex;
+}

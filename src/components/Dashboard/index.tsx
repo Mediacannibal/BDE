@@ -30,14 +30,19 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
+import UserSettings from 'components/UserMenuItems/UserSettings';
 
-const Dashboard = ({ screen, screen_name, header_options }) => {
+const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const history = useHistory();
 
     const [menu_open, setMenu_open] = useState(true)
     const [usertype, setusertype] = useState("NORMAL")
     const [username, setUsername] = useState("")
+    const [profile_picture, setprofile_picture] = useState("")
+
+    const [settings_popup, setsettings_popup] = useState(false)
+
 
     const [user_menu_open, setUser_menu_open] = useState(false)
 
@@ -51,9 +56,11 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
         if (UserDetails !== null) {
             let usertype1 = UserDetails.user_type
             let username1 = UserDetails.firstname
+            let profile_picture = UserDetails.photo_url
             console.log(screen, usertype1)
             setusertype(usertype1)
             setUsername(username1)
+            setprofile_picture(profile_picture)
         }
     }, [])
 
@@ -77,7 +84,15 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
 
     return (
         <div className="main_wrapper">
-
+            {settings_popup ?
+                <UserSettings
+                    setPopup={() => {
+                        setsettings_popup(false)
+                    }}
+                />
+                :
+                null
+            }
             <div className="main_menu_left">
 
                 <div className="menu_logo_wrapper">
@@ -171,7 +186,7 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
                             <img className='header_icon' src={chat} />
                             <img className='header_icon' src={bell} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
-                                <img className='user_icon' src={user} />
+                                <img className='user_icon' src={profile_picture} />
                                 <div className='header_title'>{username}</div>
                                 <img className={user_menu_open ? 'user_menu_arrow_icon' : 'user_menu_arrow_icon rotate180'} src={up_down_arrow} />
 
@@ -179,7 +194,9 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
 
                                     ? <div className='user_menu'>
 
-                                        <div className='user_menu_item'>
+                                        <div className='user_menu_item' onClick={() => {
+                                            history.push("/UserProfile")
+                                        }}>
                                             <img className='header_icon' src={user} />
                                             <div className='header_title'>Profile</div>
                                         </div>
@@ -188,8 +205,11 @@ const Dashboard = ({ screen, screen_name, header_options }) => {
                                             <div className='header_title'>misc</div>
                                         </div>
                                         <div className='user_menu_item'>
-                                            <img className='header_icon' src={settings} />
-                                            <div className='header_title'>Settings</div>
+                                            <div className="header_settings"
+                                                onClick={() => { setsettings_popup(true) }}>
+                                                <img className='header_icon' src={settings} />
+                                                <div>Settings</div>
+                                            </div>
                                         </div>
                                         <div className='user_menu_item'
                                             onClick={() => {
