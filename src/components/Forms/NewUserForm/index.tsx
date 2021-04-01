@@ -16,7 +16,8 @@ const NewUserForm = ({ setPopup }) => {
   const history = useHistory();
 
   const [emptycompany_name, setemptycompany_name] = useState(false)
-  const [emptydepartment, setemptydepartment] = useState(false)
+  const [emptylocation, setemptylocation] = useState(false)
+  const [emptybranch_name, setemptybranch_name] = useState(false)
   const [emptyfirstname, setemptyfirstname] = useState(false)
   const [emptylastname, setemptylastname] = useState(false)
   const [emptyemail, setemptyemail] = useState(false)
@@ -32,7 +33,8 @@ const NewUserForm = ({ setPopup }) => {
   const [showtable, setshowtable] = useState(false)
 
   const [company_name, setcompany_name] = useState('')
-  const [department, setdepartment] = useState('')
+  const [location, setlocation] = useState('')
+  const [branch_name, setbranch_name] = useState('')
   const [username, setusername] = useState('')
   const [firstname, setfirstname] = useState('')
   const [lastname, setlastname] = useState('')
@@ -49,7 +51,7 @@ const NewUserForm = ({ setPopup }) => {
 
   const [list, setlist] = useState([{
     "company_name": "",
-    "department": "",
+    "branch_name": "",
     "firstname": "",
     "lastname": "",
     "email": "",
@@ -71,7 +73,7 @@ const NewUserForm = ({ setPopup }) => {
   }
 
   const renderHeader = () => {
-    let headerElement = ['', 'Company Name', 'Department', 'User Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password', '']
+    let headerElement = ['', 'Company Name', 'branch_name', 'User Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password', '']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -92,7 +94,7 @@ const NewUserForm = ({ setPopup }) => {
               className='sendicon' src={edit} />
           </div>
           <td>{element.company_name}</td>
-          <td>{element.department}</td>
+          <td>{element.branch_name}</td>
           <td>{element.email}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
@@ -129,7 +131,7 @@ const NewUserForm = ({ setPopup }) => {
       if (i !== index) { a.push(x[i]) }
       else {
         setname(x[i].company_name)
-        setisselectslot(x[i].department)
+        setisselectslot(x[i].branch_name)
         setisSelect(x[i].firstname)
         setnumber(Number(x[i].lastname))
         setamount(x[i].email)
@@ -165,7 +167,7 @@ const NewUserForm = ({ setPopup }) => {
 
   const Validate = () => {
     let company_name = String(document.getElementById("companyname_data").value);
-    let department = String(document.getElementById("Department_data").value);
+    let branch_name = String(document.getElementById("branch_name_data").value);
     let username = String(document.getElementById("email_data").value);
     let firstname = String(document.getElementById("firstname_data").value);
     let lastname = String(document.getElementById("lastname_data").value);
@@ -175,14 +177,14 @@ const NewUserForm = ({ setPopup }) => {
     let password = String(document.getElementById("password_data").value);
 
     let temp = true
-    if (company_name.length === 0 || department.length === 0 || username.length === 0 || firstname.length === 0 || lastname.length === 0 || email.length === 0 || phone.length === 0 || isSelect.length === 0 || password.length === 0) {
+    if (company_name.length === 0 || branch_name.length === 0 || username.length === 0 || firstname.length === 0 || lastname.length === 0 || email.length === 0 || phone.length === 0 || isSelect.length === 0 || password.length === 0) {
       temp = false
       if (company_name.length === 0) {
         setemptycompany_name(true);
         console.log("company name is empty")
-      } if (department.length === 0)
-        setemptydepartment(true);
-      console.log("department is empty")
+      } if (branch_name.length === 0)
+        setemptybranch_name(true);
+      console.log("branch_name is empty")
       if (firstname.length === 3)
         setemptyfirstname(true);
       console.log("firstname is empty")
@@ -195,16 +197,17 @@ const NewUserForm = ({ setPopup }) => {
       if (phone.length === 0)
         setemptyphone(true);
       console.log("phone is empty")
+      if (user_type.length === 0)
+        setemptypassword(true);
+      console.log("User Type is empty")
       if (password.length === 0)
         setemptypassword(true);
       console.log("Password is empty")
-
     }
     return temp
   }
 
   return (
-
     <>
       { !ispopup ?
         <Popup
@@ -231,16 +234,33 @@ const NewUserForm = ({ setPopup }) => {
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
-                    label={"Department"}
-                    id="Department_data"
-                    name={`data.Department`}
-                    inputtype="Department"
+                    label={"Location"}
+                    id="location_data"
+                    name={`data.location`}
+                    inputtype="Text"
                     type="text"
                     min_length="1"
                     required={true}
-                    valid={setemptydepartment}
-                    value={setdepartment}
-                    setvalue={department}
+                    valid={setemptylocation}
+                    value={setlocation}
+                    setvalue={location}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <TextField
+                    label={"Branch Name"}
+                    id="branch_name_data"
+                    name={`data.branch_name`}
+                    inputtype="branch_name"
+                    type="text"
+                    min_length="1"
+                    required={true}
+                    valid={setemptybranch_name}
+                    value={setbranch_name}
+                    setvalue={branch_name}
                   />
                 </div>
               </div>

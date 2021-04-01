@@ -197,7 +197,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                         <div className='user_menu_item' onClick={() => {
                                             history.push("/UserProfile")
                                         }}>
-                                            <img className='header_icon' src={user} />
+                                            <img className='header_icon' src={profile_picture} />
                                             <div className='header_title'>Profile</div>
                                         </div>
                                         <div className='user_menu_item'>
@@ -222,7 +222,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                         </div>
 
                                     </div>
-
                                     : null
                                 }
 

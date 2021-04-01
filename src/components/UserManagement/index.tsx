@@ -193,7 +193,7 @@ const UserManagement = (props: any) => {
   }, [])
 
   const renderHeader = () => {
-    let headerElement = ['Company Name', 'Department', 'User Name', 'First Name', 'Last Name', 'Email', 'Phone', 'Password', 'UserType']
+    let headerElement = ['Company Name', 'Location', 'Branch Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>

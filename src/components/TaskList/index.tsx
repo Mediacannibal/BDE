@@ -113,12 +113,6 @@ const TaskList = (props: any) => {
     )
   }
 
-  const parsetime = (time: any) => {
-    let d = new Date(time)
-    let a = d.getDate() + '/' + String(d.getMonth() + 1) + '/' + d.getFullYear() + "," + d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-    // console.log(time, d)
-    return a
-  }
   return (
     <div className="main">
       {spinner ?
