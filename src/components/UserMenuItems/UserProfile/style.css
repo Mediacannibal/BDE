@@ -1,15 +1,19 @@
-.user_details {
+.user_container {
     display: flex;
     align-items: center;
 }
 
-.user_details_sub_container {
+.user_warp {
+    display: flex
+}
+
+.user_sub_container {
     background-color: var(--color_14);
     color: var(--color_5);
     border-radius: calc(0.25vw + 0.75vh + 0.25vmin);
-    margin: calc(1.2vw + 3.6vh + 1.2vmin);
+    margin: calc(0.6vw + 1.8vh + 0.6vmin);
     padding: calc(0.2vw + 0.6vh + 0.2vmin);
-    width: 45vh;
+    width: 50vh;
     height: 40vh;
 }
 

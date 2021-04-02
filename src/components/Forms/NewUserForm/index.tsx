@@ -3,9 +3,6 @@ import SimpleEditor from 'react-simple-image-editor';
 import React, { useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import * as trash from '../../../assets/trash.svg'
-import * as edit from '../../../assets/edit.png'
-import * as send from '../../../assets/send.svg'
 import { newUserSignup } from 'utils/api';
 import Popup from 'components/Common/Popup';
 import { useHistory } from 'react-router-dom';
@@ -15,14 +12,6 @@ import './style.css'
 const NewUserForm = ({ setPopup }) => {
   const history = useHistory();
 
-  const [emptycompany_name, setemptycompany_name] = useState(false)
-  const [emptylocation, setemptylocation] = useState(false)
-  const [emptybranch_name, setemptybranch_name] = useState(false)
-  const [emptyfirstname, setemptyfirstname] = useState(false)
-  const [emptylastname, setemptylastname] = useState(false)
-  const [emptyemail, setemptyemail] = useState(false)
-  const [emptyphone, setemptyphone] = useState(false)
-  const [emptypassword, setemptypassword] = useState(false)
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
@@ -30,27 +19,29 @@ const NewUserForm = ({ setPopup }) => {
   const [isselectslot, setisselectslot] = useState('value')
 
   const [ispopup, setispopup] = useState(false)
-  const [showtable, setshowtable] = useState(false)
 
   const [company_name, setcompany_name] = useState('')
   const [location, setlocation] = useState('')
   const [branch_name, setbranch_name] = useState('')
-  const [username, setusername] = useState('')
   const [firstname, setfirstname] = useState('')
   const [lastname, setlastname] = useState('')
   const [email, setemail] = useState('')
-  const [phone, setphone] = useState('')
+  const [phoneno, setphoneno] = useState('')
   const [user_type, setuser_type] = useState('')
   const [password, setpassword] = useState('')
 
-  const [number, setnumber] = useState(0)
-  const [number00, setnumber00] = useState("00")
-  const [name, setname] = useState('');
-  const [amount, setamount] = useState('');
-  const [isSelect, setisSelect] = useState('value')
+  const [iscompany_nameemptyerror, setcompany_nameemptyerror] = useState(false)
+  const [islocationemptyerror, setlocationemptyerror] = useState(false)
+  const [isbranch_nameemptyerror, setbranch_nameemptyerror] = useState(false)
+  const [isfirstnameemptyerror, setfirstnameemptyerror] = useState(false)
+  const [islastnameemptyerror, setlastnameemptyerror] = useState(false)
+  const [isemailemptyerror, setemailemptyerror] = useState(false)
+  const [isphonenoemptyerror, setphonenoemptyerror] = useState(false)
+  const [ispasswordemptyerror, setpasswordemptyerror] = useState(false)
 
   const [list, setlist] = useState([{
     "company_name": "",
+    "location": "",
     "branch_name": "",
     "firstname": "",
     "lastname": "",
@@ -60,152 +51,13 @@ const NewUserForm = ({ setPopup }) => {
     "password": "",
   }])
 
-  const updateinputdata = (data: any) => {
-
-    let buff = []
-    list.forEach(element => {
-      if (element.company_name.length !== 0)
-        buff.push(element)
-    });
-    buff.push(data)
-    setlist(buff)
-    console.log(buff)
-  }
-
-  const renderHeader = () => {
-    let headerElement = ['', 'Company Name', 'branch_name', 'User Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password', '']
-
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
-  }
-
-
-  const renderBody = (element: any, index: any) => {
-
-    return (
-      <>
-        <tr key={element.bug_title}>
-          <div className='senddiv'>
-            <img onClick={() => {
-              editrow(element, index)
-              console.log(">>>>>>>>>>>>>>>>>>", element)
-            }}
-              className='sendicon' src={edit} />
-          </div>
-          <td>{element.company_name}</td>
-          <td>{element.branch_name}</td>
-          <td>{element.email}</td>
-          <td>{element.firstname}</td>
-          <td>{element.lastname}</td>
-          <td>{element.email}</td>
-          <td>{element.phone}</td>
-          <td>{element.password}</td>
-          <div className='senddiv'>
-            <img onClick={() => removerow(element, index)}
-              className='sendicon' src={trash} />
-          </div>
-        </tr>
-      </>
-    )
-  }
-
-  const removerow = (element: any, index: any) => {
-
-    console.log(list, element, index)
-    let x = list
-    let a = []
-    for (let i = 0; i < x.length; i++) {
-      if (i !== index)
-        a.push(x[i])
-    }
-    setlist(a);
-  }
-
-  const editrow = (element: any, index: any) => {
-
-    console.log(list, element, index)
-    let x = list
-    let a = []
-    for (let i = 0; i < x.length; i++) {
-      if (i !== index) { a.push(x[i]) }
-      else {
-        setname(x[i].company_name)
-        setisselectslot(x[i].branch_name)
-        setisSelect(x[i].firstname)
-        setnumber(Number(x[i].lastname))
-        setamount(x[i].email)
-
-        a.push(x[i])
-
-        console.log(a)
-      }
-    }
-    setlist(a);
-  }
-
-  const phonenumberformatter = (value: any) => {
-    var prefix = "+91"
-    if (value.indexOf(prefix) !== 0) {
-      setphone({ "value": prefix + value, "error": "", "isvalid": "false" });
-      return prefix + value
-    }
-
-    return value
-
-  }
-
-
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
-
   console.log(errors);
-
-  const Validate = () => {
-    let company_name = String(document.getElementById("companyname_data").value);
-    let branch_name = String(document.getElementById("branch_name_data").value);
-    let username = String(document.getElementById("email_data").value);
-    let firstname = String(document.getElementById("firstname_data").value);
-    let lastname = String(document.getElementById("lastname_data").value);
-    let email = String(document.getElementById("email_data").value);
-    let phone = String(document.getElementById("phoneno_data").value);
-    let user_type = String(document.getElementById("user_type_data").value);
-    let password = String(document.getElementById("password_data").value);
-
-    let temp = true
-    if (company_name.length === 0 || branch_name.length === 0 || username.length === 0 || firstname.length === 0 || lastname.length === 0 || email.length === 0 || phone.length === 0 || isSelect.length === 0 || password.length === 0) {
-      temp = false
-      if (company_name.length === 0) {
-        setemptycompany_name(true);
-        console.log("company name is empty")
-      } if (branch_name.length === 0)
-        setemptybranch_name(true);
-      console.log("branch_name is empty")
-      if (firstname.length === 3)
-        setemptyfirstname(true);
-      console.log("firstname is empty")
-      if (lastname.length === 0)
-        setemptylastname(true);
-      console.log("lastname is empty")
-      if (email.length === 0)
-        setemptyemail(true);
-      console.log("email is empty")
-      if (phone.length === 0)
-        setemptyphone(true);
-      console.log("phone is empty")
-      if (user_type.length === 0)
-        setemptypassword(true);
-      console.log("User Type is empty")
-      if (password.length === 0)
-        setemptypassword(true);
-      console.log("Password is empty")
-    }
-    return temp
-  }
 
   return (
     <>
@@ -222,11 +74,12 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.CompanyName`}
                     inputtype="Text"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptycompany_name}
-                    value={setcompany_name}
-                    setvalue={company_name}
+                    valid={iscompany_nameemptyerror}
+                    setvalid={setcompany_nameemptyerror}
+                    value={company_name}
+                    onChange={setcompany_name}
                   />
                 </div>
               </div>
@@ -239,11 +92,12 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.location`}
                     inputtype="Text"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptylocation}
-                    value={setlocation}
-                    setvalue={location}
+                    valid={islocationemptyerror}
+                    setvalid={setlocationemptyerror}
+                    value={location}
+                    onChange={setlocation}
                   />
                 </div>
               </div>
@@ -256,11 +110,12 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.branch_name`}
                     inputtype="branch_name"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptybranch_name}
-                    value={setbranch_name}
-                    setvalue={branch_name}
+                    valid={isbranch_nameemptyerror}
+                    setvalid={setbranch_nameemptyerror}
+                    value={branch_name}
+                    onChange={setbranch_name}
                   />
                 </div>
               </div>
@@ -273,11 +128,12 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.FirstName`}
                     inputtype="firstname"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptyfirstname}
-                    value={setfirstname}
-                    setvalue={firstname}
+                    valid={isfirstnameemptyerror}
+                    setvalid={setfirstnameemptyerror}
+                    value={firstname}
+                    onChange={setfirstname}
                   />
                 </div>
               </div>
@@ -290,11 +146,13 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.LastName`}
                     inputtype="lastname"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptylastname}
-                    value={setlastname}
-                    setvalue={lastname} />
+                    valid={islastnameemptyerror}
+                    setvalid={setlastnameemptyerror}
+                    value={lastname}
+                    onChange={setlastname}
+                  />
                 </div>
               </div>
 
@@ -306,10 +164,13 @@ const NewUserForm = ({ setPopup }) => {
                     inputtype="email"
                     type="text"
                     name={`data.EmailID`}
+                    min_length="3"
                     required={true}
-                    valid={setemptyemail}
-                    value={setemail}
-                    setvalue={email} />
+                    valid={isemailemptyerror}
+                    setvalid={setemailemptyerror}
+                    value={email}
+                    onChange={setemail}
+                  />
                 </div>
               </div>
 
@@ -324,9 +185,10 @@ const NewUserForm = ({ setPopup }) => {
                     maxLength="10"
                     input_inner_leftprop={<div>+91</div>}
                     required={true}
-                    valid={setemptyphone}
-                    value={setphone}
-                    setvalue={phone}
+                    valid={isphonenoemptyerror}
+                    setvalid={setphonenoemptyerror}
+                    value={phoneno}
+                    onChange={setphoneno}
                   />
                 </div>
               </div>
@@ -357,11 +219,12 @@ const NewUserForm = ({ setPopup }) => {
                     name={`data.password`}
                     inputtype="password"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptypassword}
-                    value={setpassword}
-                    setvalue={password}
+                    valid={ispasswordemptyerror}
+                    setvalid={setpasswordemptyerror}
+                    value={password}
+                    onChange={setpassword}
                   />
                 </div>
               </div>

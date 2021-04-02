@@ -100,10 +100,11 @@
 }
 
 .inputfield_main_container {
+    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
 .inputfield_sub_container {
-    padding: calc(0.25vw + 0.75vh + 0.25vmin) 0 0;
+    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
 .textinput_box_container:focus-within {
@@ -112,13 +113,7 @@
     border-style: solid;
 }
 
-.textinput_box {
-    font-size: var(--TS5);
-    line-height: 1.15;
-    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
-    border-color: transparent;
-    text-align: center;
-}
+.textinput_box {}
 
 .textinput_box:focus {
     outline: none !important;
@@ -331,9 +326,7 @@ tr:nth-child(even) {
     text-decoration-color: var(--color_7);
 }
 
-.popup_description {
-    
-}
+.popup_description {}
 
 .popup_text {
     font-size: var(--TS7);

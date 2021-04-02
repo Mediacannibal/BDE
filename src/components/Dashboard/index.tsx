@@ -15,7 +15,6 @@ import UserManagement from '../UserManagement';
 
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'
-import * as add from '../../assets/add.svg'
 import * as back from '../../assets/previous.svg'
 
 import * as menu from '../../assets/menu.svg'
@@ -25,7 +24,6 @@ import * as bug from '../../assets/bug.svg'
 import * as meeting from '../../assets/meeting.svg'
 import * as tested from '../../assets/tested.svg'
 import * as team from '../../assets/team.svg'
-import * as user from '../../assets/user_icon.svg'
 import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
@@ -54,12 +52,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
         let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
         if (UserDetails !== null) {
-            let usertype1 = UserDetails.user_type
-            let username1 = UserDetails.firstname
+            let usertype = UserDetails.user_type
+            let username = UserDetails.firstname
             let profile_picture = UserDetails.photo_url
-            console.log(screen, usertype1)
-            setusertype(usertype1)
-            setUsername(username1)
+            console.log(screen, usertype)
+            setusertype(usertype)
+            setUsername(username)
             setprofile_picture(profile_picture)
         }
     }, [])
@@ -183,7 +181,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
                         <div
                             className='header_subcontainer'>
-                            <img className='header_icon' src={chat} />
+                            <img className='header_icon' src={chat} onClick={() => {
+                                history.push('/TaskDetails')
+                            }} />
                             <img className='header_icon' src={bell} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
                                 <img className='user_icon' src={profile_picture} />
@@ -220,16 +220,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                             <img className='header_icon' src={back} />
                                             <div className='header_title'>Logout</div>
                                         </div>
-
                                     </div>
                                     : null
                                 }
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
                 {screen}

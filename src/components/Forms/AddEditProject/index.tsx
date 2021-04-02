@@ -1,58 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-import * as send from '../../../assets/send.svg'
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
-import Spinner from 'components/Common/Spinner';
 import Popup from 'components/Common/Popup'
 import { taskAdd } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
-import * as trash from '../../../assets/trash.svg'
-import * as edit from '../../../assets/edit.png'
+
 
 
 
 const AddEditProject = ({ setPopup }) => {
   const history = useHistory();
 
-  const [projectname, setprojectname] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
-  const [assignee, setassignee] = useState('')
-  const [updatesby, setupdatesby] = useState('')
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [spinner, setspinner] = useState(false)
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [name, setname] = useState('');
-  const [amount, setamount] = useState('');
-  const [number, setnumber] = useState(0)
-  const [number00, setnumber00] = useState("00")
-  const [isSelect, setisSelect] = useState('value')
   const [isselectslot, setisselectslot] = useState('value')
-
-
-  const [emptyprojectname, setemptyprojectname] = useState(false)
-  const [emptytitle, setemptytitle] = useState(false)
-  const [emptydescription, setemptydescription] = useState(false)
-  const [emptyassignee, setemptyassignee] = useState(false)
-  const [emptyupdatesby, setemptyupdatesby] = useState(false)
-
-
-  const [isnameemptyerror, setnameemptyerror] = useState(false)
-  const [isdateemptyerror, setdateemptyerror] = useState(false)
-  const [isnumberemptyerror, setnumberemptyerror] = useState(false)
+  const [istitleemptyerror, settitleemptyerror] = useState(false)
+  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
   const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [iscombinationemptyerror, setcombinationemptyerror] = useState(false)
-  const [isamountemptyerror, setamountemptyerror] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
 
   const [ispopup, setispopup] = useState(false)
-  const [showtable, setshowtable] = useState(false)
   const [list, setlist] = useState([{
     "project_name": "",
     "title": "",
@@ -61,146 +35,14 @@ const AddEditProject = ({ setPopup }) => {
     "updated_by": "",
   }])
 
-  const updateinputdata = (data: any) => {
-
-    let buff = []
-    list.forEach(element => {
-      if (element.project_name.length !== 0)
-        buff.push(element)
-    });
-
-    buff.push(data)
-    setlist(buff)
-    console.log(buff)
-
-  }
-
-  useEffect(() => {
-
-  }, [])
-
-  const navigate = (param: string) => {
-    console.log("///////////////")
-    history.replace('/' + param)
-  }
-
-  const renderHeader = () => {
-    let headerElement = ['', 'Project Name', 'Title', 'Description', 'Assignee', 'Updated By', '']
-
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
-  }
-
-  const editrow = (element: any, index: any) => {
-
-    console.log(list, element, index)
-    let x = list
-    let a = []
-    for (let i = 0; i < x.length; i++) {
-      if (i !== index) { a.push(x[i]) }
-      else {
-        setname(x[i].project_name)
-        setisselectslot(x[i].title)
-        setisSelect(x[i].description)
-        setnumber(Number(x[i].assignee))
-        setamount(x[i].updated_by)
-
-        a.push(x[i])
-
-        console.log(a)
-      }
-    }
-    setlist(a);
-  }
-
-  const reversedate = (data: any) => {
-    let date = new Date(data)
-    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-  }
-
-  const removerow = (element: any, index: any) => {
-
-    console.log(list, element, index)
-    let x = list
-    let a = []
-    for (let i = 0; i < x.length; i++) {
-      if (i !== index)
-        a.push(x[i])
-    }
-    setlist(a);
-  }
-
-  const renderBody = (element: any, index: any) => {
-
-    return (
-      <>
-        <tr key={element.project_name}>
-          <div className='senddiv'>
-            <img onClick={() => {
-              editrow(element, index)
-              console.log(">>>>>>>>>>>>>>>>>>", element)
-            }}
-              className='sendicon' src={edit} />
-          </div>
-          <td>{element.project_name}</td>
-          <td>{element.title}</td>
-          <td>{element.description}</td>
-          <td>{element.assignee}</td>
-          <td>{element.updated_by}</td>
-          <div className='senddiv'>
-            <img onClick={() => removerow(element, index)}
-              className='sendicon' src={trash} />
-          </div>
-        </tr>
-      </>
-    )
-  }
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
-
   console.log(errors);
 
-
-  const parsetime = (time: any) => {
-    let d = new Date(time)
-    let a = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
-    console.log(time, d)
-    return a
-  }
-
-  const Validate = () => {
-    let project_name = String(document.getElementById("project_name_data").value);
-    let title = String(document.getElementById("title_data").value);
-    let description = String(document.getElementById("description_data").value);
-    let assignee = String(document.getElementById("assignee_data").value);
-    let updated_by = String(document.getElementById("updateby_data").value);
-    let temp = true
-    if (project_name.length === 0 || title.length === 0 || description.length === 0 || assignee.length === 0 || updated_by.length === 0) {
-      temp = false
-      if (project_name.length === 0) {
-        setnameemptyerror(true);
-        console.log("ProjectName is empty")
-      } if (title.length === 0)
-        setslotemptyerror(true);
-      console.log("Title is empty")
-      if (description.length === 0)
-        setcombinationemptyerror(true);
-      console.log("Description is empty")
-      if (assignee.length === 0)
-        setamountemptyerror(true);
-      console.log("Assignee is empty")
-      if (updated_by.length === 0)
-        setamountemptyerror(true);
-      console.log("UpdatedBy is empty")
-    }
-
-    return temp
-  }
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
@@ -209,7 +51,6 @@ const AddEditProject = ({ setPopup }) => {
     formdata.append("file", filedata)
     // imageUpload(Callback, formdata)
   }
-
 
   return (
     <>
@@ -246,11 +87,12 @@ const AddEditProject = ({ setPopup }) => {
                     name={`data.Title`}
                     inputtype="Text"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptytitle}
-                    value={settitle}
-                    setvalue={title}
+                    valid={istitleemptyerror}
+                    setvalid={settitleemptyerror}
+                    value={title}
+                    onChange={settitle}
                   />
                 </div>
               </div>
@@ -263,11 +105,12 @@ const AddEditProject = ({ setPopup }) => {
                     name={`data.Description`}
                     inputtype="Text"
                     type="text"
-                    min_length="1"
+                    min_length="3"
                     required={true}
-                    valid={setemptydescription}
-                    value={setdescription}
-                    setvalue={description}
+                    valid={isdescriptionemptyerror}
+                    setvalid={setdescriptionemptyerror}
+                    value={description}
+                    onChange={setdescription}
                   />
                 </div>
               </div>

@@ -39,9 +39,9 @@ const UserProfile = () => {
     <>
       <div className="main">
         <div className="body">
-          <div>
-            <div className="user_details">
-              <div className="user_details_sub_container">
+          <div className="user_warp">
+            <div className="user_container">
+              <div className="user_sub_container">
                 <img className='user_profile_picture' src={profile_picture} />
 
                 <div className="user_profile_text">My Profile</div>
@@ -62,7 +62,7 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              <div className="user_details_sub_container">
+              <div className="user_sub_container">
                 <div className='user_sub_details'>
                   <div className="user_details_text">Active Project:</div>
                 </div>
@@ -77,6 +77,21 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
+
+          <div className="user_warp">
+            <div className="user_sub_container">
+              <div className='user_sub_details'>
+                <div className="user_details_text">Branch Name:</div>
+              </div>
+            </div>
+
+            <div className="user_sub_container">
+              <div className='user_sub_details'>
+                <div className="user_details_text">Company:</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
