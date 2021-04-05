@@ -8,6 +8,8 @@ import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
 import AddEditTest from 'components/Forms/AddEditTest';
+import TestSelectionForm from 'components/Forms/TestSelection';
+import TestSelection from 'components/Forms/TestSelection';
 
 const TestingChecklist = (props: any) => {
 
@@ -40,6 +42,7 @@ const TestingChecklist = (props: any) => {
   const [userID, setuserID] = useState("")
 
   const [popup, setpopup] = useState(false)
+  const [testselection, settestselection] = useState(false)
 
 
   // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -108,7 +111,7 @@ const TestingChecklist = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['No.', 'Test', 'Portrait', 'Landscape', 'Device', 'Remarks', 'Image link']
+    let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Remarks', 'Image link', 'Orientation', 'Interface']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -120,12 +123,13 @@ const TestingChecklist = (props: any) => {
     return (
       <tr key={element.test}>
         <td>{element.number}</td>
-        <td>{element.test}</td>
-        <td>{element.portrait}</td>
-        <td>{element.landscape}</td>
-        <td>{element.device}</td>
+        <td>...</td>
+        <td>...</td>
+        <td></td>
         <td>{element.remarks}</td>
         <td>{element.image_link}</td>
+        <td>...</td>
+        <td>...</td>
       </tr>
     )
   }
@@ -153,6 +157,16 @@ const TestingChecklist = (props: any) => {
         />
         :
         <div onClick={() => { setpopup(true) }}>click me </div>
+      }
+
+      {testselection ?
+        <TestSelection
+          setTest={() => {
+            settestselection(false)
+          }}
+        />
+        :
+        <div onClick={() => { settestselection(true) }}>click me-2 </div>
       }
 
       <div className="body">
