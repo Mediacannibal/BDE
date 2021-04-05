@@ -123,13 +123,13 @@ const TestingChecklist = (props: any) => {
     return (
       <tr key={element.test}>
         <td>{element.number}</td>
-        <td></td>
-        <td></td>
+        <td>...</td>
+        <td>...</td>
         <td></td>
         <td>{element.remarks}</td>
         <td>{element.image_link}</td>
-        <td></td>
-        <td></td>
+        <td>...</td>
+        <td>...</td>
       </tr>
     )
   }
