@@ -3,13 +3,23 @@
 }
 
 .checkbox_sub_container {
+    display: flex;
     font-family: 'Poppins';
     font-size: var(--TS4);
     align-self: center;
-    padding: 0 0.6vw;
+    align-items: center;
 }
 
-.Portrait {
-    height: 40px;
-    width: 40px;
+.checkbox_text {
+    font-family: 'Poppins';
+    font-size: var(--TS4);
+    align-self: center;
+    align-items: center;
+    margin: var(--TS10);
+}
+
+.checkbox {
+    height: 30px;
+    width: 30px;
+    margin: var(--TS9);
 }
