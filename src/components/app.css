@@ -226,10 +226,10 @@ tr:nth-child(even) {
     border-width: calc(0.07vw + 0.21vh + 0.07vmin);
     border-style: solid;
     border-radius: calc(0.3vw + 0.9vh + 0.3vmin);
-    font-size: var(--TS4);
+    /* font-size: var(--TS4); */
     line-height: 6vh;
     overflow: hidden;
-    margin: 4vh 10vh;
+    /* margin: 4vh 10vh; */
 }
 
 #internal_table thead {

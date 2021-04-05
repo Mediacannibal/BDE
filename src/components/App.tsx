@@ -19,6 +19,7 @@ import UserProfile from './UserMenuItems/UserProfile';
 import UserSettings from './UserMenuItems/UserSettings';
 import ChatProject from './ChatProject';
 import NewUserForm from './Forms/NewUserForm';
+import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen, header: header_options },
@@ -33,6 +34,7 @@ const dashboard_screen = [
   { path: '/UserSettings', component: UserSettings, header: header_options },
   { path: '/ChatProject', component: ChatProject, header: header_options },
   { path: '/NewUserForm', component: NewUserForm, header: header_options },
+  { path: '/TestSelectionForm', component: TestSelectionForm, header: header_options },
 ]
 
 const fullpage_screen = [
