@@ -15,13 +15,26 @@ const AddEditTask = ({ setPopup }) => {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
+  const [android, setandroid] = useState('')
+  const [ios, setios] = useState('')
+  const [browser, setbrowser] = useState('')
+  const [api_name, setapi_name] = useState('')
+  const [path, setpath] = useState('')
+  const [request, setrequest] = useState('')
+  const [response, setresponse] = useState('')
 
-  const [portrait, setportrait] = useState('')
+  const [androidcheckbox, setandroidcheckbox] = useState(false)
+  const [ioscheckbox, setioscheckbox] = useState(false)
+  const [browsercheckbox, setbrowsercheckbox] = useState(false)
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   const [inputvalue, setinputvalue] = useState("")
+  const [isfrontend, setisfrontend] = useState(false)
+  const [isbackend, setisbackend] = useState(false)
+
+  const [selectdomain, setselectdomain] = useState('value')
 
 
   const [isselectslot, setisselectslot] = useState('value')
@@ -30,7 +43,13 @@ const AddEditTask = ({ setPopup }) => {
   const [istitleemptyerror, settitleemptyerror] = useState(false)
   const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
   const [isassigneeemptyerror, setassigneeemptyerror] = useState(false)
-  const [isportraitemptyerror, setportraitemptyerror] = useState(false)
+  const [isandroidemptyerror, setandroidemptyerror] = useState(false)
+  const [isiosemptyerror, setiosemptyerror] = useState(false)
+  const [isbrowseremptyerror, setbrowseremptyerror] = useState(false)
+  const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(false)
+  const [ispathemptyerror, setpathemptyerror] = useState(false)
+  const [isrequestemptyerror, setrequestemptyerror] = useState(false)
+  const [isresponseemptyerror, setresponseemptyerror] = useState(false)
 
   const [isslotemptyerror, setslotemptyerror] = useState(false)
 
@@ -86,74 +105,6 @@ const AddEditTask = ({ setPopup }) => {
               </div >
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      console.log(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">DOMAIN</option>
-                    <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                  </select>
-                </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
-              </div>
-
-              <div className="input_checkbox">
-                <div className="checkbox_sub_container">
-                  <input type="checkbox" id="Portrait" className="Portrait" name="Portrait" value="Portrait" />
-                  Portrait
-                </div>
-
-                <div className="checkbox_sub_container">
-                  <input type="checkbox" id="Landscape" name="Landscape" value="Landscape" />
-                  Landscape
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      console.log(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">DISPLAY</option>
-                    <option value="frontend">PORTRAIT</option>
-                    <option value="backend">LANDSCAPE</option>
-                  </select>
-                </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a DISPLAY!</div> : null}
-              </div>
-
-
-
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">TASK TYPE</option>
-                    <option value="DAY">FEATURE</option>
-                    <option value="NIGHT">TEST</option>
-                    <option value="NIGHT">BUG</option>
-                  </select>
-                </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
-              </div>
-
-              <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
                     label={"Title"}
@@ -188,6 +139,256 @@ const AddEditTask = ({ setPopup }) => {
                   />
                 </div>
               </div>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={isselectslot}
+                    onChange={(e) => {
+                      setslotemptyerror(false)
+                      setisselectslot(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">TASK TYPE</option>
+                    <option value="DAY">FEATURE</option>
+                    <option value="NIGHT">TEST</option>
+                    <option value="NIGHT">BUG</option>
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+              </div>
+
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={selectdomain}
+                    onChange={(e: any) => {
+                      console.log(e.target.value)
+                      setselectdomain(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">DOMAIN</option>
+                    <option value="frontend">FRONT END</option>
+                    <option value="backend">BACK END</option>
+                    <option value="ui">UI</option>
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
+              </div>
+
+              {(selectdomain === "frontend") ?
+                <>
+                  <div className="input_checkbox">
+                    <div className="checkbox_sub_container">
+                      <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                      <div className="checkbox_text">Portrait</div>
+                    </div>
+
+                    <div className="checkbox_sub_container">
+                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                      <div className="checkbox_text">Landscape</div>
+                    </div>
+                  </div>
+
+                  <div className="user_band">
+
+                  </div>
+
+                  <div className="input_checkbox">
+                    <div className="checkbox_sub_container">
+                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        onChange={(e) => {
+                          console.log(e);
+                          setandroidcheckbox(!androidcheckbox);
+                        }} />
+                      <div className="checkbox_text">Android</div>
+                    </div>
+
+                    {androidcheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Android"}
+                            id="android_data"
+                            name={`data.android`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isandroidemptyerror}
+                            setvalid={setandroidemptyerror}
+                            value={android}
+                            onChange={setandroid} />
+                        </div>
+                      </div>
+                      :
+                      null}
+                  </div>
+
+                  <div className="input_checkbox">
+                    <div className="checkbox_sub_container">
+                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        onChange={(e) => {
+                          console.log(e);
+                          setioscheckbox(!ioscheckbox);
+                        }} />
+                      <div className="checkbox_text">IOS</div>
+                    </div>
+
+                    <div className="input_checkbox">
+                      {ioscheckbox ?
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <TextField
+                              label={"IOS"}
+                              id="ios_data"
+                              name={`data.ios`}
+                              inputtype="Text"
+                              type="text"
+                              min_length="3"
+                              required={true}
+                              valid={isiosemptyerror}
+                              setvalid={setiosemptyerror}
+                              value={ios}
+                              onChange={setios} />
+                          </div>
+                        </div>
+                        :
+                        null}
+                    </div>
+                  </div>
+
+                  <div className="input_checkbox">
+                    <div className="checkbox_sub_container">
+                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        onChange={(e) => {
+                          console.log(e);
+                          setbrowsercheckbox(!browsercheckbox);
+                        }} />
+                      <div className="checkbox_text">Browser</div>
+                    </div>
+
+                    {browsercheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Browser"}
+                            id="browser_data"
+                            name={`data.browser`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isbrowseremptyerror}
+                            setvalid={setbrowseremptyerror}
+                            value={browser}
+                            onChange={setbrowser} />
+                        </div>
+                      </div>
+                      :
+                      null}
+                  </div>
+                </>
+                :
+                null
+              }
+
+              {selectdomain === "backend" ?
+                <>
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <TextField
+                        label={"API Name"}
+                        id="api_name_data"
+                        name={`data.api_name`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={isapi_nameemptyerror}
+                        setvalid={setapi_nameemptyerror}
+                        value={api_name}
+                        onChange={setapi_name} />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                        required={isslotemptyerror}
+                        value={isselectslot}
+                        onChange={(e) => {
+                          console.log(e.target.value)
+                          // setisbackend(!isbackend)
+                        }}
+                      >
+                        <option hidden value="">API METHOD</option>
+                        <option value="get">GET</option>
+                        <option value="post">POST</option>
+                        <option value="put">PUT</option>
+                        <option value="delete">DELETE</option>
+                      </select>
+                    </div>
+                    {isslotemptyerror ? <div className="invalid_entry">Please select a API METHOD!</div> : null}
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <TextField
+                        label={"Path"}
+                        id="path_data"
+                        name={`data.path`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={ispathemptyerror}
+                        setvalid={setpathemptyerror}
+                        value={path}
+                        onChange={setpath} />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <TextField
+                        label={"Request"}
+                        id="request_data"
+                        name={`data.request`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={isrequestemptyerror}
+                        setvalid={setrequestemptyerror}
+                        value={request}
+                        onChange={setrequest} />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <TextField
+                        label={"Response"}
+                        id="response_data"
+                        name={`data.response`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={isresponseemptyerror}
+                        setvalid={setresponseemptyerror}
+                        value={response}
+                        onChange={setresponse} />
+                    </div>
+                  </div>
+                </>
+                :
+                null
+              }
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
