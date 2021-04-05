@@ -198,17 +198,18 @@ const AddEditTask = ({ setPopup }) => {
 
                   </div>
 
-                  <div className="input_checkbox">
-                    <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                        onChange={(e) => {
-                          console.log(e);
-                          setandroidcheckbox(!androidcheckbox);
-                        }} />
-                      <div className="checkbox_text">Android</div>
-                    </div>
+                  <div className="input_devices">
+                    <div className="input_checkbox">
+                      <div className="checkbox_sub_container">
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                          onChange={(e) => {
+                            console.log(e);
+                            setandroidcheckbox(!androidcheckbox);
+                          }} />
+                        <div className="checkbox_text">Android</div>
+                      </div>
 
-                    {androidcheckbox ?
+                      {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
                           <TextField
@@ -226,21 +227,20 @@ const AddEditTask = ({ setPopup }) => {
                         </div>
                       </div>
                       :
-                      null}
-                  </div>
-
-                  <div className="input_checkbox">
-                    <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                        onChange={(e) => {
-                          console.log(e);
-                          setioscheckbox(!ioscheckbox);
-                        }} />
-                      <div className="checkbox_text">IOS</div>
+                      null} */}
                     </div>
 
                     <div className="input_checkbox">
-                      {ioscheckbox ?
+                      <div className="checkbox_sub_container">
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                          onChange={(e) => {
+                            console.log(e);
+                            setioscheckbox(!ioscheckbox);
+                          }} />
+                        <div className="checkbox_text">IOS</div>
+                      </div>
+
+                      {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
                             <TextField
@@ -258,21 +258,21 @@ const AddEditTask = ({ setPopup }) => {
                           </div>
                         </div>
                         :
-                        null}
-                    </div>
-                  </div>
+                        null} */}
 
-                  <div className="input_checkbox">
-                    <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                        onChange={(e) => {
-                          console.log(e);
-                          setbrowsercheckbox(!browsercheckbox);
-                        }} />
-                      <div className="checkbox_text">Browser</div>
                     </div>
 
-                    {browsercheckbox ?
+                    <div className="input_checkbox">
+                      <div className="checkbox_sub_container">
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                          onChange={(e) => {
+                            console.log(e);
+                            setbrowsercheckbox(!browsercheckbox);
+                          }} />
+                        <div className="checkbox_text">Browser</div>
+                      </div>
+
+                      {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
                           <TextField
@@ -290,7 +290,8 @@ const AddEditTask = ({ setPopup }) => {
                         </div>
                       </div>
                       :
-                      null}
+                      null} */}
+                    </div>
                   </div>
                 </>
                 :

@@ -14,17 +14,22 @@ const AddEditTest = ({ setPopup }) => {
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
+  const [isslotemptyerror, setslotemptyerror] = useState(false)
+  const [selectdomain, setselectdomain] = useState('value')
+  const [isselectslot, setisselectslot] = useState('value')
 
-  const [test, settest] = useState('');
+
+
+  const [test_title, settest_title] = useState('');
   const [portrait, setportrait] = useState('');
   const [device, setdevice] = useState('');
-  const [remarks, setremarks] = useState('');
+  const [test_description, settest_description] = useState('');
 
-  const [isnumberemptyerror, setnumberemptyerror] = useState(false)
-  const [istestemptyerror, settestemptyerror] = useState(false)
+  const [istest_titleemptyerror, settest_titleemptyerror] = useState(false)
   const [isportraitemptyerror, setportraitemptyerror] = useState(false)
   const [isdeviceemptyerror, setdeviceemptyerror] = useState(false)
   const [isremarksemptyerror, setremarksemptyerror] = useState(false)
+  const [istest_descriptionemptyerror, settest_descriptionemptyerror] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
 
@@ -64,19 +69,58 @@ const AddEditTest = ({ setPopup }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={selectdomain}
+                    onChange={(e: any) => {
+                      console.log(e.target.value)
+                      setselectdomain(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">PROJECT</option>
+                    {/* <option value="frontend">FRONT END</option>
+                    <option value="backend">BACK END</option>
+                    <option value="ui">UI</option>
+                    <option value="ui">DEV OPS</option> */}
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a PROJECT!</div> : null}
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={isselectslot}
+                    onChange={(e) => {
+                      setslotemptyerror(false)
+                      setisselectslot(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">TASK TYPE</option>
+                    <option value="DAY">FEATURE</option>
+                    <option value="NIGHT">TEST</option>
+                    <option value="NIGHT">BUG</option>
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+              </div>
+
+              <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
-                    label={"Number of Test"}
-                    id="number_data"
-                    name={`data.number`}
-                    inputtype="number"
-                    type="number"
-                    min_length="1"
+                    label={"Test Title"}
+                    id="test_title_data"
+                    name={`data.test_title`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
                     required={true}
-                    valid={isnumberemptyerror}
-                    setvalid={setnumberemptyerror}
-                    value={number}
-                    onChange={setnumber}
+                    valid={istest_titleemptyerror}
+                    setvalid={settest_titleemptyerror}
+                    value={test_title}
+                    onChange={settest_title}
                   />
                 </div>
               </div>
@@ -84,92 +128,133 @@ const AddEditTest = ({ setPopup }) => {
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
-                    label={"Test"}
-                    id="test_data"
-                    name={`data.test`}
+                    label={"Test Description"}
+                    id="test_description_data"
+                    name={`data.test_description`}
                     inputtype="Text"
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istestemptyerror}
-                    setvalid={settestemptyerror}
-                    value={test}
-                    onChange={settest}
+                    valid={istest_descriptionemptyerror}
+                    setvalid={settest_descriptionemptyerror}
+                    value={test_description}
+                    onChange={settest_description}
                   />
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Portrait"}
-                    id="portrait_data"
-                    name={`data.Portrait`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isportraitemptyerror}
-                    setvalid={setportraitemptyerror}
-                    value={portrait}
-                    onChange={setportrait}
-                  />
+              <div className="input_checkbox">
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                  <div className="checkbox_text">Portrait</div>
+                </div>
+
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                  <div className="checkbox_text">Landscape</div>
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Landscape"}
-                    id="landscape_data"
-                    name={`data.landscape`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isportraitemptyerror}
-                    setvalid={setportraitemptyerror}
-                    value={portrait}
-                    onChange={setportrait}
-                  />
+              <div className="user_band">
+
+              </div>
+
+              <div className="input_devices">
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setandroidcheckbox(!androidcheckbox);
+                      }} />
+                    <div className="checkbox_text">Android</div>
+                  </div>
+
+                  {/* {androidcheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Android"}
+                            id="android_data"
+                            name={`data.android`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isandroidemptyerror}
+                            setvalid={setandroidemptyerror}
+                            value={android}
+                            onChange={setandroid} />
+                        </div>
+                      </div>
+                      :
+                      null} */}
+                </div>
+
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setioscheckbox(!ioscheckbox);
+                      }} />
+                    <div className="checkbox_text">IOS</div>
+                  </div>
+
+                  {/* {ioscheckbox ?
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <TextField
+                              label={"IOS"}
+                              id="ios_data"
+                              name={`data.ios`}
+                              inputtype="Text"
+                              type="text"
+                              min_length="3"
+                              required={true}
+                              valid={isiosemptyerror}
+                              setvalid={setiosemptyerror}
+                              value={ios}
+                              onChange={setios} />
+                          </div>
+                        </div>
+                        :
+                        null} */}
+
+                </div>
+
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setbrowsercheckbox(!browsercheckbox);
+                      }} />
+                    <div className="checkbox_text">Browser</div>
+                  </div>
+
+                  {/* {browsercheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Browser"}
+                            id="browser_data"
+                            name={`data.browser`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isbrowseremptyerror}
+                            setvalid={setbrowseremptyerror}
+                            value={browser}
+                            onChange={setbrowser} />
+                        </div>
+                      </div>
+                      :
+                      null} */}
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Device"}
-                    id="device_data"
-                    name={`data.device`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isdeviceemptyerror}
-                    setvalid={setdeviceemptyerror}
-                    value={device}
-                    onChange={setdevice}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Remarks"}
-                    id="remarks_data"
-                    name={`data.remarks`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isremarksemptyerror}
-                    setvalid={setremarksemptyerror}
-                    value={remarks}
-                    onChange={setremarks}
-                  />
-                </div>
-              </div>
 
               <div className="inputfield_sub_container">
                 <div className="upload-wrap">
