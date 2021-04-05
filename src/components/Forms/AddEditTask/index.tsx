@@ -174,6 +174,7 @@ const AddEditTask = ({ setPopup }) => {
                     <option value="frontend">FRONT END</option>
                     <option value="backend">BACK END</option>
                     <option value="ui">UI</option>
+                    <option value="ui">DEV OPS</option>
                   </select>
                 </div>
                 {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
