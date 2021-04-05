@@ -15,10 +15,13 @@ const AddEditTask = ({ setPopup }) => {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
-  const [updateby, setupdateby] = useState('')
+
+  const [portrait, setportrait] = useState('')
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
+
+  const [inputvalue, setinputvalue] = useState("")
 
 
   const [isselectslot, setisselectslot] = useState('value')
@@ -27,7 +30,7 @@ const AddEditTask = ({ setPopup }) => {
   const [istitleemptyerror, settitleemptyerror] = useState(false)
   const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
   const [isassigneeemptyerror, setassigneeemptyerror] = useState(false)
-  const [isupdatebyemptyerror, setupdatebyemptyerror] = useState(false)
+  const [isportraitemptyerror, setportraitemptyerror] = useState(false)
 
   const [isslotemptyerror, setslotemptyerror] = useState(false)
 
@@ -48,6 +51,14 @@ const AddEditTask = ({ setPopup }) => {
     console.log(data);
   };
   console.log(errors);
+
+  const _onChangeHandler = (data: any) => {
+    console.log(data.target.files[0])
+    let formdata = new FormData()
+    let filedata = data.target.files[0]
+    formdata.append("file", filedata)
+    // imageUpload(Callback, formdata)
+  }
 
   return (
     <>
@@ -80,18 +91,48 @@ const AddEditTask = ({ setPopup }) => {
                     required={isslotemptyerror}
                     value={isselectslot}
                     onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
+                      console.log(e.target.value)
                     }}
                   >
                     <option hidden value="">DOMAIN</option>
-                    <option value="DAY">FRONT END</option>
-                    <option value="NIGHT">BACK END</option>
-                    <option value="NIGHT">UI</option>
+                    <option value="frontend">FRONT END</option>
+                    <option value="backend">BACK END</option>
+                    <option value="ui">UI</option>
                   </select>
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+                {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
               </div>
+
+              <div className="input_checkbox">
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Portrait" className="Portrait" name="Portrait" value="Portrait" />
+                  Portrait
+                </div>
+
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Landscape" name="Landscape" value="Landscape" />
+                  Landscape
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
+                    required={isslotemptyerror}
+                    value={isselectslot}
+                    onChange={(e) => {
+                      console.log(e.target.value)
+                    }}
+                  >
+                    <option hidden value="">DISPLAY</option>
+                    <option value="frontend">PORTRAIT</option>
+                    <option value="backend">LANDSCAPE</option>
+                  </select>
+                </div>
+                {isslotemptyerror ? <div className="invalid_entry">Please select a DISPLAY!</div> : null}
+              </div>
+
+
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
@@ -167,21 +208,16 @@ const AddEditTask = ({ setPopup }) => {
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Update By"}
-                    id="updateby_data"
-                    name={`data.UpdatesBy`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isupdatebyemptyerror}
-                    setvalid={setupdatebyemptyerror}
-                    value={updateby}
-                    onChange={setupdateby}
-                  />
+                <div className="upload-wrap">
+                  <button type="button" className="nice-button">File links</button>
+                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
                 </div>
+                {
+                  (inputvalue !== null) ? <div>
+                    <img
+                      className='activity_selectedimage' src={inputvalue} />
+                  </div> : null
+                }
               </div>
             </form >
           }

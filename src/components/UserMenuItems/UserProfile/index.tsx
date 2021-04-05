@@ -13,6 +13,9 @@ const UserProfile = () => {
   const [firstname, setfirstname] = useState("")
   const [lastname, setlastname] = useState("")
   const [email, setemail] = useState("")
+  const [company_name, setcompany_name] = useState("")
+  const [branch, setbranch] = useState("")
+
 
   useEffect(() => {
 
@@ -39,59 +42,84 @@ const UserProfile = () => {
     <>
       <div className="main">
         <div className="body">
-          <div className="user_warp">
+          <div className="user_main_container">
             <div className="user_container">
-              <div className="user_sub_container">
-                <img className='user_profile_picture' src={profile_picture} />
 
-                <div className="user_profile_text">My Profile</div>
+              <div className="user_warp">
+                <div className="user_sub_container1">
+                  <img className='user_profile_picture' src={profile_picture} />
 
-                <div className='user_sub_details'>
-                  <div className="user_details_text">User Type:</div>
-                  {usertype}
-                </div>
+                  <div className='user_sub_details'>
+                    <div className="user_profile_text">My Profile</div>
+                  </div>
 
-                <div className='user_sub_details'>
-                  <div className="user_details_text">Name:</div>
-                  {firstname} {lastname}
-                </div>
+                  <div className="user_band">
 
-                <div className='user_sub_details'>
-                  <div className="user_details_text">E-mail:</div>
-                  {email}
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">User Type:</div>
+                    <div className="user_data">{usertype}</div>
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Name:</div>
+                    <div className="user_data">{firstname} {lastname}</div>
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">E-mail:</div>
+                    <div className="user_data">{email}</div>
+                  </div>
                 </div>
               </div>
 
-              <div className="user_sub_container">
-                <div className='user_sub_details'>
-                  <div className="user_details_text">Active Project:</div>
+              <div className="user_warp">
+
+                <div className="user_sub_container2">
+                  <div className='user_sub_details'>
+                    <div className="user_profile_text">Company</div>
+                  </div>
+
+                  <div className="user_band">
+
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Company Name:</div>
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Branch Name:</div>
+                  </div>
                 </div>
 
-                <div className='user_sub_details'>
-                  <div className="user_details_text">Active Task:</div>
+                <div className="user_sub_container2">
+
+                  <div className='user_sub_details'>
+                    <div className="user_profile_text">Project</div>
+                  </div>
+
+                  <div className="user_band">
+
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Active Project:</div>
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Active Task:</div>
+                  </div>
+
+                  <div className='user_sub_details'>
+                    <div className="user_details_text">Project History:</div>
+                  </div>
                 </div>
 
-                <div className='user_sub_details'>
-                  <div className="user_details_text">Project History:</div>
-                </div>
               </div>
             </div>
           </div>
-
-          <div className="user_warp">
-            <div className="user_sub_container">
-              <div className='user_sub_details'>
-                <div className="user_details_text">Branch Name:</div>
-              </div>
-            </div>
-
-            <div className="user_sub_container">
-              <div className='user_sub_details'>
-                <div className="user_details_text">Company:</div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </>

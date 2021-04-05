@@ -21,7 +21,7 @@ import ChatProject from './ChatProject';
 import NewUserForm from './Forms/NewUserForm';
 
 const dashboard_screen = [
-  { path: '/', component: HomeScreen, header: header_options },
+  { path: '/Home', component: HomeScreen, header: header_options },
   { path: '/Project', component: ProjectScreen, header: header_options },
   { path: '/Meeting', component: MeetingScreen, header: header_options },
   { path: '/TaskDetails', component: TaskDetails, header: header_options },
@@ -36,7 +36,7 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/Login', component: LoginScreen, header: header_options },
+  { path: '/', component: LoginScreen, header: header_options },
 ]
 
 

@@ -1,107 +1,15 @@
-.Booking_dropdowcontainer {
-    height: 30vh;
-    position: relative;
+.input_checkbox {
+    display: flex;
 }
 
-.Booking_dropdow1 {
-    margin-top: 2%;
-}
-
-.Booking_dropdow2 {
-    margin-top: 2%;
-}
-
-.Booking_Text {
-    display: block;
-    color: var(--color_2);
+.checkbox_sub_container {
+    font-family: 'Poppins';
     font-size: var(--TS4);
-    text-align: center;
-    margin: 2vh 2vh 2vh 0;
+    align-self: center;
+    padding: 0 0.6vw;
 }
 
-.Booking_input {
-    width: 10vw;
-    height: 8vh;
-    border-radius: 25vw;
-    border-color: transparent;
-    margin: 0 1vw;
-}
-
-.Booking_textinput_container {
-    height: 14vh;
-}
-
-.Bookng_backicon {
-    object-fit: contain;
-    width: 6vw;
-    height: 6vh;
-}
-
-.react-datepicker-wrapper>div>input {
-    font-size: var(--TS4);
-    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
-    border-color: transparent;
-    width: 70%;
-}
-
-.react-datepicker__close-icon::after {
-    width: calc(0.5vw + 1.5vh + 0.5vmin) !important;
-    height: calc(0.5vw + 1.5vh + 0.5vmin) !important;
-    font-size: var(--TS5) !important;
-    background-color: var(--color_7)!important;
-}
-
-.Booking_textinput_amount {
-    font-family: inherit;
-    font-size: var(--TS4);
-    line-height: 1.15;
-    margin: 0;
-    border-radius: 25vw;
-    border-color: transparent;
-    width: 50%;
-}
-
-.dropdown_box {
-    font-size: var(--TS4);
-    line-height: 1.15;
-    padding: 0px 2vw;
-    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
-    border-color: transparent;
-}
-
-#slot>option:nth-child(1) {
-    font-size: var(--TS4);
-}
-
-/* table */
-
-.booking_Table {
-    justify-content: center;
-}
-
-#booking_table {
-    background-color: var(--color_16);
-    color: var(--color_5);
-    border-color: var(--color_1);
-    border-width: calc(0.07vw + 0.21vh + 0.07vmin);
-    border-style: solid;
-    border-radius: calc(0.3vw + 0.9vh + 0.3vmin);
-    font-size: var(--TS4);
-    line-height: 6vh;
-    overflow: hidden;
-    margin: 2vh 0;
-}
-
-#booking_table thead {
-    background-color: var(--color_13);
-}
-
-#booking_table td, #booking_table th {
-    border: 1px solid var(--color_1);
-    padding: calc(0.1vw + 0.3vh + 0.1vmin) calc(0.2vw + 0.6vh + 0.2vmin);
-    line-height: calc(0.6vw + 1.8vh + 0.6vmin);
-}
-
-.opration {
-    text-align: center;
+.Portrait {
+    height: 40px;
+    width: 40px;
 }
