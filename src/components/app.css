@@ -220,20 +220,14 @@ tr:nth-child(even) {
 }
 
 #internal_table {
-    background-color: var(--color_4);
-    color: var(--color_5);
-    border-color: var(--color_1);
+    color: var(--color_1);
     border-width: calc(0.07vw + 0.21vh + 0.07vmin);
-    border-style: solid;
-    border-radius: calc(0.3vw + 0.9vh + 0.3vmin);
-    /* font-size: var(--TS4); */
     line-height: 6vh;
     overflow: hidden;
-    /* margin: 4vh 10vh; */
+    font-weight: 500;
 }
 
 #internal_table thead {
-    background-color: var(--color_13);
 }
 
 #internal_table td, #internal_table th {

@@ -92,6 +92,8 @@ const ProjectScreen = () => {
         <td>{element.description}</td>
         <td>{element.assignee}</td>
         <td>{element.updated_by}</td>
+        <td>...</td>
+        <td>...</td>
       </tr>
     )
   }
