@@ -264,8 +264,8 @@ export const getProjectDetails = (callback: (arg0: any, arg1: string) => void, t
     .catch(err => callback(err, err.response))
 }
 
-export const createProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`company/project/add/`, {
+export const createProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`company/project/add/`, data ,{
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

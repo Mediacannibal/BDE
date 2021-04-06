@@ -58,7 +58,6 @@ const AddEditTask = ({ setPopup }) => {
     "description": "",
     "task_type": "",
     "assignee": "",
-    "updated_by": "",
   }])
 
   const { register, handleSubmit, errors, reset } = useForm();

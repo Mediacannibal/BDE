@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { taskAdd } from 'utils/api';
+import { createProject, taskAdd } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
 
 
@@ -143,7 +143,7 @@ const AddEditProject = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SUBMIT***", list)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            taskAdd(async (data: any, errorresponse: any) => {
+            createProject(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
                 console.log('Sucess ' + JSON.stringify(data));
@@ -157,7 +157,7 @@ const AddEditProject = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            },token, list)
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
