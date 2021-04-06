@@ -24,8 +24,11 @@ const TaskList = (props: any) => {
     }
   ])
 
-  const [unique_project_name, setunique_project_name] = useState([])
+  const [unique_project_ref, setunique_project_ref] = useState([])
   const [unique_title, setunique_title] = useState([])
+  const [unique_task_type, setunique_task_type] = useState([])
+  const [unique_status, setunique_status] = useState([])
+  const [unique_domain, setunique_domain] = useState([])
   const [unique_description, setunique_description] = useState([])
   const [unique_assignee, setunique_assignee] = useState([])
   const [unique_updated_by, setunique_updated_by] = useState([])
@@ -61,25 +64,29 @@ const TaskList = (props: any) => {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_name: Iterable<any> | null | undefined = []
+        let project_ref: Iterable<any> | null | undefined = []
         let title: Iterable<any> | null | undefined = []
+        let task_type: Iterable<any> | null | undefined = []
+        let status: Iterable<any> | null | undefined = []
+        let domain: Iterable<any> | null | undefined = []
         let description: Iterable<any> | null | undefined = []
         let assignee: Iterable<any> | null | undefined = []
-        let updated_by: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
-          project_name.push(element.project_name)
+          project_ref.push(element.project_ref)
           title.push(element.title)
+          task_type.push(element.task_type)
+          status.push(element.status)
+          domain.push(element.domain)
           description.push(element.description)
           assignee.push(element.assignee)
-          updated_by.push(element.updated_by)
         });
-        setunique_project_name(Array.from(new Set(project_name)));
+        setunique_project_ref(Array.from(new Set(project_ref)));
         setunique_title(Array.from(new Set(title)))
+        setunique_task_type(Array.from(new Set(task_type)))
+        setunique_status(Array.from(new Set(status)))
+        setunique_domain(Array.from(new Set(domain)))
         setunique_description(Array.from(new Set(description)))
         setunique_assignee(Array.from(new Set(assignee)))
-        setunique_updated_by(Array.from(new Set(updated_by)))
-
-
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -92,7 +99,7 @@ const TaskList = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Project Name', 'Domain', 'Task Type', 'Title', 'Description', 'Assignee', 'Updated By']
+    let headerElement = ['Project ref', 'title', 'Task Type', 'status', 'domain', 'description', 'assignee']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -101,11 +108,12 @@ const TaskList = (props: any) => {
 
   const renderBody = (element: any) => {
     return (
-      <tr key={element.project_name}>
-        <td>{element.project_name}</td>
-        <td>...</td>
-        <td>...</td>
+      <tr key={element.project_ref}>
+        <td>{element.project_ref}</td>
         <td>{element.title}</td>
+        <td>{element.task_type}</td>
+        <td>{element.status}</td>
+        <td>{element.domain}</td>
         <td>{element.description}</td>
         <td>{element.assignee}</td>
         <td>{element.updated_by}</td>
@@ -215,7 +223,7 @@ const TaskList = (props: any) => {
           >
             <option value={""}>Amount</option>
             {
-              unique_project_name.map((element) => {
+              unique_project_ref.map((element) => {
                 return <option value={element}>{element}</option>
               })
             }

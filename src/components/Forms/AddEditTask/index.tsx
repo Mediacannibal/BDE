@@ -55,8 +55,10 @@ const AddEditTask = ({ setPopup }) => {
   const [list, setlist] = useState([{
     "project_ref": "",
     "title": "",
-    "description": "",
     "task_type": "",
+    "status": "",
+    "domain": "",
+    "description": "",
     "assignee": "",
   }])
 
@@ -449,7 +451,7 @@ const AddEditTask = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            }, token, list[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

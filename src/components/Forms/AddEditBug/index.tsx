@@ -30,7 +30,6 @@ const AddEditBug = ({ setPopup }) => {
     "bug_title": "",
     "orientation": "",
     "device": "",
-    "remarks": "",
     "image_link": "",
   }])
 
@@ -75,60 +74,117 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <select id="orientation" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">ORIENTATION</option>
-                    <option value="DAY">LANDSCAPE</option>
-                    <option value="NIGHT">PORTRAIT</option>
-                  </select>
+              <div className="input_checkbox">
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                  <div className="checkbox_text">Portrait</div>
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
-              </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Device"}
-                    id="device_data"
-                    name={`data.Device`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isdeviceemptyerror}
-                    setvalid={setdeviceemptyerror}
-                    value={device}
-                    onChange={setdevice}
-                  />
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                  <div className="checkbox_text">Landscape</div>
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <TextField
-                    label={"Remarks"}
-                    id="remarks_data"
-                    name={`data.Remarks`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isremarksemptyerror}
-                    setvalid={setremarksemptyerror}
-                    value={remarks}
-                    onChange={setremarks}
-                  />
-                </div>
+              <div className="user_band">
+
               </div>
 
+              <div className="input_devices">
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setandroidcheckbox(!androidcheckbox);
+                      }} />
+                    <div className="checkbox_text">Android</div>
+                  </div>
+
+                  {/* {androidcheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Android"}
+                            id="android_data"
+                            name={`data.android`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isandroidemptyerror}
+                            setvalid={setandroidemptyerror}
+                            value={android}
+                            onChange={setandroid} />
+                        </div>
+                      </div>
+                      :
+                      null} */}
+                </div>
+
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setioscheckbox(!ioscheckbox);
+                      }} />
+                    <div className="checkbox_text">IOS</div>
+                  </div>
+
+                  {/* {ioscheckbox ?
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <TextField
+                              label={"IOS"}
+                              id="ios_data"
+                              name={`data.ios`}
+                              inputtype="Text"
+                              type="text"
+                              min_length="3"
+                              required={true}
+                              valid={isiosemptyerror}
+                              setvalid={setiosemptyerror}
+                              value={ios}
+                              onChange={setios} />
+                          </div>
+                        </div>
+                        :
+                        null} */}
+
+                </div>
+
+                <div className="input_checkbox">
+                  <div className="checkbox_sub_container">
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                      onChange={(e) => {
+                        console.log(e);
+                        // setbrowsercheckbox(!browsercheckbox);
+                      }} />
+                    <div className="checkbox_text">Browser</div>
+                  </div>
+
+                  {/* {browsercheckbox ?
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <TextField
+                            label={"Browser"}
+                            id="browser_data"
+                            name={`data.browser`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={isbrowseremptyerror}
+                            setvalid={setbrowseremptyerror}
+                            value={browser}
+                            onChange={setbrowser} />
+                        </div>
+                      </div>
+                      :
+                      null} */}
+                </div>
+              </div>
               <div className="inputfield_sub_container">
                 <div className="upload-wrap">
                   <button type="button" className="nice-button">upload_file</button>

@@ -36,7 +36,6 @@ const AddEditTest = ({ setPopup }) => {
   const [ispopup, setispopup] = useState(false)
 
   const [list, setlist] = useState([{
-    "number": "",
     "test": "",
     "portrait": "",
     "landscape": "",
@@ -104,7 +103,7 @@ const AddEditTest = ({ setPopup }) => {
                     <option value="NIGHT">BUG</option>
                   </select>
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
+                {isslotemptyerror ? <div className="invalid_entry">Please select a TASK TYPE!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
