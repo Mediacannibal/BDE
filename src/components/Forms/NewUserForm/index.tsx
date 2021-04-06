@@ -16,7 +16,7 @@ const NewUserForm = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
 
   const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [isselectslot, setisselectslot] = useState('value')
+
 
   const [ispopup, setispopup] = useState(false)
 
@@ -27,17 +27,18 @@ const NewUserForm = ({ setPopup }) => {
   const [lastname, setlastname] = useState('')
   const [email, setemail] = useState('')
   const [phoneno, setphoneno] = useState('')
-  const [user_type, setuser_type] = useState('')
+  const [usertype, setusertype] = useState('')
   const [password, setpassword] = useState('')
 
-  const [iscompany_nameemptyerror, setcompany_nameemptyerror] = useState(false)
-  const [islocationemptyerror, setlocationemptyerror] = useState(false)
-  const [isbranch_nameemptyerror, setbranch_nameemptyerror] = useState(false)
-  const [isfirstnameemptyerror, setfirstnameemptyerror] = useState(false)
-  const [islastnameemptyerror, setlastnameemptyerror] = useState(false)
-  const [isemailemptyerror, setemailemptyerror] = useState(false)
-  const [isphonenoemptyerror, setphonenoemptyerror] = useState(false)
-  const [ispasswordemptyerror, setpasswordemptyerror] = useState(false)
+  const [iscompany_nameemptyerror, setcompany_nameemptyerror] = useState(true)
+  const [islocationemptyerror, setlocationemptyerror] = useState(true)
+  const [isbranch_nameemptyerror, setbranch_nameemptyerror] = useState(true)
+  const [isfirstnameemptyerror, setfirstnameemptyerror] = useState(true)
+  const [islastnameemptyerror, setlastnameemptyerror] = useState(true)
+  const [isemailemptyerror, setemailemptyerror] = useState(true)
+  const [isphonenoemptyerror, setphonenoemptyerror] = useState(true)
+  const [ispasswordemptyerror, setpasswordemptyerror] = useState(true)
+  const [usertypevalid, setusertypevalid] = useState(true)
 
   const [list, setlist] = useState([{
     "company_name": "",
@@ -59,9 +60,57 @@ const NewUserForm = ({ setPopup }) => {
   };
   console.log(errors);
 
+  const Validate = () => {
+
+    let temp = true
+
+    console.log(company_name, location, branch_name, firstname, lastname, email, phoneno, password)
+
+    if (String(company_name).length === 0
+      || String(location).length === 0
+      || String(branch_name).length === 0
+      || String(firstname).length === 0
+      || String(lastname).length === 0
+      || String(email).length === 0
+      || String(phoneno).length === 0
+      || String(usertype).length === 0
+      || String(password).length === 0
+    ) {
+      temp = false
+      if (company_name.length === 0) {
+        setcompany_nameemptyerror(false);
+      }
+      if (location.length === 0) {
+        setlocationemptyerror(false);
+      }
+      if (branch_name.length === 0) {
+        setbranch_nameemptyerror(false);
+      }
+      if (firstname.length === 0) {
+        setfirstnameemptyerror(false);
+      }
+      if (lastname.length === 0) {
+        setlastnameemptyerror(false);
+      }
+      if (email.length === 0) {
+        setemailemptyerror(false);
+      }
+      if (phoneno.length === 0) {
+        setphonenoemptyerror(false);
+      }
+      if (String(usertype).length === 0)
+        setusertypevalid(false);
+    }
+
+    // console.log(document.getElementById("firstname_data").valid,
+    //   String(document.getElementById("firstname_data").valid))
+
+    return temp
+  }
+
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
           title={"Add / Edit User"}
           popup_body={
@@ -195,18 +244,19 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="user_type_data" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">USER TYPE</option>
-                    <option value="DAY">ADMIN</option>
-                    <option value="NIGHT">USER</option>
-                  </select>
+                  <TextField
+                    type={"picker"}
+                    name={"User Type"}
+                    id="usertype_data"
+                    required={true}
+                    valid={usertypevalid}
+                    setvalid={setusertypevalid}
+                    value={usertype}
+                    setvalue={setusertype}
+                    options={[
+                      { "key": "0", "value": "ADMIN" },
+                      { "key": "1", "value": "USER" }]}
+                  />
                 </div>
                 {isslotemptyerror ? <div className="invalid_entry">Please select a UserType!</div> : null}
               </div>
