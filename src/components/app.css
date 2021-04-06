@@ -202,7 +202,7 @@
 }
 
 tr:nth-child(even) {
-    background-color: var(--color_4);
+    background-color: var(--color_7);
 }
 
 /* internal_table css */
@@ -502,58 +502,4 @@ tr:nth-child(even) {
     border-radius: 25vw;
     width: calc(0.3vw + 0.9vh + 0.3vmin);
     height: calc(0.3vw + 0.9vh + 0.3vmin);
-}
-
-/* table css */
-
-.table_column_td {
-    background-color: var(--color_13) !important;
-    font-size: var(--TS4);
-    font-weight: 600;
-    padding: 0 calc(0.3vw + 0.9vh + 0.3vmin) !important;
-}
-
-tr:nth-child(even) {
-    background-color: var(--color_4);
-}
-
-.Bid_addicon {
-    object-fit: contain;
-    width: 4vw;
-    height: 4vh;
-    vertical-align: text-bottom;
-}
-
-.chevron::before {
-    border-style: solid;
-    border-width: 0.23em 0.23em 0 0;
-    content: '';
-    display: inline-block;
-    height: 0.45em;
-    left: 0.15em;
-    position: relative;
-    transform: rotate(-45deg);
-    vertical-align: top;
-    width: 0.45em;
-}
-
-.chevron.right:before {
-    transform: rotate(45deg);
-}
-
-.chevron.left:before {
-    transform: rotate(-135deg);
-}
-
-.chevron.top:before {
-    transform: rotate(45deg);
-}
-
-.chevron.bottom:before {
-    transform: rotate(-135deg);
-}
-
-.chevron.button {
-    cursor: pointer;
-    display: flex;
 }

@@ -64,23 +64,6 @@
             },
             "response": []
         }, {
-            "name": "{{url}}api\/user\/edit_profile_image\/1\/",
-            "id": "32cf7e40-07da-40b2-b670-3f42ead75543",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": []
-                },
-                "url": "{{url}}api\/user\/edit_profile_image\/1\/"
-            },
-            "response": []
-        }, {
             "name": "{{url}}api\/user\/phone\/email\/otp_verify\/",
             "id": "a249efee-40cc-4e4c-903f-eac1d292e0a9",
             "protocolProfileBehavior": {
@@ -226,259 +209,6 @@
         }],
         "id": "35245e9b-c28d-481f-9283-7c0ab16d15fc"
     }, {
-        "name": "task",
-        "item": [{
-            "name": "{{url}}api\/task\/project\/add\/",
-            "id": "138ecaff-516d-41b8-aeda-59f6d995f592",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text",
-                    "disabled": true
-                }],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "name",
-                        "value": "foxsatke",
-                        "type": "text"
-                    }, {
-                        "key": "key",
-                        "value": "FS",
-                        "type": "text"
-                    }, {
-                        "key": "type",
-                        "value": "next page2",
-                        "type": "text"
-                    }]
-                },
-                "url": "{{url}}api\/task\/project\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/task\/edit\/1\/",
-            "id": "28bda9eb-6a8d-4468-8fe0-45c400f2481c",
-            "request": {
-                "method": "PUT",
-                "header": [],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "title",
-                        "value": "lewfljfr",
-                        "type": "text"
-                    }]
-                },
-                "url": "{{url}}api\/task\/edit\/1\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/add\/",
-            "id": "67149ca1-6ed0-4a97-a0eb-5c7955dfd409",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"project_name\": \"Akash Collage website\",\r\n        \"domain\": \"Frontend\",\r\n        \"title\": \"web list\",\r\n        \"task_type\": \"BUG\",\r\n        \"description\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"assignee\": \"akash\",\r\n        \"portrait\": \"ctfygbhn\",\r\n        \"landscape\": \"right\",\r\n        \"device_or_browser\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"remarks\": \"no\",\r\n        \"image_link\": \"http:\/\/127.0.0.1:8000\/admin\/core\/devtasks\/add\/\"\r\n    },   \r\n    {\r\n        \"project_name\": \"Akash Collage website1\",\r\n        \"domain\": \"Backend\",\r\n        \"title\": \"web list1\",\r\n        \"task_type\": \"BUG\",\r\n        \"description\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"assignee\": \"akash adi\",\r\n        \"portrait\": \"ctfygbhn\",\r\n        \"landscape\": \"right\",\r\n        \"device_or_browser\": \"Marketing refers to activities a company undertakes to promote the buying or selling of a product or service. Marketing includes advertising, selling, and delivering products to consumers or other businesses. Some marketing is done by affiliates on behalf of a company.\",\r\n        \"remarks\": \"no\",\r\n        \"image_link\": \"http:\/\/127.0.0.1:8000\/admin\/core\/devtasks\/add\/\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
-                },
-                "url": "{{url}}api\/task\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/project\/add\/",
-            "id": "cff01940-c124-4fc0-9681-5ecb5ac20131",
-            "protocolProfileBehavior": {
-                "disabledSystemHeaders": {}
-            },
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"branch\": \"akash adi\",\r\n        \"project_type\": null,\r\n        \"title\": \"god is great one\",\r\n        \"description\": \"this is one of the mostfd\",\r\n        \"file_links\": null,\r\n        \"logo\": \"https:\/\/trtappfiles.s3.amazonaws.com\/file\/avatar\/none.png\",\r\n        \"status\": \"TO DO\",\r\n        \"start_date\": null,\r\n        \"end_date\": null,\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"branch\": \"akash adi\",\r\n        \"project_type\": null,\r\n        \"title\": \"god is great one\",\r\n        \"description\": \"this is one of the mostfd\",\r\n        \"file_links\": null,\r\n        \"logo\": \"https:\/\/trtappfiles.s3.amazonaws.com\/file\/avatar\/none.png\",\r\n        \"status\": \"TO DO\",\r\n        \"start_date\": null,\r\n        \"end_date\": null,\r\n        \"is_deleted\": false\r\n    }]"
-                },
-                "url": "{{url}}api\/task\/project\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/dashboad_create\/",
-            "id": "cb98fb18-f802-40a0-9200-ae5e3c399450",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}api\/task\/dashboad_create\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/dashboad_create\/",
-            "id": "7db52fbf-2c42-469d-87e7-e795093a3355",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"name\": \"this is Dashboard one \",\r\n        \"description\": \"add the new projects is one of the most de \",\r\n        \"access\": \"2\"\r\n    }"
-                },
-                "url": "{{url}}api\/task\/dashboad_create\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/project\/add\/",
-            "id": "a37b30ed-03b9-40e5-8e1a-5d8310f8f53c",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}api\/task\/project\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/company\/add\/",
-            "id": "a436caed-b357-4fb8-b011-7c0f12921281",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}api\/task\/company\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/company\/add\/",
-            "id": "637f5c4e-5408-4980-8727-3fac9f4c7e3a",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n    \"name\": \"hps ups\",\r\n    \"rigterted_number\": \"123648fwse\",\r\n    \"company_size\": \"bige\",\r\n    \"branch_data\":[\r\n        {\r\n\r\n            \"branch_name\": \"media cannibal\",\r\n            \"location\": \"bangalure\",\r\n            \"branch_size\": \"smalls\",\r\n            \"address\": \"mc road bangalure\"\r\n        },\r\n        {\r\n            \"branch_name\": \"media cannibalsad\",\r\n            \"location\": \"bangalure\",\r\n            \"branch_size\": \"small\",\r\n            \"address\": \"mc road bangalure\"\r\n        }\r\n    ]\r\n}"
-                },
-                "url": "{{url}}api\/task\/company\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/add\/",
-            "id": "bf53ab0a-f54d-4d1e-a509-b915597971ee",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}api\/task\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/buglist\/add\/",
-            "id": "60e2291b-07cb-4f00-8667-855999d7f0e1",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"date_reported\": \"this is first reported one\",\r\n        \"bug_title\": \"add the one more fields two\",\r\n        \"orientation\": \"team oneas\",\r\n        \"device\": \"newssss\",\r\n        \"image_link\": \"http:\/\/127.0.0.1:8000\/media\/avatar\/Screenshot_22.png\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
-                },
-                "url": "{{url}}api\/task\/buglist\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/buglist\/add\/",
-            "id": "1b4cfae0-7a2d-4c7f-82f8-6d1811fd3f7c",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"remarks\": null\r\n    },\r\n    {\r\n        \"bug_title\": \"add the one more fields\",\r\n        \"orientation\": \"team one\",\r\n        \"device\": \"news\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"remarks\": null\r\n    }\r\n]"
-                },
-                "url": "{{url}}api\/task\/buglist\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/testing\/checkinglist\/add\/",
-            "id": "273d6810-d43e-4b77-a711-304fa491a746",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}api\/task\/testing\/checkinglist\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/task\/testing\/checkinglist\/add\/",
-            "id": "82760310-7b52-41f7-9d06-eb201a9d70ca",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"number\": 1221,\r\n        \"test\": \"aEzsrcgbh\",\r\n        \"portrait\": \"ctfygbhn\",\r\n        \"landscape\": \"gbfvdca\",\r\n        \"device\": \"assdsf\",\r\n        \"remarks\": \"saddsd\",\r\n        \"image_link\": \"ascdsdd\",\r\n        \"is_deleted\": false\r\n    },\r\n    {\r\n        \"number\": 1255225,\r\n        \"test\": \"aEzsrcgbh\",\r\n        \"portrait\": \"ctfygbhntcfyg\",\r\n        \"landscape\": \"gbfvdcatdfyg\",\r\n        \"device\": \"assyihjo\",\r\n        \"remarks\": \"sadtrfygh\",\r\n        \"image_link\": \"asc\",\r\n        \"is_deleted\": false\r\n    }\r\n]"
-                },
-                "url": "{{url}}api\/task\/testing\/checkinglist\/add\/"
-            },
-            "response": []
-        }],
-        "id": "a317fee7-6eab-4e23-a24b-b6e0c2c97e9e"
-    }, {
-        "name": "file uploading",
-        "item": [],
-        "id": "6cb99cc9-c7d3-43a1-8b88-75df7cb20f13"
-    }, {
         "name": "company",
         "item": [{
             "name": "{{url}}company\/add\/",
@@ -496,7 +226,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"Company_title\": \"some string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\",\r\n        \"created_by\": \"1\",\r\n        \"updated_by\": \"2021-04-01\",\r\n        \"deleted_by\": \"2021-04-01\",\r\n        \"deleted_at\": \"2021-04-01\",\r\n        \"created_at\": \"2021-04-01T16:13:38.846243Z\",\r\n        \"updated_at\": \"2021-04-01T16:13:38.846243Z\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"Company_title\": \"some string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\",\r\n        \"created_by\": \"1\",\r\n        \"updated_by\": \"2021-04-01\",\r\n        \"deleted_by\": \"2021-04-01\",\r\n        \"deleted_at\": \"2021-04-01\",\r\n        \"created_at\": \"2021-04-01T16:13:45.306055Z\",\r\n        \"updated_at\": \"2021-04-01T16:13:45.306055Z\"\r\n    }\r\n]"
+                    "raw": "\r\n    {\r\n        \"Company_title\": \"some string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\"\r\n    }"
                 },
                 "url": "{{url}}company\/add\/"
             },
@@ -578,6 +308,65 @@
                 "url": "{{url}}company\/branch\/add\/"
             },
             "response": []
+        }, {
+            "name": "{{url}}company\/project\/edit\/1\/",
+            "id": "4dc13088-0b43-4bec-93e9-afa0fb3b2b40",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }, {
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"branch\": \"hp\",\r\n    \"project_type\": \"DEVELOPMENTS\",\r\n    \"title\": \"wdef\",\r\n    \"description\": \"wd\",\r\n    \"file_links\": \"swd\",\r\n    \"logo\": \"sdfvvc\",\r\n    \"linked_tasks\": \"sda\",\r\n    \"status\": \"START\",\r\n    \"start_date\": \"2021-04-06\",\r\n    \"end_date\": \"2021-04-06\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:24:03.657302Z\",\r\n    \"updated_at\": \"2021-04-06T06:24:03.657302Z\"\r\n}"
+                },
+                "url": "{{url}}company\/project\/edit\/1\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}company\/branch\/edit\/1\/",
+            "id": "3582ff61-ecc9-4499-840c-602408673816",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": 1,\r\n    \"branch_name\": \"wddwdes\",\r\n    \"created_by\": \"sdddeewd\",\r\n    \"updated_by\": \"dwdedede\",\r\n    \"deleted_by\": \"wdedeedd\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"updated_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"Company_ref\": 1\r\n}"
+                },
+                "url": "{{url}}company\/branch\/edit\/1\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}company\/add\/",
+            "id": "c4209911-adfa-41d1-9c1a-ec6a8b68ac32",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": 1,\r\n    \"Company_title\": \"some string\",\r\n    \"locations\": \"asdfvb\",\r\n    \"contact_number\": \"sADddfsdfF\",\r\n    \"Company_size\": \"sdddfdfadf\",\r\n    \"address\": \"sWdfdfdfdffsfdDASF\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-05T19:55:28.697793Z\",\r\n    \"updated_at\": \"2021-04-05T19:55:28.697793Z\"\r\n}"
+                },
+                "url": "{{url}}company\/edit\/1\/"
+            },
+            "response": []
         }],
         "id": "ce9a527e-e959-45d9-83da-f40f24c32bdc"
     }, {
@@ -620,7 +409,7 @@
             "name": "{{url}}tasks\/frontend\/add\/",
             "id": "0a7b7276-f43e-42dd-a6f3-9006ab991b8a",
             "request": {
-                "method": "POST",
+                "method": "PUT",
                 "header": [{
                     "key": "Authorization",
                     "value": "Token {{token}}",
@@ -634,7 +423,7 @@
                     "mode": "raw",
                     "raw": "{\r\n        \"task_ref\": \"sqvfbgnhjmd\",\r\n        \"domain\": \"UI\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"sdfghj,kc\",\r\n        \"ios\": \"safghkxc\",\r\n        \"browser\": \"sddgthyjukyic\"\r\n    }"
                 },
-                "url": "{{url}}tasks\/frontend\/add\/"
+                "url": "{{url}}tasks\/backend\/edit\/1\/"
             },
             "response": []
         }, {
@@ -791,6 +580,93 @@
                     "raw": "{\r\n        \"task_ref\": \"qdafghk\",\r\n        \"created_by\": \"wdedfsghtfyjuki\"\r\n    }"
                 },
                 "url": "{{url}}tasks\/tasktimelog\/add\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks\/frontend\/add\/",
+            "id": "aacf1e6d-1ea8-4b1e-a1e1-85b56ff62342",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": " {\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                },
+                "url": "{{url}}tasks\/frontend\/edit\/1\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks\/frontend\/add\/",
+            "id": "33646c8a-c6ad-4628-906d-35079857ee2c",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddcsdxvvvvvvvvvvvvvvvxfvscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                },
+                "url": "{{url}}tasks\/frontend\/add\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks\/tasklog\/add\/",
+            "id": "9c3a0c9c-7ccd-4f5f-8b33-df51d4a599c1",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"remarks\": \"sad\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"tasted_by\": \"wqd\",\r\n        \"tasted_at\": \"swdq\",\r\n        \"created_by\": \"dw\",\r\n        \"updated_by\": \"dw\",\r\n        \"deleted_by\": \"dw\"\r\n}"
+                },
+                "url": "{{url}}tasks\/tasklog\/add\/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks\/testlog\/add\/",
+            "id": "59d352b3-7be3-46c0-99a3-a161514898a7",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application\/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n        \"task_ref\": \"aaaaaaaaaaaa\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"efgthsagrdefgtrhthjyulyju6kl\",\r\n        \"ios\": \"erhtuilsfadgfewghfhgop\",\r\n        \"browser\": \"egrhyjkfdgewgtrhyfdhjlo'\"\r\n    }"
+                },
+                "url": "{{url}}tasks\/testlog\/edit\/1\/"
             },
             "response": []
         }],

@@ -18,11 +18,11 @@ const MeetingScreen = () => {
             <div>
               <Popup
                 title={"Join Meeting"}
-                videoscreen={
-                  <div className="popup_video_screen">
-                    <img className="popup_user_icon" src={userIcon} />
-                  </div>
-                }
+                // videoscreen={
+                //   <div className="popup_video_screen">
+                //     <img className="popup_user_icon" src={userIcon} />
+                //   </div>
+                // }
                 mic={
                   <>
                     <div className="popup_mic_container">

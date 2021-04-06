@@ -126,16 +126,6 @@ export const editTask = (callback: (arg0: any, arg1: string) => void, token: any
     .catch(err => callback(err, err.response))
 }
 
-export const taskAdd = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`/api/task/add/`, data, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
 export const projectAdd = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.post(`/api/task/project/add/`, {
     headers: {
@@ -274,8 +264,8 @@ export const getProjectDetails = (callback: (arg0: any, arg1: string) => void, t
     .catch(err => callback(err, err.response))
 }
 
-export const createProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`company/project/add/`, {
+export const createProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`company/project/add/`, data ,{
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
