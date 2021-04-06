@@ -86,8 +86,6 @@ const AddEditTask = ({ setPopup }) => {
 
   const Validate = () => {
 
-    console.log("***VALIDATE***")
-    console.log(isselectslot, title, description)
 
     if (isproject_namevalid === true
       && istitlevalid === true

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createProject, taskAdd } from 'utils/api';
+import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
 
@@ -26,12 +26,13 @@ const AddEditProject = ({ setPopup }) => {
   const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
-
+  const [dataUri, setDataUri] = useState('');
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
-    "project_name": "",
+    "project_type": "",
     "title": "",
     "description": "",
+    "file_links": "",
     "assignee": "",
     "updated_by": "",
   }])
@@ -49,8 +50,19 @@ const AddEditProject = ({ setPopup }) => {
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    // imageUpload(Callback, formdata)
+    fileupload(Callback, formdata)
   }
+
+  const Callback = async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      console.log("respnse :", data.data.result.file_url)
+      setDataUri(data.data.result.file_url)
+    }
+    else {
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  };
 
   const Validate = () => {
 
@@ -67,9 +79,6 @@ const AddEditProject = ({ setPopup }) => {
       setPreSendValidator(true)
     }
 
-    // console.log(document.getElementById("firstname_data").valid,
-    //   String(document.getElementById("firstname_data").valid))
-
   }
 
 
@@ -82,13 +91,20 @@ const AddEditProject = ({ setPopup }) => {
           desc1={"The following Project will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
-            console.log("***SUBMIT***", list)
+            let data = [];
+            let object = {
+              "project_type": isselectslot,
+              "title": title,
+              "description": description,
+            }
+            data.push(object)
+            console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createProject(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
+              if (data.status === 201) {
                 setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
+                console.log('Sucess ========>>>' + JSON.stringify(data));
+                // window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
@@ -98,7 +114,7 @@ const AddEditProject = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            }, token, data)
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

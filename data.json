@@ -4,672 +4,878 @@
         "name": "mcc_backend",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
-    "item": [{
-        "name": "user",
-        "item": [{
-            "name": "{{url}}api\/user\/social\/signup\/",
-            "id": "3a49abad-c208-43fb-90a7-36b89671e283",
-            "protocolProfileBehavior": {
-                "disabledSystemHeaders": {}
-            },
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "",
-                    "value": "",
-                    "type": "text",
-                    "disabled": true
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\"email_or_username\":\"admin144\",\r\n\"password\" : \"password@123\"\r\n}"
+    "item": [
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "{{url}}api\/user\/social\/signup\/",
+                    "id": "3a49abad-c208-43fb-90a7-36b89671e283",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "",
+                                "value": "",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\"email_or_username\":\"admin144\",\r\n\"password\" : \"password@123\"\r\n}"
+                        },
+                        "url": "{{url}}api\/user\/social\/signup\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/social\/signup\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/auth\/profile",
-            "id": "ad891794-5379-40b0-9ca4-8d2355ace3c3",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "profile",
-                        "value": "5",
-                        "type": "text"
-                    }]
+                {
+                    "name": "{{url}}api\/auth\/profile",
+                    "id": "ad891794-5379-40b0-9ca4-8d2355ace3c3",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "profile",
+                                    "value": "5",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{url}}api\/user\/profile\/?profile=31",
+                            "host": [
+                                "{{url}}api"
+                            ],
+                            "path": [
+                                "user",
+                                "profile",
+                                ""
+                            ],
+                            "query": [
+                                {
+                                    "key": "profile",
+                                    "value": "31"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
                 },
-                "url": {
-                    "raw": "{{url}}api\/user\/profile\/?profile=31",
-                    "host": ["{{url}}api"],
-                    "path": ["user", "profile", ""],
-                    "query": [{
-                        "key": "profile",
-                        "value": "31"
-                    }]
+                {
+                    "name": "{{url}}api\/user\/phone\/email\/otp_verify\/",
+                    "id": "a249efee-40cc-4e4c-903f-eac1d292e0a9",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+                        },
+                        "url": "{{url}}api\/user\/phone\/email\/otp_verify\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/edit_profile\/1\/",
+                    "id": "ab80543c-9f9e-479e-9efe-797bcd9d2246",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "firstname",
+                                    "value": "eco-csmk",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}api\/user\/edit_profile\/31\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/forgot_password\/",
+                    "id": "20d5d601-f0e6-432f-b435-7302a441da95",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "username_email_or_phone",
+                                    "value": "adiakash3@gmail.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "new_password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "confirm_password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "destroy_session",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}api\/user\/forgot_password\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/logout\/",
+                    "id": "46ac8d33-e8af-45aa-b36b-b87b32979dc5",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": "{{url}}api\/user\/logout\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/logoutall\/",
+                    "id": "f027b5d5-1986-427a-b379-012e3bcd2455",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": "{{url}}api\/user\/logoutall\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/phone\/email\/verify\/",
+                    "id": "473462d9-1c6f-49f3-b1ad-a785fd866f0f",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+                        },
+                        "url": "{{url}}api\/user\/phone\/email\/verify\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/social\/signup\/normal\/",
+                    "id": "79f82f3d-73e7-40da-8a0d-8177f034a411",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n\"company_name\": \"akash collageccc\",\r\n\"department\": \"ecc\",\r\n\"username\" :\"admin146\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869974\",\r\n\"user_type\":\"NORMAL\",\r\n\"email\": \"akashts146@gmail.com\",\r\n\"firstname\":\"firstname\",\r\n\"lastname\":\"lastname\"\r\n\r\n }\r\n "
+                        },
+                        "url": "{{url}}api\/user\/social\/signup\/normal\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}api\/user\/list\/",
+                    "id": "cbfb1bb4-c713-4c62-be94-763d192eacf9",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}api\/user\/list\/"
+                    },
+                    "response": []
                 }
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/phone\/email\/otp_verify\/",
-            "id": "a249efee-40cc-4e4c-903f-eac1d292e0a9",
-            "protocolProfileBehavior": {
-                "disabledSystemHeaders": {}
-            },
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+            ],
+            "id": "35245e9b-c28d-481f-9283-7c0ab16d15fc"
+        },
+        {
+            "name": "company",
+            "item": [
+                {
+                    "name": "{{url}}company\/add\/",
+                    "id": "c1d7cc08-126a-471b-b186-ecd9276a93f5",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "    {\r\n        \"Company_title\": \"some string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\",\r\n        \"created_by\": \"1\",\r\n        \"updated_by\": \"2021-04-01\",\r\n        \"deleted_by\": \"2021-04-01\",\r\n        \"deleted_at\": \"2021-04-01\",\r\n        \"created_at\": \"2021-04-01T16:13:45.306055Z\",\r\n        \"updated_at\": \"2021-04-01T16:13:45.306055Z\"\r\n    }"
+                        },
+                        "url": "{{url}}company\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/phone\/email\/otp_verify\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/edit_profile\/1\/",
-            "id": "ab80543c-9f9e-479e-9efe-797bcd9d2246",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "firstname",
-                        "value": "eco-csmk",
-                        "type": "text"
-                    }]
+                {
+                    "name": "{{url}}company\/add\/",
+                    "id": "ef6cc2e3-844f-43ad-a35d-56fc80745ea9",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}company\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/edit_profile\/31\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/forgot_password\/",
-            "id": "20d5d601-f0e6-432f-b435-7302a441da95",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "username_email_or_phone",
-                        "value": "adiakash3@gmail.com",
-                        "type": "text"
-                    }, {
-                        "key": "new_password",
-                        "value": "123456",
-                        "type": "text"
-                    }, {
-                        "key": "confirm_password",
-                        "value": "123456",
-                        "type": "text"
-                    }, {
-                        "key": "destroy_session",
-                        "value": "1",
-                        "type": "text"
-                    }]
+                {
+                    "name": "{{url}}company\/project\/add\/",
+                    "id": "9332b21b-81da-4534-90b2-d58ca3dc23c0",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": "{{url}}company\/project\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/forgot_password\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/logout\/",
-            "id": "46ac8d33-e8af-45aa-b36b-b87b32979dc5",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": "{{url}}api\/user\/logout\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/logoutall\/",
-            "id": "f027b5d5-1986-427a-b379-012e3bcd2455",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "formdata",
-                    "formdata": []
+                {
+                    "name": "{{url}}company\/project\/add\/",
+                    "id": "2a9f3d48-5c06-4e04-bbc1-1efb53a46d16",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"branch\": \"dsas\",\r\n        \"project_type\": \"DEVELOPMENTS\",\r\n        \"title\": \"wdef\",\r\n        \"description\": \"aDCSV\",\r\n        \"file_links\": \"https:\/\/meet.google.com\/iij-utze-gpg\",\r\n        \"logo\": \"XSS\",\r\n        \"linked_tasks\": \"https:\/\/meet.google.com\/iij-utze-gpg\",\r\n        \"status\": \"TO DO\",\r\n        \"start_date\": \"2021-04-06\",\r\n        \"end_date\": \"2021-04-14\"\r\n    }"
+                        },
+                        "url": "{{url}}company\/project\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/logoutall\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/phone\/email\/verify\/",
-            "id": "473462d9-1c6f-49f3-b1ad-a785fd866f0f",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+                {
+                    "name": "{{url}}company\/branch\/add\/",
+                    "id": "f1ef65f2-156f-4f49-b3aa-09403fa2f3a1",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}company\/branch\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/phone\/email\/verify\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/social\/signup\/normal\/",
-            "id": "79f82f3d-73e7-40da-8a0d-8177f034a411",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\"company_name\": \"akash collageccc\",\r\n\"department\": \"ecc\",\r\n\"username\" :\"admin146\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869974\",\r\n\"user_type\":\"NORMAL\",\r\n\"email\": \"akashts146@gmail.com\",\r\n\"firstname\":\"firstname\",\r\n\"lastname\":\"lastname\"\r\n\r\n }\r\n "
+                {
+                    "name": "{{url}}company\/branch\/add\/",
+                    "id": "cd5b4fcd-30ad-4b18-b4e5-69d18f497337",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"branch_name\": \"k r pet branch\",\r\n        \"created_by\": \"xzc\",\r\n        \"updated_by\": \"asd\",\r\n        \"deleted_by\": \"as\",\r\n        \"deleted_at\": \"2021-04-13\",\r\n        \"created_at\": \"2021-04-01T16:57:15.560646Z\",\r\n        \"updated_at\": \"2021-04-01T16:57:15.560646Z\",\r\n        \"Company_ref\": 1\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"branch_name\": \"k r pet branch\",\r\n        \"created_by\": \"xzc\",\r\n        \"updated_by\": \"asd\",\r\n        \"deleted_by\": \"as\",\r\n        \"deleted_at\": \"2021-04-13\",\r\n        \"created_at\": \"2021-04-01T17:00:26.699592Z\",\r\n        \"updated_at\": \"2021-04-01T17:00:26.699592Z\",\r\n        \"Company_ref\": 1\r\n    }\r\n]"
+                        },
+                        "url": "{{url}}company\/branch\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}api\/user\/social\/signup\/normal\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}api\/user\/list\/",
-            "id": "cbfb1bb4-c713-4c62-be94-763d192eacf9",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}api\/user\/list\/"
-            },
-            "response": []
-        }],
-        "id": "35245e9b-c28d-481f-9283-7c0ab16d15fc"
-    }, {
-        "name": "company",
-        "item": [{
-            "name": "{{url}}company\/add\/",
-            "id": "c1d7cc08-126a-471b-b186-ecd9276a93f5",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "\r\n    {\r\n        \"Company_title\": \"some string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\"\r\n    }"
+                {
+                    "name": "{{url}}company\/project\/edit\/1\/",
+                    "id": "4dc13088-0b43-4bec-93e9-afa0fb3b2b40",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"branch\": \"hp\",\r\n    \"project_type\": \"DEVELOPMENTS\",\r\n    \"title\": \"wdef\",\r\n    \"description\": \"wd\",\r\n    \"file_links\": \"swd\",\r\n    \"logo\": \"sdfvvc\",\r\n    \"linked_tasks\": \"sda\",\r\n    \"status\": \"START\",\r\n    \"start_date\": \"2021-04-06\",\r\n    \"end_date\": \"2021-04-06\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:24:03.657302Z\",\r\n    \"updated_at\": \"2021-04-06T06:24:03.657302Z\"\r\n}"
+                        },
+                        "url": "{{url}}company\/project\/edit\/1\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}company\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/add\/",
-            "id": "ef6cc2e3-844f-43ad-a35d-56fc80745ea9",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}company\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/project\/add\/",
-            "id": "9332b21b-81da-4534-90b2-d58ca3dc23c0",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}company\/project\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/project\/add\/",
-            "id": "2a9f3d48-5c06-4e04-bbc1-1efb53a46d16",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/atom+xml",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}company\/project\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/branch\/add\/",
-            "id": "f1ef65f2-156f-4f49-b3aa-09403fa2f3a1",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}company\/branch\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/branch\/add\/",
-            "id": "cd5b4fcd-30ad-4b18-b4e5-69d18f497337",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"branch_name\": \"k r pet branch\",\r\n        \"created_by\": \"xzc\",\r\n        \"updated_by\": \"asd\",\r\n        \"deleted_by\": \"as\",\r\n        \"deleted_at\": \"2021-04-13\",\r\n        \"created_at\": \"2021-04-01T16:57:15.560646Z\",\r\n        \"updated_at\": \"2021-04-01T16:57:15.560646Z\",\r\n        \"Company_ref\": 1\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"branch_name\": \"k r pet branch\",\r\n        \"created_by\": \"xzc\",\r\n        \"updated_by\": \"asd\",\r\n        \"deleted_by\": \"as\",\r\n        \"deleted_at\": \"2021-04-13\",\r\n        \"created_at\": \"2021-04-01T17:00:26.699592Z\",\r\n        \"updated_at\": \"2021-04-01T17:00:26.699592Z\",\r\n        \"Company_ref\": 1\r\n    }\r\n]"
+                {
+                    "name": "{{url}}company\/branch\/edit\/1\/",
+                    "id": "3582ff61-ecc9-4499-840c-602408673816",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1,\r\n    \"branch_name\": \"wddwdes\",\r\n    \"created_by\": \"sdddeewd\",\r\n    \"updated_by\": \"dwdedede\",\r\n    \"deleted_by\": \"wdedeedd\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"updated_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"Company_ref\": 1\r\n}"
+                        },
+                        "url": "{{url}}company\/branch\/edit\/1\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}company\/branch\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/project\/edit\/1\/",
-            "id": "4dc13088-0b43-4bec-93e9-afa0fb3b2b40",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n    \"branch\": \"hp\",\r\n    \"project_type\": \"DEVELOPMENTS\",\r\n    \"title\": \"wdef\",\r\n    \"description\": \"wd\",\r\n    \"file_links\": \"swd\",\r\n    \"logo\": \"sdfvvc\",\r\n    \"linked_tasks\": \"sda\",\r\n    \"status\": \"START\",\r\n    \"start_date\": \"2021-04-06\",\r\n    \"end_date\": \"2021-04-06\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:24:03.657302Z\",\r\n    \"updated_at\": \"2021-04-06T06:24:03.657302Z\"\r\n}"
+                {
+                    "name": "{{url}}company\/edit\/1\/",
+                    "id": "c4209911-adfa-41d1-9c1a-ec6a8b68ac32",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1,\r\n    \"Company_title\": \"some string\",\r\n    \"locations\": \"asdfvb\",\r\n    \"contact_number\": \"sADddfsdfF\",\r\n    \"Company_size\": \"sdddfdfadf\",\r\n    \"address\": \"sWdfdfdfdffsfdDASF\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-05T19:55:28.697793Z\",\r\n    \"updated_at\": \"2021-04-05T19:55:28.697793Z\"\r\n}"
+                        },
+                        "url": "{{url}}company\/edit\/1\/"
+                    },
+                    "response": []
+                }
+            ],
+            "id": "ce9a527e-e959-45d9-83da-f40f24c32bdc"
+        },
+        {
+            "name": "tasks_new",
+            "item": [
+                {
+                    "name": "{{url}}tasks\/maintask\/add\/",
+                    "id": "2ab1baed-77f9-4865-bc8c-a17ab46d1314",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"project_ref\": \"that is projects isro\",\r\n        \"task_type\": \"BUG\",\r\n        \"status\": \"In Progress\",\r\n        \"domain\" : \"qwohdiuhdi\"\r\n    }\r\n"
+                        },
+                        "url": "{{url}}tasks\/maintask\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}company\/project\/edit\/1\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/branch\/edit\/1\/",
-            "id": "3582ff61-ecc9-4499-840c-602408673816",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n    \"id\": 1,\r\n    \"branch_name\": \"wddwdes\",\r\n    \"created_by\": \"sdddeewd\",\r\n    \"updated_by\": \"dwdedede\",\r\n    \"deleted_by\": \"wdedeedd\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"updated_at\": \"2021-04-06T06:39:24.834616Z\",\r\n    \"Company_ref\": 1\r\n}"
+                {
+                    "name": "{{url}}tasks\/maintask\/add\/",
+                    "id": "147cfac1-b412-4dda-9cc9-37e8ba45d0f7",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "",
+                                "value": "",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"id\": 1,\r\n        \"project_ref\": \"that is projects isro\",\r\n        \"task_type\": \"BUG\",\r\n        \"status\": \"In Progress\",\r\n        \"title\": \"may be not just\",\r\n        \"description\": \"wdwfgedf\",\r\n        \"remarks\": \"sdfdeffe\",\r\n        \"image_link\": null,\r\n        \"linked_logs\": null,\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null,\r\n        \"deleted_at\": null\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/maintask\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}company\/branch\/edit\/1\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company\/add\/",
-            "id": "c4209911-adfa-41d1-9c1a-ec6a8b68ac32",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n    \"id\": 1,\r\n    \"Company_title\": \"some string\",\r\n    \"locations\": \"asdfvb\",\r\n    \"contact_number\": \"sADddfsdfF\",\r\n    \"Company_size\": \"sdddfdfadf\",\r\n    \"address\": \"sWdfdfdfdffsfdDASF\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-05T19:55:28.697793Z\",\r\n    \"updated_at\": \"2021-04-05T19:55:28.697793Z\"\r\n}"
+                {
+                    "name": "{{url}}tasks\/frontend\/add\/",
+                    "id": "0a7b7276-f43e-42dd-a6f3-9006ab991b8a",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1,\r\n    \"task_ref\": \"task_ref\",\r\n    \"api_name\": \"this api name\",\r\n    \"path\": \"https:\/\/meet.google.com\/iij-utze-gpg\",\r\n    \"request\": \"vollage\",\r\n    \"response\": \"yttgu\"\r\n}"
+                        },
+                        "url": "{{url}}tasks\/backend\/edit\/1\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}company\/edit\/1\/"
-            },
-            "response": []
-        }],
-        "id": "ce9a527e-e959-45d9-83da-f40f24c32bdc"
-    }, {
-        "name": "tasks_new",
-        "item": [{
-            "name": "{{url}}tasks\/maintask\/add\/",
-            "id": "2ab1baed-77f9-4865-bc8c-a17ab46d1314",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"project_ref\": \"that is projects dssvf\",\r\n        \"task_type\": \"BUG\",\r\n        \"status\": \"In Progress\",\r\n        \"title\": \"swqdefgtsdcvf\",\r\n        \"description\": \"wdwfgedf \",\r\n        \"remarks\": \"sdfdeffe \"\r\n    }\r\n]"
+                {
+                    "name": "{{url}}tasks\/frontend\/add\/",
+                    "id": "427e73ac-7ac7-486d-a884-890d1bdea6f7",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}tasks\/frontend\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/maintask\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/maintask\/add\/",
-            "id": "147cfac1-b412-4dda-9cc9-37e8ba45d0f7",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}tasks\/maintask\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/frontend\/add\/",
-            "id": "0a7b7276-f43e-42dd-a6f3-9006ab991b8a",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"sqvfbgnhjmd\",\r\n        \"domain\": \"UI\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"sdfghj,kc\",\r\n        \"ios\": \"safghkxc\",\r\n        \"browser\": \"sddgthyjukyic\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/backend\/add\/",
+                    "id": "a305ec92-6243-452f-9f65-a16ace516eb9",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"api_name\": \"sdac\",\r\n        \"path\": \"sxc\",\r\n        \"request\": \"sxdc\",\r\n        \"response\": \"xsc\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/backend\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/backend\/edit\/1\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/frontend\/add\/",
-            "id": "427e73ac-7ac7-486d-a884-890d1bdea6f7",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}tasks\/frontend\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/backend\/add\/",
-            "id": "a305ec92-6243-452f-9f65-a16ace516eb9",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"api_name\": \"sdac\",\r\n        \"path\": \"sxc\",\r\n        \"request\": \"sxdc\",\r\n        \"response\": \"xsc\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/backend\/add\/",
+                    "id": "f9b24d50-f653-4050-8d5e-64a961196236",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"api_name\": \"sdadccdcdc\",\r\n        \"path\": \"sxcddcc\",\r\n        \"request\": \"sxdcdcdc\",\r\n        \"response\": \"xddccdsc\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/backend\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/backend\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/backend\/add\/",
-            "id": "f9b24d50-f653-4050-8d5e-64a961196236",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"api_name\": \"sdadccdcdc\",\r\n        \"path\": \"sxcddcc\",\r\n        \"request\": \"sxdcdcdc\",\r\n        \"response\": \"xddccdsc\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/backend\/add\/",
+                    "id": "5a1dddf4-0247-4bc8-a0c7-99c30d565010",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}tasks\/tasklog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/backend\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/backend\/add\/",
-            "id": "5a1dddf4-0247-4bc8-a0c7-99c30d565010",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}tasks\/tasklog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/tasklog\/add\/",
-            "id": "7e749334-94ca-4848-80d9-19774dd648fe",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"remarks\": \"sad\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"tasted_by\": \"wqd\",\r\n        \"tasted_at\": \"swdq\",\r\n        \"created_by\": \"dw\",\r\n        \"updated_by\": \"dw\",\r\n        \"deleted_by\": \"dw\"\r\n}"
+                {
+                    "name": "{{url}}tasks\/tasklog\/add\/",
+                    "id": "7e749334-94ca-4848-80d9-19774dd648fe",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"remarks\": \"sad\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"tasted_by\": \"wqd\",\r\n        \"tasted_at\": \"swdq\",\r\n        \"created_by\": \"dw\",\r\n        \"updated_by\": \"dw\",\r\n        \"deleted_by\": \"dw\"\r\n}"
+                        },
+                        "url": "{{url}}tasks\/tasklog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/tasklog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/testlog\/add\/",
-            "id": "b4fc24ad-2431-4ecf-9e0f-2200705cb710",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}tasks\/testlog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/testlog\/add\/",
-            "id": "6f93a3eb-4581-4c74-af58-ba6f1e1e7d84",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"asfgnjqerwtrhyjyukih,d\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"efgthsagrdefgtrhthjyulyju6kl\",\r\n        \"ios\": \"erhtuilsfadgfewghfhgop\",\r\n        \"browser\": \"egrhyjkfdgewgtrhyfdhjlo'\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/testlog\/add\/",
+                    "id": "b4fc24ad-2431-4ecf-9e0f-2200705cb710",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}tasks\/testlog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/testlog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/tasktimelog\/add\/",
-            "id": "a35a5e87-2c33-41ef-a12e-3cfad0759e63",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}tasks\/tasktimelog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/tasktimelog\/add\/",
-            "id": "313d8d26-5885-4e44-8b80-252244ceac43",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"qdafghk\",\r\n        \"created_by\": \"wdedfsghtfyjuki\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/testlog\/add\/",
+                    "id": "6f93a3eb-4581-4c74-af58-ba6f1e1e7d84",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"asfgnjqerwtrhyjyukih,d\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"efgthsagrdefgtrhthjyulyju6kl\",\r\n        \"ios\": \"erhtuilsfadgfewghfhgop\",\r\n        \"browser\": \"egrhyjkfdgewgtrhyfdhjlo'\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/testlog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/tasktimelog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/frontend\/add\/",
-            "id": "aacf1e6d-1ea8-4b1e-a1e1-85b56ff62342",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": " {\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/tasktimelog\/add\/",
+                    "id": "a35a5e87-2c33-41ef-a12e-3cfad0759e63",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}tasks\/tasktimelog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/frontend\/edit\/1\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/frontend\/add\/",
-            "id": "33646c8a-c6ad-4628-906d-35079857ee2c",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddcsdxvvvvvvvvvvvvvvvxfvscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/tasktimelog\/add\/",
+                    "id": "313d8d26-5885-4e44-8b80-252244ceac43",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"qdafghk\",\r\n        \"created_by\": \"wdedfsghtfyjuki\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/tasktimelog\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/frontend\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/tasklog\/add\/",
-            "id": "9c3a0c9c-7ccd-4f5f-8b33-df51d4a599c1",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"remarks\": \"sad\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"tasted_by\": \"wqd\",\r\n        \"tasted_at\": \"swdq\",\r\n        \"created_by\": \"dw\",\r\n        \"updated_by\": \"dw\",\r\n        \"deleted_by\": \"dw\"\r\n}"
+                {
+                    "name": "{{url}}tasks\/frontend\/add\/",
+                    "id": "aacf1e6d-1ea8-4b1e-a1e1-85b56ff62342",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": " {\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/frontend\/edit\/1\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/tasklog\/add\/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}tasks\/testlog\/add\/",
-            "id": "59d352b3-7be3-46c0-99a3-a161514898a7",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application\/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"task_ref\": \"aaaaaaaaaaaa\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"efgthsagrdefgtrhthjyulyju6kl\",\r\n        \"ios\": \"erhtuilsfadgfewghfhgop\",\r\n        \"browser\": \"egrhyjkfdgewgtrhyfdhjlo'\"\r\n    }"
+                {
+                    "name": "{{url}}tasks\/frontend\/add\/",
+                    "id": "33646c8a-c6ad-4628-906d-35079857ee2c",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"id\": 1,\r\n        \"task_ref\": \"asd\",\r\n        \"domain\": \"Frontend\",\r\n        \"portrait\": true,\r\n        \"landscape\": true,\r\n        \"android\": \"s\",\r\n        \"ios\": \"wdfsddcsdxvvvvvvvvvvvvvvvxfvscxvdsv\",\r\n        \"browser\": \"dcada\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/frontend\/add\/"
+                    },
+                    "response": []
                 },
-                "url": "{{url}}tasks\/testlog\/edit\/1\/"
-            },
-            "response": []
-        }],
-        "id": "9b7e6c12-0153-417a-a3ce-c1d64a658c18"
-    }]
+                {
+                    "name": "{{url}}tasks\/tasklog\/add\/",
+                    "id": "9c3a0c9c-7ccd-4f5f-8b33-df51d4a599c1",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"asd\",\r\n        \"remarks\": \"sad\",\r\n        \"image_link\": \"avatar\/Screenshot_4.wqfadsghfdsa\",\r\n        \"tasted_by\": \"wqd\",\r\n        \"tasted_at\": \"swdq\",\r\n        \"created_by\": \"dw\",\r\n        \"updated_by\": \"dw\",\r\n        \"deleted_by\": \"dw\"\r\n}"
+                        },
+                        "url": "{{url}}tasks\/tasklog\/add\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}tasks\/testlog\/add\/",
+                    "id": "59d352b3-7be3-46c0-99a3-a161514898a7",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"task_ref\": \"aaaaaaaaaaaa\",\r\n        \"portrait\": false,\r\n        \"landscape\": false,\r\n        \"android\": \"efgthsagrdefgtrhthjyulyju6kl\",\r\n        \"ios\": \"erhtuilsfadgfewghfhgop\",\r\n        \"browser\": \"egrhyjkfdgewgtrhyfdhjlo'\"\r\n    }"
+                        },
+                        "url": "{{url}}tasks\/testlog\/edit\/1\/"
+                    },
+                    "response": []
+                }
+            ],
+            "id": "9b7e6c12-0153-417a-a3ce-c1d64a658c18"
+        },
+        {
+            "name": "debugd",
+            "item": [
+                {
+                    "name": "{{url}}debug\/apihitlog\/list\/",
+                    "id": "0849a79a-bcc0-4194-b1e9-a4988867facc",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": "{{url}}debug\/apihitlog\/list\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}debug\/usererrorlog\/list\/",
+                    "id": "643d296b-47df-4ef1-ba8f-54c23a0f186e",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}debug\/usererrorlog\/list\/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{{url}}debug\/dataerrorlog\/list\/",
+                    "id": "1c2f962f-ca04-4f84-951c-238b02a2d126",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{url}}debug\/dataerrorlog\/list\/"
+                    },
+                    "response": []
+                }
+            ],
+            "id": "83a1ab5c-cca9-4110-86e0-4ef21b082c21"
+        }
+    ]
 }

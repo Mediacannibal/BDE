@@ -224,8 +224,8 @@ export const addTest = (callback: (arg0: any, arg1: string) => void, token: any,
     .catch(err => callback(err, err.response))
 }
 
-export const imageUpload = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`/api/task/upload/file/`, {
+export const fileupload = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.post(`tasks/file/uploaded/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -265,7 +265,7 @@ export const getProjectDetails = (callback: (arg0: any, arg1: string) => void, t
 }
 
 export const createProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`company/project/add/`, data ,{
+  instance.post(`company/project/add/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
