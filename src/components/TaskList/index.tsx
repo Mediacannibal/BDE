@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { listingTask } from 'utils/api';
+import { getMainTask, listingTask } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -56,7 +56,7 @@ const TaskList = (props: any) => {
     // if (token === null)
     //   history.push("/")
     // if (params.id === undefined) {
-    listingTask(async (data: any, errorresponse: any) => {
+    getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
