@@ -304,8 +304,8 @@ export const createBranch = (callback: (arg0: any, arg1: string) => void, token:
     .catch(err => callback(err, err.response))
 }
 
-export const createMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`tasks/maintask/add/`, {
+export const createMainTask = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`tasks/maintask/add/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
