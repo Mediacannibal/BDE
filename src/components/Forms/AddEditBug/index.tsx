@@ -11,8 +11,9 @@ import { addBug } from 'utils/api';
 const AddEditBug = ({ setPopup }) => {
   const history = useHistory();
 
-  const [isselectslot, setisselectslot] = useState('value')
+
   const [bugtitle, setbugtitle] = useState('')
+  const [orientationdata, setorientationdata] = useState('')
   const [device, setdevice] = useState('')
   const [remarks, setremarks] = useState('')
 
@@ -20,10 +21,13 @@ const AddEditBug = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
   const [inputvalue, setinputvalue] = useState("")
 
-  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(true)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(true)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(true)
-  const [isslotemptyerror, setslotemptyerror] = useState(true)
+  const [bugtitlevalid, setbugtitlevalid] = useState(false)
+  const [devicevalid, setdevicevalid] = useState(false)
+  const [remarksvalid, setremarksvalid] = useState(false)
+  const [orientationvalid, setorientationvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
+
 
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
@@ -50,106 +54,25 @@ const AddEditBug = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+
+    if (bugtitlevalid === true
+      && devicevalid === true
+      && remarksvalid === true
+      && orientationvalid === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+  }
+
   return (
     <>
-      {!ispopup ?
-        <Popup
-          title={"Add / Edit Bug"}
-          popup_body={
-            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Bug Title"}
-                    id="bugtitle_data"
-                    name={`data.BugTitle`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isbugtitleemptyerror}
-                    setvalid={setbugtitleemptyerror}
-                    value={bugtitle}
-                    onChange={setbugtitle}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"ORIENTATION"}
-                    id="orientation"
-                    required={true}
-                    valid={isslotemptyerror}
-                    setvalid={setslotemptyerror}
-                    value={isselectslot}
-                    onchange={setisselectslot}
-                    options={[
-                      { "key": "0", "value": "LANDSCAPE" },
-                      { "key": "1", "value": "PORTRAIT" }]}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Device"}
-                    id="device_data"
-                    name={`data.Device`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isdeviceemptyerror}
-                    setvalid={setdeviceemptyerror}
-                    value={device}
-                    onChange={setdevice}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Remarks"}
-                    id="remarks_data"
-                    name={`data.Remarks`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isremarksemptyerror}
-                    setvalid={setremarksemptyerror}
-                    value={remarks}
-                    onChange={setremarks}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="upload-wrap">
-                  <button type="button" className="nice-button">upload_file</button>
-                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
-                </div>
-                {
-                  (inputvalue !== null) ? <div>
-                    <img
-                      className='activity_selectedimage' src={inputvalue} />
-                  </div> : null
-                }
-              </div>
-            </form>
-          }
-          confirmClick={() => {
-            console.log("***SEND***")
-            setispopup(true)
-          }}
-          cancelClick={setPopup}
-        />
-        :
+      {ispopup ?
         <Popup
           title={"Add / Edit Bug?"}
           desc1={"The following Bug will be placed!"}
@@ -178,6 +101,104 @@ const AddEditBug = ({ setPopup }) => {
             setispopup(false)
           }}
         />
+        :
+        <Popup
+          title={"Add / Edit Bug"}
+          popup_body={
+            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Bug Title"}
+                    id="bugtitle_data"
+                    name={`data.BugTitle`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setbugtitlevalid}
+                    sendcheck={preSendValidator}
+                    value={bugtitle}
+                    onchange={setbugtitle}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"picker"}
+                    name={"ORIENTATION"}
+                    id="orientation"
+                    required={true}
+                    valid={setorientationvalid}
+                    sendcheck={preSendValidator}
+                    value={orientationdata}
+                    onchange={setorientationdata}
+                    options={[
+                      { "key": "0", "value": "LANDSCAPE" },
+                      { "key": "1", "value": "PORTRAIT" }]}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Device"}
+                    id="device_data"
+                    name={`data.Device`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setdevicevalid}
+                    sendcheck={preSendValidator}
+                    value={device}
+                    onchange={setdevice}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Remarks"}
+                    id="remarks_data"
+                    name={`data.Remarks`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setremarksvalid}
+                    sendcheck={preSendValidator}
+                    value={remarks}
+                    onchange={setremarks}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="upload-wrap">
+                  <button type="button" className="nice-button">upload_file</button>
+                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                </div>
+                {
+                  (inputvalue !== null) ? <div>
+                    <img
+                      className='activity_selectedimage' src={inputvalue} />
+                  </div> : null
+                }
+              </div>
+            </form>
+          }
+          confirmClick={() => {
+            console.log("***SEND***")
+            Validate()
+          }}
+          cancelClick={setPopup}
+        />
+
       }
     </>
   )

@@ -29,15 +29,17 @@ const NewUserForm = ({ setPopup }) => {
   const [usertype, setusertype] = useState('')
   const [password, setpassword] = useState('')
 
-  const [iscompany_nameemptyerror, setcompany_nameemptyerror] = useState(true)
-  const [islocationemptyerror, setlocationemptyerror] = useState(true)
-  const [isbranch_nameemptyerror, setbranch_nameemptyerror] = useState(true)
-  const [isfirstnameemptyerror, setfirstnameemptyerror] = useState(true)
-  const [islastnameemptyerror, setlastnameemptyerror] = useState(true)
-  const [isemailemptyerror, setemailemptyerror] = useState(true)
-  const [isphonenoemptyerror, setphonenoemptyerror] = useState(true)
-  const [ispasswordemptyerror, setpasswordemptyerror] = useState(true)
-  const [usertypevalid, setusertypevalid] = useState(true)
+  const [companynamevalid, setcompanynamevalid] = useState(false)
+  const [locationvalid, setlocationvalid] = useState(false)
+  const [branchvalid, setbranchvalid] = useState(false)
+  const [firstnamevalid, setfirstnamevalid] = useState(false)
+  const [lastnamevalid, setlastnamevalid] = useState(false)
+  const [emailvalid, setemailvalid] = useState(false)
+  const [phonevalid, setphonevalid] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
+  const [usertypevalid, setusertypevalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [list, setlist] = useState([{
     "company_name": "",
@@ -61,230 +63,27 @@ const NewUserForm = ({ setPopup }) => {
 
   const Validate = () => {
 
-    let temp = true
-
-    console.log(company_name, location, branch_name, firstname, lastname, email, phoneno, password)
-
-    if (String(company_name).length === 0
-      || String(location).length === 0
-      || String(branch_name).length === 0
-      || String(firstname).length === 0
-      || String(lastname).length === 0
-      || String(email).length === 0
-      || String(phoneno).length === 0
-      || String(usertype).length === 0
-      || String(password).length === 0
+    if (companynamevalid === true
+      && locationvalid === true
+      && branchvalid === true
+      && firstnamevalid === true
+      && lastnamevalid === true
+      && emailvalid === true
+      && phonevalid === true
+      && passwordvalid === true
+      && usertypevalid === true
     ) {
-      temp = false
-      if (company_name.length === 0) {
-        setcompany_nameemptyerror(false);
-      }
-      if (location.length === 0) {
-        setlocationemptyerror(false);
-      }
-      if (branch_name.length === 0) {
-        setbranch_nameemptyerror(false);
-      }
-      if (firstname.length === 0) {
-        setfirstnameemptyerror(false);
-      }
-      if (lastname.length === 0) {
-        setlastnameemptyerror(false);
-      }
-      if (email.length === 0) {
-        setemailemptyerror(false);
-      }
-      if (phoneno.length === 0) {
-        setphonenoemptyerror(false);
-      }
-      if (String(usertype).length === 0)
-        setusertypevalid(false);
+      setispopup(true)
     }
-
-    // console.log(document.getElementById("firstname_data").valid,
-    //   String(document.getElementById("firstname_data").valid))
-
-    return temp
+    else {
+      setPreSendValidator(true)
+    }
   }
 
   return (
     <>
-      {!ispopup ?
-        <Popup
-          title={"Add / Edit User"}
-          popup_body={
-            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Company Name"}
-                    id="companyname_data"
-                    name={`data.CompanyName`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={iscompany_nameemptyerror}
-                    setvalid={setcompany_nameemptyerror}
-                    value={company_name}
-                    onChange={setcompany_name}
-                  />
-                </div>
-              </div>
+      {ispopup ?
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Location"}
-                    id="location_data"
-                    name={`data.location`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={islocationemptyerror}
-                    setvalid={setlocationemptyerror}
-                    value={location}
-                    onChange={setlocation}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Branch Name"}
-                    id="branch_name_data"
-                    name={`data.branch_name`}
-                    inputtype="branch_name"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isbranch_nameemptyerror}
-                    setvalid={setbranch_nameemptyerror}
-                    value={branch_name}
-                    onChange={setbranch_name}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"First Name"}
-                    id="firstname_data"
-                    name={`data.FirstName`}
-                    inputtype="firstname"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isfirstnameemptyerror}
-                    setvalid={setfirstnameemptyerror}
-                    value={firstname}
-                    onChange={setfirstname}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Last Name"}
-                    id={"lastname_data"}
-                    name={`data.LastName`}
-                    inputtype="lastname"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={islastnameemptyerror}
-                    setvalid={setlastnameemptyerror}
-                    value={lastname}
-                    onChange={setlastname}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Email ID"}
-                    id={"email_data"}
-                    inputtype="email"
-                    type="text"
-                    name={`data.EmailID`}
-                    min_length="3"
-                    required={true}
-                    valid={isemailemptyerror}
-                    setvalid={setemailemptyerror}
-                    value={email}
-                    onChange={setemail}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Phone Number"}
-                    id={"phoneno_data"}
-                    inputtype="phone"
-                    type="text"
-                    name={`data.Phone`}
-                    maxLength="10"
-                    input_inner_leftprop={<div>+91</div>}
-                    required={true}
-                    valid={isphonenoemptyerror}
-                    setvalid={setphonenoemptyerror}
-                    value={phoneno}
-                    onChange={setphoneno}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"User Type"}
-                    id="usertype_data"
-                    required={true}
-                    valid={usertypevalid}
-                    setvalid={setusertypevalid}
-                    value={usertype}
-                    onchange={setusertype}
-                    options={[
-                      { "key": "0", "value": "ADMIN" },
-                      { "key": "1", "value": "USER" }]}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"New Password"}
-                    id="password_data"
-                    name={`data.password`}
-                    inputtype="password"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={ispasswordemptyerror}
-                    setvalid={setpasswordemptyerror}
-                    value={password}
-                    onChange={setpassword}
-                  />
-                </div>
-              </div>
-            </form>
-          }
-          confirmClick={() => {
-            console.log("***SEND***")
-            setispopup(true)
-          }}
-          cancelClick={setPopup}
-        />
-        :
         <Popup
           title={"Add / Edit User?"}
           desc1={"The following User will be placed!"}
@@ -315,6 +114,182 @@ const NewUserForm = ({ setPopup }) => {
             setispopup(false)
           }}
         />
+        :
+        <Popup
+          title={"Add / Edit User"}
+          popup_body={
+            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Company Name"}
+                    id="companyname_data"
+                    name={`data.CompanyName`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setcompanynamevalid}
+                    sendcheck={preSendValidator}
+                    value={company_name}
+                    onchange={setcompany_name}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Location"}
+                    id="location_data"
+                    name={`data.location`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setlocationvalid}
+                    sendcheck={preSendValidator}
+                    value={location}
+                    onchange={setlocation}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Branch Name"}
+                    id="branch_name_data"
+                    name={`data.branch_name`}
+                    inputtype="branch_name"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setbranchvalid}
+                    sendcheck={preSendValidator}
+                    value={branch_name}
+                    onchange={setbranch_name}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"First Name"}
+                    id="firstname_data"
+                    name={`data.FirstName`}
+                    inputtype="firstname"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setfirstnamevalid}
+                    sendcheck={preSendValidator}
+                    value={firstname}
+                    onchange={setfirstname}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Last Name"}
+                    id={"lastname_data"}
+                    name={`data.LastName`}
+                    inputtype="lastname"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setlastnamevalid}
+                    sendcheck={preSendValidator}
+                    value={lastname}
+                    onchange={setlastname}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Email ID"}
+                    id={"email_data"}
+                    inputtype="email"
+                    type="text"
+                    name={`data.EmailID`}
+                    min_length="3"
+                    required={true}
+                    valid={setemailvalid}
+                    sendcheck={preSendValidator}
+                    value={email}
+                    onchange={setemail}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Phone Number"}
+                    id={"phoneno_data"}
+                    inputtype="phone"
+                    type="text"
+                    name={`data.Phone`}
+                    maxLength="10"
+                    input_inner_leftprop={<div>+91</div>}
+                    required={true}
+                    valid={setphonevalid}
+                    sendcheck={preSendValidator}
+                    value={phoneno}
+                    onchange={setphoneno}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"picker"}
+                    name={"User Type"}
+                    id="usertype_data"
+                    required={true}
+                    valid={setusertypevalid}
+                    sendcheck={preSendValidator}
+                    value={usertype}
+                    onchange={setusertype}
+                    options={[
+                      { "key": "0", "value": "ADMIN" },
+                      { "key": "1", "value": "USER" }]}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"New Password"}
+                    id="password_data"
+                    name={`data.password`}
+                    inputtype="password"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setpasswordvalid}
+                    sendcheck={preSendValidator}
+                    value={password}
+                    onchange={setpassword}
+                  />
+                </div>
+              </div>
+            </form>
+          }
+          confirmClick={() => {
+            console.log("***SEND***")
+            Validate()
+          }}
+          cancelClick={setPopup}
+        />
+
       }
     </>
   );
