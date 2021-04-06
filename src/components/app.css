@@ -112,12 +112,6 @@
     padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
 }
 
-.textinput_box_container:focus-within {
-    border-color: var(--color_1);
-    border-width: calc(0.06vw + 0.18vh + 0.06vmin);
-    border-style: solid;
-}
-
 .textinput_box {}
 
 .textinput_box:focus {
@@ -284,7 +278,7 @@ tr:nth-child(even) {
     border-color: var(--color_7);
     border-style: solid;
     text-align: -webkit-center;
-    background-color: var(--color_8);
+    background-color: var(--color_15);
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import './style.css';
 import '../../../components/app.css'
+import * as down from '../../../assets/down.png'
+import * as up from '../../../assets/up.png'
 
 const TextField = (props: any) => {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggling = () => setIsOpen(!isOpen);
+    const [error_message, seterror_message] = useState("Field is required.")
+    const onOptionClicked = (value: any) => {
+        props.setvalue(value);
+        props.setvalue(value)
+        setIsOpen(false);
+        console.log("select option value :", props.value);
+    }
 
 
     const [input_data, setinput_data] = useState(props.value)
@@ -15,9 +27,9 @@ const TextField = (props: any) => {
 
     const [isActive, setisActive] = useState(false)
 
-    const [error_message, seterror_message] = useState("Field is required.")
+    // const [error_message, seterror_message] = useState("Field is required.")
 
-
+    const [blabla, setblabla] = useState(false)
 
     useEffect(() => {
 
@@ -118,28 +130,28 @@ const TextField = (props: any) => {
         if (String(a).length === 0) {
             if (props.valid === true) {
                 seterror_message("Field is required.")
-                props.setvalid(true)
+                props.setvalid(false)
             }
             else {
                 seterror_message("")
-                props.setvalid(false)
+                props.setvalid(true)
             }
         }
         else if (c === true) {
             seterror_message("This field can not contain ' " + d + " ' .")
-            props.setvalid(true)
+            props.setvalid(false)
         }
         else if (a.length < input_min_length) {
             seterror_message("Enter minimum " + (input_min_length - a.length) + " more character" + (((input_min_length - a.length) === 1) ? "." : "s."))
-            props.setvalid(true)
+            props.setvalid(false)
         }
         else if (b === false) {
             seterror_message(((props.label !== undefined) ? props.label : "Entry") + " is invalid.")
-            props.setvalid(true)
+            props.setvalid(false)
         }
         else {
             seterror_message("")
-            props.setvalid(false)
+            props.setvalid(true)
         }
 
 
@@ -159,7 +171,7 @@ const TextField = (props: any) => {
     }
 
     return (
-        <div className="input_main_container">
+        <div className="input_box_wrapper">
 
             <div className="input_outer_div">
 
@@ -167,10 +179,16 @@ const TextField = (props: any) => {
 
                 <div className="input_innerLeft_div">{props.input_inner_leftprop}</div>
 
+
+
+
+
+
+
                 <div className="input_innerCenter_div">
 
-                    <input {...props}
-                        className={((error_message !== "") || (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+                    {props.type !== "picker" ? <input {...props}
+                        className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
                         value={props.value}
                         onChange={(data: any) => {
                             Reformat_and_Validate(data)
@@ -187,22 +205,58 @@ const TextField = (props: any) => {
                                 // props.setinput_valid(valid)
                             }
                             console.log(props.setvalue, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
-                        }}
-                    />
+                        }} />
+                        :
+
+                        <div className={((props.valid === false) && (props.required == true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
+                            onClick={toggling}>
+                            {props.value || props.name}
+                        </div>
+                    }
 
                 </div>
 
-                <div className="input_innerRight_div">{props.input_inner_rightprop}</div>
 
-            </div>
-            {((props.valid === true) && (props.required === true)) ?
-                <div className="invalid_entry">{error_message}</div>
-                : null
+                <div className="input_innerRight_div">
+                    {props.type !== "picker" ?
+                        props.input_inner_rightprop
+                        :
+                        <div className={"input_innerRight_icon"} onClick={toggling}>
+                            <img className='down_up_arrow_icon' src={isOpen ? up : down} />
+                        </div>
+                    }
+                </div>
+
+            </div >
+
+            {isOpen && (
+                <div className="DropDownListContainer">
+                    <div className={((props.valid === false) && (props.required == true)) ? "DropDownList invalid_entry_container" : "DropDownList"}>
+                        {props.options.map((option: any) => (
+                            <div className="dropdown_option"
+                                onClick={(data: any) => {
+                                    onOptionClicked(option.value)
+                                    seterror_message("")
+                                    props.setvalid(true)
+                                    console.log("clicked");
+                                }}
+                                key={option.key}>
+                                {option.value}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {
+                ((props.valid === false) && (props.required === true)) ?
+                    <div className="invalid_entry">{error_message}</div>
+                    : null
             }
+
         </div>
-    )
+    );
+
 
 }
-
-
 export default TextField;

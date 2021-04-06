@@ -1,5 +1,6 @@
 .input_main_container {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -29,6 +30,7 @@
 
 .input_innerCenter_div {
     display: flex;
+    width: 100%;
 }
 
 .input_innerRight_div {
@@ -38,13 +40,14 @@
     right: 0;
 }
 
-.textinput_box_container {
+.input_box_wrapper {
     display: flex;
+    flex-direction: column;
     position: relative;
     justify-content: center;
 }
 
-.textinput_box_container input {
+.input_innerCenter_div input {
     border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
     border-color: transparent;
     text-align: center;
@@ -55,7 +58,7 @@
     -webkit-box-sizing: border-box;
 }
 
-.textinput_box_container .Label {
+.input_box_wrapper .Label {
     color: #999;
     pointer-events: none;
     transform-origin: top left;
@@ -69,7 +72,7 @@
     font-size: var(--TS5);
 }
 
-/* .textinput_box_container:focus-within .Label {
+/* .input_box_wrapper:focus-within .Label {
     transform: translate(calc(0.25vw + 0.75vh + 0.25vmin), calc(-0.6vw - 1.8vh - 0.6vmin)) scale(0.55);
     color: var(--color_1);
     font-size: var(--TS5);
@@ -77,7 +80,7 @@
     font-weight: 500;
 } */
 
-.textinput_box_container .top {
+.input_box_wrapper .top {
     transform: translate(calc(0.25vw + 0.75vh + 0.25vmin), calc(-0.6vw - 1.8vh - 0.6vmin)) scale(0.55);
     color: var(--color_1);
     font-size: var(--TS5);
@@ -85,8 +88,8 @@
     font-weight: 500;
 }
 
-.textinput_box_container input:focus-within {
-    border-color: var(--color_1);
+.input_box_wrapper input:focus-within {
+    border-color: transparent;
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     border-style: solid;
     box-sizing: border-box;
@@ -94,15 +97,14 @@
     -webkit-box-sizing: border-box;
 }
 
-.textinput_box_container input:focus {
+.input_box_wrapper input:focus {
     outline: none !important;
 }
 
-.textinput_box_container:focus-within {
+.input_box_wrapper:focus-within {
     border-color: transparent;
+    border-style: solid;
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
-    border-style: solid;
-    border-style: solid;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -122,4 +124,97 @@
     font-size: var(--TS7);
     font-weight: 500;
     padding-top: calc(0.09vw + 0.27vh + 0.09vmin);
+}
+
+.dropdown_main_container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Main {
+    display: flex;
+    background: var(--color_5);
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    position: relative;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DropDownContainer {
+    width: 10.5em;
+    margin: 0 auto;
+}
+
+.DropDownHeader {
+    padding: calc(0.18vw + 0.54vh + 0.18vmin) 0;
+    font-size: var(--TS4);
+    color: var(--color_21);
+    width: 100%;
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+}
+
+.DropDownListContainer {
+    position: relative;
+}
+
+.DropDownList {
+    background: var(--color_5);
+    box-sizing: border-box;
+    color: var(--color_21);
+    font-size: var(--TS4);
+    position: absolute;
+    width: 100%;
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    z-index: 100;
+}
+
+.dropdown_option {
+    border-color: var(--color_1) !important;
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: calc(0.01vw + 0.3vh + 0.01vmin);
+    margin: calc(0.1vw + 0.3vh + 0.1vmin) calc(0.3vw + 0.9vh + 0.3vmin);
+    padding: calc(0.05vw + 0.15vh + 0.05vmin) 0 calc(0.1vw + 0.3vh + 0.1vmin) 0;
+}
+
+.dropdown_option:hover {
+    color: var(--color_1) !important;
+}
+
+.dropdown_option:last-child {
+    border-style: none;
+    ;
+}
+
+.ListItem {
+    list-style: none;
+    margin-bottom: 0.8em;
+}
+
+.ListItem:hover {
+    color: #fd9e46;
+}
+
+.input_innerRight_arrow {
+    position: absolute;
+    display: flex;
+    margin-right: calc(0.3vw + 0.9vh + 0.3vmin);
+    right: 0;
+}
+
+.input_innerRight_icon {
+    object-fit: contain;
+    height: calc(0.7vw + 2.1vh + 0.7vmin);
+    display: flex;
+    align-items: center;
+}
+
+.down_up_arrow_icon {
+    height: 2.8vh;
+    width: 2.4vh;
+    margin: 0 0 0 2vw;
+    object-fit: contain;
 }

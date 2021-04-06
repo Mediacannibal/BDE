@@ -97,7 +97,7 @@ const LoginScreen = () => {
                   }
                   Sociallogin(loginCallback, data);
                 }}
-                onFailure={(Response: any) => { console.log(Response); }}
+                onFailure={(Response: any) => { console.log("============================>>>>>>>>>", Response); }}
                 cookiePolicy={'single_host_origin'} />
 
               <FacebookProvider appId="976961256166749">
