@@ -11,8 +11,9 @@ import { addBug } from 'utils/api';
 const AddEditBug = ({ setPopup }) => {
   const history = useHistory();
 
-  const [isselectslot, setisselectslot] = useState('value')
+
   const [bugtitle, setbugtitle] = useState('')
+  const [orientationdata, setorientationdata] = useState('')
   const [device, setdevice] = useState('')
   const [remarks, setremarks] = useState('')
 
@@ -20,10 +21,13 @@ const AddEditBug = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
   const [inputvalue, setinputvalue] = useState("")
 
-  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(true)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(true)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(true)
-  const [isslotemptyerror, setslotemptyerror] = useState(true)
+  const [bugtitlevalid, setbugtitlevalid] = useState(false)
+  const [devicevalid, setdevicevalid] = useState(false)
+  const [remarksvalid, setremarksvalid] = useState(false)
+  const [orientationvalid, setorientationvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
+
 
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
@@ -49,9 +53,54 @@ const AddEditBug = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+
+    if (bugtitlevalid === true
+      && devicevalid === true
+      && remarksvalid === true
+      && orientationvalid === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+  }
+
   return (
     <>
-      {!ispopup ?
+      {ispopup ?
+        <Popup
+          title={"Add / Edit Bug?"}
+          desc1={"The following Bug will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            addBug(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+        :
         <Popup
           title={"Add / Edit Bug"}
           popup_body={
@@ -66,10 +115,10 @@ const AddEditBug = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isbugtitleemptyerror}
-                    setvalid={setbugtitleemptyerror}
+                    valid={setbugtitlevalid}
+                    sendcheck={preSendValidator}
                     value={bugtitle}
-                    onChange={setbugtitle}
+                    onchange={setbugtitle}
                   />
                 </div>
               </div>
@@ -81,10 +130,10 @@ const AddEditBug = ({ setPopup }) => {
                     name={"ORIENTATION"}
                     id="orientation"
                     required={true}
-                    valid={isslotemptyerror}
-                    setvalid={setslotemptyerror}
-                    value={isselectslot}
-                    onchange={setisselectslot}
+                    valid={setorientationvalid}
+                    sendcheck={preSendValidator}
+                    value={orientationdata}
+                    onchange={setorientationdata}
                     options={[
                       { "key": "0", "value": "LANDSCAPE" },
                       { "key": "1", "value": "PORTRAIT" }]}
@@ -102,10 +151,10 @@ const AddEditBug = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isdeviceemptyerror}
-                    setvalid={setdeviceemptyerror}
+                    valid={setdevicevalid}
+                    sendcheck={preSendValidator}
                     value={device}
-                    onChange={setdevice}
+                    onchange={setdevice}
                   />
                 </div>
               </div>
@@ -120,10 +169,10 @@ const AddEditBug = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isremarksemptyerror}
-                    setvalid={setremarksemptyerror}
+                    valid={setremarksvalid}
+                    sendcheck={preSendValidator}
                     value={remarks}
-                    onChange={setremarks}
+                    onchange={setremarks}
                   />
                 </div>
               </div>
@@ -239,39 +288,11 @@ const AddEditBug = ({ setPopup }) => {
           }
           confirmClick={() => {
             console.log("***SEND***")
-            setispopup(true)
+            Validate()
           }}
           cancelClick={setPopup}
         />
-        :
-        <Popup
-          title={"Add / Edit Bug?"}
-          desc1={"The following Bug will be placed!"}
-          desc2={"Please click 'Confirm' to proceed?"}
-          confirmClick={() => {
-            console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            addBug(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
-                setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
-              } else {
-                setispopup(false)
-                setbackendresponse("Failed, Please Try Again!")
-                console.log('error ' + JSON.stringify(data));
-                console.log('error ' + JSON.stringify(errorresponse));
-              }
-            }, token, list)
-          }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            setispopup(false)
-          }}
-        />
+
       }
     </>
   )
