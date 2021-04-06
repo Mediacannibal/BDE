@@ -123,22 +123,6 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
-<<<<<<< HEAD
-              <div className="input_checkbox">
-                <div className="checkbox_sub_container">
-                  <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
-                  <div className="checkbox_text">Portrait</div>
-                </div>
-
-                <div className="checkbox_sub_container">
-                  <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
-                  <div className="checkbox_text">Landscape</div>
-                </div>
-              </div>
-
-              <div className="user_band">
-
-=======
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
                   <McInput
@@ -191,7 +175,6 @@ const AddEditBug = ({ setPopup }) => {
                     onchange={setremarks}
                   />
                 </div>
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
               </div>
 
               <div className="input_devices">
