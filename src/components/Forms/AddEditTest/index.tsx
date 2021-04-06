@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import { addTest } from 'utils/api';
 
 
@@ -14,22 +14,19 @@ const AddEditTest = ({ setPopup }) => {
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [selectdomain, setselectdomain] = useState('value')
-  const [isselectslot, setisselectslot] = useState('value')
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
+
+
+  const [development, setdevelopment] = useState('')
+  const [tasktype, settasktype] = useState('')
 
 
 
   const [test_title, settest_title] = useState('');
-  const [portrait, setportrait] = useState('');
-  const [device, setdevice] = useState('');
   const [test_description, settest_description] = useState('');
 
-  const [istest_titleemptyerror, settest_titleemptyerror] = useState(false)
-  const [isportraitemptyerror, setportraitemptyerror] = useState(false)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(false)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(false)
-  const [istest_descriptionemptyerror, settest_descriptionemptyerror] = useState(false)
+  const [istest_titleemptyerror, settest_titleemptyerror] = useState(true)
+  const [istest_descriptionemptyerror, settest_descriptionemptyerror] = useState(true)
 
   const [inputvalue, setinputvalue] = useState("")
 
@@ -63,53 +60,50 @@ const AddEditTest = ({ setPopup }) => {
 
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
           title={"Add / Edit Test"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={selectdomain}
-                    onChange={(e: any) => {
-                      console.log(e.target.value)
-                      setselectdomain(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">PROJECT</option>
-                    {/* <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                    <option value="ui">DEV OPS</option> */}
-                  </select>
+                  <McInput
+                    type={"picker"}
+                    name={"DEVELOPMENT"}
+                    id="usertype_data"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
+                    value={development}
+                    setvalue={setdevelopment}
+                    options={[
+                      { "key": "0", "value": "DEVELOPMENT" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a PROJECT!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">TASK TYPE</option>
-                    <option value="DAY">FEATURE</option>
-                    <option value="NIGHT">TEST</option>
-                    <option value="NIGHT">BUG</option>
-                  </select>
+                  <McInput
+                    type={"picker"}
+                    name={"TASK TYPE"}
+                    id="task_type"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
+                    value={tasktype}
+                    setvalue={settasktype}
+                    options={[
+                      { "key": "0", "value": "FEATURE" },
+                      { "key": "1", "value": "TEST" },
+                      { "key": "1", "value": "BUG" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Test Title"}
                     id="test_title_data"
                     name={`data.test_title`}
@@ -127,7 +121,7 @@ const AddEditTest = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Test Description"}
                     id="test_description_data"
                     name={`data.test_description`}
@@ -173,7 +167,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Android"}
                             id="android_data"
                             name={`data.android`}
@@ -204,7 +198,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
-                            <TextField
+                            <McInput
                               label={"IOS"}
                               id="ios_data"
                               name={`data.ios`}
@@ -236,7 +230,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Browser"}
                             id="browser_data"
                             name={`data.browser`}

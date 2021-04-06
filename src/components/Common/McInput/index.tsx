@@ -4,7 +4,7 @@ import '../../../components/app.css'
 import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
 
-const TextField = (props: any) => {
+const McInput = (props: any) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggling = () => setIsOpen(!isOpen);
@@ -259,4 +259,4 @@ const TextField = (props: any) => {
 
 
 }
-export default TextField;
+export default McInput;

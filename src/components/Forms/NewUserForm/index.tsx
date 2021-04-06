@@ -1,4 +1,4 @@
-import TextField from 'components/common/TextFieldWithRef'
+import McInput from 'components/Common/McInput'
 import SimpleEditor from 'react-simple-image-editor';
 import React, { useState } from 'react'
 import './style.css'
@@ -15,7 +15,6 @@ const NewUserForm = ({ setPopup }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
 
 
   const [ispopup, setispopup] = useState(false)
@@ -117,7 +116,7 @@ const NewUserForm = ({ setPopup }) => {
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Company Name"}
                     id="companyname_data"
                     name={`data.CompanyName`}
@@ -135,7 +134,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Location"}
                     id="location_data"
                     name={`data.location`}
@@ -153,7 +152,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Branch Name"}
                     id="branch_name_data"
                     name={`data.branch_name`}
@@ -171,7 +170,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"First Name"}
                     id="firstname_data"
                     name={`data.FirstName`}
@@ -189,7 +188,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Last Name"}
                     id={"lastname_data"}
                     name={`data.LastName`}
@@ -207,7 +206,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Email ID"}
                     id={"email_data"}
                     inputtype="email"
@@ -225,7 +224,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Phone Number"}
                     id={"phoneno_data"}
                     inputtype="phone"
@@ -244,7 +243,7 @@ const NewUserForm = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <TextField
+                  <McInput
                     type={"picker"}
                     name={"User Type"}
                     id="usertype_data"
@@ -258,12 +257,11 @@ const NewUserForm = ({ setPopup }) => {
                       { "key": "1", "value": "USER" }]}
                   />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a UserType!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"New Password"}
                     id="password_data"
                     name={`data.password`}

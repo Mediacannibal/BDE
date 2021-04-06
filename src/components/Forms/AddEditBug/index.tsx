@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import { addBug } from 'utils/api';
 
 
@@ -59,7 +59,7 @@ const AddEditBug = ({ setPopup }) => {
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Bug Title"}
                     id="bugtitle_data"
                     name={`data.BugTitle`}
@@ -95,7 +95,7 @@ const AddEditBug = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Device"}
                     id="device_data"
                     name={`data.Device`}
@@ -113,7 +113,7 @@ const AddEditBug = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Remarks"}
                     id="remarks_data"
                     name={`data.Remarks`}

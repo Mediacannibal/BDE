@@ -5,24 +5,29 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { taskAdd } from 'utils/api';
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 
 
 
 
 const AddEditProject = ({ setPopup }) => {
   const history = useHistory();
-
-  const [title, settitle] = useState('')
-  const [description, setdescription] = useState('')
-
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [isselectslot, setisselectslot] = useState('value')
-  const [istitleemptyerror, settitleemptyerror] = useState(false)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+
+
+
+  const [isselectslot, setisselectslot] = useState('')
+  const [title, settitle] = useState('')
+  const [description, setdescription] = useState('')
+
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
+  const [istitleemptyerror, settitleemptyerror] = useState(true)
+  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(true)
+
+
+
 
   const [inputvalue, setinputvalue] = useState("")
 
@@ -43,7 +48,6 @@ const AddEditProject = ({ setPopup }) => {
   };
   console.log(errors);
 
-
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
     let formdata = new FormData()
@@ -52,36 +56,65 @@ const AddEditProject = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+    let temp = true
+
+    console.log(isselectslot, title, description)
+
+    if (String(isselectslot).length === 0
+      || String(title).length === 0
+      || String(description).length === 0
+    ) {
+      temp = false
+      if (isselectslot.length === 0) {
+        setslotemptyerror(false);
+      }
+      if (title.length === 0) {
+        settitleemptyerror(false);
+      }
+      if (description.length === 0) {
+        setdescriptionemptyerror(false);
+      }
+    }
+
+    // console.log(document.getElementById("firstname_data").valid,
+    //   String(document.getElementById("firstname_data").valid))
+
+    return temp
+  }
+
+
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
-          title={"Add / Edit Task"}
+          title={"Add / Edit Project"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"PROJECT TYPE"}
+                    id="usertype_data"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
                     value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">PROJECT TYPE</option>
-                    <option value="DAY">DEVELOPMENT</option>
-                    <option value="NIGHT">DESIGN</option>
-                    <option value="NIGHT">MARKETING</option>
-                  </select>
+                    setvalue={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "DEVELOPMENT" },
+                      { "key": "1", "value": "DESIGN" },
+                      { "key": "1", "value": "MARKETING" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Title"}
                     id="title_data"
                     name={`data.Title`}
@@ -99,7 +132,7 @@ const AddEditProject = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Description"}
                     id="description_data"
                     name={`data.Description`}

@@ -33,7 +33,7 @@
 }
 
 .custom_body {
-    background-color: var(--color_8);
+    background-color: var(--color_15);
     display: flex;
     flex-direction: column;
     width: 100%;

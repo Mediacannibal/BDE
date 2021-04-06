@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { createMainTask, taskAdd } from 'utils/api';
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 
 
 const AddEditTask = ({ setPopup }) => {
@@ -34,24 +34,23 @@ const AddEditTask = ({ setPopup }) => {
   const [isfrontend, setisfrontend] = useState(false)
   const [isbackend, setisbackend] = useState(false)
 
-  const [selectdomain, setselectdomain] = useState('value')
 
 
-  const [isselectslot, setisselectslot] = useState('value')
+  const [selectdomain, setselectdomain] = useState('')
+  const [isselectslot, setisselectslot] = useState('')
+  const [apiselect, setapiselect] = useState('')
 
-  const [isproject_nameemptyerror, setproject_nameemptyerror] = useState(false)
-  const [istitleemptyerror, settitleemptyerror] = useState(false)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
-  const [isassigneeemptyerror, setassigneeemptyerror] = useState(false)
-  const [isandroidemptyerror, setandroidemptyerror] = useState(false)
-  const [isiosemptyerror, setiosemptyerror] = useState(false)
-  const [isbrowseremptyerror, setbrowseremptyerror] = useState(false)
-  const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(false)
-  const [ispathemptyerror, setpathemptyerror] = useState(false)
-  const [isrequestemptyerror, setrequestemptyerror] = useState(false)
-  const [isresponseemptyerror, setresponseemptyerror] = useState(false)
-
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+  const [isproject_nameemptyerror, setproject_nameemptyerror] = useState(true)
+  const [istitleemptyerror, settitleemptyerror] = useState(true)
+  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(true)
+  const [isassigneeemptyerror, setassigneeemptyerror] = useState(true)
+  const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(true)
+  const [ispathemptyerror, setpathemptyerror] = useState(true)
+  const [isrequestemptyerror, setrequestemptyerror] = useState(true)
+  const [isresponseemptyerror, setresponseemptyerror] = useState(true)
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
+  const [isdomainemptyerror, setdomainemptyerror] = useState(true)
+  const [apiselectvalid, setapiselectvalid] = useState(true)
 
   const [ispopup, setispopup] = useState(false)
 
@@ -82,14 +81,14 @@ const AddEditTask = ({ setPopup }) => {
 
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
           title={"Add / Edit Task"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Project Name"}
                     id="project_name_data"
                     name={`data.project_name`}
@@ -107,7 +106,7 @@ const AddEditTask = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Title"}
                     id="title_data"
                     name={`data.Title`}
@@ -125,7 +124,7 @@ const AddEditTask = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Description"}
                     id="description_data"
                     name={`data.Description`}
@@ -143,45 +142,45 @@ const AddEditTask = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"TASK TYPE"}
+                    id="task_type"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
                     value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">TASK TYPE</option>
-                    <option value="DAY">FEATURE</option>
-                    <option value="NIGHT">TEST</option>
-                    <option value="NIGHT">BUG</option>
-                  </select>
+                    setvalue={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "FEATURE" },
+                      { "key": "1", "value": "TEST" },
+                      { "key": "0", "value": "BUG" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"DOMAIN"}
+                    id="domain"
+                    required={true}
+                    valid={isdomainemptyerror}
+                    setvalid={setdomainemptyerror}
                     value={selectdomain}
-                    onChange={(e: any) => {
-                      console.log(e.target.value)
-                      setselectdomain(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">DOMAIN</option>
-                    <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                    <option value="ui">DEV OPS</option>
-                  </select>
+                    setvalue={setselectdomain}
+                    options={[
+                      { "key": "0", "value": "FRONT END" },
+                      { "key": "1", "value": "BACK END" },
+                      { "key": "0", "value": "UI" },
+                      { "key": "0", "value": "DEV OPS" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
               </div>
 
-              {(selectdomain === "frontend") ?
+              {(selectdomain === "FRONT END") ?
                 <>
                   <div className="input_checkbox">
                     <div className="checkbox_sub_container">
@@ -213,7 +212,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Android"}
                             id="android_data"
                             name={`data.android`}
@@ -244,7 +243,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
-                            <TextField
+                            <McInput
                               label={"IOS"}
                               id="ios_data"
                               name={`data.ios`}
@@ -276,7 +275,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Browser"}
                             id="browser_data"
                             name={`data.browser`}
@@ -299,11 +298,11 @@ const AddEditTask = ({ setPopup }) => {
                 null
               }
 
-              {selectdomain === "backend" ?
+              {selectdomain === "BACK END" ?
                 <>
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"API Name"}
                         id="api_name_data"
                         name={`data.api_name`}
@@ -320,27 +319,27 @@ const AddEditTask = ({ setPopup }) => {
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
-                      <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                        required={isslotemptyerror}
-                        value={isselectslot}
-                        onChange={(e) => {
-                          console.log(e.target.value)
-                          // setisbackend(!isbackend)
-                        }}
-                      >
-                        <option hidden value="">API METHOD</option>
-                        <option value="get">GET</option>
-                        <option value="post">POST</option>
-                        <option value="put">PUT</option>
-                        <option value="delete">DELETE</option>
-                      </select>
+                      <McInput
+                        type={"picker"}
+                        name={"API METHOD"}
+                        id="domain"
+                        required={true}
+                        valid={apiselectvalid}
+                        setvalid={setapiselectvalid}
+                        value={apiselect}
+                        setvalue={setapiselect}
+                        options={[
+                          { "key": "0", "value": "GET" },
+                          { "key": "1", "value": "POST" },
+                          { "key": "0", "value": "PUT" },
+                          { "key": "0", "value": "DELETE" }]}
+                      />
                     </div>
-                    {isslotemptyerror ? <div className="invalid_entry">Please select a API METHOD!</div> : null}
                   </div>
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Path"}
                         id="path_data"
                         name={`data.path`}
@@ -357,7 +356,7 @@ const AddEditTask = ({ setPopup }) => {
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Request"}
                         id="request_data"
                         name={`data.request`}
@@ -374,7 +373,7 @@ const AddEditTask = ({ setPopup }) => {
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Response"}
                         id="response_data"
                         name={`data.response`}
@@ -395,7 +394,7 @@ const AddEditTask = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Assignee"}
                     id="assignee_data"
                     name={`data.Assignee`}

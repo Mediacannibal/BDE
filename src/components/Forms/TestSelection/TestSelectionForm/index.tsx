@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import * as close from '../../../../assets/close.png'
 
 const TestSelectionForm = () => {
@@ -15,9 +15,9 @@ const TestSelectionForm = () => {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
 
-  const [project_nameemptyerror, setproject_nameemptyerror] = useState(false)
-  const [titleemptyerror, settitleemptyerror] = useState(false)
-  const [descriptionemptyerror, setdescriptionemptyerror] = useState(false)
+  const [project_nameemptyerror, setproject_nameemptyerror] = useState(true)
+  const [titleemptyerror, settitleemptyerror] = useState(true)
+  const [descriptionemptyerror, setdescriptionemptyerror] = useState(true)
 
 
   const [list, setlist] = useState([{
@@ -47,7 +47,7 @@ const TestSelectionForm = () => {
             <div className="name_title_div">
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                 
+
                 </div >
               </div >
 
@@ -60,7 +60,7 @@ const TestSelectionForm = () => {
 
             <div className="inputfield_sub_container">
               <div className="textinput_box_container">
-                <TextField
+                <McInput
                   label={"Description"}
                   id="description_data"
                   name={`data.description`}
@@ -78,7 +78,7 @@ const TestSelectionForm = () => {
 
             <div className="potrait_lanscape">
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
 
@@ -94,7 +94,7 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
 
@@ -115,10 +115,10 @@ const TestSelectionForm = () => {
 
             <div className="potrait_lanscape">
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Android"}
                       id="titledata"
                       name={`data.title`}
@@ -143,10 +143,10 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Ios"}
                       id="titledata"
                       name={`data.title`}
@@ -171,10 +171,10 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Browser"}
                       id="titledata"
                       name={`data.title`}
@@ -206,7 +206,7 @@ const TestSelectionForm = () => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"feedback"}
                     id="description_data"
                     name={`data.description`}

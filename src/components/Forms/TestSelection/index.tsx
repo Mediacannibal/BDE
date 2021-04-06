@@ -4,14 +4,17 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
+import McInput from 'components/Common/McInput';
 
 
 const TestSelection = ({ setTest }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [isselectslot, setisselectslot] = useState('value')
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
+
+  const [domain, setdomain] = useState('')
+  const [isselectslot, setisselectslot] = useState('')
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
@@ -28,38 +31,38 @@ const TestSelection = ({ setTest }) => {
 
             <div className="inputfield_sub_container">
               <div className="Booking_slot_dropdown">
-                <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                  required={isslotemptyerror}
-                  value={isselectslot}
-                  onChange={(e) => {
-                    setslotemptyerror(false)
-                    setisselectslot(e.target.value)
-                  }}
-                >
-                  <option hidden value="">DOMAIN</option>
-                    <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                </select>
+                <McInput
+                  type={"picker"}
+                  name={"DOMAIN"}
+                  id="usertype_data"
+                  required={true}
+                  valid={isslotemptyerror}
+                  setvalid={setslotemptyerror}
+                  value={domain}
+                  setvalue={setdomain}
+                  options={[
+                    { "key": "0", "value": "FRONT END" },
+                    { "key": "1", "value": "BACK END" },
+                    { "key": "1", "value": "UI" }]}
+                />
               </div>
-              {isslotemptyerror ? <div className="invalid_entry">Please select a Project</div> : null}
             </div>
 
             <div className="inputfield_sub_container">
               <div className="Booking_slot_dropdown">
-                <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                  required={isslotemptyerror}
+                <McInput
+                  type={"picker"}
+                  name={"PROJECT"}
+                  id="usertype_data"
+                  required={true}
+                  valid={isslotemptyerror}
+                  setvalid={setslotemptyerror}
                   value={isselectslot}
-                  onChange={(e) => {
-                    setslotemptyerror(false)
-                    setisselectslot(e.target.value)
-                  }}
-                >
-                  <option hidden value="">PROJECT</option>
-                  <option value="DAY"></option>
-                </select>
+                  setvalue={setisselectslot}
+                  options={[
+                    { "key": "0", "value": "DAY" }]}
+                />
               </div>
-              {isslotemptyerror ? <div className="invalid_entry">Please select a Project</div> : null}
             </div>
 
           </form>
