@@ -4,25 +4,31 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
+<<<<<<< HEAD
 import { createProject, taskAdd } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
+=======
+import { taskAdd } from 'utils/api';
+import McInput from 'components/Common/McInput';
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
 
 
 
 const AddEditProject = ({ setPopup }) => {
   const history = useHistory();
-
-  const [title, settitle] = useState('')
-  const [description, setdescription] = useState('')
-
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [isselectslot, setisselectslot] = useState('value')
-  const [istitleemptyerror, settitleemptyerror] = useState(false)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+  const [isselectslot, setisselectslot] = useState('')
+  const [title, settitle] = useState('')
+  const [description, setdescription] = useState('')
+
+  const [slotvalid, setSlotvalid] = useState(false)
+  const [titlevalid, setTitlevalid] = useState(false)
+  const [descriptionvaild, setDescriptionvaild] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
 
@@ -43,7 +49,6 @@ const AddEditProject = ({ setPopup }) => {
   };
   console.log(errors);
 
-
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
     let formdata = new FormData()
@@ -52,36 +57,89 @@ const AddEditProject = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+    console.log("***VALIDATE***")
+    console.log(isselectslot, title, description)
+
+    if (slotvalid === true
+      && titlevalid === true
+      && descriptionvaild === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+    // console.log(document.getElementById("firstname_data").valid,
+    //   String(document.getElementById("firstname_data").valid))
+
+  }
+
+
   return (
     <>
-      { !ispopup ?
+      {ispopup ?
+
         <Popup
-          title={"Add / Edit Task"}
+          title={"Add / Edit Project?"}
+          desc1={"The following Project will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            taskAdd(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+
+        :
+
+        <Popup
+          title={"Add / Edit Project"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"PROJECT TYPE"}
+                    id="usertype_data"
+                    required={true}
+                    valid={setSlotvalid}
+                    sendcheck={preSendValidator}
                     value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">PROJECT TYPE</option>
-                    <option value="DAY">DEVELOPMENT</option>
-                    <option value="NIGHT">DESIGN</option>
-                    <option value="NIGHT">MARKETING</option>
-                  </select>
+                    onchange={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "DEVELOPMENT" },
+                      { "key": "1", "value": "DESIGN" },
+                      { "key": "1", "value": "MARKETING" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Title"}
                     id="title_data"
                     name={`data.Title`}
@@ -89,17 +147,17 @@ const AddEditProject = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istitleemptyerror}
-                    setvalid={settitleemptyerror}
+                    valid={setTitlevalid}
+                    sendcheck={preSendValidator}
                     value={title}
-                    onChange={settitle}
+                    onchange={settitle}
                   />
                 </div>
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Description"}
                     id="description_data"
                     name={`data.Description`}
@@ -107,10 +165,10 @@ const AddEditProject = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isdescriptionemptyerror}
-                    setvalid={setdescriptionemptyerror}
+                    valid={setDescriptionvaild}
+                    sendcheck={preSendValidator}
                     value={description}
-                    onChange={setdescription}
+                    onchange={setdescription}
                   />
                 </div>
               </div>
@@ -131,10 +189,11 @@ const AddEditProject = ({ setPopup }) => {
           }
           confirmClick={() => {
             console.log("***SEND***")
-            setispopup(true)
+            Validate()
           }}
           cancelClick={setPopup}
         />
+<<<<<<< HEAD
         :
         <Popup
           title={"Add / Edit Project?"}
@@ -164,6 +223,8 @@ const AddEditProject = ({ setPopup }) => {
             setispopup(false)
           }}
         />
+=======
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
       }
     </>
   )

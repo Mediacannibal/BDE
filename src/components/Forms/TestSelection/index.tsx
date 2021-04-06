@@ -4,19 +4,40 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
+import McInput from 'components/Common/McInput';
 
 
 const TestSelection = ({ setTest }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [isselectslot, setisselectslot] = useState('value')
+  const [domain, setdomain] = useState('')
+  const [isselectslot, setisselectslot] = useState('')
+
+  const [domainvalid, setdomainvalid] = useState(false)
+  const [projectvalid, setprojectvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
+
+  const Validate = () => {
+
+    if (domainvalid === true
+      && projectvalid === true
+    ) {
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+    // console.log(document.getElementById("firstname_data").valid,
+    //   String(document.getElementById("firstname_data").valid))
+
+  }
 
   return (
     <>
@@ -28,43 +49,44 @@ const TestSelection = ({ setTest }) => {
 
             <div className="inputfield_sub_container">
               <div className="Booking_slot_dropdown">
-                <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                  required={isslotemptyerror}
-                  value={isselectslot}
-                  onChange={(e) => {
-                    setslotemptyerror(false)
-                    setisselectslot(e.target.value)
-                  }}
-                >
-                  <option hidden value="">DOMAIN</option>
-                    <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                </select>
+                <McInput
+                  type={"picker"}
+                  name={"DOMAIN"}
+                  id="usertype_data"
+                  required={true}
+                  valid={setdomainvalid}
+                  sendcheck={preSendValidator}
+                  value={domain}
+                  onchange={setdomain}
+                  options={[
+                    { "key": "0", "value": "FRONT END" },
+                    { "key": "1", "value": "BACK END" },
+                    { "key": "1", "value": "UI" }]}
+                />
               </div>
-              {isslotemptyerror ? <div className="invalid_entry">Please select a Project</div> : null}
             </div>
 
             <div className="inputfield_sub_container">
               <div className="Booking_slot_dropdown">
-                <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                  required={isslotemptyerror}
+                <McInput
+                  type={"picker"}
+                  name={"PROJECT"}
+                  id="usertype_data"
+                  required={true}
+                  valid={setdomainvalid}
+                  sendcheck={preSendValidator}
                   value={isselectslot}
-                  onChange={(e) => {
-                    setslotemptyerror(false)
-                    setisselectslot(e.target.value)
-                  }}
-                >
-                  <option hidden value="">PROJECT</option>
-                  <option value="DAY"></option>
-                </select>
+                  onchange={setisselectslot}
+                  options={[
+                    { "key": "0", "value": "DAY" }]}
+                />
               </div>
-              {isslotemptyerror ? <div className="invalid_entry">Please select a Project</div> : null}
             </div>
 
           </form>
         }
         confirmClick={() => {
+          Validate()
           history.replace('/TestSelectionForm')
         }}
         cancelClick={setTest}

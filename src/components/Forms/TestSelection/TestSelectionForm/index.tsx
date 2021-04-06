@@ -3,22 +3,28 @@ import './style.css'
 import { useHistory } from 'react-router-dom';
 import '../../../../components/app.css'
 import { useForm } from 'react-hook-form';
-import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import * as close from '../../../../assets/close.png'
 
 const TestSelectionForm = () => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const [project_name, setproject_name] = useState('')
-  const [title, settitle] = useState('')
+
   const [description, setdescription] = useState('')
+  const [android, setandroid] = useState('')
+  const [ios, setios] = useState('')
+  const [browser, setbrowser] = useState('')
+  const [feedback, setfeedback] = useState('')
 
-  const [project_nameemptyerror, setproject_nameemptyerror] = useState(false)
-  const [titleemptyerror, settitleemptyerror] = useState(false)
-  const [descriptionemptyerror, setdescriptionemptyerror] = useState(false)
+  const [descriptionvalid, setdescriptionvalid] = useState(false)
+  const [androidvalid, setandroidvalid] = useState(false)
+  const [iosvalid, setiosvalid] = useState(false)
+  const [browservalid, setbrowservalid] = useState(false)
+  const [feedbackvalid, setfeedbackvalid] = useState(false)
 
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [list, setlist] = useState([{
     "project_name": "",
@@ -31,6 +37,25 @@ const TestSelectionForm = () => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
+
+  const Validate = () => {
+
+
+    if (descriptionvalid === true
+      && androidvalid === true
+      && iosvalid === true
+      && browservalid === true
+      && feedbackvalid === true
+    ) {
+
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+
+  }
+
 
   return (
     <>
@@ -47,20 +72,20 @@ const TestSelectionForm = () => {
             <div className="name_title_div">
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                 
+                  PROJECT NAME
                 </div >
               </div >
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-
+                  TITLE
                 </div >
               </div >
             </div>
 
             <div className="inputfield_sub_container">
               <div className="textinput_box_container">
-                <TextField
+                <McInput
                   label={"Description"}
                   id="description_data"
                   name={`data.description`}
@@ -68,17 +93,17 @@ const TestSelectionForm = () => {
                   type="text"
                   min_length="3"
                   required={true}
-                  valid={descriptionemptyerror}
-                  setvalid={setdescriptionemptyerror}
+                  valid={setdescriptionvalid}
+                  sendcheck={preSendValidator}
                   value={description}
-                  onChange={setdescription}
+                  onchange={setdescription}
                 />
               </div >
             </div >
 
             <div className="potrait_lanscape">
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
 
@@ -94,7 +119,7 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
 
@@ -115,21 +140,21 @@ const TestSelectionForm = () => {
 
             <div className="potrait_lanscape">
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Android"}
-                      id="titledata"
-                      name={`data.title`}
+                      id="androiddata"
+                      name={`data.android`}
                       inputtype="Text"
                       type="text"
                       min_length="3"
                       required={true}
-                      valid={titleemptyerror}
-                      setvalid={settitleemptyerror}
-                      value={project_name}
-                      onChange={setproject_name}
+                      valid={setandroidvalid}
+                      sendcheck={preSendValidator}
+                      value={android}
+                      onchange={setandroid}
                     />
                   </div >
                 </div >
@@ -143,21 +168,21 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Ios"}
-                      id="titledata"
-                      name={`data.title`}
+                      id="iosdata"
+                      name={`data.ios`}
                       inputtype="Text"
                       type="text"
                       min_length="3"
                       required={true}
-                      valid={titleemptyerror}
-                      setvalid={settitleemptyerror}
-                      value={project_name}
-                      onChange={setproject_name}
+                      valid={setiosvalid}
+                      sendcheck={preSendValidator}
+                      value={ios}
+                      onchange={setios}
                     />
                   </div >
                 </div >
@@ -171,21 +196,21 @@ const TestSelectionForm = () => {
                 </div>
               </div>
 
-              <div className="textfield_checkbox">
+              <div className="McInput_checkbox">
                 <div className="inputfield_sub_container">
                   <div className="textinput_box_container">
-                    <TextField
+                    <McInput
                       label={"Browser"}
-                      id="titledata"
+                      id="browserdata"
                       name={`data.title`}
                       inputtype="Text"
                       type="text"
                       min_length="3"
                       required={true}
-                      valid={titleemptyerror}
-                      setvalid={settitleemptyerror}
-                      value={project_name}
-                      onChange={setproject_name}
+                      valid={setbrowservalid}
+                      sendcheck={preSendValidator}
+                      value={browser}
+                      onchange={setbrowser}
                     />
                   </div >
                 </div >
@@ -203,21 +228,20 @@ const TestSelectionForm = () => {
 
 
             <div className="feedback_upload_div">
-
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"feedback"}
-                    id="description_data"
-                    name={`data.description`}
+                    id="feedbackdata"
+                    name={`data.feedback`}
                     inputtype="Text"
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={descriptionemptyerror}
-                    setvalid={setdescriptionemptyerror}
-                    value={description}
-                    onChange={setdescription}
+                    valid={setfeedbackvalid}
+                    sendcheck={preSendValidator}
+                    value={feedback}
+                    onchange={setfeedback}
                   />
                 </div >
               </div >
@@ -226,9 +250,7 @@ const TestSelectionForm = () => {
                 <button type="button" className="nice-button">File links</button>
                 <input type="file" name="file" className="upload-btn" id="activity_input_value" />
               </div>
-
             </div>
-
 
             <div>
 
@@ -236,13 +258,13 @@ const TestSelectionForm = () => {
                 <div
                   className='popup_submit_button'
                   onClick={() => {
-
+                    Validate()
                   }}
                 >Previous</div>
                 <div
                   className='popup_submit_button'
                   onClick={() => {
-
+                    Validate()
                   }}
                 >Next</div>
               </div>

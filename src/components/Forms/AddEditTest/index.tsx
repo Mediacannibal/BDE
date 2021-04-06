@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import { addTest } from 'utils/api';
 
 
@@ -14,27 +14,25 @@ const AddEditTest = ({ setPopup }) => {
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
-  const [selectdomain, setselectdomain] = useState('value')
-  const [isselectslot, setisselectslot] = useState('value')
+
+
+  const [development, setdevelopment] = useState('')
+  const [tasktype, settasktype] = useState('')
 
 
 
   const [test_title, settest_title] = useState('');
-  const [portrait, setportrait] = useState('');
-  const [device, setdevice] = useState('');
   const [test_description, settest_description] = useState('');
 
-  const [istest_titleemptyerror, settest_titleemptyerror] = useState(false)
-  const [isportraitemptyerror, setportraitemptyerror] = useState(false)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(false)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(false)
-  const [istest_descriptionemptyerror, settest_descriptionemptyerror] = useState(false)
+  const [developmentvalid, setdevelopmentvalid] = useState(true)
+  const [titlevalid, settitlevalid] = useState(false)
+  const [descriptionvalid, setdescriptionvalid] = useState(false)
+  const [taskemptyerror, setaskemptyerror] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
-
   const [ispopup, setispopup] = useState(false)
-
   const [list, setlist] = useState([{
     "test": "",
     "portrait": "",
@@ -60,55 +58,102 @@ const AddEditTest = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+
+    if (developmentvalid === true
+      && titlevalid === true
+      && descriptionvalid === true
+      && taskemptyerror === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+  }
+
   return (
     <>
-      { !ispopup ?
+      {ispopup ?
+
+        <Popup
+          title={"Add / Edit Test?"}
+          desc1={"The following Test will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            addTest(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+        :
         <Popup
           title={"Add / Edit Test"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={selectdomain}
-                    onChange={(e: any) => {
-                      console.log(e.target.value)
-                      setselectdomain(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">PROJECT</option>
-                    {/* <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                    <option value="ui">DEV OPS</option> */}
-                  </select>
+                  <McInput
+                    type={"picker"}
+                    name={"DEVELOPMENT"}
+                    id="usertype_data"
+                    required={true}
+                    valid={setdevelopmentvalid}
+                    sendcheck={preSendValidator}
+                    value={development}
+                    onchange={setdevelopment}
+                    options={[
+                      { "key": "0", "value": "DEVELOPMENT" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a PROJECT!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
-                    value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">TASK TYPE</option>
-                    <option value="DAY">FEATURE</option>
-                    <option value="NIGHT">TEST</option>
-                    <option value="NIGHT">BUG</option>
-                  </select>
+                  <McInput
+                    type={"picker"}
+                    name={"TASK TYPE"}
+                    id="task_type"
+                    required={true}
+                    valid={setaskemptyerror}
+                    sendcheck={preSendValidator}
+                    value={tasktype}
+                    onchange={settasktype}
+                    options={[
+                      { "key": "0", "value": "FEATURE" },
+                      { "key": "1", "value": "TEST" },
+                      { "key": "1", "value": "BUG" }]}
+                  />
                 </div>
+<<<<<<< HEAD
                 {isslotemptyerror ? <div className="invalid_entry">Please select a TASK TYPE!</div> : null}
+=======
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Test Title"}
                     id="test_title_data"
                     name={`data.test_title`}
@@ -116,17 +161,17 @@ const AddEditTest = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istest_titleemptyerror}
-                    setvalid={settest_titleemptyerror}
+                    valid={settitlevalid}
+                    sendcheck={preSendValidator}
                     value={test_title}
-                    onChange={settest_title}
+                    onchange={settest_title}
                   />
                 </div>
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Test Description"}
                     id="test_description_data"
                     name={`data.test_description`}
@@ -134,10 +179,10 @@ const AddEditTest = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istest_descriptionemptyerror}
-                    setvalid={settest_descriptionemptyerror}
+                    valid={setdescriptionvalid}
+                    sendcheck={preSendValidator}
                     value={test_description}
-                    onChange={settest_description}
+                    onchange={settest_description}
                   />
                 </div>
               </div>
@@ -172,7 +217,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Android"}
                             id="android_data"
                             name={`data.android`}
@@ -203,7 +248,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
-                            <TextField
+                            <McInput
                               label={"IOS"}
                               id="ios_data"
                               name={`data.ios`}
@@ -235,7 +280,7 @@ const AddEditTest = ({ setPopup }) => {
                   {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Browser"}
                             id="browser_data"
                             name={`data.browser`}
@@ -272,38 +317,9 @@ const AddEditTest = ({ setPopup }) => {
 
           confirmClick={() => {
             console.log("***SEND***")
-            setispopup(true)
+            Validate()
           }}
           cancelClick={setPopup}
-        />
-        :
-        <Popup
-          title={"Add / Edit Test?"}
-          desc1={"The following Test will be placed!"}
-          desc2={"Please click 'Confirm' to proceed?"}
-          confirmClick={() => {
-            console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            addTest(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
-                setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
-              } else {
-                setispopup(false)
-                setbackendresponse("Failed, Please Try Again!")
-                console.log('error ' + JSON.stringify(data));
-                console.log('error ' + JSON.stringify(errorresponse));
-              }
-            }, token, list)
-          }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            setispopup(false)
-          }}
         />
       }
     </>

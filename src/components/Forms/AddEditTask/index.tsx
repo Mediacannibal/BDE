@@ -4,8 +4,13 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
+<<<<<<< HEAD
 import { createMainTask } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
+=======
+import { createMainTask, taskAdd } from 'utils/api';
+import McInput from 'components/Common/McInput';
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
 
 const AddEditTask = ({ setPopup }) => {
@@ -34,11 +39,13 @@ const AddEditTask = ({ setPopup }) => {
   const [isfrontend, setisfrontend] = useState(false)
   const [isbackend, setisbackend] = useState(false)
 
-  const [selectdomain, setselectdomain] = useState('value')
 
 
-  const [isselectslot, setisselectslot] = useState('value')
+  const [selectdomain, setselectdomain] = useState('')
+  const [isselectslot, setisselectslot] = useState('')
+  const [apiselect, setapiselect] = useState('')
 
+<<<<<<< HEAD
   const [isproject_refemptyerror, setproject_refemptyerror] = useState(false)
   const [istitleemptyerror, settitleemptyerror] = useState(false)
   const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
@@ -47,8 +54,23 @@ const AddEditTask = ({ setPopup }) => {
   const [ispathemptyerror, setpathemptyerror] = useState(false)
   const [isrequestemptyerror, setrequestemptyerror] = useState(false)
   const [isresponseemptyerror, setresponseemptyerror] = useState(false)
+=======
+  const [isproject_namevalid, setproject_namevalid] = useState(false)
+  const [istitlevalid, settitlevalid] = useState(false)
+  const [isdescriptionvalid, setdescriptionvalid] = useState(false)
+  const [isassigneevalid, setassigneevalid] = useState(false)
+  const [isapi_namevalid, setapi_namevalid] = useState(false)
+  const [ispathvalid, setpathvalid] = useState(false)
+  const [isrequestvalid, setrequestvalid] = useState(false)
+  const [isresponsevalid, setresponsevalid] = useState(false)
+  const [isslotvalid, setslotvalid] = useState(false)
+  const [isdomainvalid, setdomainvalid] = useState(false)
+  const [apiselectvalid, setapiselectvalid] = useState(false)
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [ispopup, setispopup] = useState(false)
 
@@ -78,34 +100,103 @@ const AddEditTask = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+    console.log("***VALIDATE***")
+    console.log(isselectslot, title, description)
+
+    if (isproject_namevalid === true
+      && istitlevalid === true
+      && isdescriptionvalid === true
+      && isassigneevalid === true
+      && isapi_namevalid === true
+      && ispathvalid === true
+      && isrequestvalid === true
+      && isresponsevalid === true
+      && isslotvalid === true
+      && isdomainvalid === true
+      && apiselectvalid === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+  }
+
   return (
     <>
-      { !ispopup ?
+      {ispopup ?
+
+        <Popup
+          title={"Add / Edit Task?"}
+          desc1={"The following Task will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            createMainTask(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+        :
         <Popup
           title={"Add / Edit Task"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
+<<<<<<< HEAD
                   <TextField
                     label={"Project Ref"}
                     id="project_ref_data"
                     name={`data.project_ref`}
+=======
+                  <McInput
+                    label={"Project Name"}
+                    id="project_name_data"
+                    name={`data.project_name`}
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
                     inputtype="Text"
                     type="text"
                     min_length="3"
                     required={true}
+<<<<<<< HEAD
                     valid={isproject_refemptyerror}
                     setvalid={setproject_refemptyerror}
                     value={project_ref}
                     onChange={setproject_ref}
+=======
+                    valid={setproject_namevalid}
+                    sendcheck={preSendValidator}
+                    value={project_name}
+                    onchange={setproject_name}
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
                   />
                 </div >
               </div >
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Title"}
                     id="title_data"
                     name={`data.Title`}
@@ -113,17 +204,17 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istitleemptyerror}
-                    setvalid={settitleemptyerror}
+                    valid={settitlevalid}
+                    sendcheck={preSendValidator}
                     value={title}
-                    onChange={settitle}
+                    onchange={settitle}
                   />
                 </div>
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Description"}
                     id="description_data"
                     name={`data.Description`}
@@ -131,55 +222,55 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isdescriptionemptyerror}
-                    setvalid={setdescriptionemptyerror}
+                    valid={setdescriptionvalid}
+                    sendcheck={preSendValidator}
                     value={description}
-                    onChange={setdescription}
+                    onchange={setdescription}
                   />
                 </div>
               </div>
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="task_type" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"TASK TYPE"}
+                    id="task_type"
+                    required={true}
+                    valid={setslotvalid}
+                    sendcheck={preSendValidator}
                     value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">TASK TYPE</option>
-                    <option value="DAY">FEATURE</option>
-                    <option value="NIGHT">TEST</option>
-                    <option value="NIGHT">BUG</option>
-                  </select>
+                    onchange={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "FEATURE" },
+                      { "key": "1", "value": "TEST" },
+                      { "key": "0", "value": "BUG" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"DOMAIN"}
+                    id="domain"
+                    required={true}
+                    valid={setdomainvalid}
+                    sendcheck={preSendValidator}
                     value={selectdomain}
-                    onChange={(e: any) => {
-                      console.log(e.target.value)
-                      setselectdomain(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">DOMAIN</option>
-                    <option value="frontend">FRONT END</option>
-                    <option value="backend">BACK END</option>
-                    <option value="ui">UI</option>
-                    <option value="ui">DEV OPS</option>
-                  </select>
+                    onchange={setselectdomain}
+                    options={[
+                      { "key": "0", "value": "FRONT END" },
+                      { "key": "1", "value": "BACK END" },
+                      { "key": "0", "value": "UI" },
+                      { "key": "0", "value": "DEV OPS" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a DOMAIN!</div> : null}
               </div>
 
-              {(selectdomain === "frontend") ?
+              {(selectdomain === "FRONT END") ?
                 <>
                   <div className="input_checkbox">
                     <div className="checkbox_sub_container">
@@ -211,7 +302,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Android"}
                             id="android_data"
                             name={`data.android`}
@@ -219,8 +310,8 @@ const AddEditTask = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isandroidemptyerror}
-                            setvalid={setandroidemptyerror}
+                            valid={isandroidvalid}
+                            setvalid={setandroidvalid}
                             value={android}
                             onChange={setandroid} />
                         </div>
@@ -242,7 +333,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
-                            <TextField
+                            <McInput
                               label={"IOS"}
                               id="ios_data"
                               name={`data.ios`}
@@ -250,8 +341,8 @@ const AddEditTask = ({ setPopup }) => {
                               type="text"
                               min_length="3"
                               required={true}
-                              valid={isiosemptyerror}
-                              setvalid={setiosemptyerror}
+                              valid={isiosvalid}
+                              setvalid={setiosvalid}
                               value={ios}
                               onChange={setios} />
                           </div>
@@ -274,7 +365,7 @@ const AddEditTask = ({ setPopup }) => {
                       {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Browser"}
                             id="browser_data"
                             name={`data.browser`}
@@ -282,8 +373,8 @@ const AddEditTask = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isbrowseremptyerror}
-                            setvalid={setbrowseremptyerror}
+                            valid={isbrowservalid}
+                            setvalid={setbrowservalid}
                             value={browser}
                             onChange={setbrowser} />
                         </div>
@@ -297,11 +388,11 @@ const AddEditTask = ({ setPopup }) => {
                 null
               }
 
-              {selectdomain === "backend" ?
+              {selectdomain === "BACK END" ?
                 <>
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"API Name"}
                         id="api_name_data"
                         name={`data.api_name`}
@@ -309,36 +400,36 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isapi_nameemptyerror}
-                        setvalid={setapi_nameemptyerror}
+                        valid={setapi_namevalid}
+                        sendcheck={preSendValidator}
                         value={api_name}
-                        onChange={setapi_name} />
+                        onchange={setapi_name} />
                     </div>
                   </div>
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
-                      <select id="domain" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                        required={isslotemptyerror}
-                        value={isselectslot}
-                        onChange={(e) => {
-                          console.log(e.target.value)
-                          // setisbackend(!isbackend)
-                        }}
-                      >
-                        <option hidden value="">API METHOD</option>
-                        <option value="get">GET</option>
-                        <option value="post">POST</option>
-                        <option value="put">PUT</option>
-                        <option value="delete">DELETE</option>
-                      </select>
+                      <McInput
+                        type={"picker"}
+                        name={"API METHOD"}
+                        id="domain"
+                        required={true}
+                        valid={setapiselectvalid}
+                        sendcheck={preSendValidator}
+                        value={apiselect}
+                        onchange={setapiselect}
+                        options={[
+                          { "key": "0", "value": "GET" },
+                          { "key": "1", "value": "POST" },
+                          { "key": "0", "value": "PUT" },
+                          { "key": "0", "value": "DELETE" }]}
+                      />
                     </div>
-                    {isslotemptyerror ? <div className="invalid_entry">Please select a API METHOD!</div> : null}
                   </div>
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Path"}
                         id="path_data"
                         name={`data.path`}
@@ -346,16 +437,16 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={ispathemptyerror}
-                        setvalid={setpathemptyerror}
+                        valid={setpathvalid}
+                        sendcheck={preSendValidator}
                         value={path}
-                        onChange={setpath} />
+                        onchange={setpath} />
                     </div>
                   </div>
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Request"}
                         id="request_data"
                         name={`data.request`}
@@ -363,16 +454,16 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isrequestemptyerror}
-                        setvalid={setrequestemptyerror}
+                        valid={setrequestvalid}
+                        sendcheck={preSendValidator}
                         value={request}
-                        onChange={setrequest} />
+                        onchange={setrequest} />
                     </div>
                   </div>
 
                   <div className="inputfield_sub_container">
                     <div className="textinput_box_container">
-                      <TextField
+                      <McInput
                         label={"Response"}
                         id="response_data"
                         name={`data.response`}
@@ -380,10 +471,10 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isresponseemptyerror}
-                        setvalid={setresponseemptyerror}
+                        valid={setresponsevalid}
+                        sendcheck={preSendValidator}
                         value={response}
-                        onChange={setresponse} />
+                        onchange={setresponse} />
                     </div>
                   </div>
                 </>
@@ -393,7 +484,7 @@ const AddEditTask = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Assignee"}
                     id="assignee_data"
                     name={`data.Assignee`}
@@ -401,10 +492,10 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isassigneeemptyerror}
-                    setvalid={setassigneeemptyerror}
+                    valid={setassigneevalid}
+                    sendcheck={preSendValidator}
                     value={assignee}
-                    onChange={setassignee}
+                    onchange={setassignee}
                   />
                 </div>
               </div>
@@ -425,10 +516,11 @@ const AddEditTask = ({ setPopup }) => {
           }
           confirmClick={() => {
             console.log("***SEND***")
-            setispopup(true)
+            Validate()
           }}
           cancelClick={setPopup}
         />
+<<<<<<< HEAD
         :
         <Popup
           title={"Add / Edit Task?"}
@@ -458,6 +550,9 @@ const AddEditTask = ({ setPopup }) => {
             setispopup(false)
           }}
         />
+=======
+
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
       }
     </>
   )

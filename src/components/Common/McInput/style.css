@@ -7,7 +7,7 @@
 
 .input_outer_div {
     display: flex;
-    font-size: var(--TS4);
+    font-size: var(--TS5);
     line-height: 1.15;
     border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
     border-color: transparent;
@@ -45,6 +45,7 @@
     flex-direction: column;
     position: relative;
     justify-content: center;
+    font-size: var(--TS5);
 }
 
 .input_innerCenter_div input {
@@ -69,7 +70,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: var(--TS5);
+    font-size: var(--TS6);
 }
 
 /* .input_box_wrapper:focus-within .Label {
@@ -83,7 +84,7 @@
 .input_box_wrapper .top {
     transform: translate(calc(0.25vw + 0.75vh + 0.25vmin), calc(-0.6vw - 1.8vh - 0.6vmin)) scale(0.55);
     color: var(--color_1);
-    font-size: var(--TS5);
+    font-size: var(--TS6);
     justify-content: flex-start;
     font-weight: 500;
 }
@@ -121,7 +122,7 @@
 
 .invalid_entry {
     color: var(--color_3);
-    font-size: var(--TS7);
+    font-size: var(--TS6);
     font-weight: 500;
     padding-top: calc(0.09vw + 0.27vh + 0.09vmin);
 }
@@ -149,7 +150,6 @@
 
 .DropDownHeader {
     padding: calc(0.18vw + 0.54vh + 0.18vmin) 0;
-    font-size: var(--TS4);
     color: var(--color_21);
     width: 100%;
     border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
@@ -163,7 +163,6 @@
     background: var(--color_5);
     box-sizing: border-box;
     color: var(--color_21);
-    font-size: var(--TS4);
     position: absolute;
     width: 100%;
     border-radius: calc(0.24vw + 0.72vh + 0.24vmin);

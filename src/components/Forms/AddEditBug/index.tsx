@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import TextField from 'components/common/TextFieldWithRef';
+import McInput from 'components/Common/McInput';
 import { addBug } from 'utils/api';
 
 
@@ -20,10 +20,10 @@ const AddEditBug = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
   const [inputvalue, setinputvalue] = useState("")
 
-  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(false)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(false)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(false)
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(true)
+  const [isdeviceemptyerror, setdeviceemptyerror] = useState(true)
+  const [isremarksemptyerror, setremarksemptyerror] = useState(true)
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
 
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
@@ -51,14 +51,14 @@ const AddEditBug = ({ setPopup }) => {
 
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
           title={"Add / Edit Bug"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-                  <TextField
+                  <McInput
                     label={"Bug Title"}
                     id="bugtitle_data"
                     name={`data.BugTitle`}
@@ -74,6 +74,7 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
+<<<<<<< HEAD
               <div className="input_checkbox">
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
@@ -88,6 +89,60 @@ const AddEditBug = ({ setPopup }) => {
 
               <div className="user_band">
 
+=======
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"picker"}
+                    name={"ORIENTATION"}
+                    id="orientation"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
+                    value={isselectslot}
+                    onchange={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "LANDSCAPE" },
+                      { "key": "1", "value": "PORTRAIT" }]}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Device"}
+                    id="device_data"
+                    name={`data.Device`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={isdeviceemptyerror}
+                    setvalid={setdeviceemptyerror}
+                    value={device}
+                    onChange={setdevice}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Remarks"}
+                    id="remarks_data"
+                    name={`data.Remarks`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={isremarksemptyerror}
+                    setvalid={setremarksemptyerror}
+                    value={remarks}
+                    onChange={setremarks}
+                  />
+                </div>
+>>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
               </div>
 
               <div className="input_devices">
