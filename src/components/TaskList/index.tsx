@@ -243,15 +243,15 @@ const TaskList = (props: any) => {
                   let description: Iterable<any> | null | undefined = []
                   let assignee: Iterable<any> | null | undefined = []
                   let updated_by: Iterable<any> | null | undefined = []
-                  let number_arry: Iterable<any> | null | undefined = []
-                  let user_arry: Iterable<any> | null | undefined = []
+                  // let number_arry: Iterable<any> | null | undefined = []
+                  // let user_arry: Iterable<any> | null | undefined = []
                   data.data.forEach((element: any) => {
                     project_name.push(element.project_name)
                     title.push(element.title)
                     description.push(element.description)
                     assignee.push(element.assignee)
                     updated_by.push(element.updated_by)
-                    number_arry.push(element.number)
+                    // number_arry.push(element.number)
                     // user_arry.push(element.user)
                   });
                   setunique_project_name(Array.from(new Set(project_name)));
@@ -259,7 +259,7 @@ const TaskList = (props: any) => {
                   setunique_description(Array.from(new Set(description)))
                   setunique_assignee(Array.from(new Set(assignee)))
                   setunique_updated_by(Array.from(new Set(updated_by)))
-                  setunique_number_arry(Array.from(new Set(number_arry)))
+                  // setunique_number_arry(Array.from(new Set(number_arry)))
                   // setunique_user_arry(Array.from(new Set(user_arry)))
 
                   console.log(
@@ -268,7 +268,7 @@ const TaskList = (props: any) => {
                     unique_description,
                     unique_assignee,
                     unique_updated_by,
-                    unique_number_arry,
+                    // unique_number_arry,
                     // unique_user_arry
                   );
                   setfilterindicator(true)
@@ -313,3 +313,7 @@ const TaskList = (props: any) => {
 }
 
 export default TaskList
+function data(arg0: (data: any, errorresponse: any) => Promise<void>, token: any, data: any) {
+  throw new Error('Function not implemented.');
+}
+

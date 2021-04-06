@@ -4,14 +4,14 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask, taskAdd } from 'utils/api';
+import { createMainTask } from 'utils/api';
 import TextField from 'components/common/TextFieldWithRef';
 
 
 const AddEditTask = ({ setPopup }) => {
   const history = useHistory();
 
-  const [project_name, setproject_name] = useState('')
+  const [project_ref, setproject_ref] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
@@ -39,13 +39,10 @@ const AddEditTask = ({ setPopup }) => {
 
   const [isselectslot, setisselectslot] = useState('value')
 
-  const [isproject_nameemptyerror, setproject_nameemptyerror] = useState(false)
+  const [isproject_refemptyerror, setproject_refemptyerror] = useState(false)
   const [istitleemptyerror, settitleemptyerror] = useState(false)
   const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
   const [isassigneeemptyerror, setassigneeemptyerror] = useState(false)
-  const [isandroidemptyerror, setandroidemptyerror] = useState(false)
-  const [isiosemptyerror, setiosemptyerror] = useState(false)
-  const [isbrowseremptyerror, setbrowseremptyerror] = useState(false)
   const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(false)
   const [ispathemptyerror, setpathemptyerror] = useState(false)
   const [isrequestemptyerror, setrequestemptyerror] = useState(false)
@@ -56,7 +53,7 @@ const AddEditTask = ({ setPopup }) => {
   const [ispopup, setispopup] = useState(false)
 
   const [list, setlist] = useState([{
-    "project_name": "",
+    "project_ref": "",
     "title": "",
     "description": "",
     "task_type": "",
@@ -90,17 +87,17 @@ const AddEditTask = ({ setPopup }) => {
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <TextField
-                    label={"Project Name"}
-                    id="project_name_data"
-                    name={`data.project_name`}
+                    label={"Project Ref"}
+                    id="project_ref_data"
+                    name={`data.project_ref`}
                     inputtype="Text"
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isproject_nameemptyerror}
-                    setvalid={setproject_nameemptyerror}
-                    value={project_name}
-                    onChange={setproject_name}
+                    valid={isproject_refemptyerror}
+                    setvalid={setproject_refemptyerror}
+                    value={project_ref}
+                    onChange={setproject_ref}
                   />
                 </div >
               </div >
