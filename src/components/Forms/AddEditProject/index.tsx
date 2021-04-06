@@ -4,13 +4,8 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-<<<<<<< HEAD
 import { createProject, taskAdd } from 'utils/api';
-import TextField from 'components/common/TextFieldWithRef';
-=======
-import { taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
 
 
@@ -89,7 +84,7 @@ const AddEditProject = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SUBMIT***", list)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            taskAdd(async (data: any, errorresponse: any) => {
+            createProject(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
                 console.log('Sucess ' + JSON.stringify(data));
@@ -193,38 +188,6 @@ const AddEditProject = ({ setPopup }) => {
           }}
           cancelClick={setPopup}
         />
-<<<<<<< HEAD
-        :
-        <Popup
-          title={"Add / Edit Project?"}
-          desc1={"The following Project will be placed!"}
-          desc2={"Please click 'Confirm' to proceed?"}
-          confirmClick={() => {
-            console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            createProject(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
-                setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
-              } else {
-                setispopup(false)
-                setbackendresponse("Failed, Please Try Again!")
-                console.log('error ' + JSON.stringify(data));
-                console.log('error ' + JSON.stringify(errorresponse));
-              }
-            },token, list)
-          }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            setispopup(false)
-          }}
-        />
-=======
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
       }
     </>
   )

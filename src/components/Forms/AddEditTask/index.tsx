@@ -4,13 +4,8 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-<<<<<<< HEAD
-import { createMainTask } from 'utils/api';
-import TextField from 'components/common/TextFieldWithRef';
-=======
 import { createMainTask, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
 
 const AddEditTask = ({ setPopup }) => {
@@ -45,16 +40,6 @@ const AddEditTask = ({ setPopup }) => {
   const [isselectslot, setisselectslot] = useState('')
   const [apiselect, setapiselect] = useState('')
 
-<<<<<<< HEAD
-  const [isproject_refemptyerror, setproject_refemptyerror] = useState(false)
-  const [istitleemptyerror, settitleemptyerror] = useState(false)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(false)
-  const [isassigneeemptyerror, setassigneeemptyerror] = useState(false)
-  const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(false)
-  const [ispathemptyerror, setpathemptyerror] = useState(false)
-  const [isrequestemptyerror, setrequestemptyerror] = useState(false)
-  const [isresponseemptyerror, setresponseemptyerror] = useState(false)
-=======
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
   const [isdescriptionvalid, setdescriptionvalid] = useState(false)
@@ -66,7 +51,6 @@ const AddEditTask = ({ setPopup }) => {
   const [isslotvalid, setslotvalid] = useState(false)
   const [isdomainvalid, setdomainvalid] = useState(false)
   const [apiselectvalid, setapiselectvalid] = useState(false)
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
 
 
 
@@ -164,32 +148,18 @@ const AddEditTask = ({ setPopup }) => {
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
-<<<<<<< HEAD
-                  <TextField
-                    label={"Project Ref"}
-                    id="project_ref_data"
-                    name={`data.project_ref`}
-=======
                   <McInput
                     label={"Project Name"}
                     id="project_name_data"
                     name={`data.project_name`}
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
                     inputtype="Text"
                     type="text"
                     min_length="3"
                     required={true}
-<<<<<<< HEAD
-                    valid={isproject_refemptyerror}
-                    setvalid={setproject_refemptyerror}
-                    value={project_ref}
-                    onChange={setproject_ref}
-=======
                     valid={setproject_namevalid}
                     sendcheck={preSendValidator}
-                    value={project_name}
-                    onchange={setproject_name}
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
+                    value={project_ref}
+                    onchange={setproject_ref}
                   />
                 </div >
               </div >
@@ -520,39 +490,6 @@ const AddEditTask = ({ setPopup }) => {
           }}
           cancelClick={setPopup}
         />
-<<<<<<< HEAD
-        :
-        <Popup
-          title={"Add / Edit Task?"}
-          desc1={"The following Task will be placed!"}
-          desc2={"Please click 'Confirm' to proceed?"}
-          confirmClick={() => {
-            console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            createMainTask(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
-                setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
-              } else {
-                setispopup(false)
-                setbackendresponse("Failed, Please Try Again!")
-                console.log('error ' + JSON.stringify(data));
-                console.log('error ' + JSON.stringify(errorresponse));
-              }
-            }, token, list[0])
-          }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            setispopup(false)
-          }}
-        />
-=======
-
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
       }
     </>
   )

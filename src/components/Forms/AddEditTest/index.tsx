@@ -145,10 +145,6 @@ const AddEditTest = ({ setPopup }) => {
                       { "key": "1", "value": "BUG" }]}
                   />
                 </div>
-<<<<<<< HEAD
-                {isslotemptyerror ? <div className="invalid_entry">Please select a TASK TYPE!</div> : null}
-=======
->>>>>>> 4d584de600df65b17574ea5ec0e9c4efe9987739
               </div>
 
               <div className="inputfield_sub_container">
