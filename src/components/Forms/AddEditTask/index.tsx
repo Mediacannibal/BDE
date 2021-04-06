@@ -40,17 +40,21 @@ const AddEditTask = ({ setPopup }) => {
   const [isselectslot, setisselectslot] = useState('')
   const [apiselect, setapiselect] = useState('')
 
-  const [isproject_nameemptyerror, setproject_nameemptyerror] = useState(true)
-  const [istitleemptyerror, settitleemptyerror] = useState(true)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(true)
-  const [isassigneeemptyerror, setassigneeemptyerror] = useState(true)
-  const [isapi_nameemptyerror, setapi_nameemptyerror] = useState(true)
-  const [ispathemptyerror, setpathemptyerror] = useState(true)
-  const [isrequestemptyerror, setrequestemptyerror] = useState(true)
-  const [isresponseemptyerror, setresponseemptyerror] = useState(true)
-  const [isslotemptyerror, setslotemptyerror] = useState(true)
-  const [isdomainemptyerror, setdomainemptyerror] = useState(true)
-  const [apiselectvalid, setapiselectvalid] = useState(true)
+  const [isproject_namevalid, setproject_namevalid] = useState(false)
+  const [istitlevalid, settitlevalid] = useState(false)
+  const [isdescriptionvalid, setdescriptionvalid] = useState(false)
+  const [isassigneevalid, setassigneevalid] = useState(false)
+  const [isapi_namevalid, setapi_namevalid] = useState(false)
+  const [ispathvalid, setpathvalid] = useState(false)
+  const [isrequestvalid, setrequestvalid] = useState(false)
+  const [isresponsevalid, setresponsevalid] = useState(false)
+  const [isslotvalid, setslotvalid] = useState(false)
+  const [isdomainvalid, setdomainvalid] = useState(false)
+  const [apiselectvalid, setapiselectvalid] = useState(false)
+
+
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [ispopup, setispopup] = useState(false)
 
@@ -79,9 +83,64 @@ const AddEditTask = ({ setPopup }) => {
     // imageUpload(Callback, formdata)
   }
 
+  const Validate = () => {
+
+    console.log("***VALIDATE***")
+    console.log(isselectslot, title, description)
+
+    if (isproject_namevalid === true
+      && istitlevalid === true
+      && isdescriptionvalid === true
+      && isassigneevalid === true
+      && isapi_namevalid === true
+      && ispathvalid === true
+      && isrequestvalid === true
+      && isresponsevalid === true
+      && isslotvalid === true
+      && isdomainvalid === true
+      && apiselectvalid === true
+    ) {
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+  }
+
   return (
     <>
-      {!ispopup ?
+      {ispopup ?
+
+        <Popup
+          title={"Add / Edit Task?"}
+          desc1={"The following Task will be placed!"}
+          desc2={"Please click 'Confirm' to proceed?"}
+          confirmClick={() => {
+            console.log("***SUBMIT***", list)
+            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+            createMainTask(async (data: any, errorresponse: any) => {
+              if (data.status === 200) {
+                setispopup(false)
+                console.log('Sucess ' + JSON.stringify(data));
+                window.location.reload()
+                // alert("successfully added")
+                setbackendresponse("Successfully Added!")
+                setbackendresponse_popup(true)
+              } else {
+                setispopup(false)
+                setbackendresponse("Failed, Please Try Again!")
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+              }
+            }, token, list)
+          }}
+          cancelClick={() => {
+            console.log("***CANCEL***")
+            setispopup(false)
+          }}
+        />
+        :
         <Popup
           title={"Add / Edit Task"}
           popup_body={
@@ -96,10 +155,10 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isproject_nameemptyerror}
-                    setvalid={setproject_nameemptyerror}
+                    valid={setproject_namevalid}
+                    sendcheck={preSendValidator}
                     value={project_name}
-                    onChange={setproject_name}
+                    onchange={setproject_name}
                   />
                 </div >
               </div >
@@ -114,10 +173,10 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={istitleemptyerror}
-                    setvalid={settitleemptyerror}
+                    valid={settitlevalid}
+                    sendcheck={preSendValidator}
                     value={title}
-                    onChange={settitle}
+                    onchange={settitle}
                   />
                 </div>
               </div>
@@ -132,10 +191,10 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isdescriptionemptyerror}
-                    setvalid={setdescriptionemptyerror}
+                    valid={setdescriptionvalid}
+                    sendcheck={preSendValidator}
                     value={description}
-                    onChange={setdescription}
+                    onchange={setdescription}
                   />
                 </div>
               </div>
@@ -147,10 +206,10 @@ const AddEditTask = ({ setPopup }) => {
                     name={"TASK TYPE"}
                     id="task_type"
                     required={true}
-                    valid={isslotemptyerror}
-                    setvalid={setslotemptyerror}
+                    valid={setslotvalid}
+                    sendcheck={preSendValidator}
                     value={isselectslot}
-                    setvalue={setisselectslot}
+                    onchange={setisselectslot}
                     options={[
                       { "key": "0", "value": "FEATURE" },
                       { "key": "1", "value": "TEST" },
@@ -167,10 +226,10 @@ const AddEditTask = ({ setPopup }) => {
                     name={"DOMAIN"}
                     id="domain"
                     required={true}
-                    valid={isdomainemptyerror}
-                    setvalid={setdomainemptyerror}
+                    valid={setdomainvalid}
+                    sendcheck={preSendValidator}
                     value={selectdomain}
-                    setvalue={setselectdomain}
+                    onchange={setselectdomain}
                     options={[
                       { "key": "0", "value": "FRONT END" },
                       { "key": "1", "value": "BACK END" },
@@ -220,8 +279,8 @@ const AddEditTask = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isandroidemptyerror}
-                            setvalid={setandroidemptyerror}
+                            valid={isandroidvalid}
+                            setvalid={setandroidvalid}
                             value={android}
                             onChange={setandroid} />
                         </div>
@@ -251,8 +310,8 @@ const AddEditTask = ({ setPopup }) => {
                               type="text"
                               min_length="3"
                               required={true}
-                              valid={isiosemptyerror}
-                              setvalid={setiosemptyerror}
+                              valid={isiosvalid}
+                              setvalid={setiosvalid}
                               value={ios}
                               onChange={setios} />
                           </div>
@@ -283,8 +342,8 @@ const AddEditTask = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isbrowseremptyerror}
-                            setvalid={setbrowseremptyerror}
+                            valid={isbrowservalid}
+                            setvalid={setbrowservalid}
                             value={browser}
                             onChange={setbrowser} />
                         </div>
@@ -310,10 +369,10 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isapi_nameemptyerror}
-                        setvalid={setapi_nameemptyerror}
+                        valid={setapi_namevalid}
+                        sendcheck={preSendValidator}
                         value={api_name}
-                        onChange={setapi_name} />
+                        onchange={setapi_name} />
                     </div>
                   </div>
 
@@ -324,10 +383,10 @@ const AddEditTask = ({ setPopup }) => {
                         name={"API METHOD"}
                         id="domain"
                         required={true}
-                        valid={apiselectvalid}
-                        setvalid={setapiselectvalid}
+                        valid={setapiselectvalid}
+                        sendcheck={preSendValidator}
                         value={apiselect}
-                        setvalue={setapiselect}
+                        onchange={setapiselect}
                         options={[
                           { "key": "0", "value": "GET" },
                           { "key": "1", "value": "POST" },
@@ -347,10 +406,10 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={ispathemptyerror}
-                        setvalid={setpathemptyerror}
+                        valid={setpathvalid}
+                        sendcheck={preSendValidator}
                         value={path}
-                        onChange={setpath} />
+                        onchange={setpath} />
                     </div>
                   </div>
 
@@ -364,10 +423,10 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isrequestemptyerror}
-                        setvalid={setrequestemptyerror}
+                        valid={setrequestvalid}
+                        sendcheck={preSendValidator}
                         value={request}
-                        onChange={setrequest} />
+                        onchange={setrequest} />
                     </div>
                   </div>
 
@@ -381,10 +440,10 @@ const AddEditTask = ({ setPopup }) => {
                         type="text"
                         min_length="3"
                         required={true}
-                        valid={isresponseemptyerror}
-                        setvalid={setresponseemptyerror}
+                        valid={setresponsevalid}
+                        sendcheck={preSendValidator}
                         value={response}
-                        onChange={setresponse} />
+                        onchange={setresponse} />
                     </div>
                   </div>
                 </>
@@ -402,10 +461,10 @@ const AddEditTask = ({ setPopup }) => {
                     type="text"
                     min_length="3"
                     required={true}
-                    valid={isassigneeemptyerror}
-                    setvalid={setassigneeemptyerror}
+                    valid={setassigneevalid}
+                    sendcheck={preSendValidator}
                     value={assignee}
-                    onChange={setassignee}
+                    onchange={setassignee}
                   />
                 </div>
               </div>
@@ -426,39 +485,11 @@ const AddEditTask = ({ setPopup }) => {
           }
           confirmClick={() => {
             console.log("***SEND***")
-            setispopup(true)
+            Validate()
           }}
           cancelClick={setPopup}
         />
-        :
-        <Popup
-          title={"Add / Edit Task?"}
-          desc1={"The following Task will be placed!"}
-          desc2={"Please click 'Confirm' to proceed?"}
-          confirmClick={() => {
-            console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            createMainTask(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
-                setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
-                window.location.reload()
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
-              } else {
-                setispopup(false)
-                setbackendresponse("Failed, Please Try Again!")
-                console.log('error ' + JSON.stringify(data));
-                console.log('error ' + JSON.stringify(errorresponse));
-              }
-            }, token, list)
-          }}
-          cancelClick={() => {
-            console.log("***CANCEL***")
-            setispopup(false)
-          }}
-        />
+
       }
     </>
   )

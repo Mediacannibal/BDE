@@ -3,19 +3,19 @@ import './style.css';
 import '../../../components/app.css'
 import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
+import { FormatColorReset } from '@material-ui/icons';
 
 const McInput = (props: any) => {
 
-    const [isOpen, setIsOpen] = useState(false);
-    const toggling = () => setIsOpen(!isOpen);
-    const [error_message, seterror_message] = useState("Field is required.")
-    const onOptionClicked = (value: any) => {
-        props.setvalue(value);
-        props.setvalue(value)
-        setIsOpen(false);
-        console.log("select option value :", props.value);
-    }
+    const [isOpen, setIsOpen] = useState(false)
 
+    const toggling = () => setIsOpen(!isOpen)
+
+    const onOptionClicked = (value: any) => {
+        props.onchange(value)
+        setIsOpen(false)
+        // console.log("select option value :", props.value)
+    }
 
     const [input_data, setinput_data] = useState(props.value)
 
@@ -27,9 +27,9 @@ const McInput = (props: any) => {
 
     const [isActive, setisActive] = useState(false)
 
-    // const [error_message, seterror_message] = useState("Field is required.")
+    const [isValid, setIsValid] = useState(props.valid)
 
-    const [blabla, setblabla] = useState(false)
+    const [error_message, seterror_message] = useState("")
 
     useEffect(() => {
 
@@ -40,11 +40,17 @@ const McInput = (props: any) => {
         if (props.min_length === undefined) {
             setinput_min_length(0)
         }
+
         if (props.replace_regex === undefined) {
             setinput_replace_regex([/'$^'/, ""])
         }
+
         if (props.format_validation_regex === undefined) {
             setinput_format_validation_regex(/^/)
+        }
+
+        if ((props.valid === undefined) && (props.required !== true)) {
+            setIsValid(true)
         }
 
         // if (props.presubmit_validation === 'true') {
@@ -75,7 +81,6 @@ const McInput = (props: any) => {
             setinput_replace_regex([/[a-zA-Z`~!@#$%^&*()\ \ |+\-=?;:'",<>\{\}\[\]\\\/]/gi, ""])
             setinput_format_validation_regex(/^\d+(\.\d{1,2})?$/)
         }
-
 
 
         switch (props.inputtype) {
@@ -119,7 +124,7 @@ const McInput = (props: any) => {
         let a = data.target.value.replace((input_replace_regex[0]), (input_replace_regex[1]))
 
         setinput_data(a)
-        props.onChange(a)
+        props.onchange(a)
 
         let b = input_format_validation_regex.test(a)
 
@@ -127,33 +132,26 @@ const McInput = (props: any) => {
 
         let d = (data.target.value.length === 0) ? data.target.value : (data.target.value).slice(-1)
 
-        if (String(a).length === 0) {
-            if (props.valid === true) {
-                seterror_message("Field is required.")
-                props.setvalid(false)
-            }
-            else {
-                seterror_message("")
-                props.setvalid(true)
-            }
+        if ((String(a).length === 0) && (props.required === true) && (props.sendcheck === true)) {
+            seterror_message("Field is required.")
+            props.valid(false)
         }
         else if (c === true) {
             seterror_message("This field can not contain ' " + d + " ' .")
-            props.setvalid(false)
+            props.valid(false)
         }
         else if (a.length < input_min_length) {
             seterror_message("Enter minimum " + (input_min_length - a.length) + " more character" + (((input_min_length - a.length) === 1) ? "." : "s."))
-            props.setvalid(false)
+            props.valid(false)
         }
         else if (b === false) {
             seterror_message(((props.label !== undefined) ? props.label : "Entry") + " is invalid.")
-            props.setvalid(false)
+            props.valid(false)
         }
         else {
             seterror_message("")
-            props.setvalid(true)
+            props.valid(true)
         }
-
 
         // console.log(
         //     "a: " + a + '\n',
@@ -179,43 +177,40 @@ const McInput = (props: any) => {
 
                 <div className="input_innerLeft_div">{props.input_inner_leftprop}</div>
 
-
-
-
-
-
-
                 <div className="input_innerCenter_div">
 
-                    {props.type !== "picker" ? <input {...props}
-                        className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
-                        value={props.value}
-                        onChange={(data: any) => {
-                            Reformat_and_Validate(data)
-                        }}
-                        onFocus={() => {
-                            setisActive(true)
-                            console.log(props.setvalue, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
-                        }}
-                        onBlur={() => {
-                            setisActive(false)
-                            if ((String(input_data).length === 0) && ((props.required === false) || (props.required === undefined))) {
-                                seterror_message("")
-                                props.setvalid(true)
-                                // props.setinput_valid(valid)
-                            }
-                            console.log(props.setvalue, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
-                        }} />
-                        :
+                    {props.type === "picker" ?
 
                         <div className={((props.valid === false) && (props.required == true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
                             onClick={toggling}>
                             {props.value || props.name}
                         </div>
+
+                        :
+
+                        <input {...props}
+                            className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+                            value={props.value}
+                            onChange={(data: any) => {
+                                Reformat_and_Validate(data)
+                            }}
+                            onFocus={() => {
+                                setisActive(true)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }}
+                            onBlur={() => {
+                                setisActive(false)
+                                if ((String(input_data).length === 0) && ((props.required === false) || (props.required === undefined))) {
+                                    seterror_message("")
+                                    props.valid(true)
+                                    // props.setinput_valid(valid)
+                                }
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }} />
+
                     }
 
                 </div>
-
 
                 <div className="input_innerRight_div">
                     {props.type !== "picker" ?
@@ -237,8 +232,9 @@ const McInput = (props: any) => {
                                 onClick={(data: any) => {
                                     onOptionClicked(option.value)
                                     seterror_message("")
-                                    props.setvalid(true)
-                                    console.log("clicked");
+                                    props.valid(true)
+                                    setinput_data(option.value)
+                                    // console.log("clicked");
                                 }}
                                 key={option.key}>
                                 {option.value}
@@ -248,11 +244,13 @@ const McInput = (props: any) => {
                 </div>
             )}
 
-            {
-                ((props.valid === false) && (props.required === true)) ?
-                    <div className="invalid_entry">{error_message}</div>
-                    : null
+            <div className="invalid_entry">{
+                ((String(input_data).length === 0) && (props.required === true) && (props.sendcheck === true)) ?
+                    "Field is required."
+                    :
+                    error_message
             }
+            </div>
 
         </div>
     );

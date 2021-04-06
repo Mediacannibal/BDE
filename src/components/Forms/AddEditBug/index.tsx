@@ -20,10 +20,10 @@ const AddEditBug = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
   const [inputvalue, setinputvalue] = useState("")
 
-  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(false)
-  const [isdeviceemptyerror, setdeviceemptyerror] = useState(false)
-  const [isremarksemptyerror, setremarksemptyerror] = useState(false)
-  const [isslotemptyerror, setslotemptyerror] = useState(false)
+  const [isbugtitleemptyerror, setbugtitleemptyerror] = useState(true)
+  const [isdeviceemptyerror, setdeviceemptyerror] = useState(true)
+  const [isremarksemptyerror, setremarksemptyerror] = useState(true)
+  const [isslotemptyerror, setslotemptyerror] = useState(true)
 
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
@@ -52,7 +52,7 @@ const AddEditBug = ({ setPopup }) => {
 
   return (
     <>
-      { !ispopup ?
+      {!ispopup ?
         <Popup
           title={"Add / Edit Bug"}
           popup_body={
@@ -77,20 +77,20 @@ const AddEditBug = ({ setPopup }) => {
 
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
-                  <select id="orientation" className={isslotemptyerror ? "dropdown_box invalid_entry_container" : "dropdown_box"}
-                    required={isslotemptyerror}
+                  <McInput
+                    type={"picker"}
+                    name={"ORIENTATION"}
+                    id="orientation"
+                    required={true}
+                    valid={isslotemptyerror}
+                    setvalid={setslotemptyerror}
                     value={isselectslot}
-                    onChange={(e) => {
-                      setslotemptyerror(false)
-                      setisselectslot(e.target.value)
-                    }}
-                  >
-                    <option hidden value="">ORIENTATION</option>
-                    <option value="DAY">LANDSCAPE</option>
-                    <option value="NIGHT">PORTRAIT</option>
-                  </select>
+                    onchange={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "LANDSCAPE" },
+                      { "key": "1", "value": "PORTRAIT" }]}
+                  />
                 </div>
-                {isslotemptyerror ? <div className="invalid_entry">Please select a Orientation!</div> : null}
               </div>
 
               <div className="inputfield_sub_container">

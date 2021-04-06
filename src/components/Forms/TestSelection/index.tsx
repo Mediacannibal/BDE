@@ -11,15 +11,33 @@ const TestSelection = ({ setTest }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const [isslotemptyerror, setslotemptyerror] = useState(true)
-
   const [domain, setdomain] = useState('')
   const [isselectslot, setisselectslot] = useState('')
+
+  const [domainvalid, setdomainvalid] = useState(false)
+  const [projectvalid, setprojectvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
     console.log(data);
   };
+
+  const Validate = () => {
+
+    if (domainvalid === true
+      && projectvalid === true
+    ) {
+    }
+    else {
+      setPreSendValidator(true)
+    }
+
+    // console.log(document.getElementById("firstname_data").valid,
+    //   String(document.getElementById("firstname_data").valid))
+
+  }
 
   return (
     <>
@@ -36,10 +54,10 @@ const TestSelection = ({ setTest }) => {
                   name={"DOMAIN"}
                   id="usertype_data"
                   required={true}
-                  valid={isslotemptyerror}
-                  setvalid={setslotemptyerror}
+                  valid={setdomainvalid}
+                  sendcheck={preSendValidator}
                   value={domain}
-                  setvalue={setdomain}
+                  onchange={setdomain}
                   options={[
                     { "key": "0", "value": "FRONT END" },
                     { "key": "1", "value": "BACK END" },
@@ -55,10 +73,10 @@ const TestSelection = ({ setTest }) => {
                   name={"PROJECT"}
                   id="usertype_data"
                   required={true}
-                  valid={isslotemptyerror}
-                  setvalid={setslotemptyerror}
+                  valid={setdomainvalid}
+                  sendcheck={preSendValidator}
                   value={isselectslot}
-                  setvalue={setisselectslot}
+                  onchange={setisselectslot}
                   options={[
                     { "key": "0", "value": "DAY" }]}
                 />
@@ -68,6 +86,7 @@ const TestSelection = ({ setTest }) => {
           </form>
         }
         confirmClick={() => {
+          Validate()
           history.replace('/TestSelectionForm')
         }}
         cancelClick={setTest}

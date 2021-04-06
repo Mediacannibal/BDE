@@ -251,7 +251,7 @@ const NewUserForm = ({ setPopup }) => {
                     valid={usertypevalid}
                     setvalid={setusertypevalid}
                     value={usertype}
-                    setvalue={setusertype}
+                    onchange={setusertype}
                     options={[
                       { "key": "0", "value": "ADMIN" },
                       { "key": "1", "value": "USER" }]}

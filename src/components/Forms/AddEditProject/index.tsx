@@ -15,19 +15,15 @@ const AddEditProject = ({ setPopup }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-
-
-
   const [isselectslot, setisselectslot] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
 
-  const [isslotemptyerror, setslotemptyerror] = useState(true)
-  const [istitleemptyerror, settitleemptyerror] = useState(true)
-  const [isdescriptionemptyerror, setdescriptionemptyerror] = useState(true)
+  const [slotvalid, setSlotvalid] = useState(false)
+  const [titlevalid, setTitlevalid] = useState(false)
+  const [descriptionvaild, setDescriptionvaild] = useState(false)
 
-
-
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
 
@@ -58,117 +54,29 @@ const AddEditProject = ({ setPopup }) => {
 
   const Validate = () => {
 
-    let temp = true
-
+    console.log("***VALIDATE***")
     console.log(isselectslot, title, description)
 
-    if (String(isselectslot).length === 0
-      || String(title).length === 0
-      || String(description).length === 0
+    if (slotvalid === true
+      && titlevalid === true
+      && descriptionvaild === true
     ) {
-      temp = false
-      if (isselectslot.length === 0) {
-        setslotemptyerror(false);
-      }
-      if (title.length === 0) {
-        settitleemptyerror(false);
-      }
-      if (description.length === 0) {
-        setdescriptionemptyerror(false);
-      }
+      setispopup(true)
+    }
+    else {
+      setPreSendValidator(true)
     }
 
     // console.log(document.getElementById("firstname_data").valid,
     //   String(document.getElementById("firstname_data").valid))
 
-    return temp
   }
 
 
   return (
     <>
-      {!ispopup ?
-        <Popup
-          title={"Add / Edit Project"}
-          popup_body={
-            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+      {ispopup ?
 
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"PROJECT TYPE"}
-                    id="usertype_data"
-                    required={true}
-                    valid={isslotemptyerror}
-                    setvalid={setslotemptyerror}
-                    value={isselectslot}
-                    setvalue={setisselectslot}
-                    options={[
-                      { "key": "0", "value": "DEVELOPMENT" },
-                      { "key": "1", "value": "DESIGN" },
-                      { "key": "1", "value": "MARKETING" }]}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Title"}
-                    id="title_data"
-                    name={`data.Title`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={istitleemptyerror}
-                    setvalid={settitleemptyerror}
-                    value={title}
-                    onChange={settitle}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Description"}
-                    id="description_data"
-                    name={`data.Description`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={isdescriptionemptyerror}
-                    setvalid={setdescriptionemptyerror}
-                    value={description}
-                    onChange={setdescription}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="upload-wrap">
-                  <button type="button" className="nice-button">File links</button>
-                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
-                </div>
-                {
-                  (inputvalue !== null) ? <div>
-                    <img
-                      className='activity_selectedimage' src={inputvalue} />
-                  </div> : null
-                }
-              </div>
-            </form >
-          }
-          confirmClick={() => {
-            console.log("***SEND***")
-            setispopup(true)
-          }}
-          cancelClick={setPopup}
-        />
-        :
         <Popup
           title={"Add / Edit Project?"}
           desc1={"The following Project will be placed!"}
@@ -196,6 +104,89 @@ const AddEditProject = ({ setPopup }) => {
             console.log("***CANCEL***")
             setispopup(false)
           }}
+        />
+
+        :
+
+        <Popup
+          title={"Add / Edit Project"}
+          popup_body={
+            <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"picker"}
+                    name={"PROJECT TYPE"}
+                    id="usertype_data"
+                    required={true}
+                    valid={setSlotvalid}
+                    sendcheck={preSendValidator}
+                    value={isselectslot}
+                    onchange={setisselectslot}
+                    options={[
+                      { "key": "0", "value": "DEVELOPMENT" },
+                      { "key": "1", "value": "DESIGN" },
+                      { "key": "1", "value": "MARKETING" }]}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Title"}
+                    id="title_data"
+                    name={`data.Title`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setTitlevalid}
+                    sendcheck={preSendValidator}
+                    value={title}
+                    onchange={settitle}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Description"}
+                    id="description_data"
+                    name={`data.Description`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setDescriptionvaild}
+                    sendcheck={preSendValidator}
+                    value={description}
+                    onchange={setdescription}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="upload-wrap">
+                  <button type="button" className="nice-button">File links</button>
+                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                </div>
+                {
+                  (inputvalue !== null) ? <div>
+                    <img
+                      className='activity_selectedimage' src={inputvalue} />
+                  </div> : null
+                }
+              </div>
+            </form >
+          }
+          confirmClick={() => {
+            console.log("***SEND***")
+            Validate()
+          }}
+          cancelClick={setPopup}
         />
       }
     </>
