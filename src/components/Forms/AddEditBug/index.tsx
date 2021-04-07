@@ -120,23 +120,6 @@ const AddEditBug = ({ setPopup }) => {
           title={"Add / Edit Bug"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Bug Title"}
-                    id="bugtitle_data"
-                    name={`data.BugTitle`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setbugtitlevalid}
-                    sendcheck={preSendValidator}
-                    value={bug_title}
-                    onchange={setbug_title}
-                  />
-                </div>
-              </div>
 
               <div className="input_checkbox">
                 <div className="checkbox_sub_container">
@@ -253,11 +236,29 @@ const AddEditBug = ({ setPopup }) => {
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <McInput
+                    label={"Bug Title"}
+                    id="bugtitle_data"
+                    name={`data.BugTitle`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setbugtitlevalid}
+                    sendcheck={preSendValidator}
+                    value={bug_title}
+                    onchange={setbug_title}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
                     label={"Description"}
                     id="description_data"
                     name={`data.Description`}
                     inputtype="Text"
-                    type="text"
+                    type="textarea"
                     min_length="3"
                     required={true}
                     valid={setdescriptionvalid}

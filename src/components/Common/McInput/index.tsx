@@ -216,6 +216,30 @@ const McInput = (props: any) => {
                             }} />
                     }
 
+                    {(props.type === "textarea") &&
+                        <textarea {...props}
+                            className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+                            value={props.value}
+                            onChange={(data: any) => {
+                                Reformat_and_Validate(data)
+                            }}
+                            onFocus={() => {
+                                setisActive(true)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }}
+                            onBlur={() => {
+                                setisActive(false)
+                                if ((String(input_data).length === 0) && ((props.required === false) || (props.required === undefined))) {
+                                    seterror_message("")
+                                    props.valid(true)
+                                    // props.setinput_valid(valid)
+                                }
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }} />
+                    }
+
+
+
                     {(props.type === "checkbox") &&
                         <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
 

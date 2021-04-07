@@ -172,7 +172,7 @@ const AddEditProject = ({ setPopup }) => {
                     id="description_data"
                     name={`data.Description`}
                     inputtype="Text"
-                    type="text"
+                    type="textarea"
                     min_length="3"
                     required={true}
                     valid={setDescriptionvaild}

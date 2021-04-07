@@ -31,6 +31,7 @@
 .input_innerCenter_div {
     display: flex;
     width: 100%;
+    justify-content: center;
 }
 
 .input_innerRight_div {
@@ -57,6 +58,17 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+}
+
+.input_innerCenter_div>textarea {
+    border-radius: calc(0.24vw + 0.72vh + 0.24vmin);
+    border-color: transparent;
+    height: 100%;
+    border-style: solid;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    text-align-last: start;
 }
 
 .input_box_wrapper .Label {

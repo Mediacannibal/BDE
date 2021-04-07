@@ -187,7 +187,7 @@ const AddEditTest = ({ setPopup }) => {
                     id="test_description_data"
                     name={`data.test_description`}
                     inputtype="Text"
-                    type="text"
+                    type="textarea"
                     min_length="3"
                     required={true}
                     valid={setdescriptionvalid}
