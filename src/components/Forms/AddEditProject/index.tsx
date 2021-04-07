@@ -47,10 +47,11 @@ const AddEditProject = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, formdata)
+    fileupload(Callback, token, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -96,6 +97,7 @@ const AddEditProject = ({ setPopup }) => {
               "project_type": isselectslot,
               "title": title,
               "description": description,
+              "file_links": dataUri,
             }
             data.push(object)
             console.log("***SUBMIT***", data)
