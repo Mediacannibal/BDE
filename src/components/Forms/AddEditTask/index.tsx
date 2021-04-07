@@ -26,8 +26,14 @@ const AddEditTask = ({ setPopup }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
-  const [add, setadd] = useState(false)
-  const [remove, setremove] = useState(false)
+  const [addandroid, setaddandroid] = useState(false)
+  const [removeandroid, setremoveandroid] = useState(false)
+
+  const [addios, setaddios] = useState(false)
+  const [removeios, setremoveios] = useState(false)
+
+  const [addbrowser, setaddbrowser] = useState(false)
+  const [removebrowser, setremovebrowser] = useState(false)
 
   const [androidcheckbox, setandroidcheckbox] = useState(false)
   const [ioscheckbox, setioscheckbox] = useState(false)
@@ -48,6 +54,7 @@ const AddEditTask = ({ setPopup }) => {
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [isiosvalid, setiosvalid] = useState(false)
   const [isandroidvalid, setandroidvalid] = useState(false)
+  const [isbrowservalid, setbrowservalid] = useState(false)
   const [istask_typevalid, settask_typevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
   const [isdescriptionvalid, setdescriptionvalid] = useState(false)
@@ -347,16 +354,16 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setadd(!add)
+                                setaddandroid(!addandroid)
                               }} />
                             <div className="checkbox_text">Android</div>
                           </div>
 
-                          {add ?
+                          {addandroid ?
                             <div className="addremove_container"
                               onClick={() => {
-                                setadd(false)
-                                setremove(!remove)
+                                setaddandroid(false)
+                                setremoveandroid(!removeandroid)
                                 setandroidcheckbox(!isandroidvalid)
                               }}>
                               <div className="addremove_image_text">Add Device</div>
@@ -365,11 +372,11 @@ const AddEditTask = ({ setPopup }) => {
                             null
                           }
 
-                          {remove ?
+                          {removeandroid ?
                             <div className="addremove_container"
                               onClick={() => {
-                                setadd(true)
-                                setremove(false)
+                                setaddandroid(true)
+                                setremoveandroid(false)
                                 setandroidcheckbox(false)
                               }}>
                               <div className="addremove_image_text">Remove Device</div>
@@ -392,11 +399,13 @@ const AddEditTask = ({ setPopup }) => {
                                   valid={isandroidvalid}
                                   setvalid={setandroidvalid}
                                   value={android}
-                                  onChange={setandroid} />
+                                  onChange={setandroid}
+                                />
                               </div>
                             </div>
                             :
-                            null}
+                            null
+                          }
                         </div>
 
                         <div className="input_checkbox">
@@ -404,10 +413,36 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setioscheckbox(!ioscheckbox);
+                                setaddios(!addios)
                               }} />
                             <div className="checkbox_text">IOS</div>
                           </div>
+
+                          {addios ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddios(false)
+                                setremoveios(!removeios)
+                                setioscheckbox(!ioscheckbox)
+                              }}>
+                              <div className="addremove_image_text">Add Device</div>
+                            </div>
+                            :
+                            null
+                          }
+
+                          {removeios ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddios(true)
+                                setremoveios(false)
+                                setioscheckbox(false)
+                              }}>
+                              <div className="addremove_image_text">Remove Device</div>
+                            </div>
+                            :
+                            null
+                          }
 
                           {ioscheckbox ?
                             <div className="inputfield_sub_container">
@@ -436,30 +471,57 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setbrowsercheckbox(!browsercheckbox);
+                                setaddbrowser(!addbrowser)
                               }} />
                             <div className="checkbox_text">Browser</div>
                           </div>
 
-                          {/* {browsercheckbox ?
-                      <div className="inputfield_sub_container">
-                        <div className="textinput_box_container">
-                          <McInput
-                            label={"Browser"}
-                            id="browser_data"
-                            name={`data.browser`}
-                            inputtype="Text"
-                            type="text"
-                            min_length="3"
-                            required={true}
-                            valid={isbrowservalid}
-                            setvalid={setbrowservalid}
-                            value={browser}
-                            onChange={setbrowser} />
-                        </div>
-                      </div>
-                      :
-                      null} */}
+                          {addbrowser ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddios(false)
+                                setremoveios(!removebrowser)
+                                setbrowsercheckbox(!browsercheckbox)
+                              }}>
+                              <div className="addremove_image_text">Add Device</div>
+                            </div>
+                            :
+                            null
+                          }
+
+                          {removebrowser ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddbrowser(true)
+                                setremovebrowser(false)
+                                setbrowsercheckbox(false)
+                              }}>
+                              <div className="addremove_image_text">Remove Device</div>
+                            </div>
+                            :
+                            null
+                          }
+
+                          {browsercheckbox ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"Browser"}
+                                  id="browser_data"
+                                  name={`data.browser`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isbrowservalid}
+                                  setvalid={setbrowservalid}
+                                  value={browser}
+                                  onChange={setbrowser}
+                                />
+                              </div>
+                            </div>
+                            :
+                            null}
                         </div>
                       </div>
                     </>
