@@ -107,7 +107,6 @@
 }
 
 .upload-wrap {
-    margin: 5vh 0;
     display: flex;
     justify-content: center;
 }
@@ -120,7 +119,7 @@
 }
 
 .activity_selectedimage {
-    width: 20vw;
-    height: 20vh;
+    width: calc(2vw + 6vh + 2vmin);
+    height: calc(2vw + 6vh + 2vmin);
     object-fit: contain;
 }

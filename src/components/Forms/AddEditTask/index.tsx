@@ -296,6 +296,21 @@ const AddEditTask = ({ setPopup }) => {
                     </div>
                   </div>
 
+                  <div className="inputfield_sub_container">
+                    <div className="fileupload_with_preview">
+                      <div className="upload-wrap">
+                        <button type="button" className="nice-button">File links</button>
+                        <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                      </div>
+                      {
+                        (inputvalue !== null) ? <div>
+                          <img
+                            className='activity_selectedimage' src={inputvalue} />
+                        </div> : null
+                      }
+                    </div>
+                  </div>
+
                 </div>
 
                 <div className="addedit_task_container1">
@@ -518,26 +533,6 @@ const AddEditTask = ({ setPopup }) => {
 
                 </div>
 
-                <div className="addedit_task_container1">
-
-
-
-
-
-                  <div className="inputfield_sub_container">
-                    <div className="upload-wrap">
-                      <button type="button" className="nice-button">File links</button>
-                      <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
-                    </div>
-                    {
-                      (inputvalue !== null) ? <div>
-                        <img
-                          className='activity_selectedimage' src={inputvalue} />
-                      </div> : null
-                    }
-                  </div>
-
-                </div>
 
               </div>
 
