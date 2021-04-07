@@ -831,6 +831,32 @@
                         "url": "{{url}}tasks\/testlog\/edit\/1\/"
                     },
                     "response": []
+                },
+                {
+                    "name": "{{url}}tasks\/file\/uploaded\/",
+                    "id": "a8d0582c-b416-4183-ae0d-d366fde05e6b",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "\/C:\/Users\/user\/Pictures\/Screenshots\/Screenshot (4).png"
+                                }
+                            ]
+                        },
+                        "url": "{{url}}tasks\/file\/uploaded\/"
+                    },
+                    "response": []
                 }
             ],
             "id": "9b7e6c12-0153-417a-a3ce-c1d64a658c18"

@@ -23,6 +23,7 @@ const NewUserForm = ({ setPopup }) => {
   const [location, setlocation] = useState('')
   const [branch_name, setbranch_name] = useState('')
   const [firstname, setfirstname] = useState('')
+  const [username, setusername] = useState('')
   const [lastname, setlastname] = useState('')
   const [email, setemail] = useState('')
   const [phoneno, setphoneno] = useState('')
@@ -32,6 +33,7 @@ const NewUserForm = ({ setPopup }) => {
   const [companynamevalid, setcompanynamevalid] = useState(false)
   const [locationvalid, setlocationvalid] = useState(false)
   const [branchvalid, setbranchvalid] = useState(false)
+  const [usernamevalid, setusernamevalid] = useState(false)
   const [firstnamevalid, setfirstnamevalid] = useState(false)
   const [lastnamevalid, setlastnamevalid] = useState(false)
   const [emailvalid, setemailvalid] = useState(false)
@@ -45,6 +47,7 @@ const NewUserForm = ({ setPopup }) => {
     "company_name": "",
     "location": "",
     "branch_name": "",
+    "username": "",
     "firstname": "",
     "lastname": "",
     "email": "",
@@ -66,6 +69,7 @@ const NewUserForm = ({ setPopup }) => {
     if (companynamevalid === true
       && locationvalid === true
       && branchvalid === true
+      && usernamevalid === true
       && firstnamevalid === true
       && lastnamevalid === true
       && emailvalid === true
@@ -89,7 +93,19 @@ const NewUserForm = ({ setPopup }) => {
           desc1={"The following User will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
-            console.log("***SUBMIT***", list)
+            let data = [];
+            let object = {
+              "company_name": company_name,
+              "username": username,
+              "firstname": firstname,
+              "lastname": lastname,
+              "email": email,
+              "phone": phoneno,
+              "user_type": usertype,
+              "password": password,
+            }
+            data.push(object)
+            console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             newUserSignup(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
@@ -97,7 +113,7 @@ const NewUserForm = ({ setPopup }) => {
                 console.log('Sucess ' + JSON.stringify(data));
                 localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
                 localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-                history.push('/')
+                history.push('/Home')
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
@@ -107,7 +123,7 @@ const NewUserForm = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list[0])
+            }, token, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -169,6 +185,24 @@ const NewUserForm = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={branch_name}
                     onchange={setbranch_name}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"User Name"}
+                    id="username_data"
+                    name={`data.username`}
+                    inputtype="username"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setusernamevalid}
+                    sendcheck={preSendValidator}
+                    value={username}
+                    onchange={setusername}
                   />
                 </div>
               </div>
