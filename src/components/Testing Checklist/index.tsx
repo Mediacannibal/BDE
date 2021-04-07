@@ -111,6 +111,13 @@ const TestingChecklist = (props: any) => {
     // }
   }, [])
 
+  const setheader_options = () => {
+    <div>
+      hello
+    </div>
+    props.setheader_options = setheader_options
+    console.log("hello, hi, good day")
+  }
 
   const renderHeader = () => {
     let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Remarks', 'Image link', 'Orientation', 'Interface']
