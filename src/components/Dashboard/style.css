@@ -142,6 +142,7 @@
     border: var(--color_10);
     border-style: solid;
     border-radius: calc(2vw + 6vh + 2vmin);
+    overflow: hidden;
 }
 
 .user_menu_arrow_icon {
