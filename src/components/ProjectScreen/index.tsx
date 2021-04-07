@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { listingTask } from 'utils/api'
 import './style.css'
+import * as add from '../../assets/add.svg'
 
-const ProjectScreen = () => {
+const ProjectScreen = (props: any) => {
   const [isnameemptyerror, setnameemptyerror] = useState(false)
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
@@ -26,6 +27,7 @@ const ProjectScreen = () => {
 
   let params = useParams();
   useEffect(() => {
+    props.setheader_options(screen_header_elements)
     // let usertype1 = ""
     // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     // if (UserDetails !== null) {
@@ -98,6 +100,17 @@ const ProjectScreen = () => {
     )
   }
 
+  const screen_header_elements = () => {
+    return (
+      <>
+        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+          <img className='header_icon' src={add} />
+          <div>Add Test</div>
+        </div>
+      </>
+    )
+  }
+
   return (
 
     <div className="main">
@@ -108,14 +121,12 @@ const ProjectScreen = () => {
         null
       }
 
-      {popup ?
+      {popup &&
         <AddEditProject
           setPopup={() => {
             setpopup(false)
           }}
         />
-        :
-        <div onClick={() => { setpopup(true) }}>click me </div>
       }
 
       <div className="body">

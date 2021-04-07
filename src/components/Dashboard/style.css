@@ -107,6 +107,7 @@
 }
 
 .header_page_title {
+    display: flex;
     font-weight: 600;
     color: var(--color_1);
     font-size: var(--TS7);

@@ -7,6 +7,7 @@ import * as eye_invisible from '../../assets/eye-invisible.svg'
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { useForm } from 'react-hook-form';
+import * as add from '../../assets/add.svg'
 // import { createaccount, getuserList, postAppdata, updateProfile } from 'utils/api';
 
 
@@ -175,6 +176,8 @@ const UserManagement = (props: any) => {
   }
 
   useEffect(() => {
+
+    props.setheader_options(screen_header_elements)
     // let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // if (token === null)
     //   history.push("/")
@@ -188,6 +191,17 @@ const UserManagement = (props: any) => {
     getuserlistdata()
 
   }, [])
+
+  const screen_header_elements = () => {
+    return (
+      <>
+        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+          <img className='header_icon' src={add} />
+          <div>Add Test</div>
+        </div>
+      </>
+    )
+  }
 
   const renderHeader = () => {
     let headerElement = ['Company Name', 'Location', 'Branch Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
@@ -290,14 +304,12 @@ const UserManagement = (props: any) => {
         null
       }
 
-      {popup ?
+      {popup &&
         <NewUserForm
           setPopup={() => {
             setpopup(false)
           }}
         />
-        :
-        <div onClick={() => { setpopup(true) }}>click me </div>
       }
 
       <div className="body">
