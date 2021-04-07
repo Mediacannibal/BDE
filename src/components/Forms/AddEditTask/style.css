@@ -24,6 +24,13 @@
     margin: var(--TS9);
 }
 
-.input_devices{
-    
+.input_devices {}
+
+@media screen and (min-aspect-ratio: 3/4) {
+    .addedit_task_div_wrapper {
+        display: flex;
+    }
+    .addedit_task_container1 {
+        padding: 0 0 calc(0.4vw + 1.2vh + 0.4vmin) calc(0.4vw + 1.2vh + 0.4vmin);
+    }
 }

@@ -106,6 +106,7 @@
 
 .inputfield_main_container {
     padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
+    overflow: scroll;
 }
 
 .inputfield_sub_container {
@@ -257,35 +258,34 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #000000d6;
+    background-color: #000000df;
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
     justify-content: center;
-    overflow-y: scroll;
 }
 
 .popup_container {
     align-self: center;
     display: grid;
-    /* margin: 10vh 0vh 0vh 0vh; */
 }
 
 .popup {
+    position: relative;
+    background-color: var(--color_15);
     z-index: 200;
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border-color: var(--color_7);
     border-style: solid;
-    text-align: -webkit-center;
-    background-color: var(--color_15);
+    margin: 0vh 5vw;
+    justify-content: space-around;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* padding: 2vh 2vw; */
-    align-items: center;
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     padding: calc(0.4vw + 1.2vh + 0.4vmin);
+    overflow: scroll;
 }
 
 .popup_title {
