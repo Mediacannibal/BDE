@@ -189,10 +189,10 @@ const AddEditProject = ({ setPopup }) => {
                   <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
                 </div>
                 {
-                  (inputvalue !== null) ? <div>
+                  (dataUri.length !== 0) && <div>
                     <img
                       className='activity_selectedimage' src={dataUri} />
-                  </div> : null
+                  </div>
                 }
               </div>
             </form >

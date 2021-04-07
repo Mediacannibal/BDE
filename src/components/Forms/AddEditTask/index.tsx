@@ -38,7 +38,7 @@ const AddEditTask = ({ setPopup }) => {
 
   const [selectdomain, setselectdomain] = useState('')
   const [isselectslot, setisselectslot] = useState('')
-  const [apiselect, setapiselect] = useState('') 
+  const [apiselect, setapiselect] = useState('')
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
