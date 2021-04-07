@@ -12,11 +12,9 @@ import BugList from '../BugList';
 import MeetingScreen from '../MeetingScreen';
 import UserManagement from '../UserManagement';
 
-
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'
 import * as back from '../../assets/previous.svg'
-
 import * as menu from '../../assets/menu.svg'
 import * as home from '../../assets/home (2).svg'
 import * as tasklist from '../../assets/tasklist.svg'
@@ -30,7 +28,7 @@ import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
 import UserSettings from 'components/UserMenuItems/UserSettings';
 
-const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
+const Dashboard = ({ screen, screen_name }, props: any) => {
 
     const history = useHistory();
 
@@ -40,7 +38,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     const [profile_picture, setprofile_picture] = useState("")
 
     const [settings_popup, setsettings_popup] = useState(false)
-
 
     const [user_menu_open, setUser_menu_open] = useState(false)
 
@@ -70,15 +67,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' }]
-
-    const screens = [
-        { path: '/', component: HomeScreen, header: header_options },
-        { path: '/Project', component: ProjectScreen, header: header_options },
-        { path: '/TaskList', component: TaskList, header: header_options },
-        { path: '/TestingChecklist', component: TestingChecklist, header: header_options },
-        { path: '/BugList', component: BugList, header: header_options },
-        { path: '/Meeting', component: MeetingScreen, header: header_options },
-        { path: '/UserManagement', component: UserManagement, header: header_options },]
 
     return (
         <div className="main_wrapper">
@@ -169,7 +157,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 <div className="header">
 
                     <div className='header_left'>
-                        <div className='header_page_title'>{screen_name}{header_options}</div>
+                        <div className='header_page_title'>{screen_name}</div>
                     </div>
 
                     <div className='header_center'>
