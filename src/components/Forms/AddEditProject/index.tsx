@@ -189,7 +189,7 @@ const AddEditProject = ({ setPopup }) => {
                 {
                   (inputvalue !== null) ? <div>
                     <img
-                      className='activity_selectedimage' src={inputvalue} />
+                      className='activity_selectedimage' src={dataUri} />
                   </div> : null
                 }
               </div>
