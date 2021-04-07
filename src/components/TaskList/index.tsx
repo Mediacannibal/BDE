@@ -133,7 +133,7 @@ const TaskList = (props: any) => {
       <>
         <div className='screen_header_element' onClick={() => { setpopup(true) }}>
           <img className='header_icon' src={add} />
-          <div>Add Test</div>
+          <div>Add Task</div>
         </div>
       </>
     )
