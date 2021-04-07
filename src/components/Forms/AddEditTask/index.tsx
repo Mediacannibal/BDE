@@ -199,23 +199,7 @@ const AddEditTask = ({ setPopup }) => {
                     </div>
                   </div>
 
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"Title"}
-                        id="title_data"
-                        name={`data.Title`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={settitlevalid}
-                        sendcheck={preSendValidator}
-                        value={title}
-                        onchange={settitle}
-                      />
-                    </div>
-                  </div>
+
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
@@ -278,6 +262,24 @@ const AddEditTask = ({ setPopup }) => {
                           { "key": "0", "value": "UI" },
                           { "key": "0", "value": "DEV OPS" }
                         ]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <McInput
+                        label={"Title"}
+                        id="title_data"
+                        name={`data.Title`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={settitlevalid}
+                        sendcheck={preSendValidator}
+                        value={title}
+                        onchange={settitle}
                       />
                     </div>
                   </div>
