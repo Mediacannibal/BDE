@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask} from 'utils/api';
+import { createMainTask } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
 
@@ -150,114 +150,161 @@ const AddEditTask = ({ setPopup }) => {
           title={"Add / Edit Task"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"PROJECT NAME"}
-                    id="project_ref"
-                    required={true}
-                    valid={setslotvalid}
-                    sendcheck={preSendValidator}
-                    value={project_ref}
-                    onchange={setproject_ref}
-                    options={[
-                      { "key": "0", "value": "MCBDE" },
-                    ]}
-                  />
-                </div>
-              </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Title"}
-                    id="title_data"
-                    name={`data.Title`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={settitlevalid}
-                    sendcheck={preSendValidator}
-                    value={title}
-                    onchange={settitle}
-                  />
-                </div>
-              </div>
+              <div className="addedit_task_div_wrapper">
 
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"TASK TYPE"}
-                    id="task_type"
-                    required={true}
-                    valid={setslotvalid}
-                    sendcheck={preSendValidator}
-                    value={task_type}
-                    onchange={settask_type}
-                    options={[
-                      { "key": "0", "value": "FEATURE" },
-                      { "key": "1", "value": "TEST" },
-                      { "key": "0", "value": "BUG" },
-                      { "key": "0", "value": "UPDATE" },
-                    ]}
-                  />
-                </div>
-              </div>
+                <div className="addedit_task_container1">
 
-
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"DOMAIN"}
-                    id="domain"
-                    required={true}
-                    valid={setdomainvalid}
-                    sendcheck={preSendValidator}
-                    value={selectdomain}
-                    onchange={setselectdomain}
-                    options={[
-                      { "key": "0", "value": "FRONT END" },
-                      { "key": "1", "value": "BACK END" },
-                      { "key": "0", "value": "UI" },
-                      { "key": "0", "value": "DEV OPS" }]}
-                  />
-                </div>
-              </div>
-
-              {(selectdomain === "FRONT END") ?
-                <>
-                  <div className="input_checkbox">
-                    <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
-                      <div className="checkbox_text">Portrait</div>
-                    </div>
-
-                    <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
-                      <div className="checkbox_text">Landscape</div>
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT NAME"}
+                        id="project_ref"
+                        required={true}
+                        valid={setslotvalid}
+                        sendcheck={preSendValidator}
+                        value={project_ref}
+                        onchange={setproject_ref}
+                        options={[
+                          { "key": "0", "value": "MCBDE" },
+                        ]}
+                      />
                     </div>
                   </div>
 
-                  <div className="user_band">
 
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"TASK TYPE"}
+                        id="task_type"
+                        required={true}
+                        valid={setslotvalid}
+                        sendcheck={preSendValidator}
+                        value={task_type}
+                        onchange={settask_type}
+                        options={[
+                          { "key": "0", "value": "FEATURE" },
+                          { "key": "1", "value": "TEST" },
+                          { "key": "0", "value": "BUG" },
+                          { "key": "0", "value": "UPDATE" },
+                        ]}
+                      />
+                    </div>
                   </div>
 
-                  <div className="input_devices">
-                    <div className="input_checkbox">
-                      <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                          onChange={(e) => {
-                            console.log(e);
-                            setandroidcheckbox(!androidcheckbox);
-                          }} />
-                        <div className="checkbox_text">Android</div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"DOMAIN"}
+                        id="domain"
+                        required={true}
+                        valid={setdomainvalid}
+                        sendcheck={preSendValidator}
+                        value={selectdomain}
+                        onchange={setselectdomain}
+                        options={[
+                          { "key": "0", "value": "FRONT END" },
+                          { "key": "1", "value": "BACK END" },
+                          { "key": "0", "value": "UI" },
+                          { "key": "0", "value": "DEV OPS" }]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <McInput
+                        label={"Title"}
+                        id="title_data"
+                        name={`data.Title`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={settitlevalid}
+                        sendcheck={preSendValidator}
+                        value={title}
+                        onchange={settitle}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <McInput
+                        label={"Description"}
+                        id="description_data"
+                        name={`data.Description`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={setdescriptionvalid}
+                        sendcheck={preSendValidator}
+                        value={description}
+                        onchange={setdescription}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <McInput
+                        label={"Assignee"}
+                        id="assignee_data"
+                        name={`data.Assignee`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={setassigneevalid}
+                        sendcheck={preSendValidator}
+                        value={assignee}
+                        onchange={setassignee}
+                      />
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="addedit_task_container1">
+
+                  {(selectdomain === "FRONT END") ?
+                    <>
+                      <div className="input_checkbox">
+                        <div className="checkbox_sub_container">
+                          <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                          <div className="checkbox_text">Portrait</div>
+                        </div>
+
+                        <div className="checkbox_sub_container">
+                          <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                          <div className="checkbox_text">Landscape</div>
+                        </div>
                       </div>
 
-                      {/* {androidcheckbox ?
+                      <div className="user_band">
+
+                      </div>
+
+                      <div className="input_devices">
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setandroidcheckbox(!androidcheckbox);
+                              }} />
+                            <div className="checkbox_text">Android</div>
+                          </div>
+
+                          {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
                           <McInput
@@ -276,19 +323,19 @@ const AddEditTask = ({ setPopup }) => {
                       </div>
                       :
                       null} */}
-                    </div>
+                        </div>
 
-                    <div className="input_checkbox">
-                      <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                          onChange={(e) => {
-                            console.log(e);
-                            setioscheckbox(!ioscheckbox);
-                          }} />
-                        <div className="checkbox_text">IOS</div>
-                      </div>
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setioscheckbox(!ioscheckbox);
+                              }} />
+                            <div className="checkbox_text">IOS</div>
+                          </div>
 
-                      {/* {ioscheckbox ?
+                          {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
                             <McInput
@@ -308,19 +355,19 @@ const AddEditTask = ({ setPopup }) => {
                         :
                         null} */}
 
-                    </div>
+                        </div>
 
-                    <div className="input_checkbox">
-                      <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                          onChange={(e) => {
-                            console.log(e);
-                            setbrowsercheckbox(!browsercheckbox);
-                          }} />
-                        <div className="checkbox_text">Browser</div>
-                      </div>
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setbrowsercheckbox(!browsercheckbox);
+                              }} />
+                            <div className="checkbox_text">Browser</div>
+                          </div>
 
-                      {/* {browsercheckbox ?
+                          {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
                           <McInput
@@ -339,155 +386,136 @@ const AddEditTask = ({ setPopup }) => {
                       </div>
                       :
                       null} */}
-                    </div>
-                  </div>
-                </>
-                :
-                null
-              }
+                        </div>
+                      </div>
+                    </>
+                    :
+                    null
+                  }
 
-              {selectdomain === "BACK END" ?
-                <>
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"API Name"}
-                        id="api_name_data"
-                        name={`data.api_name`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={setapi_namevalid}
-                        sendcheck={preSendValidator}
-                        value={api_name}
-                        onchange={setapi_name} />
-                    </div>
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
-                      <McInput
-                        type={"picker"}
-                        name={"API METHOD"}
-                        id="domain"
-                        required={true}
-                        valid={setapiselectvalid}
-                        sendcheck={preSendValidator}
-                        value={apiselect}
-                        onchange={setapiselect}
-                        options={[
-                          { "key": "0", "value": "GET" },
-                          { "key": "1", "value": "POST" },
-                          { "key": "0", "value": "PUT" },
-                          { "key": "0", "value": "DELETE" }]}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"Path"}
-                        id="path_data"
-                        name={`data.path`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={setpathvalid}
-                        sendcheck={preSendValidator}
-                        value={path}
-                        onchange={setpath} />
-                    </div>
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"Request"}
-                        id="request_data"
-                        name={`data.request`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={setrequestvalid}
-                        sendcheck={preSendValidator}
-                        value={request}
-                        onchange={setrequest} />
-                    </div>
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"Response"}
-                        id="response_data"
-                        name={`data.response`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={setresponsevalid}
-                        sendcheck={preSendValidator}
-                        value={response}
-                        onchange={setresponse} />
-                    </div>
-                  </div>
-                </>
-                :
-                null
-              }
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Description"}
-                    id="description_data"
-                    name={`data.Description`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setdescriptionvalid}
-                    sendcheck={preSendValidator}
-                    value={description}
-                    onchange={setdescription}
-                  />
                 </div>
+
+                <div className="addedit_task_container1">
+
+                  {selectdomain === "BACK END" ?
+                    <>
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"API Name"}
+                            id="api_name_data"
+                            name={`data.api_name`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={setapi_namevalid}
+                            sendcheck={preSendValidator}
+                            value={api_name}
+                            onchange={setapi_name} />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="Booking_slot_dropdown">
+                          <McInput
+                            type={"picker"}
+                            name={"API METHOD"}
+                            id="domain"
+                            required={true}
+                            valid={setapiselectvalid}
+                            sendcheck={preSendValidator}
+                            value={apiselect}
+                            onchange={setapiselect}
+                            options={[
+                              { "key": "0", "value": "GET" },
+                              { "key": "1", "value": "POST" },
+                              { "key": "0", "value": "PUT" },
+                              { "key": "0", "value": "DELETE" }]}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Path"}
+                            id="path_data"
+                            name={`data.path`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={setpathvalid}
+                            sendcheck={preSendValidator}
+                            value={path}
+                            onchange={setpath} />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Request"}
+                            id="request_data"
+                            name={`data.request`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={setrequestvalid}
+                            sendcheck={preSendValidator}
+                            value={request}
+                            onchange={setrequest} />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Response"}
+                            id="response_data"
+                            name={`data.response`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={setresponsevalid}
+                            sendcheck={preSendValidator}
+                            value={response}
+                            onchange={setresponse} />
+                        </div>
+                      </div>
+                    </>
+                    :
+                    null
+                  }
+
+                </div>
+
+                <div className="addedit_task_container1">
+
+
+
+
+
+                  <div className="inputfield_sub_container">
+                    <div className="upload-wrap">
+                      <button type="button" className="nice-button">File links</button>
+                      <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                    </div>
+                    {
+                      (inputvalue !== null) ? <div>
+                        <img
+                          className='activity_selectedimage' src={inputvalue} />
+                      </div> : null
+                    }
+                  </div>
+
+                </div>
+
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Assignee"}
-                    id="assignee_data"
-                    name={`data.Assignee`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setassigneevalid}
-                    sendcheck={preSendValidator}
-                    value={assignee}
-                    onchange={setassignee}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="upload-wrap">
-                  <button type="button" className="nice-button">File links</button>
-                  <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
-                </div>
-                {
-                  (inputvalue !== null) ? <div>
-                    <img
-                      className='activity_selectedimage' src={inputvalue} />
-                  </div> : null
-                }
-              </div>
             </form >
           }
           confirmClick={() => {
