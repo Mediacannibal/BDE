@@ -232,12 +232,12 @@ const AddEditTask = ({ setPopup }) => {
                 <>
                   <div className="input_checkbox">
                     <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                      <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="orientation" />
                       <div className="checkbox_text">Portrait</div>
                     </div>
 
                     <div className="checkbox_sub_container">
-                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                      <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="orientation" />
                       <div className="checkbox_text">Landscape</div>
                     </div>
                   </div>
@@ -249,7 +249,7 @@ const AddEditTask = ({ setPopup }) => {
                   <div className="input_devices">
                     <div className="input_checkbox">
                       <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                           onChange={(e) => {
                             console.log(e);
                             setandroidcheckbox(!androidcheckbox);
@@ -280,7 +280,7 @@ const AddEditTask = ({ setPopup }) => {
 
                     <div className="input_checkbox">
                       <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                           onChange={(e) => {
                             console.log(e);
                             setioscheckbox(!ioscheckbox);
@@ -312,7 +312,7 @@ const AddEditTask = ({ setPopup }) => {
 
                     <div className="input_checkbox">
                       <div className="checkbox_sub_container">
-                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                        <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                           onChange={(e) => {
                             console.log(e);
                             setbrowsercheckbox(!browsercheckbox);
