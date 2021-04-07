@@ -1,5 +1,5 @@
 import 'core-js/stable'
-import React from 'react'
+import React, { useState } from 'react'
 import 'regenerator-runtime/runtime'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -54,10 +54,14 @@ const App = () => {
           </Route>
         )}
 
-        {dashboard_screen.map((Data: any) =>
-          <Route exact path={Data.path}>
-            <Dashboard screen={<Data.component />} screen_name={Data.path} />
-          </Route>
+        {dashboard_screen.map((Data: any) => {
+          const [blabla, setblabla] = useState()
+          return (
+            <Route exact path={Data.path}>
+              <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
+            </Route>
+          )
+        }
         )}
 
       </Switch>

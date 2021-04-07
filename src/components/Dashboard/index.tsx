@@ -28,7 +28,7 @@ import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
 import UserSettings from 'components/UserMenuItems/UserSettings';
 
-const Dashboard = ({ screen, screen_name }, props: any) => {
+const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const history = useHistory();
 
@@ -93,7 +93,7 @@ const Dashboard = ({ screen, screen_name }, props: any) => {
                 <div className="menu_items_wrapper">
 
                     {menu_items.map((data: any) =>
-                        <div className='menu_title'
+                        <div className={(data.path === screen_name) ? 'menu_title active' : 'menu_title'}
                             onClick={() => { history.replace(data.path) }} >
                             <img className='main_menu_item_icon' src={data.icon} />
                             {menu_open ? <div className='main_menu_item_title'>{data.title}</div> : null}
