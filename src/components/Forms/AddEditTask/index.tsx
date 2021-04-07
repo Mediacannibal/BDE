@@ -36,7 +36,7 @@ const AddEditTask = ({ setPopup }) => {
 
 
 
-  const [selectdomain, setselectdomain] = useState('')
+  const [domain, setdomain] = useState('')
   const [priority, setpriority] = useState('')
   const [apiselect, setapiselect] = useState('')
 
@@ -119,7 +119,8 @@ const AddEditTask = ({ setPopup }) => {
               "project_ref": project_ref,
               "title": title,
               "task_type": task_type,
-              "domain": selectdomain,
+              "priority": priority,
+              "domain": domain,
               "description": description,
               "assignee": assignee,
             }
@@ -175,7 +176,23 @@ const AddEditTask = ({ setPopup }) => {
                     </div>
                   </div>
 
-
+                  <div className="inputfield_sub_container">
+                    <div className="textinput_box_container">
+                      <McInput
+                        label={"Title"}
+                        id="title_data"
+                        name={`data.Title`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        valid={settitlevalid}
+                        sendcheck={preSendValidator}
+                        value={title}
+                        onchange={settitle}
+                      />
+                    </div>
+                  </div>
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
@@ -230,32 +247,14 @@ const AddEditTask = ({ setPopup }) => {
                         required={true}
                         valid={setdomainvalid}
                         sendcheck={preSendValidator}
-                        value={selectdomain}
-                        onchange={setselectdomain}
+                        value={domain}
+                        onchange={setdomain}
                         options={[
                           { "key": "0", "value": "FRONT END" },
                           { "key": "1", "value": "BACK END" },
                           { "key": "0", "value": "UI" },
                           { "key": "0", "value": "DEV OPS" }
                         ]}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <div className="textinput_box_container">
-                      <McInput
-                        label={"Title"}
-                        id="title_data"
-                        name={`data.Title`}
-                        inputtype="Text"
-                        type="text"
-                        min_length="3"
-                        required={true}
-                        valid={settitlevalid}
-                        sendcheck={preSendValidator}
-                        value={title}
-                        onchange={settitle}
                       />
                     </div>
                   </div>
