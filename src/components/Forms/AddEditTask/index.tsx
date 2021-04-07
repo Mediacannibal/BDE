@@ -26,14 +26,9 @@ const AddEditTask = ({ setPopup }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
-  const [addandroid, setaddandroid] = useState(false)
-  const [removeandroid, setremoveandroid] = useState(false)
-
-  const [addios, setaddios] = useState(false)
-  const [removeios, setremoveios] = useState(false)
-
-  const [addbrowser, setaddbrowser] = useState(false)
-  const [removebrowser, setremovebrowser] = useState(false)
+  const [addremoveandroid, setaddremoveandroid] = useState(false)
+  const [addremoveios, setaddremoveios] = useState(false)
+  const [addremovebrowser, setaddremovebrowser] = useState(false)
 
   const [androidcheckbox, setandroidcheckbox] = useState(false)
   const [ioscheckbox, setioscheckbox] = useState(false)
@@ -127,6 +122,7 @@ const AddEditTask = ({ setPopup }) => {
       || apiselectvalid === true
       || isandroidvalid === true
       || isiosvalid === true
+      || potraitcheckboxvalid === true
     ) {
       setispopup(true)
     }
@@ -205,8 +201,6 @@ const AddEditTask = ({ setPopup }) => {
                       />
                     </div>
                   </div>
-
-
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
@@ -348,7 +342,6 @@ const AddEditTask = ({ setPopup }) => {
 
                   {(domain === "FRONT END") ?
                     <>
-
                       <div className="inputfield_sub_container">
                         <div className="Booking_slot_dropdown">
                           <McInput
@@ -390,36 +383,20 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setaddandroid(!addandroid)
+                                setaddremoveandroid(!addremoveandroid)
                               }} />
                             <div className="checkbox_text">Android</div>
                           </div>
 
-                          {addandroid ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddandroid(false)
-                                setremoveandroid(!removeandroid)
-                                setandroidcheckbox(!isandroidvalid)
-                              }}>
-                              <div className="addremove_image_text">Add Device</div>
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremoveandroid(!addremoveandroid)
+                              setandroidcheckbox(!androidcheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremoveandroid ? "Add Device" : "Remove Device"}
                             </div>
-                            :
-                            null
-                          }
-
-                          {removeandroid ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddandroid(true)
-                                setremoveandroid(false)
-                                setandroidcheckbox(false)
-                              }}>
-                              <div className="addremove_image_text">Remove Device</div>
-                            </div>
-                            :
-                            null
-                          }
+                          </div>
 
                           {androidcheckbox ?
                             <div className="inputfield_sub_container">
@@ -449,36 +426,21 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setaddios(!addios)
+                                setaddremoveios(!addremoveios)
                               }} />
                             <div className="checkbox_text">IOS</div>
                           </div>
 
-                          {addios ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddios(false)
-                                setremoveios(!removeios)
-                                setioscheckbox(!ioscheckbox)
-                              }}>
-                              <div className="addremove_image_text">Add Device</div>
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremoveios(!addremoveios)
+                              setioscheckbox(!ioscheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremoveios ? "Add Device" : "Remove Device"}
                             </div>
-                            :
-                            null
-                          }
+                          </div>
 
-                          {removeios ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddios(true)
-                                setremoveios(false)
-                                setioscheckbox(false)
-                              }}>
-                              <div className="addremove_image_text">Remove Device</div>
-                            </div>
-                            :
-                            null
-                          }
 
                           {ioscheckbox ?
                             <div className="inputfield_sub_container">
@@ -507,36 +469,20 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setaddbrowser(!addbrowser)
+                                setaddremovebrowser(!addremovebrowser)
                               }} />
                             <div className="checkbox_text">Browser</div>
                           </div>
 
-                          {addbrowser ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddios(false)
-                                setremoveios(!removebrowser)
-                                setbrowsercheckbox(!browsercheckbox)
-                              }}>
-                              <div className="addremove_image_text">Add Device</div>
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremovebrowser(!addremovebrowser)
+                              setbrowsercheckbox(!browsercheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremovebrowser ? "Add Device" : "Remove Device"}
                             </div>
-                            :
-                            null
-                          }
-
-                          {removebrowser ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setaddbrowser(true)
-                                setremovebrowser(false)
-                                setbrowsercheckbox(false)
-                              }}>
-                              <div className="addremove_image_text">Remove Device</div>
-                            </div>
-                            :
-                            null
-                          }
+                          </div>
 
                           {browsercheckbox ?
                             <div className="inputfield_sub_container">

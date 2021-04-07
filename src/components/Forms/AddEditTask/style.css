@@ -24,21 +24,6 @@
     margin: var(--TS9);
 }
 
-/* Add-remove */
-
-.addremove_container {
-    display: flex;
-}
-
-.addremove_image_text {
-    font-family: 'Poppins';
-    font-size: var(--TS6);
-    align-self: center;
-    align-items: center;
-    margin: calc(0.3vw + 0.9vh + 0.3vmin);
-    color: var(--color_1);
-}
-
 .input_devices {}
 
 .fileupload_with_preview {

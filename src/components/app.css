@@ -509,3 +509,18 @@ tr:nth-child(even) {
     width: calc(0.3vw + 0.9vh + 0.3vmin);
     height: calc(0.3vw + 0.9vh + 0.3vmin);
 }
+
+/* Add-remove */
+
+.addremove_container {
+    display: flex;
+}
+
+.addremove_text {
+    font-family: 'Poppins';
+    font-size: var(--TS6);
+    align-self: center;
+    align-items: center;
+    margin: calc(0.3vw + 0.9vh + 0.3vmin);
+    color: var(--color_1);
+}
