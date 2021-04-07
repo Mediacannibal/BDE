@@ -47,10 +47,11 @@ const AddEditProject = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, formdata)
+    fileupload(Callback, token, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -96,6 +97,7 @@ const AddEditProject = ({ setPopup }) => {
               "project_type": isselectslot,
               "title": title,
               "description": description,
+              "file_links": dataUri,
             }
             data.push(object)
             console.log("***SUBMIT***", data)
@@ -114,21 +116,18 @@ const AddEditProject = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data)
+            }, token, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
             setispopup(false)
           }}
         />
-
         :
-
         <Popup
           title={"Add / Edit Project"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
                   <McInput
@@ -192,7 +191,7 @@ const AddEditProject = ({ setPopup }) => {
                 {
                   (inputvalue !== null) ? <div>
                     <img
-                      className='activity_selectedimage' src={inputvalue} />
+                      className='activity_selectedimage' src={dataUri} />
                   </div> : null
                 }
               </div>

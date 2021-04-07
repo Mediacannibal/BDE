@@ -12,14 +12,18 @@ const AddEditBug = ({ setPopup }) => {
   const history = useHistory();
 
 
-  const [bugtitle, setbugtitle] = useState('')
-  const [orientationdata, setorientationdata] = useState('')
+  const [bug_title, setbug_title] = useState('')
+  const [orientation, setorientation] = useState('')
   const [device, setdevice] = useState('')
-  const [remarks, setremarks] = useState('')
+  const [description, setdescription] = useState('')
+  const [assignee, setassignee] = useState('')
+  const [image_link, setimage_link] = useState('')
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
   const [inputvalue, setinputvalue] = useState("")
+
+  const [isdescriptionvalid, setdescriptionvalid] = useState(false)
 
   const [bugtitlevalid, setbugtitlevalid] = useState(false)
   const [devicevalid, setdevicevalid] = useState(false)
@@ -31,10 +35,12 @@ const AddEditBug = ({ setPopup }) => {
 
   const [ispopup, setispopup] = useState(false)
   const [list, setlist] = useState([{
-    "bug_title": "",
-    "orientation": "",
-    "device": "",
-    "image_link": "",
+    "bug_title": bug_title,
+    "orientation": orientation,
+    "device": device,
+    "description": description,
+    "assignee": assignee,
+    "image_link": image_link,
   }])
 
   const { register, handleSubmit, errors, reset } = useForm();
@@ -66,7 +72,6 @@ const AddEditBug = ({ setPopup }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   return (
@@ -77,6 +82,16 @@ const AddEditBug = ({ setPopup }) => {
           desc1={"The following Bug will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
+            let data = [];
+            let object = {
+              "bug_title": bug_title,
+              "orientation": orientation,
+              "device": device,
+              "description": description,
+              "assignee": assignee,
+              "image_link": image_link,
+            }
+            data.push(object)
             console.log("***SUBMIT***", list)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             addBug(async (data: any, errorresponse: any) => {
@@ -117,70 +132,32 @@ const AddEditBug = ({ setPopup }) => {
                     required={true}
                     valid={setbugtitlevalid}
                     sendcheck={preSendValidator}
-                    value={bugtitle}
-                    onchange={setbugtitle}
+                    value={bug_title}
+                    onchange={setbug_title}
                   />
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
-                  <McInput
-                    type={"picker"}
-                    name={"ORIENTATION"}
-                    id="orientation"
-                    required={true}
-                    valid={setorientationvalid}
-                    sendcheck={preSendValidator}
-                    value={orientationdata}
-                    onchange={setorientationdata}
-                    options={[
-                      { "key": "0", "value": "LANDSCAPE" },
-                      { "key": "1", "value": "PORTRAIT" }]}
-                  />
+              <div className="input_checkbox">
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="orientation" />
+                  <div className="checkbox_text">Portrait</div>
+                </div>
+
+                <div className="checkbox_sub_container">
+                  <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="orientation" />
+                  <div className="checkbox_text">Landscape</div>
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Device"}
-                    id="device_data"
-                    name={`data.Device`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setdevicevalid}
-                    sendcheck={preSendValidator}
-                    value={device}
-                    onchange={setdevice}
-                  />
-                </div>
-              </div>
+              <div className="user_band">
 
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Remarks"}
-                    id="remarks_data"
-                    name={`data.Remarks`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setremarksvalid}
-                    sendcheck={preSendValidator}
-                    value={remarks}
-                    onchange={setremarks}
-                  />
-                </div>
               </div>
 
               <div className="input_devices">
                 <div className="input_checkbox">
                   <div className="checkbox_sub_container">
-                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                       onChange={(e) => {
                         console.log(e);
                         // setandroidcheckbox(!androidcheckbox);
@@ -191,7 +168,7 @@ const AddEditBug = ({ setPopup }) => {
                   {/* {androidcheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Android"}
                             id="android_data"
                             name={`data.android`}
@@ -199,8 +176,8 @@ const AddEditBug = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isandroidemptyerror}
-                            setvalid={setandroidemptyerror}
+                            valid={isandroidvalid}
+                            setvalid={setandroidvalid}
                             value={android}
                             onChange={setandroid} />
                         </div>
@@ -211,7 +188,7 @@ const AddEditBug = ({ setPopup }) => {
 
                 <div className="input_checkbox">
                   <div className="checkbox_sub_container">
-                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                       onChange={(e) => {
                         console.log(e);
                         // setioscheckbox(!ioscheckbox);
@@ -222,7 +199,7 @@ const AddEditBug = ({ setPopup }) => {
                   {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
                           <div className="textinput_box_container">
-                            <TextField
+                            <McInput
                               label={"IOS"}
                               id="ios_data"
                               name={`data.ios`}
@@ -230,8 +207,8 @@ const AddEditBug = ({ setPopup }) => {
                               type="text"
                               min_length="3"
                               required={true}
-                              valid={isiosemptyerror}
-                              setvalid={setiosemptyerror}
+                              valid={isiosvalid}
+                              setvalid={setiosvalid}
                               value={ios}
                               onChange={setios} />
                           </div>
@@ -243,7 +220,7 @@ const AddEditBug = ({ setPopup }) => {
 
                 <div className="input_checkbox">
                   <div className="checkbox_sub_container">
-                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                    <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="device"
                       onChange={(e) => {
                         console.log(e);
                         // setbrowsercheckbox(!browsercheckbox);
@@ -254,7 +231,7 @@ const AddEditBug = ({ setPopup }) => {
                   {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
-                          <TextField
+                          <McInput
                             label={"Browser"}
                             id="browser_data"
                             name={`data.browser`}
@@ -262,8 +239,8 @@ const AddEditBug = ({ setPopup }) => {
                             type="text"
                             min_length="3"
                             required={true}
-                            valid={isbrowseremptyerror}
-                            setvalid={setbrowseremptyerror}
+                            valid={isbrowservalid}
+                            setvalid={setbrowservalid}
                             value={browser}
                             onChange={setbrowser} />
                         </div>
@@ -272,6 +249,25 @@ const AddEditBug = ({ setPopup }) => {
                       null} */}
                 </div>
               </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Description"}
+                    id="description_data"
+                    name={`data.Description`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setdescriptionvalid}
+                    sendcheck={preSendValidator}
+                    value={description}
+                    onchange={setdescription}
+                  />
+                </div>
+              </div>
+
               <div className="inputfield_sub_container">
                 <div className="upload-wrap">
                   <button type="button" className="nice-button">upload_file</button>
