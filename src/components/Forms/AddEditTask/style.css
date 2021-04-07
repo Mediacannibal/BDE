@@ -26,6 +26,11 @@
 
 .input_devices {}
 
+.fileupload_with_preview{
+    display: flex;
+    justify-content: space-around;
+}
+
 @media screen and (min-aspect-ratio: 3/4) {
     .addedit_task_div_wrapper {
         display: flex;
