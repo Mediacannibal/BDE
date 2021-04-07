@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { createMainTask } from 'utils/api';
 import McInput from 'components/Common/McInput';
+import * as addimg from '../../../assets/add.svg'
+
 
 
 const AddEditTask = ({ setPopup }) => {
@@ -16,12 +18,16 @@ const AddEditTask = ({ setPopup }) => {
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
   const [task_type, settask_type] = useState('')
+  const [android, setandroid] = useState('')
   const [ios, setios] = useState('')
   const [browser, setbrowser] = useState('')
   const [api_name, setapi_name] = useState('')
   const [path, setpath] = useState('')
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
+
+  const [add, setadd] = useState(false)
+  const [remove, setremove] = useState(false)
 
   const [androidcheckbox, setandroidcheckbox] = useState(false)
   const [ioscheckbox, setioscheckbox] = useState(false)
@@ -32,7 +38,6 @@ const AddEditTask = ({ setPopup }) => {
 
   const [inputvalue, setinputvalue] = useState("")
   const [isfrontend, setisfrontend] = useState(false)
-  const [isbackend, setisbackend] = useState(false)
 
 
 
@@ -41,6 +46,8 @@ const AddEditTask = ({ setPopup }) => {
   const [apiselect, setapiselect] = useState('')
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
+  const [isiosvalid, setiosvalid] = useState(false)
+  const [isandroidvalid, setandroidvalid] = useState(false)
   const [istask_typevalid, settask_typevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
   const [isdescriptionvalid, setdescriptionvalid] = useState(false)
@@ -97,6 +104,8 @@ const AddEditTask = ({ setPopup }) => {
       || ispriorityvalid === true
       || isdomainvalid === true
       || apiselectvalid === true
+      || isandroidvalid === true
+      || isiosvalid === true
     ) {
       setispopup(true)
     }
@@ -314,7 +323,7 @@ const AddEditTask = ({ setPopup }) => {
 
                 <div className="addedit_task_container1">
 
-                  {(selectdomain === "FRONT END") ?
+                  {(domain === "FRONT END") ?
                     <>
                       <div className="input_checkbox">
                         <div className="checkbox_sub_container">
@@ -338,30 +347,56 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setandroidcheckbox(!androidcheckbox);
+                                setadd(!add)
                               }} />
                             <div className="checkbox_text">Android</div>
                           </div>
 
-                          {/* {androidcheckbox ?
-                      <div className="inputfield_sub_container">
-                        <div className="textinput_box_container">
-                          <McInput
-                            label={"Android"}
-                            id="android_data"
-                            name={`data.android`}
-                            inputtype="Text"
-                            type="text"
-                            min_length="3"
-                            required={true}
-                            valid={isandroidvalid}
-                            setvalid={setandroidvalid}
-                            value={android}
-                            onChange={setandroid} />
-                        </div>
-                      </div>
-                      :
-                      null} */}
+                          {add ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setadd(false)
+                                setremove(!remove)
+                                setandroidcheckbox(!isandroidvalid)
+                              }}>
+                              <div className="addremove_image_text">Add Device</div>
+                            </div>
+                            :
+                            null
+                          }
+
+                          {remove ?
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setadd(true)
+                                setremove(false)
+                                setandroidcheckbox(false)
+                              }}>
+                              <div className="addremove_image_text">Remove Device</div>
+                            </div>
+                            :
+                            null
+                          }
+
+                          {androidcheckbox ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"Android"}
+                                  id="android_data"
+                                  name={`data.android`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isandroidvalid}
+                                  setvalid={setandroidvalid}
+                                  value={android}
+                                  onChange={setandroid} />
+                              </div>
+                            </div>
+                            :
+                            null}
                         </div>
 
                         <div className="input_checkbox">
@@ -374,25 +409,25 @@ const AddEditTask = ({ setPopup }) => {
                             <div className="checkbox_text">IOS</div>
                           </div>
 
-                          {/* {ioscheckbox ?
-                        <div className="inputfield_sub_container">
-                          <div className="textinput_box_container">
-                            <McInput
-                              label={"IOS"}
-                              id="ios_data"
-                              name={`data.ios`}
-                              inputtype="Text"
-                              type="text"
-                              min_length="3"
-                              required={true}
-                              valid={isiosvalid}
-                              setvalid={setiosvalid}
-                              value={ios}
-                              onChange={setios} />
-                          </div>
-                        </div>
-                        :
-                        null} */}
+                          {ioscheckbox ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"IOS"}
+                                  id="ios_data"
+                                  name={`data.ios`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isiosvalid}
+                                  setvalid={setiosvalid}
+                                  value={ios}
+                                  onChange={setios} />
+                              </div>
+                            </div>
+                            :
+                            null}
 
                         </div>
 
@@ -436,7 +471,7 @@ const AddEditTask = ({ setPopup }) => {
 
                 <div className="addedit_task_container1">
 
-                  {selectdomain === "BACK END" ?
+                  {domain === "BACK END" ?
                     <>
                       <div className="inputfield_sub_container">
                         <div className="textinput_box_container">
@@ -531,8 +566,6 @@ const AddEditTask = ({ setPopup }) => {
                   }
 
                 </div>
-
-
               </div>
 
             </form >
