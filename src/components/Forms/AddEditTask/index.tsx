@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask } from 'utils/api';
+import { createMainTask, fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
 
@@ -38,7 +38,8 @@ const AddEditTask = ({ setPopup }) => {
 
   const [selectdomain, setselectdomain] = useState('')
   const [isselectslot, setisselectslot] = useState('')
-  const [apiselect, setapiselect] = useState('')
+  const [apiselect, setapiselect] = useState('') 
+  const [potraitcheckbox, setpotraitcheckbox] = useState('')
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
@@ -51,10 +52,11 @@ const AddEditTask = ({ setPopup }) => {
   const [isslotvalid, setslotvalid] = useState(false)
   const [isdomainvalid, setdomainvalid] = useState(false)
   const [apiselectvalid, setapiselectvalid] = useState(false)
+  const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
-
   const [ispopup, setispopup] = useState(false)
+  const [dataUri, setDataUri] = useState('');
 
   const [list, setlist] = useState([{
     "project_ref": "",
@@ -75,11 +77,23 @@ const AddEditTask = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    // imageUpload(Callback, formdata)
+    fileupload(Callback, token, formdata)
   }
+
+  const Callback = async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      console.log("respnse :", data.data.result.file_url)
+      setDataUri(data.data.result.file_url)
+    }
+    else {
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  };
 
   const Validate = () => {
 
@@ -189,12 +203,13 @@ const AddEditTask = ({ setPopup }) => {
                         options={[
                           { "key": "0", "value": "FEATURE" },
                           { "key": "1", "value": "TEST" },
-                          { "key": "0", "value": "BUG" },
-                          { "key": "0", "value": "UPDATE" },
+                          { "key": "2", "value": "BUG" },
+                          { "key": "3", "value": "UPDATE" },
                         ]}
                       />
                     </div>
                   </div>
+
 
 
                   <div className="inputfield_sub_container">
@@ -211,8 +226,8 @@ const AddEditTask = ({ setPopup }) => {
                         options={[
                           { "key": "0", "value": "FRONT END" },
                           { "key": "1", "value": "BACK END" },
-                          { "key": "0", "value": "UI" },
-                          { "key": "0", "value": "DEV OPS" }]}
+                          { "key": "2", "value": "UI" },
+                          { "key": "3", "value": "DEV OPS" }]}
                       />
                     </div>
                   </div>
@@ -278,10 +293,10 @@ const AddEditTask = ({ setPopup }) => {
                         <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
                       </div>
                       {
-                        (inputvalue !== null) ? <div>
+                        (dataUri.length !== 0) && <div>
                           <img
-                            className='activity_selectedimage' src={inputvalue} />
-                        </div> : null
+                            className='activity_selectedimage' src={dataUri} />
+                        </div>
                       }
                     </div>
                   </div>
@@ -292,7 +307,27 @@ const AddEditTask = ({ setPopup }) => {
 
                   {(selectdomain === "FRONT END") ?
                     <>
-                      <div className="input_checkbox">
+
+                      <div className="inputfield_sub_container">
+                        <div className="Booking_slot_dropdown">
+                          <McInput
+                            type={"checkbox"}
+                            name={"Portrait"}
+                            id="Portrait"
+                            required={true}
+                            valid={setpotraitcheckboxvalid}
+                            sendcheck={preSendValidator}
+                            value={potraitcheckbox}
+                            onchange={setpotraitcheckbox}
+                            options={[
+                              { "key": "0", "value": "Portrait" },
+                              { "key": "1", "value": "Landscape" },
+                            ]}
+                          />
+                        </div>
+                      </div>
+
+                      {/* <div className="input_checkbox">
                         <div className="checkbox_sub_container">
                           <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
                           <div className="checkbox_text">Portrait</div>
@@ -302,7 +337,7 @@ const AddEditTask = ({ setPopup }) => {
                           <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
                           <div className="checkbox_text">Landscape</div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="user_band">
 
