@@ -6,7 +6,7 @@ import Footer from 'components/common/Footer';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
-import { listingBug } from 'utils/api';
+import { getMainTask, listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 
 const BugList = (props: any) => {
@@ -25,9 +25,11 @@ const BugList = (props: any) => {
   ])
 
   const [unique_bug_title, setunique_bug_title] = useState([])
-  const [unique_orientation, setunique_orientation] = useState([])
-  const [unique_device, setunique_device] = useState([])
-  const [unique_remarks, setunique_remarks] = useState([])
+  const [unique_protrait, setunique_protrait] = useState([])
+  const [unique_landscape, setunique_landscape] = useState([])
+  const [unique_android, setunique_android] = useState([])
+  const [unique_ios, setunique_ios] = useState([])
+  const [unique_browser, setunique_browser] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
   const [popup, setpopup] = useState(false)
@@ -58,34 +60,42 @@ const BugList = (props: any) => {
     // if (token === null)
     //   // history.push("/")
     //   if (params.id === undefined) {
-    listingBug(async (data: any, errorresponse: any) => {
+    getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         console.log("!!!!!!!!!!!!!!!!", data.data)
         setspinner(false)
         setlistItems(data.data)
         let bug_title: Iterable<any> | null | undefined = []
-        let orientation: Iterable<any> | null | undefined = []
-        let device: Iterable<any> | null | undefined = []
-        let remarks: Iterable<any> | null | undefined = []
+        let protrait: Iterable<any> | null | undefined = []
+        let landscape: Iterable<any> | null | undefined = []
+        let android: Iterable<any> | null | undefined = []
+        let ios: Iterable<any> | null | undefined = []
+        let browser: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
           bug_title.push(element.bug_title)
-          orientation.push(element.orientation)
-          device.push(element.device)
-          remarks.push(element.remarks)
+          protrait.push(element.protrait)
+          landscape.push(element.landscape)
+          android.push(element.android)
+          ios.push(element.ios)
+          browser.push(element.browser)
           image_link.push(element.image_link)
         });
         setunique_bug_title(Array.from(new Set(bug_title)));
-        setunique_orientation(Array.from(new Set(orientation)))
-        setunique_device(Array.from(new Set(device)))
-        setunique_remarks(Array.from(new Set(remarks)))
+        setunique_protrait(Array.from(new Set(protrait)))
+        setunique_landscape(Array.from(new Set(landscape)))
+        setunique_android(Array.from(new Set(android)))
+        setunique_ios(Array.from(new Set(ios)))
+        setunique_browser(Array.from(new Set(browser)))
         setunique_image_link(Array.from(new Set(image_link)))
 
         console.log(
           unique_bug_title,
-          unique_orientation,
-          unique_device,
-          unique_remarks,
+          unique_protrait,
+          unique_landscape,
+          unique_android,
+          unique_ios,
+          unique_browser,
           unique_image_link,
         );
       } else {
@@ -99,7 +109,7 @@ const BugList = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Bug Title', 'Date Reported', 'Orientation', 'Device', 'Remarks', 'Image']
+    let headerElement = ['Bug Title', 'Date Reported', 'Protrait', 'Landscape', 'Android', 'IOS', 'Browser', 'image_link']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -112,9 +122,11 @@ const BugList = (props: any) => {
       <tr key={element.bug_title}>
         <td>{element.bug_title}</td>
         <td>****</td>
-        <td>{element.orientation}</td>
-        <td>{element.device}</td>
-        <td>{element.remarks}</td>
+        <td>{element.protrait}</td>
+        <td>{element.landscape}</td>
+        <td>{element.android}</td>
+        <td>{element.ios}</td>
+        <td>{element.browser}</td>
         <td>{element.image_link}</td>
       </tr>
     )
