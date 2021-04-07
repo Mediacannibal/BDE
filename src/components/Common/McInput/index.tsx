@@ -7,14 +7,21 @@ import { FormatColorReset } from '@material-ui/icons';
 
 const McInput = (props: any) => {
 
-    const [isOpen, setIsOpen] = useState(false)
+    const [dropdownOpen, setDropdownOpen] = useState(false)
 
-    const toggling = () => setIsOpen(!isOpen)
+    const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
         props.onchange(value)
-        setIsOpen(false)
-        // console.log("select option value :", props.value)
+        setDropdownOpen(false)
+        console.log("select option value :", props.value)
+    }
+
+    const [checkedOptionValue, setcheckedOptionValue] = useState('')
+
+    const handleRadioChange = (e: any) => {
+        console.log(e)
+        setcheckedOptionValue(e.target.value)
     }
 
     const [input_data, setinput_data] = useState(props.value)
@@ -179,15 +186,15 @@ const McInput = (props: any) => {
 
                 <div className="input_innerCenter_div">
 
-                    {props.type === "picker" ?
+                    {(props.type === "picker") &&
 
                         <div className={((props.valid === false) && (props.required == true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
                             onClick={toggling}>
                             {props.value || props.name}
                         </div>
+                    }
 
-                        :
-
+                    {(props.type === "text") &&
                         <input {...props}
                             className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
                             value={props.value}
@@ -207,24 +214,100 @@ const McInput = (props: any) => {
                                 }
                                 // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
+                    }
 
+                    {(props.type === "textarea") &&
+                        <textarea {...props}
+                            className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+                            value={props.value}
+                            onChange={(data: any) => {
+                                Reformat_and_Validate(data)
+                            }}
+                            onFocus={() => {
+                                setisActive(true)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }}
+                            onBlur={() => {
+                                setisActive(false)
+                                if ((String(input_data).length === 0) && ((props.required === false) || (props.required === undefined))) {
+                                    seterror_message("")
+                                    props.valid(true)
+                                    // props.setinput_valid(valid)
+                                }
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }} />
+                    }
+
+
+
+                    {(props.type === "checkbox") &&
+                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
+
+                            {props.options.map((option: any) => (
+                                <div className={"checkbox_option_wrapper"}>
+                                    <input {...props}
+                                        type="checkbox"
+                                        id={props.id}
+                                        className="checkbox"
+                                        name={option.value}
+                                        value={option.value}
+                                        onChange={(e) => {
+                                            console.log(e);
+                                            onOptionClicked(option.value)
+                                            seterror_message("")
+                                            props.valid(true)
+                                            setinput_data(option.value)
+
+                                        }} />
+                                    <div className="checkbox_text">{option.value}</div>
+                                </div>
+                            ))}
+
+                        </div>
+                    }
+
+                    {(props.type === "radio") &&
+                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
+
+                            {props.options.map((option: any) => (
+                                <div className={"checkbox_option_wrapper"}>
+                                    <input {...props}
+                                        type="radio"
+                                        id={props.id + option.value}
+                                        className="checkbox"
+                                        name={props.id}
+                                        value={option.value}
+                                        checked={checkedOptionValue === option.value}
+                                        onChange={(e) => {
+                                            // console.log(e);
+                                            handleRadioChange(e)
+                                            seterror_message("")
+                                            props.valid(true)
+                                            setinput_data(option.value)
+                                        }}
+                                    />
+                                    <div className="checkbox_text">{option.value}</div>
+                                </div>
+                            ))}
+
+                        </div>
                     }
 
                 </div>
 
                 <div className="input_innerRight_div">
-                    {props.type !== "picker" ?
+                    {(props.type !== "picker") ?
                         props.input_inner_rightprop
                         :
                         <div className={"input_innerRight_icon"} onClick={toggling}>
-                            <img className='down_up_arrow_icon' src={isOpen ? up : down} />
+                            <img className='down_up_arrow_icon' src={dropdownOpen ? up : down} />
                         </div>
                     }
                 </div>
 
             </div >
 
-            {isOpen && (
+            {dropdownOpen && (
                 <div className="DropDownListContainer">
                     <div className={((props.valid === false) && (props.required == true)) ? "DropDownList invalid_entry_container" : "DropDownList"}>
                         {props.options.map((option: any) => (

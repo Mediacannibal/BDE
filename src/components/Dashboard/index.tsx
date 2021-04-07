@@ -157,7 +157,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 <div className="header">
 
                     <div className='header_left'>
-                        <div className='header_page_title'>{screen_name}</div>
+                        <div className='header_page_title'>{header_options}</div>
                     </div>
 
                     <div className='header_center'>

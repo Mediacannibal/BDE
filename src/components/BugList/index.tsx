@@ -8,6 +8,7 @@ import Spinner from 'components/Common/Spinner';
 import * as filter from '../../assets/filter.png'
 import { getMainTask, listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
+import * as add from '../../assets/add.svg'
 
 const BugList = (props: any) => {
 
@@ -55,6 +56,7 @@ const BugList = (props: any) => {
 
   let params = useParams();
   useEffect(() => {
+    props.setheader_options(screen_header_elements)
     setspinner(false)
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // if (token === null)
@@ -107,6 +109,16 @@ const BugList = (props: any) => {
     // }
   }, [])
 
+  const screen_header_elements = () => {
+    return (
+      <>
+        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+          <img className='header_icon' src={add} />
+          <div>Add Bug</div>
+        </div>
+      </>
+    )
+  }
 
   const renderHeader = () => {
     let headerElement = ['Bug Title', 'Date Reported', 'Protrait', 'Landscape', 'Android', 'IOS', 'Browser', 'image_link']
@@ -148,14 +160,12 @@ const BugList = (props: any) => {
         null
       }
 
-      {popup ?
+      {popup &&
         <AddEditBug
           setPopup={() => {
             setpopup(false)
           }}
         />
-        :
-        <div onClick={() => { setpopup(true) }}>click me</div>
       }
 
 
@@ -193,11 +203,11 @@ const BugList = (props: any) => {
             id="biddatepicker"
           >
             <option hidden value="">Bid Date</option>
-            {
+            {/* {
               unique_orientation.map((element) => {
                 return <option value={element}>{element}</option>
               })
-            }
+            } */}
           </select>
 
           <select
@@ -205,11 +215,11 @@ const BugList = (props: any) => {
             id="dayornightpicker"
           >
             <option hidden value="">Slot</option>
-            {
+            {/* {
               unique_device.map((element) => {
                 return <option value={element}>{element}</option>
               })
-            }
+            } */}
           </select>
 
           <select
@@ -217,11 +227,11 @@ const BugList = (props: any) => {
             id="bracketcombinationpicker"
           >
             <option hidden value="">Combi</option>
-            {
+            {/* {
               unique_remarks.map((element) => {
                 return <option value={element}>{element}</option>
               })
-            }
+            } */}
           </select>
 
           <select

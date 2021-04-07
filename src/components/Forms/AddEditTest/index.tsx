@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { addTest } from 'utils/api';
+import { addTest, fileupload } from 'utils/api';
 
 
 const AddEditTest = ({ setPopup }) => {
@@ -23,16 +23,19 @@ const AddEditTest = ({ setPopup }) => {
 
   const [test_title, settest_title] = useState('');
   const [test_description, settest_description] = useState('');
+  const [potraitcheckbox, setpotraitcheckbox] = useState('')
 
   const [developmentvalid, setdevelopmentvalid] = useState(true)
   const [titlevalid, settitlevalid] = useState(false)
   const [descriptionvalid, setdescriptionvalid] = useState(false)
   const [taskemptyerror, setaskemptyerror] = useState(false)
+  const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [inputvalue, setinputvalue] = useState("")
   const [ispopup, setispopup] = useState(false)
+  const [dataUri, setDataUri] = useState('');
   const [list, setlist] = useState([{
     "test": "",
     "portrait": "",
@@ -52,11 +55,23 @@ const AddEditTest = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    // imageUpload(Callback, formdata)
+    fileupload(Callback, token, formdata)
   }
+
+  const Callback = async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      console.log("respnse :", data.data.result.file_url)
+      setDataUri(data.data.result.file_url)
+    }
+    else {
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  };
 
   const Validate = () => {
 
@@ -172,7 +187,7 @@ const AddEditTest = ({ setPopup }) => {
                     id="test_description_data"
                     name={`data.test_description`}
                     inputtype="Text"
-                    type="text"
+                    type="textarea"
                     min_length="3"
                     required={true}
                     valid={setdescriptionvalid}
@@ -183,7 +198,7 @@ const AddEditTest = ({ setPopup }) => {
                 </div>
               </div>
 
-              <div className="input_checkbox">
+              {/* <div className="input_checkbox">
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
                   <div className="checkbox_text">Portrait</div>
@@ -193,7 +208,46 @@ const AddEditTest = ({ setPopup }) => {
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
                   <div className="checkbox_text">Landscape</div>
                 </div>
+              </div> */}
+
+              <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"checkbox"}
+                    name={"Portrait"}
+                    id="Portrait"
+                    required={true}
+                    valid={setpotraitcheckboxvalid}
+                    sendcheck={preSendValidator}
+                    value={potraitcheckbox}
+                    onchange={setpotraitcheckbox}
+                    options={[
+                      { "key": "0", "value": "Portrait" },
+                      { "key": "1", "value": "Landscape" },
+                    ]}
+                  />
+                </div>
               </div>
+
+              {/* <div className="inputfield_sub_container">
+                <div className="Booking_slot_dropdown">
+                  <McInput
+                    type={"radio"}
+                    name={"Portrait123"}
+                    id="Portrait123"
+                    required={true}
+                    valid={setpotraitcheckboxvalid}
+                    sendcheck={preSendValidator}
+                    value={potraitcheckbox}
+                    onchange={setpotraitcheckbox}
+                    options={[
+                      { "key": "0", "value": "yes" },
+                      { "key": "1", "value": "no" },
+                      { "key": "2", "value": "maybe" }
+                    ]}
+                  />
+                </div>
+              </div> */}
 
               <div className="user_band">
 
@@ -302,10 +356,10 @@ const AddEditTest = ({ setPopup }) => {
                   <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
                 </div>
                 {
-                  (inputvalue !== null) ? <div>
+                  (dataUri.length !== 0) && <div>
                     <img
                       className='activity_selectedimage' src={inputvalue} />
-                  </div> : null
+                  </div>
                 }
               </div>
             </form>

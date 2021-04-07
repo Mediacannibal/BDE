@@ -70,6 +70,12 @@
     padding: 2vh 0 5vh 0;
 }
 
+.screen_header_element {
+    display: flex;
+    padding-right: calc(0.25vw + 0.75vh + 0.25vmin);
+    align-items: center;
+}
+
 .title {
     color: var(--color_2);
     font-size: var(--TS4);

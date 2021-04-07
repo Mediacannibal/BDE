@@ -8,6 +8,7 @@ import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
+import * as add from '../../assets/add.svg'
 
 const TaskList = (props: any) => {
 
@@ -46,6 +47,7 @@ const TaskList = (props: any) => {
 
   let params = useParams();
   useEffect(() => {
+    props.setheader_options(screen_header_elements)
     // let usertype1 = ""
     // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     // if (UserDetails !== null) {
@@ -126,6 +128,17 @@ const TaskList = (props: any) => {
     )
   }
 
+  const screen_header_elements = () => {
+    return (
+      <>
+        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+          <img className='header_icon' src={add} />
+          <div>Add Task</div>
+        </div>
+      </>
+    )
+  }
+
   return (
     <div className="main">
       {spinner ?
@@ -135,14 +148,12 @@ const TaskList = (props: any) => {
         null
       }
 
-      {popup ?
+      {popup &&
         <AddEditTask
           setPopup={() => {
             setpopup(false)
           }}
         />
-        :
-        <div onClick={() => { setpopup(true) }}>click me </div>
       }
 
       <div className="body">
