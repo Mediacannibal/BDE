@@ -17,8 +17,6 @@ import NewUserForm from 'components/Forms/NewUserForm';
 
 export const header_options = () => <div>Hello</div>
 
-
-
 const UserManagement = (props: any) => {
   const [updating, setupdating] = useState(false)
   const [selecteduser, setselecteduser] = useState({})

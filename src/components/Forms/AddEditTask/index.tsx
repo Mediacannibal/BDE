@@ -36,12 +36,13 @@ const AddEditTask = ({ setPopup }) => {
 
 
 
-  const [selectdomain, setselectdomain] = useState('')
-  const [isselectslot, setisselectslot] = useState('')
+  const [domain, setdomain] = useState('')
+  const [priority, setpriority] = useState('')
   const [apiselect, setapiselect] = useState('')
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
+  const [istask_typevalid, settask_typevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
   const [isdescriptionvalid, setdescriptionvalid] = useState(false)
   const [isassigneevalid, setassigneevalid] = useState(false)
@@ -49,7 +50,7 @@ const AddEditTask = ({ setPopup }) => {
   const [ispathvalid, setpathvalid] = useState(false)
   const [isrequestvalid, setrequestvalid] = useState(false)
   const [isresponsevalid, setresponsevalid] = useState(false)
-  const [isslotvalid, setslotvalid] = useState(false)
+  const [ispriorityvalid, setpriorityvalid] = useState(false)
   const [isdomainvalid, setdomainvalid] = useState(false)
   const [apiselectvalid, setapiselectvalid] = useState(false)
   const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
@@ -100,13 +101,14 @@ const AddEditTask = ({ setPopup }) => {
 
     if (isproject_namevalid === true
       || istitlevalid === true
+      || istask_typevalid === true
       || isdescriptionvalid === true
       || isassigneevalid === true
       || isapi_namevalid === true
       || ispathvalid === true
       || isrequestvalid === true
       || isresponsevalid === true
-      || isslotvalid === true
+      || ispriorityvalid === true
       || isdomainvalid === true
       || apiselectvalid === true
     ) {
@@ -131,7 +133,8 @@ const AddEditTask = ({ setPopup }) => {
               "project_ref": project_ref,
               "title": title,
               "task_type": task_type,
-              "domain": selectdomain,
+              "priority": priority,
+              "domain": domain,
               "description": description,
               "assignee": assignee,
             }
@@ -176,58 +179,13 @@ const AddEditTask = ({ setPopup }) => {
                         name={"PROJECT NAME"}
                         id="project_ref"
                         required={true}
-                        valid={setslotvalid}
+                        valid={setproject_namevalid}
                         sendcheck={preSendValidator}
                         value={project_ref}
                         onchange={setproject_ref}
                         options={[
                           { "key": "0", "value": "MCBDE" },
                         ]}
-                      />
-                    </div>
-                  </div>
-
-
-
-                  <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
-                      <McInput
-                        type={"picker"}
-                        name={"TASK TYPE"}
-                        id="task_type"
-                        required={true}
-                        valid={setslotvalid}
-                        sendcheck={preSendValidator}
-                        value={task_type}
-                        onchange={settask_type}
-                        options={[
-                          { "key": "0", "value": "FEATURE" },
-                          { "key": "1", "value": "TEST" },
-                          { "key": "2", "value": "BUG" },
-                          { "key": "3", "value": "UPDATE" },
-                        ]}
-                      />
-                    </div>
-                  </div>
-
-
-
-                  <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
-                      <McInput
-                        type={"picker"}
-                        name={"DOMAIN"}
-                        id="domain"
-                        required={true}
-                        valid={setdomainvalid}
-                        sendcheck={preSendValidator}
-                        value={selectdomain}
-                        onchange={setselectdomain}
-                        options={[
-                          { "key": "0", "value": "FRONT END" },
-                          { "key": "1", "value": "BACK END" },
-                          { "key": "2", "value": "UI" },
-                          { "key": "3", "value": "DEV OPS" }]}
                       />
                     </div>
                   </div>
@@ -246,6 +204,71 @@ const AddEditTask = ({ setPopup }) => {
                         sendcheck={preSendValidator}
                         value={title}
                         onchange={settitle}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"TASK TYPE"}
+                        id="task_type"
+                        required={true}
+                        valid={settask_typevalid}
+                        sendcheck={preSendValidator}
+                        value={task_type}
+                        onchange={settask_type}
+                        options={[
+                          { "key": "0", "value": "FEATURE" },
+                          { "key": "1", "value": "TEST" },
+                          { "key": "2", "value": "BUG" },
+                          { "key": "3", "value": "UPDATE" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"PROIRITY"}
+                        id="priority"
+                        required={true}
+                        valid={setpriorityvalid}
+                        sendcheck={preSendValidator}
+                        value={priority}
+                        onchange={setpriority}
+                        options={[
+                          { "key": "0", "value": "LOW" },
+                          { "key": "1", "value": "NORMAL" },
+                          { "key": "0", "value": "HIGH" },
+                          { "key": "0", "value": "URGENT" },
+                          { "key": "0", "value": "EMERGENCY" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"picker"}
+                        name={"DOMAIN"}
+                        id="domain"
+                        required={true}
+                        valid={setdomainvalid}
+                        sendcheck={preSendValidator}
+                        value={domain}
+                        onchange={setdomain}
+                        options={[
+                          { "key": "0", "value": "FRONT END" },
+                          { "key": "1", "value": "BACK END" },
+                          { "key": "0", "value": "UI" },
+                          { "key": "0", "value": "DEV OPS" }
+                        ]}
                       />
                     </div>
                   </div>

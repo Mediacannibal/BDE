@@ -11,6 +11,8 @@ import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelectionForm from 'components/Forms/TestSelection';
 import TestSelection from 'components/Forms/TestSelection';
 
+export const header_options = () => <div>Hello</div>
+
 const TestingChecklist = (props: any) => {
 
   const [listItems, setlistItems] = useState([
@@ -109,6 +111,13 @@ const TestingChecklist = (props: any) => {
     // }
   }, [])
 
+  const setheader_options = () => {
+    <div>
+      hello
+    </div>
+    props.setheader_options = setheader_options
+    console.log("hello, hi, good day")
+  }
 
   const renderHeader = () => {
     let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Remarks', 'Image link', 'Orientation', 'Interface']

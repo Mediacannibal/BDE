@@ -27,6 +27,7 @@ const TaskList = (props: any) => {
   const [unique_project_ref, setunique_project_ref] = useState([])
   const [unique_title, setunique_title] = useState([])
   const [unique_task_type, setunique_task_type] = useState([])
+  const [unique_priority, setunique_priority] = useState([])
   const [unique_status, setunique_status] = useState([])
   const [unique_domain, setunique_domain] = useState([])
   const [unique_description, setunique_description] = useState([])
@@ -67,6 +68,7 @@ const TaskList = (props: any) => {
         let project_ref: Iterable<any> | null | undefined = []
         let title: Iterable<any> | null | undefined = []
         let task_type: Iterable<any> | null | undefined = []
+        let priority: Iterable<any> | null | undefined = []
         let status: Iterable<any> | null | undefined = []
         let domain: Iterable<any> | null | undefined = []
         let description: Iterable<any> | null | undefined = []
@@ -75,6 +77,7 @@ const TaskList = (props: any) => {
           project_ref.push(element.project_ref)
           title.push(element.title)
           task_type.push(element.task_type)
+          priority.push(element.priority)
           status.push(element.status)
           domain.push(element.domain)
           description.push(element.description)
@@ -83,6 +86,7 @@ const TaskList = (props: any) => {
         setunique_project_ref(Array.from(new Set(project_ref)));
         setunique_title(Array.from(new Set(title)))
         setunique_task_type(Array.from(new Set(task_type)))
+        setunique_priority(Array.from(new Set(priority)))
         setunique_status(Array.from(new Set(status)))
         setunique_domain(Array.from(new Set(domain)))
         setunique_description(Array.from(new Set(description)))
@@ -99,7 +103,7 @@ const TaskList = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Project ref', 'title', 'Task Type', 'status', 'domain', 'description', 'assignee']
+    let headerElement = ['Project ref', 'title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -112,11 +116,12 @@ const TaskList = (props: any) => {
         <td>{element.project_ref}</td>
         <td>{element.title}</td>
         <td>{element.task_type}</td>
-        <td>{element.status}</td>
+        <td>{element.priority}</td>
         <td>{element.domain}</td>
         <td>{element.description}</td>
         <td>{element.assignee}</td>
-        <td>{element.updated_by}</td>
+        <td>{element.image_link}</td>
+        <td>{element.status}</td>
       </tr>
     )
   }
