@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask, taskAdd } from 'utils/api';
+import { createMainTask} from 'utils/api';
 import McInput from 'components/Common/McInput';
 
 
@@ -15,7 +15,7 @@ const AddEditTask = ({ setPopup }) => {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
-  const [android, setandroid] = useState('')
+  const [task_type, settask_type] = useState('')
   const [ios, setios] = useState('')
   const [browser, setbrowser] = useState('')
   const [api_name, setapi_name] = useState('')
@@ -52,8 +52,6 @@ const AddEditTask = ({ setPopup }) => {
   const [isdomainvalid, setdomainvalid] = useState(false)
   const [apiselectvalid, setapiselectvalid] = useState(false)
 
-
-
   const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [ispopup, setispopup] = useState(false)
@@ -62,7 +60,6 @@ const AddEditTask = ({ setPopup }) => {
     "project_ref": "",
     "title": "",
     "task_type": "",
-    "status": "",
     "domain": "",
     "description": "",
     "assignee": "",
@@ -88,16 +85,16 @@ const AddEditTask = ({ setPopup }) => {
 
 
     if (isproject_namevalid === true
-      && istitlevalid === true
-      && isdescriptionvalid === true
-      && isassigneevalid === true
-      && isapi_namevalid === true
-      && ispathvalid === true
-      && isrequestvalid === true
-      && isresponsevalid === true
-      && isslotvalid === true
-      && isdomainvalid === true
-      && apiselectvalid === true
+      || istitlevalid === true
+      || isdescriptionvalid === true
+      || isassigneevalid === true
+      || isapi_namevalid === true
+      || ispathvalid === true
+      || isrequestvalid === true
+      || isresponsevalid === true
+      || isslotvalid === true
+      || isdomainvalid === true
+      || apiselectvalid === true
     ) {
       setispopup(true)
     }
@@ -110,18 +107,27 @@ const AddEditTask = ({ setPopup }) => {
   return (
     <>
       {ispopup ?
-
         <Popup
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
-            console.log("***SUBMIT***", list)
+            let data = [];
+            let object = {
+              "project_ref": project_ref,
+              "title": title,
+              "task_type": task_type,
+              "domain": selectdomain,
+              "description": description,
+              "assignee": assignee,
+            }
+            data.push(object)
+            console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
+                console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -132,7 +138,7 @@ const AddEditTask = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            }, token, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -145,22 +151,22 @@ const AddEditTask = ({ setPopup }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
+                <div className="Booking_slot_dropdown">
                   <McInput
-                    label={"Project Name"}
-                    id="project_name_data"
-                    name={`data.project_name`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
+                    type={"picker"}
+                    name={"PROJECT NAME"}
+                    id="project_ref"
                     required={true}
-                    valid={setproject_namevalid}
+                    valid={setslotvalid}
                     sendcheck={preSendValidator}
                     value={project_ref}
                     onchange={setproject_ref}
+                    options={[
+                      { "key": "0", "value": "MCBDE" },
+                    ]}
                   />
-                </div >
-              </div >
+                </div>
+              </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
@@ -181,24 +187,6 @@ const AddEditTask = ({ setPopup }) => {
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Description"}
-                    id="description_data"
-                    name={`data.Description`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setdescriptionvalid}
-                    sendcheck={preSendValidator}
-                    value={description}
-                    onchange={setdescription}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
                   <McInput
                     type={"picker"}
@@ -207,12 +195,14 @@ const AddEditTask = ({ setPopup }) => {
                     required={true}
                     valid={setslotvalid}
                     sendcheck={preSendValidator}
-                    value={isselectslot}
-                    onchange={setisselectslot}
+                    value={task_type}
+                    onchange={settask_type}
                     options={[
                       { "key": "0", "value": "FEATURE" },
                       { "key": "1", "value": "TEST" },
-                      { "key": "0", "value": "BUG" }]}
+                      { "key": "0", "value": "BUG" },
+                      { "key": "0", "value": "UPDATE" },
+                    ]}
                   />
                 </div>
               </div>
@@ -449,6 +439,24 @@ const AddEditTask = ({ setPopup }) => {
                 :
                 null
               }
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Description"}
+                    id="description_data"
+                    name={`data.Description`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    valid={setdescriptionvalid}
+                    sendcheck={preSendValidator}
+                    value={description}
+                    onchange={setdescription}
+                  />
+                </div>
+              </div>
 
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">

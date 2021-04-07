@@ -114,21 +114,18 @@ const AddEditProject = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data)
+            }, token, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
             setispopup(false)
           }}
         />
-
         :
-
         <Popup
           title={"Add / Edit Project"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
               <div className="inputfield_sub_container">
                 <div className="Booking_slot_dropdown">
                   <McInput
