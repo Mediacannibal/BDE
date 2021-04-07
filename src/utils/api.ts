@@ -224,8 +224,8 @@ export const addTest = (callback: (arg0: any, arg1: string) => void, token: any,
     .catch(err => callback(err, err.response))
 }
 
-export const fileupload = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`tasks/file/uploaded/`, {
+export const fileupload = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`tasks/file/uploaded/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
