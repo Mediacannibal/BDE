@@ -1,61 +1,36 @@
-import Popup from 'components/Common/Popup'
-import React, { useEffect, useState } from 'react'
-import * as micOn from '../../assets/microphone.png'
-import * as micMute from '../../assets/mute.png'
-import * as userIcon from '../../assets/user_icon.svg'
-import './style.css'
+import React, {  useState } from 'react';
+import { Input, Button } from '@material-ui/core';
+import "./style.css"
 
 const MeetingScreen = () => {
-  const [ispopup, setpopup] = useState(true)
-  const [mic, setmic] = useState(true)
+
+	const [url, setUrl] = useState('')
 
 
-  return (
-    <div className="main">
-      <div className="body">
-        {ispopup ?
-          <>
-            <div>
-              <Popup
-                title={"Join Meeting"}
-                // videoscreen={
-                //   <div className="popup_video_screen">
-                //     <img className="popup_user_icon" src={userIcon} />
-                //   </div>
-                // }
-                mic={
-                  <>
-                    <div className="popup_mic_container">
-                      <button className="popup_mic_button" onClick={() => { setmic(!mic) }}>
-                        {mic ?
-                          <img className="popup_micimg" src={micOn} />
-                          :
-                          <img className="popup_micimg" src={micMute} />}
-                      </button>
+	const join = () => {
+		if (url !== "") {
+			let temp = url.split("/")
+			window.location.href = `/meetinghome/${temp[temp.length - 1]}`
+		} else {
+			let temp = Math.random().toString(36).substring(2, 7)
+			window.location.href = `/meetinghome/${temp}`
+		}
+	}
 
-                      <button className="popup_mic_button" onClick={() => { setmic(!mic) }}>
-                        {mic ?
-                          <img className="popup_micimg" src={micOn} />
-                          :
-                          <img className="popup_micimg" src={micMute} />}
-                      </button>
-                    </div>
-                  </>
-                }
-                desc1={""}
-                desc2={""}
-                listitems={[]}
-                confirmClick1={() => {
-                }}
-              />
-            </div>
-          </>
-          :
-          null
-        }
-      </div>
-    </div>
-  );
+	return (
+		<div className="container2">
+
+			<div style={{
+				background: "white", width: "30%", height: "auto", padding: "20px", minWidth: "400px",
+				textAlign: "center", margin: "auto", marginTop: "100px"
+			}}>
+				<p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>Start or join a meeting</p>
+				<Input placeholder="URL" onChange={e => setUrl(e.target.value)} />
+				<Button variant="contained" color="primary" onClick={join} style={{ margin: "20px" }}>Go</Button>
+			</div>
+		</div>
+	)
 }
+ 
 
-export default MeetingScreen
+export default MeetingScreen;

@@ -7,7 +7,8 @@ import "./app.css";
 
 import LoginScreen from './LoginScreen';
 import ProjectScreen from './ProjectScreen';
-import MeetingScreen from './MeetingScreen';
+import MeetingScreen from './MeetingScreen'; 
+import Meetingvideo from './MeetingScreen/Meetingvideo'; 
 import TaskList from './TaskList';
 import TaskDetails from './TaskDetails';
 import UserManagement, { header_options } from './UserManagement';
@@ -38,7 +39,8 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/', component: LoginScreen, header: header_options },
+  { path: '/', component: LoginScreen, header: header_options }, 
+  { path: '/meetinghome/:url', component: Meetingvideo, header: header_options }, 
 ]
 
 
@@ -46,23 +48,18 @@ const App = () => {
   return (
 
     <Router>
-
       <Switch>
-
         {fullpage_screen.map((Data: any) =>
           <Route exact path={Data.path}>
             <Data.component />
           </Route>
         )}
-
         {dashboard_screen.map((Data: any) =>
           <Route exact path={Data.path}>
             <Dashboard screen={<Data.component />} screen_name={Data.path} header_options={header_options} />
           </Route>
         )}
-
       </Switch>
-
     </Router>
   )
 }
