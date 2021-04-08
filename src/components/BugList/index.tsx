@@ -33,6 +33,9 @@ const BugList = (props: any) => {
   const [unique_browser, setunique_browser] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
+  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [all_project_ref, setall_project_ref] = useState("")
+
   const [popup, setpopup] = useState(false)
 
   const [filterindicator, setfilterindicator] = useState(false)
@@ -170,6 +173,24 @@ const BugList = (props: any) => {
 
 
       <div className="body">
+
+        <div className='main_selector_div'>
+          <select
+            className="projectname_dropdown"
+            id="noformat_dropdown"
+            value={all_project_ref}
+            onChange={(e) => {
+              console.log(e.target.value)
+              setall_project_ref(e.target.value)
+            }} >
+            <option hidden value="">Project Name</option>
+            {
+              unique_project_ref.map((element) => {
+                return <option value={element}>{element}</option>
+              })
+            }
+          </select>
+        </div>
 
         <div className="bidlog_filterfield_container">
 
