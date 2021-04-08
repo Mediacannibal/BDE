@@ -12,11 +12,9 @@ import BugList from '../BugList';
 import MeetingScreen from '../MeetingScreen';
 import UserManagement from '../UserManagement';
 
-
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'
 import * as back from '../../assets/previous.svg'
-
 import * as menu from '../../assets/menu.svg'
 import * as home from '../../assets/home (2).svg'
 import * as tasklist from '../../assets/tasklist.svg'
@@ -40,7 +38,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     const [profile_picture, setprofile_picture] = useState("")
 
     const [settings_popup, setsettings_popup] = useState(false)
-
 
     const [user_menu_open, setUser_menu_open] = useState(false)
 
@@ -71,15 +68,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' }]
 
-    const screens = [
-        { path: '/', component: HomeScreen, header: header_options },
-        { path: '/Project', component: ProjectScreen, header: header_options },
-        { path: '/TaskList', component: TaskList, header: header_options },
-        { path: '/TestingChecklist', component: TestingChecklist, header: header_options },
-        { path: '/BugList', component: BugList, header: header_options },
-        { path: '/Meeting', component: MeetingScreen, header: header_options },
-        { path: '/UserManagement', component: UserManagement, header: header_options },]
-
     return (
         <div className="main_wrapper">
             {settings_popup ?
@@ -105,7 +93,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 <div className="menu_items_wrapper">
 
                     {menu_items.map((data: any) =>
-                        <div className='menu_title'
+                        <div className={(data.path === screen_name) ? 'menu_title active' : 'menu_title'}
                             onClick={() => { history.replace(data.path) }} >
                             <img className='main_menu_item_icon' src={data.icon} />
                             {menu_open ? <div className='main_menu_item_title'>{data.title}</div> : null}
@@ -169,7 +157,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 <div className="header">
 
                     <div className='header_left'>
-                        <div className='header_page_title'>{screen_name}{header_options}</div>
+                        <div className='header_page_title'>{header_options}</div>
                     </div>
 
                     <div className='header_center'>

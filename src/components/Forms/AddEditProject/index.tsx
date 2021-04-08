@@ -47,10 +47,11 @@ const AddEditProject = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, formdata)
+    fileupload(Callback, token, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -96,6 +97,7 @@ const AddEditProject = ({ setPopup }) => {
               "project_type": isselectslot,
               "title": title,
               "description": description,
+              "file_links": dataUri,
             }
             data.push(object)
             console.log("***SUBMIT***", data)
@@ -170,7 +172,7 @@ const AddEditProject = ({ setPopup }) => {
                     id="description_data"
                     name={`data.Description`}
                     inputtype="Text"
-                    type="text"
+                    type="textarea"
                     min_length="3"
                     required={true}
                     valid={setDescriptionvaild}
@@ -187,10 +189,10 @@ const AddEditProject = ({ setPopup }) => {
                   <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
                 </div>
                 {
-                  (inputvalue !== null) ? <div>
+                  (dataUri.length !== 0) && <div>
                     <img
                       className='activity_selectedimage' src={dataUri} />
-                  </div> : null
+                  </div>
                 }
               </div>
             </form >

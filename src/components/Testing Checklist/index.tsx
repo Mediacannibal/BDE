@@ -7,6 +7,8 @@ import { testListing } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
+import * as add from '../../assets/add.svg'
+import * as play from '../../assets/play.svg'
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelectionForm from 'components/Forms/TestSelection';
 import TestSelection from 'components/Forms/TestSelection';
@@ -57,6 +59,10 @@ const TestingChecklist = (props: any) => {
 
   let params = useParams();
   useEffect(() => {
+
+    props.setheader_options(screen_header_elements)
+    // console.log("hello, hi, good day",screen_header_elements)
+
     setspinner(false)
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
@@ -109,6 +115,20 @@ const TestingChecklist = (props: any) => {
     // }
   }, [])
 
+  const screen_header_elements = () => {
+    return (
+      <>
+        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+          <img className='header_icon' src={add} />
+          <div>Add Test</div>
+        </div>
+        <div className='screen_header_element' onClick={() => { settestselection(true) }}>
+          <img className='header_icon' src={play} />
+          <div>Run Test</div>
+        </div>
+      </>
+    )
+  }
 
   const renderHeader = () => {
     let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Remarks', 'Image link', 'Orientation', 'Interface']
@@ -149,24 +169,20 @@ const TestingChecklist = (props: any) => {
         null
       }
 
-      {popup ?
+      {popup &&
         <AddEditTest
           setPopup={() => {
             setpopup(false)
           }}
         />
-        :
-        <div onClick={() => { setpopup(true) }}>click me </div>
       }
 
-      {testselection ?
+      {testselection &&
         <TestSelection
           setTest={() => {
             settestselection(false)
           }}
         />
-        :
-        <div onClick={() => { settestselection(true) }}>click me-2 </div>
       }
 
       <div className="body">
