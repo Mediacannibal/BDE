@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { testListing } from 'utils/api';
+import { getMainTask, testListing } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -69,7 +69,7 @@ const TestingChecklist = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
-    testListing(async (data: any, errorresponse: any) => {
+      getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)

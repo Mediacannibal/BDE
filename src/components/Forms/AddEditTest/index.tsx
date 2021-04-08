@@ -254,14 +254,35 @@ const AddEditTest = ({ setPopup }) => {
               </div>
 
               <div className="input_devices">
+
                 <div className="input_checkbox">
-                  <div className="checkbox_sub_container">
+                  {/* <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
                         // setandroidcheckbox(!androidcheckbox);
                       }} />
                     <div className="checkbox_text">Android</div>
+                  </div> */}
+
+                  <div className="inputfield_sub_container">
+                    <div className="Booking_slot_dropdown">
+                      <McInput
+                        type={"checkbox"}
+                        name={"Portrait"}
+                        id="Portrait"
+                        required={true}
+                        valid={setpotraitcheckboxvalid}
+                        sendcheck={preSendValidator}
+                        value={potraitcheckbox}
+                        onchange={setpotraitcheckbox}
+                        options={[
+                          { "key": "0", "value": "Android" },
+                          { "key": "1", "value": "IOS" },
+                          { "key": "1", "value": "Browser" },
+                        ]}
+                      />
+                    </div>
                   </div>
 
                   {/* {androidcheckbox ?
@@ -286,14 +307,14 @@ const AddEditTest = ({ setPopup }) => {
                 </div>
 
                 <div className="input_checkbox">
-                  <div className="checkbox_sub_container">
+                  {/* <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
                         // setioscheckbox(!ioscheckbox);
                       }} />
                     <div className="checkbox_text">IOS</div>
-                  </div>
+                  </div> */}
 
                   {/* {ioscheckbox ?
                         <div className="inputfield_sub_container">
@@ -318,14 +339,14 @@ const AddEditTest = ({ setPopup }) => {
                 </div>
 
                 <div className="input_checkbox">
-                  <div className="checkbox_sub_container">
+                  {/* <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
                         // setbrowsercheckbox(!browsercheckbox);
                       }} />
                     <div className="checkbox_text">Browser</div>
-                  </div>
+                  </div> */}
 
                   {/* {browsercheckbox ?
                       <div className="inputfield_sub_container">

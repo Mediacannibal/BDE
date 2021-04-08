@@ -11,6 +11,7 @@ import TestingChecklist from '../Testing Checklist';
 import BugList from '../BugList';
 import MeetingScreen from '../MeetingScreen';
 import UserManagement from '../UserManagement';
+import ApiRecords from 'components/Api Records';
 
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'
@@ -26,7 +27,10 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
+import * as api from '../../assets/api.svg'
+
 import UserSettings from 'components/UserMenuItems/UserSettings';
+
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
@@ -66,7 +70,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/TestingChecklist', icon: tested, title: 'Test Center' },
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
-        { path: '/UserManagement', icon: team, title: 'Users' }]
+        { path: '/UserManagement', icon: team, title: 'Users' },
+        { path: '/ApiRecords', icon: team, title: 'Api Records' },]
 
     return (
         <div className="main_wrapper">
