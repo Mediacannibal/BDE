@@ -26,8 +26,9 @@ const AddEditTask = ({ setPopup }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
-  const [add, setadd] = useState(false)
-  const [remove, setremove] = useState(false)
+  const [addremoveandroid, setaddremoveandroid] = useState(false)
+  const [addremoveios, setaddremoveios] = useState(false)
+  const [addremovebrowser, setaddremovebrowser] = useState(false)
 
   const [androidcheckbox, setandroidcheckbox] = useState(false)
   const [ioscheckbox, setioscheckbox] = useState(false)
@@ -49,6 +50,7 @@ const AddEditTask = ({ setPopup }) => {
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [isiosvalid, setiosvalid] = useState(false)
   const [isandroidvalid, setandroidvalid] = useState(false)
+  const [isbrowservalid, setbrowservalid] = useState(false)
   const [istask_typevalid, settask_typevalid] = useState(false)
   const [istitlevalid, settitlevalid] = useState(false)
   const [isdescriptionvalid, setdescriptionvalid] = useState(false)
@@ -120,6 +122,7 @@ const AddEditTask = ({ setPopup }) => {
       || apiselectvalid === true
       || isandroidvalid === true
       || isiosvalid === true
+      || potraitcheckboxvalid === true
     ) {
       setispopup(true)
     }
@@ -198,8 +201,6 @@ const AddEditTask = ({ setPopup }) => {
                       />
                     </div>
                   </div>
-
-
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
@@ -341,7 +342,6 @@ const AddEditTask = ({ setPopup }) => {
 
                   {(domain === "FRONT END") ?
                     <>
-
                       <div className="inputfield_sub_container">
                         <div className="Booking_slot_dropdown">
                           <McInput
@@ -383,36 +383,20 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setadd(!add)
+                                setaddremoveandroid(!addremoveandroid)
                               }} />
                             <div className="checkbox_text">Android</div>
                           </div>
 
-                          {add ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setadd(false)
-                                setremove(!remove)
-                                setandroidcheckbox(!isandroidvalid)
-                              }}>
-                              <div className="addremove_image_text">Add Device</div>
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremoveandroid(!addremoveandroid)
+                              setandroidcheckbox(!androidcheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremoveandroid ? "Add Device" : "Remove Device"}
                             </div>
-                            :
-                            null
-                          }
-
-                          {remove ?
-                            <div className="addremove_container"
-                              onClick={() => {
-                                setadd(true)
-                                setremove(false)
-                                setandroidcheckbox(false)
-                              }}>
-                              <div className="addremove_image_text">Remove Device</div>
-                            </div>
-                            :
-                            null
-                          }
+                          </div>
 
                           {androidcheckbox ?
                             <div className="inputfield_sub_container">
@@ -428,11 +412,13 @@ const AddEditTask = ({ setPopup }) => {
                                   valid={isandroidvalid}
                                   setvalid={setandroidvalid}
                                   value={android}
-                                  onChange={setandroid} />
+                                  onChange={setandroid}
+                                />
                               </div>
                             </div>
                             :
-                            null}
+                            null
+                          }
                         </div>
 
                         <div className="input_checkbox">
@@ -440,10 +426,21 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setioscheckbox(!ioscheckbox);
+                                setaddremoveios(!addremoveios)
                               }} />
                             <div className="checkbox_text">IOS</div>
                           </div>
+
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremoveios(!addremoveios)
+                              setioscheckbox(!ioscheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremoveios ? "Add Device" : "Remove Device"}
+                            </div>
+                          </div>
+
 
                           {ioscheckbox ?
                             <div className="inputfield_sub_container">
@@ -472,30 +469,41 @@ const AddEditTask = ({ setPopup }) => {
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
                                 console.log(e);
-                                setbrowsercheckbox(!browsercheckbox);
+                                setaddremovebrowser(!addremovebrowser)
                               }} />
                             <div className="checkbox_text">Browser</div>
                           </div>
 
-                          {/* {browsercheckbox ?
-                      <div className="inputfield_sub_container">
-                        <div className="textinput_box_container">
-                          <McInput
-                            label={"Browser"}
-                            id="browser_data"
-                            name={`data.browser`}
-                            inputtype="Text"
-                            type="text"
-                            min_length="3"
-                            required={true}
-                            valid={isbrowservalid}
-                            setvalid={setbrowservalid}
-                            value={browser}
-                            onChange={setbrowser} />
-                        </div>
-                      </div>
-                      :
-                      null} */}
+                          <div className="addremove_container"
+                            onClick={() => {
+                              setaddremovebrowser(!addremovebrowser)
+                              setbrowsercheckbox(!browsercheckbox)
+                            }}>
+                            <div className="addremove_text">
+                              {addremovebrowser ? "Add Device" : "Remove Device"}
+                            </div>
+                          </div>
+
+                          {browsercheckbox ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"Browser"}
+                                  id="browser_data"
+                                  name={`data.browser`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isbrowservalid}
+                                  setvalid={setbrowservalid}
+                                  value={browser}
+                                  onChange={setbrowser}
+                                />
+                              </div>
+                            </div>
+                            :
+                            null}
                         </div>
                       </div>
                     </>
