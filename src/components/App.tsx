@@ -39,8 +39,8 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/', component: LoginScreen, header: header_options }, 
-  { path: '/meetinghome/:url', component: Meetingvideo, header: header_options }, 
+  { path: '/', component: LoginScreen }, 
+  { path: '/meetinghome/:url', component: Meetingvideo }, 
 ]
 
 const App = () => {
