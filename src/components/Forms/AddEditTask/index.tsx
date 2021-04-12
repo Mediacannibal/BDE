@@ -23,6 +23,14 @@ const AddEditTask = ({ setPopup }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
+  const [project_type, setproject_type] = useState('')
+  const [project_title, setproject_title] = useState('')
+  const [project_description, setproject_description] = useState('')
+
+  const [project_typevalid, setproject_typevalid] = useState(false)
+  const [titlevalid, setTitlevalid] = useState(false)
+  const [descriptionvaild, setDescriptionvaild] = useState(false)
+
   const [addremoveandroid, setaddremoveandroid] = useState(false)
   const [addremoveios, setaddremoveios] = useState(false)
   const [addremovebrowser, setaddremovebrowser] = useState(false)
@@ -37,6 +45,7 @@ const AddEditTask = ({ setPopup }) => {
   const [inputvalue, setinputvalue] = useState("")
   const [isfrontend, setisfrontend] = useState(false)
 
+  const [isproject, setisproject] = useState('')
 
 
   const [domain, setdomain] = useState('')
@@ -120,6 +129,9 @@ const AddEditTask = ({ setPopup }) => {
       || isandroidvalid === true
       || isiosvalid === true
       || potraitcheckboxvalid === true
+      || project_typevalid === true
+      || titlevalid === true
+      || descriptionvaild === true
     ) {
       setispopup(true)
     }
@@ -211,10 +223,11 @@ const AddEditTask = ({ setPopup }) => {
                         value={task_type}
                         onchange={settask_type}
                         options={[
-                          { "key": "0", "value": "FEATURE" },
-                          { "key": "1", "value": "TEST" },
-                          { "key": "2", "value": "BUG" },
-                          { "key": "3", "value": "UPDATE" },
+                          { "key": "0", "value": "PROJECT" },
+                          { "key": "1", "value": "FEATURE" },
+                          { "key": "2", "value": "TEST" },
+                          { "key": "3", "value": "BUG" },
+                          { "key": "4", "value": "UPDATE" },
                         ]}
                       />
                     </div>
@@ -333,6 +346,70 @@ const AddEditTask = ({ setPopup }) => {
                     </div>
                   </div>
 
+                </div>
+
+                <div className="addedit_task_container1">
+                  {(task_type === "PROJECT") ?
+                    <>
+                      <div className="inputfield_sub_container">
+                        <div className="Booking_slot_dropdown">
+                          <McInput
+                            type={"picker"}
+                            name={"PROJECT TYPE"}
+                            id="project_type_data"
+                            required={true}
+                            valid={setproject_typevalid}
+                            sendcheck={preSendValidator}
+                            value={project_type}
+                            onchange={setproject_type}
+                            options={[
+                              { "key": "0", "value": "DEVELOPMENT" },
+                              { "key": "1", "value": "DESIGN" },
+                              { "key": "1", "value": "MARKETING" }]}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Title"}
+                            id="title_data"
+                            name={`data.Title`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={setTitlevalid}
+                            sendcheck={preSendValidator}
+                            value={project_title}
+                            onchange={setproject_title}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Description"}
+                            id="description_data"
+                            name={`data.Description`}
+                            inputtype="Text"
+                            type="textarea"
+                            min_length="3"
+                            required={true}
+                            valid={setDescriptionvaild}
+                            sendcheck={preSendValidator}
+                            value={project_description}
+                            onchange={setproject_description}
+                          />
+                        </div>
+                      </div>
+
+                    </>
+                    :
+                    null
+                  }
                 </div>
 
                 <div className="addedit_task_container1">

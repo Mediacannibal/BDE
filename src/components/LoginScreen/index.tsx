@@ -35,7 +35,11 @@ const LoginScreen = () => {
       console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-      history.push('/NewUserForm')
+      if (data.data.result.user_details.auth_type === "GOOGLE" && "FACEBOOK")
+        history.push('/NewUserForm')
+      else
+        if (data.data.result.user_details.auth_type === "MC")
+          history.push('/Home')
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
