@@ -25,7 +25,7 @@ const TaskList = (props: any) => {
     }
   ])
 
-  const [unique_project_ref, setunique_project_ref] = useState([])
+
   const [unique_title, setunique_title] = useState([])
   const [unique_task_type, setunique_task_type] = useState([])
   const [unique_priority, setunique_priority] = useState([])
@@ -36,6 +36,9 @@ const TaskList = (props: any) => {
   const [unique_updated_by, setunique_updated_by] = useState([])
 
   const [filterindicator, setfilterindicator] = useState(false)
+
+  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [all_project_ref, setall_project_ref] = useState("")
 
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
@@ -67,32 +70,33 @@ const TaskList = (props: any) => {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_ref: Iterable<any> | null | undefined = []
-        let title: Iterable<any> | null | undefined = []
-        let task_type: Iterable<any> | null | undefined = []
-        let priority: Iterable<any> | null | undefined = []
-        let status: Iterable<any> | null | undefined = []
-        let domain: Iterable<any> | null | undefined = []
-        let description: Iterable<any> | null | undefined = []
-        let assignee: Iterable<any> | null | undefined = []
+        let project_ref_array: Iterable<any> | null | undefined = []
+        // let title: Iterable<any> | null | undefined = []
+        // let task_type: Iterable<any> | null | undefined = []
+        // let priority: Iterable<any> | null | undefined = []
+        // let status: Iterable<any> | null | undefined = []
+        // let domain: Iterable<any> | null | undefined = []
+        // let description: Iterable<any> | null | undefined = []
+        // let assignee: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
-          project_ref.push(element.project_ref)
-          title.push(element.title)
-          task_type.push(element.task_type)
-          priority.push(element.priority)
-          status.push(element.status)
-          domain.push(element.domain)
-          description.push(element.description)
-          assignee.push(element.assignee)
+          project_ref_array.push(element.project_ref)
+          // title.push(element.title)
+          // task_type.push(element.task_type)
+          // priority.push(element.priority)
+          // status.push(element.status)
+          // domain.push(element.domain)
+          // description.push(element.description)
+          // assignee.push(element.assignee)
+
         });
-        setunique_project_ref(Array.from(new Set(project_ref)));
-        setunique_title(Array.from(new Set(title)))
-        setunique_task_type(Array.from(new Set(task_type)))
-        setunique_priority(Array.from(new Set(priority)))
-        setunique_status(Array.from(new Set(status)))
-        setunique_domain(Array.from(new Set(domain)))
-        setunique_description(Array.from(new Set(description)))
-        setunique_assignee(Array.from(new Set(assignee)))
+        setunique_project_ref(Array.from(new Set(project_ref_array)));
+        // setunique_title(Array.from(new Set(title)))
+        // setunique_task_type(Array.from(new Set(task_type)))
+        // setunique_priority(Array.from(new Set(priority)))
+        // setunique_status(Array.from(new Set(status)))
+        // setunique_domain(Array.from(new Set(domain)))
+        // setunique_description(Array.from(new Set(description)))
+        // setunique_assignee(Array.from(new Set(assignee)))
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -112,10 +116,20 @@ const TaskList = (props: any) => {
     })
   }
 
+  const renderHeader2 = () => {
+    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
   const renderBody = (element: any) => {
     return (
       <tr key={element.project_ref}>
-        <td>{element.project_ref}</td>
+        {(all_project_ref.length === 0) ?
+          <td> {element.project_ref}</td>
+          : null}
         <td>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
@@ -124,7 +138,7 @@ const TaskList = (props: any) => {
         <td>{element.assignee}</td>
         <td>{element.image_link}</td>
         <td>{element.status}</td>
-      </tr>
+      </tr >
     )
   }
 
@@ -158,9 +172,27 @@ const TaskList = (props: any) => {
 
       <div className="body">
 
+        <div className='main_selector_div'>
+          <select
+            className="projectname_dropdown"
+            id="noformat_dropdown"
+            value={all_project_ref}
+            onChange={(e) => {
+              console.log(e.target.value)
+              setall_project_ref(e.target.value)
+            }} >
+            <option hidden value="">Project Name</option>
+            {
+              unique_project_ref.map((element) => {
+                return <option value={element}>{element}</option>
+              })
+            }
+          </select>
+        </div>
+
         <div className="bidlog_filterfield_container">
 
-          <select
+          {/* <select
             className="customer bidrecord_dropdown"
             id="customerpicker"
           >
@@ -171,19 +203,6 @@ const TaskList = (props: any) => {
               })
             }
           </select>
-
-          {/* <select
-            className="title bidrecord_dropdown"
-            id="dropdown"
-            value={""}
-            onChange={(e) => {
-              console.log(e.target.value)
-            }} >
-            <option hidden value="">Booked Date</option>
-            <option value="a">a</option>
-            <option value="b">b</option>
-            <option value="c">c</option>
-          </select> */}
 
           <select
             className="bidrecord_dropdown"
@@ -219,7 +238,7 @@ const TaskList = (props: any) => {
                 return <option value={element}>{element}</option>
               })
             }
-          </select>
+          </select> */}
 
           {/* <select
             className="bidrecord_dropdown"
@@ -233,7 +252,7 @@ const TaskList = (props: any) => {
             }
           </select> */}
 
-          <select
+          {/* <select
             className="bidrecord_dropdown"
             id="amountpicker"
           >
@@ -243,55 +262,56 @@ const TaskList = (props: any) => {
                 return <option value={element}>{element}</option>
               })
             }
-          </select>
+          </select> */}
 
           <button className="bidrecord_filterandclose_button"
             onClick={() => {
               let data = {
-                "amount": document.getElementById("amountpicker").value,
-                "bookeddate": document.getElementById("biddatepicker").value,
-                "bracketcombination": document.getElementById("bracketcombinationpicker").value,
-                "dayornight": document.getElementById("dayornightpicker").value,
-                "name": document.getElementById("customerpicker").value,
-                "number": document.getElementById("numberpicker").value,
-                // "user": document.getElementById("userpicker").value,
+                "project_ref": all_project_ref,
+                // "amount": document.getElementById("amountpicker").value,
+                // "bookeddate": document.getElementById("biddatepicker").value,
+                // "bracketcombination": document.getElementById("bracketcombinationpicker").value,
+                // "dayornight": document.getElementById("dayornightpicker").value,
+                // "name": document.getElementById("customerpicker").value,
+                // "number": document.getElementById("numberpicker").value,
+                // // "user": document.getElementById("userpicker").value,
               }
               console.log(data);
               let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-              getBidlogfiltereddata(async (data: any, errorresponse: any) => {
+              getMainTask(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
                   setlistItems(data.data)
-                  let project_name: Iterable<any> | null | undefined = []
-                  let title: Iterable<any> | null | undefined = []
-                  let description: Iterable<any> | null | undefined = []
-                  let assignee: Iterable<any> | null | undefined = []
-                  let updated_by: Iterable<any> | null | undefined = []
+                  let project_ref_array: Iterable<any> | null | undefined = []
+                  // let title: Iterable<any> | null | undefined = []
+                  // let description: Iterable<any> | null | undefined = []
+                  // let assignee: Iterable<any> | null | undefined = []
+                  // let updated_by: Iterable<any> | null | undefined = []
                   // let number_arry: Iterable<any> | null | undefined = []
                   // let user_arry: Iterable<any> | null | undefined = []
                   data.data.forEach((element: any) => {
-                    project_name.push(element.project_name)
-                    title.push(element.title)
-                    description.push(element.description)
-                    assignee.push(element.assignee)
-                    updated_by.push(element.updated_by)
+                    project_ref_array.push(element.project_ref)
+                    // title.push(element.title)
+                    // description.push(element.description)
+                    // assignee.push(element.assignee)
+                    // updated_by.push(element.updated_by)
                     // number_arry.push(element.number)
                     // user_arry.push(element.user)
                   });
-                  setunique_project_name(Array.from(new Set(project_name)));
-                  setunique_title(Array.from(new Set(title)))
-                  setunique_description(Array.from(new Set(description)))
-                  setunique_assignee(Array.from(new Set(assignee)))
-                  setunique_updated_by(Array.from(new Set(updated_by)))
+                  setunique_project_ref(Array.from(new Set(project_ref_array)));
+                  // setunique_title(Array.from(new Set(title)))
+                  // setunique_description(Array.from(new Set(description)))
+                  // setunique_assignee(Array.from(new Set(assignee)))
+                  // setunique_updated_by(Array.from(new Set(updated_by)))
                   // setunique_number_arry(Array.from(new Set(number_arry)))
                   // setunique_user_arry(Array.from(new Set(user_arry)))
 
                   console.log(
-                    unique_project_name,
-                    unique_title,
-                    unique_description,
-                    unique_assignee,
-                    unique_updated_by,
+                    all_project_ref,
+                    // unique_title,
+                    // unique_description,
+                    // unique_assignee,
+                    // unique_updated_by,
                     // unique_number_arry,
                     // unique_user_arry
                   );
@@ -319,7 +339,11 @@ const TaskList = (props: any) => {
         <div className="internal_table">
           <table id='internal_table'>
             <thead>
-              <tr>{renderHeader()}</tr>
+              {(all_project_ref.length === 0) ?
+                <tr>{renderHeader()}</tr>
+                :
+                <tr>{renderHeader2()}</tr>
+              }
             </thead>
             <tbody>
               {

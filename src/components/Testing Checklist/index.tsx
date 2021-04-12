@@ -44,6 +44,8 @@ const TestingChecklist = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [testselection, settestselection] = useState(false)
 
+  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [all_project_ref, setall_project_ref] = useState("")
 
   // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
   // if (UserDetails !== null) {
@@ -65,11 +67,12 @@ const TestingChecklist = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
-    getMainTask(async (data: any, errorresponse: any) => {
+      getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
+        let project_ref_array: Iterable<any> | null | undefined = []
         let number: Iterable<any> | null | undefined = []
         let test: Iterable<any> | null | undefined = []
         let portrait: Iterable<any> | null | undefined = []
@@ -77,6 +80,7 @@ const TestingChecklist = (props: any) => {
         let device: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
+          project_ref_array.push(element.project_ref)
           number.push(element.number)
           test.push(element.test)
           portrait.push(element.portrait)
@@ -84,6 +88,7 @@ const TestingChecklist = (props: any) => {
           device.push(element.device)
           image_link.push(element.image_link)
         });
+        setunique_project_ref(Array.from(new Set(project_ref_array)));
         setunique_number(Array.from(new Set(number)));
         setunique_test(Array.from(new Set(test)))
         setunique_portrait(Array.from(new Set(portrait)))
@@ -179,6 +184,104 @@ const TestingChecklist = (props: any) => {
       }
 
       <div className="body">
+
+        <div className='main_selector_div'>
+          <select
+            className="projectname_dropdown"
+            id="noformat_dropdown"
+            value={all_project_ref}
+            onChange={(e) => {
+              console.log(e.target.value)
+              setall_project_ref(e.target.value)
+            }} >
+            <option hidden value="">Project Name</option>
+            {
+              unique_project_ref.map((element) => {
+                return <option value={element}>{element}</option>
+              })
+            }
+          </select>
+        </div>
+
+        <div className="bidlog_filterfield_container">
+
+         
+          <button className="bidrecord_filterandclose_button"
+            onClick={() => {
+              let data = {
+                // "project_ref": all_project_ref,
+                // "amount": document.getElementById("amountpicker").value,
+                // "bookeddate": document.getElementById("biddatepicker").value,
+                // "bracketcombination": document.getElementById("bracketcombinationpicker").value,
+                // "dayornight": document.getElementById("dayornightpicker").value,
+                // "name": document.getElementById("customerpicker").value,
+                // "number": document.getElementById("numberpicker").value,
+                // // "user": document.getElementById("userpicker").value,
+              }
+              console.log(data);
+              let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+              getMainTask(async (data: any, errorresponse: any) => {
+                if (data.status === 200) {
+                  setspinner(false)
+                  setlistItems(data.data)
+                  // let project_ref_array: Iterable<any> | null | undefined = []
+                  // let title: Iterable<any> | null | undefined = []
+                  // let description: Iterable<any> | null | undefined = []
+                  // let assignee: Iterable<any> | null | undefined = []
+                  // let updated_by: Iterable<any> | null | undefined = []
+                  // let number_arry: Iterable<any> | null | undefined = []
+                  // let user_arry: Iterable<any> | null | undefined = []
+                  data.data.forEach((element: any) => {
+                    // project_ref_array.push(element.project_ref)
+                    // title.push(element.title)
+                    // description.push(element.description)
+                    // assignee.push(element.assignee)
+                    // updated_by.push(element.updated_by)
+                    // number_arry.push(element.number)
+                    // user_arry.push(element.user)
+                  });
+                  // setunique_project_ref(Array.from(new Set(project_ref_array)));
+                  // setunique_title(Array.from(new Set(title)))
+                  // setunique_description(Array.from(new Set(description)))
+                  // setunique_assignee(Array.from(new Set(assignee)))
+                  // setunique_updated_by(Array.from(new Set(updated_by)))
+                  // setunique_number_arry(Array.from(new Set(number_arry)))
+                  // setunique_user_arry(Array.from(new Set(user_arry)))
+
+                  console.log(
+                    // all_project_ref,
+                    // unique_title,
+                    // unique_description,
+                    // unique_assignee,
+                    // unique_updated_by,
+                    // unique_number_arry,
+                    // unique_user_arry
+                  );
+                  setfilterindicator(true)
+                } else {
+                  setspinner(false)
+                  console.log('error ' + JSON.stringify(data));
+                  console.log('error ' + JSON.stringify(errorresponse));
+                }
+              }, token, data[0])
+
+            }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
+
+          {filterindicator ?
+            <button className="bidrecord_filterandclose_button"
+              onClick={() => {
+                window.location.reload()
+              }}>X</button>
+            :
+            null
+          }
+
+        </div>
+
+
+
+
+
         <div className="internal_table">
           <table id='internal_table'>
             <thead>

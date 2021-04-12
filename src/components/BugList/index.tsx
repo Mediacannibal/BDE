@@ -33,6 +33,9 @@ const BugList = (props: any) => {
   const [unique_browser, setunique_browser] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
+  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [all_project_ref, setall_project_ref] = useState("")
+
   const [popup, setpopup] = useState(false)
 
   const [filterindicator, setfilterindicator] = useState(false)
@@ -67,6 +70,7 @@ const BugList = (props: any) => {
         console.log("!!!!!!!!!!!!!!!!", data.data)
         setspinner(false)
         setlistItems(data.data)
+        let project_ref_array: Iterable<any> | null | undefined = []
         let bug_title: Iterable<any> | null | undefined = []
         let protrait: Iterable<any> | null | undefined = []
         let landscape: Iterable<any> | null | undefined = []
@@ -75,6 +79,7 @@ const BugList = (props: any) => {
         let browser: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
+          project_ref_array.push(element.project_ref)
           bug_title.push(element.bug_title)
           protrait.push(element.protrait)
           landscape.push(element.landscape)
@@ -83,6 +88,7 @@ const BugList = (props: any) => {
           browser.push(element.browser)
           image_link.push(element.image_link)
         });
+        setunique_project_ref(Array.from(new Set(project_ref_array)));
         setunique_bug_title(Array.from(new Set(bug_title)));
         setunique_protrait(Array.from(new Set(protrait)))
         setunique_landscape(Array.from(new Set(landscape)))
@@ -91,15 +97,15 @@ const BugList = (props: any) => {
         setunique_browser(Array.from(new Set(browser)))
         setunique_image_link(Array.from(new Set(image_link)))
 
-        console.log(
-          unique_bug_title,
-          unique_protrait,
-          unique_landscape,
-          unique_android,
-          unique_ios,
-          unique_browser,
-          unique_image_link,
-        );
+        // console.log(
+        //   unique_bug_title,
+        //   unique_protrait,
+        //   unique_landscape,
+        //   unique_android,
+        //   unique_ios,
+        //   unique_browser,
+        //   unique_image_link,
+        // );
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -170,6 +176,24 @@ const BugList = (props: any) => {
 
 
       <div className="body">
+
+        <div className='main_selector_div'>
+          <select
+            className="projectname_dropdown"
+            id="noformat_dropdown"
+            value={all_project_ref}
+            onChange={(e) => {
+              console.log(e.target.value)
+              setall_project_ref(e.target.value)
+            }} >
+            <option hidden value="">Project Name</option>
+            {
+              unique_project_ref.map((element) => {
+                return <option value={element}>{element}</option>
+              })
+            }
+          </select>
+        </div>
 
         <div className="bidlog_filterfield_container">
 
