@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { addTest, fileupload } from 'utils/api';
+import { createMainTask, fileupload } from 'utils/api';
 
 
 const AddEditTest = ({ setPopup }) => {
@@ -100,7 +100,7 @@ const AddEditTest = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SUBMIT***", list)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            addTest(async (data: any, errorresponse: any) => {
+            createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
                 console.log('Sucess ' + JSON.stringify(data));

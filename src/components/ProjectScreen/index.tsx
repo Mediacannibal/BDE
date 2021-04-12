@@ -2,12 +2,21 @@ import Spinner from 'components/Common/Spinner'
 import AddEditProject from 'components/Forms/AddEditProject'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { listingTask } from 'utils/api'
+import { getProject, listingTask } from 'utils/api'
 import './style.css'
 import * as add from '../../assets/add.svg'
 
 const ProjectScreen = (props: any) => {
-  const [isnameemptyerror, setnameemptyerror] = useState(false)
+  const [unique_branch, setunique_branch] = useState(false)
+  const [unique_project_type, setunique_project_type] = useState(false)
+  const [unique_title, setunique_title] = useState(false)
+  const [unique_description, setunique_description] = useState(false)
+  const [unique_file_links, setunique_file_links] = useState(false)
+  const [unique_linked_tasks, setunique_linked_tasks] = useState(false)
+  const [unique_status, setunique_status] = useState(false)
+  const [unique_start_date, setunique_start_date] = useState(false)
+  const [unique_end_date, setunique_end_date] = useState(false)
+
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
@@ -22,6 +31,7 @@ const ProjectScreen = (props: any) => {
       "four": "20",
       "five": "30",
       "six": "40",
+      "seven": "50",
     }
   ])
 
@@ -42,30 +52,40 @@ const ProjectScreen = (props: any) => {
     // if (token === null)
     //   history.push("/")
     // if (params.id === undefined) {
-    listingTask(async (data: any, errorresponse: any) => {
+    getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_name: Iterable<any> | null | undefined = []
+        let branch: Iterable<any> | null | undefined = []
+        let project_type: Iterable<any> | null | undefined = []
         let title: Iterable<any> | null | undefined = []
         let description: Iterable<any> | null | undefined = []
-        let assignee: Iterable<any> | null | undefined = []
-        let updated_by: Iterable<any> | null | undefined = []
+        let file_links: Iterable<any> | null | undefined = []
+        let linked_tasks: Iterable<any> | null | undefined = []
+        let status: Iterable<any> | null | undefined = []
+        let start_date: Iterable<any> | null | undefined = []
+        let end_date: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
-          project_name.push(element.project_name)
+          branch.push(element.branch)
+          project_type.push(element.project_type)
           title.push(element.title)
           description.push(element.description)
-          assignee.push(element.assignee)
-          updated_by.push(element.updated_by)
+          file_links.push(element.file_links)
+          linked_tasks.push(element.linked_tasks)
+          status.push(element.status)
+          start_date.push(element.start_date)
+          end_date.push(element.end_date)
         });
-        setunique_project_name(Array.from(new Set(project_name)));
+        setunique_branch(Array.from(new Set(branch)));
+        setunique_project_type(Array.from(new Set(project_type)));
         setunique_title(Array.from(new Set(title)))
         setunique_description(Array.from(new Set(description)))
-        setunique_assignee(Array.from(new Set(assignee)))
-        setunique_updated_by(Array.from(new Set(updated_by)))
-
-
+        setunique_file_links(Array.from(new Set(file_links)))
+        setunique_linked_tasks(Array.from(new Set(linked_tasks)))
+        setunique_status(Array.from(new Set(status)))
+        setunique_start_date(Array.from(new Set(start_date)))
+        setunique_end_date(Array.from(new Set(end_date)))
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -86,16 +106,16 @@ const ProjectScreen = (props: any) => {
 
   const renderBody = (element: any) => {
     return (
-      <tr key={element.project_name}>
-        <td>{element.project_name}</td>
-        <td>...</td>
-        <td>...</td>
+      <tr key={element.branch}>
+        <td>{element.branch}</td>
+        <td>{element.project_type}</td>
         <td>{element.title}</td>
-        <td>{element.description}</td>
-        <td>{element.assignee}</td>
-        <td>{element.updated_by}</td>
-        <td>...</td>
-        <td>...</td>
+        <td>{element.description}</td>.
+        <td>{element.file_links}</td>
+        <td>{element.linked_tasks}</td>
+        <td>{element.status}</td>
+        <td>{element.start_date}</td>
+        <td>{element.end_date}</td>
       </tr>
     )
   }

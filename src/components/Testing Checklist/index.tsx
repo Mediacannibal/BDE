@@ -3,14 +3,12 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { testListing } from 'utils/api';
+import { getMainTask, testListing } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
-import * as filter from '../../assets/filter.png'
 import * as add from '../../assets/add.svg'
 import * as play from '../../assets/play.svg'
 import AddEditTest from 'components/Forms/AddEditTest';
-import TestSelectionForm from 'components/Forms/TestSelection';
 import TestSelection from 'components/Forms/TestSelection';
 
 const TestingChecklist = (props: any) => {
@@ -67,7 +65,7 @@ const TestingChecklist = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
-    testListing(async (data: any, errorresponse: any) => {
+    getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
@@ -77,7 +75,6 @@ const TestingChecklist = (props: any) => {
         let portrait: Iterable<any> | null | undefined = []
         let landscape: Iterable<any> | null | undefined = []
         let device: Iterable<any> | null | undefined = []
-        let remarks: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
         data.data.forEach((element: any) => {
           number.push(element.number)
@@ -85,7 +82,6 @@ const TestingChecklist = (props: any) => {
           portrait.push(element.portrait)
           landscape.push(element.landscape)
           device.push(element.device)
-          remarks.push(element.remarks)
           image_link.push(element.image_link)
         });
         setunique_number(Array.from(new Set(number)));
@@ -93,7 +89,6 @@ const TestingChecklist = (props: any) => {
         setunique_portrait(Array.from(new Set(portrait)))
         setunique_landscape(Array.from(new Set(landscape)))
         setunique_device(Array.from(new Set(device)))
-        setunique_remarks(Array.from(new Set(remarks)))
         setunique_image_link(Array.from(new Set(image_link)))
 
         console.log(
@@ -102,7 +97,6 @@ const TestingChecklist = (props: any) => {
           unique_portrait,
           unique_landscape,
           unique_device,
-          unique_remarks,
           unique_image_link
         );
 
@@ -131,7 +125,7 @@ const TestingChecklist = (props: any) => {
   }
 
   const renderHeader = () => {
-    let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Remarks', 'Image link', 'Orientation', 'Interface']
+    let headerElement = ['No.', 'Project name', 'Title', 'Descriptioon', 'Image link', 'Orientation', 'Interface']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -143,10 +137,9 @@ const TestingChecklist = (props: any) => {
     return (
       <tr key={element.test}>
         <td>{element.number}</td>
-        <td>...</td>
-        <td>...</td>
-        <td></td>
-        <td>{element.remarks}</td>
+        <td>{element.project_name}</td>
+        <td>{element.title}</td>
+        <td>{element.description}</td>
         <td>{element.image_link}</td>
         <td>...</td>
         <td>...</td>

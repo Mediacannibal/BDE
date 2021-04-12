@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { addBug } from 'utils/api';
+import { addBug, createMainTask } from 'utils/api';
 
 
 const AddEditBug = ({ setPopup }) => {
@@ -113,7 +113,7 @@ const AddEditBug = ({ setPopup }) => {
             data.push(object)
             console.log("***SUBMIT***", list)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            addBug(async (data: any, errorresponse: any) => {
+            createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
                 console.log('Sucess ' + JSON.stringify(data));

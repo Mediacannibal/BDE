@@ -6,9 +6,6 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { createMainTask, fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
-import * as addimg from '../../../assets/add.svg'
-
-
 
 const AddEditTask = ({ setPopup }) => {
   const history = useHistory();

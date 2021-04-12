@@ -32,7 +32,7 @@ const LoginScreen = () => {
   }, [])
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log('response ' + JSON.stringify(data));
+      console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       history.push('/NewUserForm')
@@ -113,8 +113,8 @@ const LoginScreen = () => {
                     console.log(Response)
                     var formData = new FormData()
                     let userInfo = response.profile
-                    formData.append('lastname', userInfo.first_name);
-                    formData.append('firstname', userInfo.last_name);
+                    formData.append('lastname', userInfo.last_name);
+                    formData.append('firstname', userInfo.first_name);
                     formData.append('photo_url', "");
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);

@@ -105,124 +105,7 @@ export const userListing = (callback: (arg0: any, arg1: string) => void, token: 
     .catch(err => callback(err, err.response))
 }
 
-// Task
-
-export const addProject = (callback: (arg0: any, arg1: string) => void) => {
-  instance.get(`/api/task/project/add/`, {
-    headers: {
-      'Authorization': 'Token'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const editTask = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/api/task/edit/` + id + `/`, data, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const projectAdd = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`/api/task/project/add/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const dashboardCreate = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/api/task/dashboad_create/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const createDashboard = (callback: (arg0: any, arg1: string) => void) => {
-  instance.post(`/api/task/dashboad_create/`, {
-    headers: {
-      'Authorization': 'Token'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const companyList = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/api/task/company/add/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const companyAdd = (callback: (arg0: any, arg1: string) => void) => {
-  instance.post(`/api/task/company/add/`, {
-    headers: {
-      'Authorization': 'Token'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const listingTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/api/task/add/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const listingBug = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/api/task/buglist/add/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const addBug = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`/api/task/buglist/add/`, data, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const testListing = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`/api/task/testing/checkinglist/add/`, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
-
-export const addTest = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`/api/task/testing/checkinglist/add/`, data, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
+// Tasks/company
 
 export const fileupload = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
   instance.post(`tasks/file/uploaded/`, data, {
@@ -254,7 +137,7 @@ export const getCompanyDetails = (callback: (arg0: any, arg1: string) => void, t
     .catch(err => callback(err, err.response))
 }
 
-export const getProjectDetails = (callback: (arg0: any, arg1: string) => void, token: any) => {
+export const getProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.get(`company/project/add/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
@@ -386,6 +269,76 @@ export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, t
 
 export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.get(`tasks/tasktimelog/add/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const createBackendTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.post(`tasks/maintask_backend_add/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const getBackendTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`tasks/backend/list/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const createFrontendTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.post(`tasks/maintask_frontend_add/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const getFrontendTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`tasks/frontend/list/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const getAPIhitlog = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`debug/apihitlog/list/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const getUsererrorlog = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`debug/usererrorlog/list/`, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+export const getDataerrorlog = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`debug/dataerrorlog/list/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

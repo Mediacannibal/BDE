@@ -96,6 +96,8 @@ const NewUserForm = ({ setPopup }) => {
             let data = [];
             let object = {
               "company_name": company_name,
+              "location": location,
+              "branch_name": branch_name,
               "username": username,
               "firstname": firstname,
               "lastname": lastname,
@@ -292,8 +294,11 @@ const NewUserForm = ({ setPopup }) => {
                     value={usertype}
                     onchange={setusertype}
                     options={[
-                      { "key": "0", "value": "ADMIN" },
-                      { "key": "1", "value": "USER" }]}
+                      { "key": "0", "value": "NORMAL" },
+                      { "key": "1", "value": "ADMIN" },
+                      { "key": "2", "value": "PROJECT ADMIN" },
+                      { "key": "3", "value": "SUPER USER" },
+                    ]}
                   />
                 </div>
               </div>
