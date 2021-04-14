@@ -97,7 +97,7 @@ const ProjectScreen = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Branch', 'Project Type', 'Title', 'Description', 'File Links', 'Linked Tasks', 'Status', 'Start Date', 'End Date']
+    let headerElement = ['Branch', 'Project Type', 'Title', 'Description', 'File Links', 'Status', 'Start Date', 'End Date']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -110,9 +110,8 @@ const ProjectScreen = (props: any) => {
         <td>{element.branch}</td>
         <td>{element.project_type}</td>
         <td>{element.title}</td>
-        <td>{element.description}</td>.
+        <td>{element.description}</td>
         <td>{element.file_links}</td>
-        <td>{element.linked_tasks}</td>
         <td>{element.status}</td>
         <td>{element.start_date}</td>
         <td>{element.end_date}</td>
