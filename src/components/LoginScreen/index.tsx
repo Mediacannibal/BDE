@@ -60,6 +60,8 @@ const LoginScreen = () => {
   return (
     <div className="login_page">
 
+      <div className='loginBG'></div>
+
       {isotpsent ?
         <div className="login_wrapper">
 
@@ -153,7 +155,7 @@ const LoginScreen = () => {
                 <>
                   <div className="login_container">
                     <div className="login_button_container">
-                      <input id="username" type="text" placeholder="User Name" className="login_input" />
+                      <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
                     </div>
 
                     <div className="login_button_container">
@@ -180,7 +182,7 @@ const LoginScreen = () => {
                 <>
                   <div className="login_container">
                     <div className="login_button_container">
-                      <input id="username" type="text" placeholder="User Name" className="login_input" />
+                      <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
                     </div>
 
                     <div className="login_button_container">
@@ -230,6 +232,7 @@ const LoginScreen = () => {
               </button>
             </div>
           </div>
+          <div className='loginDescription_Text'>By continuing, you agree to the terms of service and privacy policy.</div>
         </div>
       }
 
