@@ -12,6 +12,59 @@ import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 
+const validateData = (activationdata, storedotp, otp) => {
+  console.log('storedotp =' + storedotp);
+  console.log('inputotp =' + otp);
+  console.log('activationdata :' + JSON.stringify(activationdata))
+  if (storedotp === otp) {
+    // validateData(activationdata,decode(storedotp),otp.value)        
+
+
+    console.log('userinput:' + JSON.stringify(activationdata))
+    Sociallogin(_loginCallback, activationdata);
+
+    // activateUser(_onvalidotp,activationdata)
+  }
+  else {
+    console.log('error validating otp');
+    setloader(false)
+    setOTPerror(true)
+  }
+}
+
+const _verifyOTP = (code) => {
+  storage.using('userinput').then((userinput) => {
+    console.log('userinput:' + JSON.stringify(userinput.data));
+    storage.using('verifyrespone').then((data) => {
+      let temp = JSON.parse(data.data);
+      let temp1 = JSON.parse(userinput.data);
+      let storedotp = temp.results.otp;
+
+      let temp2 = storage.using('NotificationToken').then((notificationdata) => {
+        console.log('NotificationToken:' + JSON.stringify(notificationdata.data));
+        let notificationtoken = notificationdata.data
+        // const activationdata =
+        // {
+        //   "username": temp1.username_email_or_phone,
+        //   "auth_provider": "trt",
+        //   "fcm_token": JSON.parse(notificationtoken)
+        // }
+
+        let activationdata = new FormData()
+        activationdata.append('username', temp1.username_email_or_phone)
+        activationdata.append('auth_provider', "trt")
+        activationdata.append('fcm_token', notificationtoken)
+        activationdata.append('code', String(Referrerid))
+        //code
+
+        validateData(activationdata, decode(storedotp), code)
+        return data.data;
+      });
+
+      return userinput.data;
+    });
+  });
+}
 
 const LoginScreen = () => {
 
@@ -212,7 +265,9 @@ const LoginScreen = () => {
             </div>
 
             <div className="login_button_container">
-              <button onClick={() => { }} className="login_validatebutton">
+              <button onClick={() => {
+                history.push('/NewUserForm')
+              }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>
             </div>
