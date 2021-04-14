@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 
 const LoginScreen = () => {
-  const history = useHistory();
+  const history = useHistory();  
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
