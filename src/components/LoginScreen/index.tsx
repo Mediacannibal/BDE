@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import * as logofull from '../../assets/MC_logo_with_title.svg'
-import * as google from '../../assets/google.svg'
+import * as google from '../../assets/google-logo.svg'
 import * as facebook from '../../assets/facebook.svg'
 import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
@@ -62,29 +62,66 @@ const LoginScreen = () => {
 
       <div className='loginBG'></div>
 
-      {isotpsent ?
-        <div className="login_wrapper">
+      <div className="login_wrapper">
 
-          <div className="login_logo_wrapper">
+        <div className='login_top_container'>
+          <img className='login_menu_logo' src={logofull} />
 
-            <div>
-              <img className='login_menu_logo' src={logofull} />
-            </div>
-
+          <div className='login_title_wrapper'>
+            <div className='login_title text_blue'>DESIGN</div>
+            <div className='login_title text_spacer'>|</div>
+            <div className='login_title text_blue'>DEVELOPMENT</div>
+            <div className='login_title text_spacer'>|</div>
+            <div className='login_title text_blue'>MARKETTING</div>
           </div>
+        </div>
 
-          <div className='login_title'>Welcomes you!</div>
+        {/* {isotpsent ? */}
+        <div className="login_form_wrapper">
 
-          <div className='loginDescription_Text'>Please select your preferred method to login.</div>
+          <div className="login_form_bg"></div>
+
+          <div className='loginDescription_Text'>Login or Sign Up with any of the following:</div>
 
           <div className=" login_popupformcontainer">
+
+            <div className="login_container">
+
+              <div className="login_button_container">
+                <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
+              </div>
+
+              <div className="login_button_container">
+                <input id="password" type="password" placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
+              </div>
+
+              <div className="login_button_sub_container">
+
+                <div className="login_button_container">
+                  <button onClick={handleLogin} className="login_validatebutton">
+                    <div className="login_buttontext">Continue</div>
+                  </button>
+                </div>
+
+                <div className="login_button_container">
+                  <button onClick={() => {
+                    history.push('/NewUserForm')
+                  }} className="login_validatebutton">
+                    <div className="login_buttontext">Get OTP</div>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <div className='loginDescription_Text'>OR</div>
 
             <div className="SMlogin_button_container">
 
               <GoogleLogin
                 clientId="581422038025-rte3a06d7kumasu887n64uikerfigmiv.apps.googleusercontent.com"
                 render={(renderProps: { onClick: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; disabled: boolean | undefined; }) => (
-                  <button className="login_googlebutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                  <button className="login_SMbutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <img src={google} className="login_SMicon" />
                     <div className="login_buttontext">Continue with Google</div>
                   </button>
@@ -131,7 +168,7 @@ const LoginScreen = () => {
                     console.log(response);
                   }}
                 >
-                  <button className="login_facebookbutton">
+                  <button className="login_SMbutton">
                     <img src={facebook} className="login_SMicon" />
                     <div className="login_buttontext">Continue with Facebook</div>
                   </button>
@@ -139,70 +176,12 @@ const LoginScreen = () => {
               </FacebookProvider>
             </div>
 
-            <div className="tab_pass_otp_container">
-
-              <div className="login_tab_pass_otp">
-                <div onClick={() => {
-                  setispassword(!ispassword)
-                }} className={ispassword ? "login_tab_active" : "login_tab_inactive"}>PASSWORD</div>
-
-                <div onClick={() => {
-                  setispassword(!ispassword)
-                }} className={ispassword ? "login_tab_inactive" : "login_tab_active"}>OTP</div>
-              </div>
-
-              {ispassword ?
-                <>
-                  <div className="login_container">
-                    <div className="login_button_container">
-                      <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
-                    </div>
-
-                    <div className="login_button_container">
-                      <input id="password" type="password" placeholder="Password" className="login_input" onKeyPress={handleKeyPress} />
-                    </div>
-                    <div className="login_button_sub_container">
-                      <div className="login_button_container">
-                        <button onClick={handleLogin} className="login_validatebutton">
-                          <div className="login_buttontext">Login</div>
-                        </button>
-                      </div>
-
-                      <div className="login_button_container">
-                        <button onClick={() => {
-                          history.push('/NewUserForm')
-                        }} className="login_validatebutton">
-                          <div className="login_buttontext">Sign Up</div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </>
-                :
-                <>
-                  <div className="login_container">
-                    <div className="login_button_container">
-                      <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
-                    </div>
-
-                    <div className="login_button_container">
-                      <button onClick={() => {
-                        setisotpsent(!isotpsent)
-                      }} className="login_validatebutton">
-                        <div className="login_buttontext">Get OTP</div>
-                      </button>
-                    </div>
-                  </div>
-                </>
-              }
-
-            </div>
-
           </div>
+          <div className='loginToS_Text'>By continuing, you accept the Terms of Service and the Privacy Policy.</div>
         </div>
 
-        :
-        <div className="login_wrapper">
+        {/* :
+        <div className="login_form_wrapper">
 
           <div className='login_title'>Enter OTP</div>
           <div className='loginDescription_Text'>Please check SMS or E-mail for OTP.</div>
@@ -232,11 +211,12 @@ const LoginScreen = () => {
               </button>
             </div>
           </div>
-          <div className='loginDescription_Text'>By continuing, you agree to the terms of service and privacy policy.</div>
         </div>
-      }
+      } */}
 
-      <Footer />
+      </div>
+
+      <Footer bgColor={'bgtransparent'}/>
 
     </div>
 

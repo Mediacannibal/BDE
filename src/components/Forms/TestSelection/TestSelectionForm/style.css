@@ -48,14 +48,14 @@
 
 .checkbox_sub_container {
     display: flex;
-    font-family: 'Poppins';
+    font-family: 'Barlow';
     font-size: var(--TS4);
     align-self: center;
     align-items: center;
 }
 
 .checkbox_text {
-    font-family: 'Poppins';
+    font-family: 'Barlow';
     font-size: var(--TS4);
     align-self: center;
     align-items: center;

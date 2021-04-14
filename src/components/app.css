@@ -1,6 +1,7 @@
 #root {
     display: flex;
     background-color: var(--color_8);
+    font-family: Barlow;
 }
 
 .page_wrapper {
@@ -16,6 +17,23 @@
     margin-left: calc(4.1vw + 12.3vh + 4.1vmin);
 }
 
+.bgtransparent {
+    background-color: transparent !important;
+}
+
+.test_green {
+    color: #60ce80 !important
+}
+
+.text_blue {
+    color: #154360 !important
+}
+
+.text_spacer {
+    padding-left: var(--TS11) !important;
+    padding-right: var(--TS11) !important;
+}
+
 :root {
     --TS1: calc(1.15vw + 3.45vh + 1.15vmin);
     --TS2: calc(0.79vw + 2.37vh + 0.79vmin);
@@ -27,7 +45,8 @@
     --TS8: calc(0.33vw + 0.99vh + 0.33vmin);
     --TS9: calc(0.3vw + 0.9vh + 0.3vmin);
     --TS10: calc(0.25vw + 0.75vh + 0.25vmin);
-    --TS12: calc(0.15vw + 0.45vh + 0.15vmin);
+    --TS11: calc(0.2vw + 0.6vh + 0.2vmin);
+    --TS12: calc(0.17vw + 0.51vh + 0.17vmin);
     --color_1: #154360;
     --color_2: #01003c;
     --color_3: #ff0000;
@@ -53,7 +72,7 @@
     --BR1: calc(0.1vw + 0.3vh + 0.1vmin);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap');
 .main {
     height: 100vh;
     width: 100%;
@@ -382,7 +401,7 @@ tr:nth-child(even) {
     margin: 0 calc(0.25vw + 0.75vh + 0.25vmin);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap');
 .site_title {
     font-weight: 600;
     color: var(--color_1);
@@ -518,7 +537,7 @@ tr:nth-child(even) {
 }
 
 .addremove_text {
-    font-family: 'Poppins';
+    font-family: 'Barlow';
     font-size: var(--TS6);
     align-self: center;
     align-items: center;
