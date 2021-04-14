@@ -7,7 +7,7 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-import { decode } from 'base-64'
+// import { decode } from 'base-64'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
