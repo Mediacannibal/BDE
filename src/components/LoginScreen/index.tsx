@@ -7,17 +7,14 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-import { decode } from 'base-64'
+// import { decode } from 'base-64'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 
 const LoginScreen = () => {
-  const history = useHistory();
-  const [ispassword, setispassword] = useState(true)
-  const [isotpsent, setisotpsent] = useState(true)
-  
+  const history = useHistory();  
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {

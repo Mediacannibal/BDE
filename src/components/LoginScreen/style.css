@@ -76,11 +76,11 @@
     background-color: var(--color_12);
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border-color: transparent;
-    height: 5vh;
-    font-size: var(--TS7);
+    font-size: var(--TS8);
     text-align: center;
     font-weight: 400;
     color: var(--color_2);
+    padding: calc(0.15vw + 0.45vh + 0.15vmin) 0;
     width: 100%;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .login_buttontext {
-    font-size: var(--TS7);
+    font-size: var(--TS8);
     text-align: center;
     font-weight: 500;
     white-space: nowrap;
@@ -102,8 +102,8 @@
 
 .login_SMicon {
     object-fit: contain;
-    width: calc(0.7vw + 2.1vh + 0.7vmin);
-    height: calc(0.7vw + 2.1vh + 0.7vmin);
+    width: calc(0.5vw + 1.5vh + 0.5vmin);
+    height: calc(0.5vw + 1.5vh + 0.5vmin);
     margin-right: 2vw;
 }
 
