@@ -4,14 +4,6 @@ import '../../components/app.css'
 import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
 
-import HomeScreen from '../HomeScreen';
-import ProjectScreen from '../ProjectScreen';
-import TaskList from '../TaskList';
-import TestingChecklist from '../Testing Checklist';
-import BugList from '../BugList';
-import MeetingScreen from '../MeetingScreen';
-import UserManagement from '../UserManagement';
-import ApiRecords from 'components/Api Records';
 
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'

@@ -35,7 +35,8 @@ const UserManagement = (props: any) => {
   const [spinner, setspinner] = useState(false)
 
   const [company_name, setcompany_name] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [department, setdepartment] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [location, setlocation] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [branch_name, setbranch_name] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
   const [username, setusername] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
   const [firstname, setfirstname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
   const [lastname, setlastname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
@@ -61,15 +62,6 @@ const UserManagement = (props: any) => {
   const [isActive, setIsActive] = useState(false);
   const [value, setValue] = useState('');
 
-  const handleTextChange = (text: any) => {
-    setValue(text);
-
-    if (text !== '') {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }
 
   const getuserlistdata = () => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
@@ -88,106 +80,12 @@ const UserManagement = (props: any) => {
     }, token)
   }
 
-  const phonenumberformatter = (value: any) => {
-    var prefix = "+91"
-    if (value.indexOf(prefix) !== 0) {
-      setphone({ "value": prefix + value, "error": "", "isvalid": "false" });
-      return prefix + value
-    }
-
-    return value
-
-  }
-
-  const updateinputdata = () => {
-
-    if (updating) {
-      if (true) {
-        let data = {}
-        if (editpassword) {
-          data = {
-            "company_name": company_name.value,
-            "department": department.value,
-            "username": username.value,
-            "firstname": firstname.value,
-            "lastname": lastname.value,
-            "email": email.value,
-            "phone": phonenumberformatter(phone.value),
-            "user_type": isSelect,
-            "password": password.value,
-          }
-        }
-        else {
-          data = {
-            "firstname": firstname.value,
-            "lastname": lastname.value,
-            "email": email.value,
-            "phone": phonenumberformatter(phone.value),
-            "user_type": isSelect,
-          }
-        }
-        console.log(selecteduser, data)
-        let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-
-        // updateProfile((data: any, errorresponse: any) => {
-
-        //   if (data.status === 200) {
-        //     console.log('response ' + JSON.stringify(data));
-        //     window.location.reload();
-
-        //   } else {
-        //     console.log('error ' + JSON.stringify(data));
-        //     console.log('error ' + JSON.stringify(errorresponse));
-        //   };
-        // }, token, data, selecteduser.id)
-      }
-    }
-    else {
-      if (Validate()) {
-        let data = {
-          "company_name": company_name.value,
-          "department": department.value,
-          "username": username.value,
-          "password": password.value,
-          "email": email.value,
-          "phone": phonenumberformatter(phone.value),
-          "user_type": isSelect,
-        }
-        console.log(selecteduser, data)
-        let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-
-        // createaccount((data: any, errorresponse: any) => {
-
-        //   if (data.status === 200) {
-
-        //     console.log('response ' + JSON.stringify(data));
-
-        //     window.location.reload();
-        //   } else {
-
-        //     console.log('error ' + JSON.stringify(data));
-        //     console.log('error ' + JSON.stringify(errorresponse));
-        //   };
-        // }, data, token)
-        // create user part 
-      }
-
-    }
-  }
-
   useEffect(() => {
 
+    // header
     props.setheader_options(screen_header_elements)
-    // let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    // if (token === null)
-    //   history.push("/")
-    // else {
-    //   let usertype = JSON.parse(String(localStorage.getItem("UserDetails"))).user_type
-    //   if (usertype !== "SUPERUSER") {
-    //     history.push("/")
-    //   }
-    // }
 
+    // User listing
     getuserlistdata()
 
   }, [])
@@ -204,7 +102,7 @@ const UserManagement = (props: any) => {
   }
 
   const renderHeader = () => {
-    let headerElement = ['Company Name', 'Location', 'Branch Name', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
+    let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -223,7 +121,7 @@ const UserManagement = (props: any) => {
           setupdating(true)
 
           setcompany_name({ "value": element.company_name, "error": "", "isvalid": "false", "isActive": true });
-          setdepartment({ "value": element.department, "error": "", "isvalid": "false", "isActive": true });
+          setbranch_name({ "value": element.branch_name, "error": "", "isvalid": "false", "isActive": true });
           setusername({ "value": element.username, "error": "", "isvalid": "false", "isActive": true });
           setfirstname({ "value": element.firstname, "error": "", "isvalid": "false", "isActive": true });
           setlastname({ "value": element.lastname, "error": "", "isvalid": "false", "isActive": true });
@@ -233,65 +131,20 @@ const UserManagement = (props: any) => {
           console.log("csajdkfhj")
         }}>
           <td>{element.company_name}</td>
-          <td>{element.department}</td>
-          <td>{element.email}</td>
+          <td>{element.branch_name}</td>
+          <td>{element.username}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
           <td>{element.email}</td>
           <td>{element.phone}</td>
-          <td>{element.email}</td>
-          <td>{"*************"}</td>
           <td>{element.user_type}</td>
+          <td>{"*************"}</td>
           {/* <td> <img  className='Bid_addicon' src={edit} /></td> */}
         </tr>
       </>
     )
   }
-  const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
-    e.target.reset(); // reset after form submit
-    console.log(data);
-  };
-
-  console.log(errors);
-
-  const Validate = () => {
-
-    let temp = true
-    if (String(company_name.value).length === 0 || String(department.value).length === 0 || String(username.value).length === 0 || String(firstname.value).length === 0 || String(lastname.value).length === 0 || String(email.value).length === 0 || String(phone.value).length === 0 || String(isSelect).length === 0 || String(password.value).length === 0) {
-      temp = false
-      if (String(company_name.value).length === 0) {
-        setfirstnameemptyerror(true);
-        console.log("company name is empty")
-      } if (String(department.value).length === 0)
-        setlastnameemptyerror(true);
-      console.log("department is empty")
-      if (String(username.value).length === 0)
-        setemailIDemptyerror(true);
-      console.log("username is empty")
-      if (String(firstname.value).length === 3)
-        setphonenumberemptyerror(true);
-      console.log("firstname is empty")
-      if (String(lastname.value).length === 0)
-        setusernameemptyerror(true);
-      console.log("lastname is empty")
-      if (String(email.value).length === 0)
-        setpasswordemptyerror(true);
-      console.log("email is empty")
-      if (String(phone.value).length === 0)
-        setpasswordemptyerror(true);
-      console.log("phone is empty")
-      if (String(password.value).length === 0)
-        setpasswordemptyerror(true);
-      console.log("Password is empty")
-      if (String(isSelect).length === 0)
-        setusertypeemptyerror(true);
-      console.log("User Type is empty")
-    }
-
-    return temp
-  }
 
   return (
 

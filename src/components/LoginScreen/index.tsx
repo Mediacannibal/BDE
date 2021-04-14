@@ -7,29 +7,79 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
+import { decode } from 'base-64'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 
-
 const LoginScreen = () => {
-
-  const [isSocialdone, setisSocialdone] = useState(true)
+  const history = useHistory();
   const [ispassword, setispassword] = useState(true)
   const [isotpsent, setisotpsent] = useState(true)
-  const [activetab, setactivetab] = useState(true)
-  const history = useHistory();
-
+  
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
       handleLogin()
     }
   }
+
   useEffect(() => {
 
   }, [])
+
+  const validateData = (activationdata: FormData, storedotp: string, otp: string) => {
+    console.log('storedotp =' + storedotp);
+    console.log('inputotp =' + otp);
+    console.log('activationdata :' + JSON.stringify(activationdata))
+    if (storedotp === otp) {
+      // validateData(activationdata,decode(storedotp),otp.value)        
+
+      console.log('userinput:' + JSON.stringify(activationdata))
+      Sociallogin(loginCallback, activationdata);
+
+      // activateUser(_onvalidotp,activationdata)
+    }
+    else {
+      console.log('error validating otp');
+    }
+  }
+
+  const _verifyOTP = (code: string) => {
+    localStorage.using('userinput').then((userinput: { data: string; }) => {
+      console.log('userinput:' + JSON.stringify(userinput.data));
+      localStorage.using('verifyrespone').then((data: { data: string; }) => {
+        let temp = JSON.parse(data.data);
+        let temp1 = JSON.parse(userinput.data);
+        let storedotp = temp.results.otp;
+
+        let temp2 = localStorage.using('NotificationToken').then((notificationdata: { data: any; }) => {
+          console.log('NotificationToken:' + JSON.stringify(notificationdata.data));
+          let notificationtoken = notificationdata.data
+          // const activationdata =
+          // {
+          //   "username": temp1.username_email_or_phone,
+          //   "auth_provider": "trt",
+          //   "fcm_token": JSON.parse(notificationtoken)
+          // }
+
+          let activationdata = new FormData()
+          activationdata.append('username', temp1.username_email_or_phone)
+          activationdata.append('auth_provider', "trt")
+          activationdata.append('fcm_token', notificationtoken)
+          activationdata.append('code', String(Referrerid))
+          //code
+
+          validateData(activationdata, decode(storedotp), code)
+          return data.data;
+        });
+
+        return userinput.data;
+      });
+    });
+  }
+
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
       console.log('response =================> ' + JSON.stringify(data));
@@ -158,7 +208,7 @@ const LoginScreen = () => {
                     let userInfo = response.profile
                     formData.append('lastname', userInfo.last_name);
                     formData.append('firstname', userInfo.first_name);
-                    formData.append('photo_url', "");
+                    formData.append('photo_url', userInfo.photo_url);
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);
                     formData.append('username', userInfo.id);
@@ -192,7 +242,9 @@ const LoginScreen = () => {
             </div>
 
             <div className="login_button_container">
-              <button onClick={() => { }} className="login_validatebutton">
+              <button onClick={() => {
+                history.push('/NewUserForm')
+              }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>
             </div>
@@ -224,3 +276,7 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
+function Referrerid(Referrerid: any): string | Blob {
+  throw new Error('Function not implemented.');
+}
+

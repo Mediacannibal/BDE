@@ -15,8 +15,6 @@ const NewUserForm = ({ setPopup }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-
-
   const [ispopup, setispopup] = useState(false)
 
   const [company_name, setcompany_name] = useState('')
@@ -96,7 +94,6 @@ const NewUserForm = ({ setPopup }) => {
             let data = [];
             let object = {
               "company_name": company_name,
-              "location": location,
               "branch_name": branch_name,
               "username": username,
               "firstname": firstname,
@@ -138,55 +135,37 @@ const NewUserForm = ({ setPopup }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
+                <div className="Booking_slot_dropdown">
                   <McInput
-                    label={"Company Name"}
+                    type={"picker"}
+                    name={"Company Name"}
                     id="companyname_data"
-                    name={`data.CompanyName`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
                     required={true}
                     valid={setcompanynamevalid}
                     sendcheck={preSendValidator}
                     value={company_name}
                     onchange={setcompany_name}
+                    options={[
+                      { "key": "0", "value": "MEDIA CANNIBAL" },
+                    ]}
                   />
                 </div>
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
+                <div className="Booking_slot_dropdown">
                   <McInput
-                    label={"Location"}
-                    id="location_data"
-                    name={`data.location`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    valid={setlocationvalid}
-                    sendcheck={preSendValidator}
-                    value={location}
-                    onchange={setlocation}
-                  />
-                </div>
-              </div>
-
-              <div className="inputfield_sub_container">
-                <div className="textinput_box_container">
-                  <McInput
-                    label={"Branch Name"}
+                    type={"picker"}
+                    name={"Branch Name"}
                     id="branch_name_data"
-                    name={`data.branch_name`}
-                    inputtype="branch_name"
-                    type="text"
-                    min_length="3"
                     required={true}
                     valid={setbranchvalid}
                     sendcheck={preSendValidator}
                     value={branch_name}
                     onchange={setbranch_name}
+                    options={[
+                      { "key": "0", "value": "" },
+                    ]}
                   />
                 </div>
               </div>
