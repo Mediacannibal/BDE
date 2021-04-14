@@ -15,9 +15,6 @@ import Footer from 'components/common/Footer';
 
 const LoginScreen = () => {
   const history = useHistory();
-  const [ispassword, setispassword] = useState(true)
-  const [isotpsent, setisotpsent] = useState(true)
-  
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -155,7 +152,7 @@ const LoginScreen = () => {
 
                 <div className="login_button_container">
                   <button onClick={() => {
-                    history.push('/NewUserForm')
+                    // history.push('/NewUserForm')
                   }} className="login_validatebutton">
                     <div className="login_buttontext">Get OTP</div>
                   </button>
@@ -268,7 +265,7 @@ const LoginScreen = () => {
 
       </div>
 
-      <Footer bgColor={'bgtransparent'}/>
+      <Footer bgColor={'bgtransparent'} />
 
     </div>
 
