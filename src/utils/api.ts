@@ -86,7 +86,7 @@ export const phoneEmailVerify = (callback: (arg0: any, arg1: string) => void, da
 }
 
 export const newUserSignup = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`/api/user/social/signup/normal/`, data, {
+  instance.post(`api/user/social/signup/normal/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

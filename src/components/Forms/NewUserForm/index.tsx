@@ -29,7 +29,6 @@ const NewUserForm = ({ setPopup }) => {
   const [password, setpassword] = useState('')
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
-  const [locationvalid, setlocationvalid] = useState(false)
   const [branchvalid, setbranchvalid] = useState(false)
   const [usernamevalid, setusernamevalid] = useState(false)
   const [firstnamevalid, setfirstnamevalid] = useState(false)
@@ -63,9 +62,11 @@ const NewUserForm = ({ setPopup }) => {
   console.log(errors);
 
   const Validate = () => {
-
+    console.log(companynamevalid, branchvalid, usernamevalid,
+      firstnamevalid, lastnamevalid, emailvalid,
+      phonevalid, passwordvalid, usertypevalid
+    )
     if (companynamevalid === true
-      && locationvalid === true
       && branchvalid === true
       && usernamevalid === true
       && firstnamevalid === true
@@ -75,6 +76,7 @@ const NewUserForm = ({ setPopup }) => {
       && passwordvalid === true
       && usertypevalid === true
     ) {
+
       setispopup(true)
     }
     else {
@@ -109,7 +111,7 @@ const NewUserForm = ({ setPopup }) => {
             newUserSignup(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
+                console.log('Sucess!!!!!!!!' + JSON.stringify(data));
                 localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
                 localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
                 history.push('/Home')
@@ -164,7 +166,7 @@ const NewUserForm = ({ setPopup }) => {
                     value={branch_name}
                     onchange={setbranch_name}
                     options={[
-                      { "key": "0", "value": "" },
+                      { "key": "0", "value": "DEV" },
                     ]}
                   />
                 </div>
@@ -307,7 +309,6 @@ const NewUserForm = ({ setPopup }) => {
           }}
           cancelClick={setPopup}
         />
-
       }
     </>
   );

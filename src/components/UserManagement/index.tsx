@@ -44,17 +44,6 @@ const UserManagement = (props: any) => {
   const [phone, setphone] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
   const [password, setpassword] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
 
-  const [emptycompany_name, setemptycompany_name] = useState(false)
-  const [emptydepartment, setemptydepartment] = useState(false)
-  const [emptyfirstname, setemptyfirstname] = useState(false)
-  const [emptylastname, setemptylastname] = useState(false)
-  const [emptyemail, setemptyemail] = useState(false)
-  const [emptyphone, setemptyphone] = useState(false)
-  const [emptypassword, setemptypassword] = useState(false)
-
-  const [editpassword, seteditpassword] = useState(false)
-
-  const [passwordShown, setpasswordShown] = useState(false);
   const [popup, setpopup] = useState(false)
   const [list, setlist] = useState([])
 
