@@ -30,10 +30,10 @@ export const editProfileImage = (callback: (arg0: any, arg1: string) => void, to
     .catch(err => callback(err, err.response))
 }
 
-export const otpVerify = (callback: (arg0: any, arg1: string) => void, data: any) => {
+export const verifyUser = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/api/user/phone/email/otp_verify/`, data, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     }
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))

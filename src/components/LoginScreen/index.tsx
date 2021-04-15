@@ -7,14 +7,18 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-// import { decode } from 'base-64'
+import { decode } from 'base-64'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
+import { verifyUser } from 'utils/api';
 
 const LoginScreen = () => {
-  const history = useHistory();  
+  const history = useHistory();
+  const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
+  const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
+
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -64,18 +68,47 @@ const LoginScreen = () => {
           let activationdata = new FormData()
           activationdata.append('username', temp1.username_email_or_phone)
           activationdata.append('auth_provider', "trt")
-          activationdata.append('fcm_token', notificationtoken)
-          activationdata.append('code', String(Referrerid))
           //code
 
           validateData(activationdata, decode(storedotp), code)
           return data.data;
         });
-
         return userinput.data;
       });
     });
   }
+
+  // const emailValidator = (email: string) => {
+  //   const re = /\S+@\S+\.\S+/;
+
+  //   if (!email || email.length <= 0) return "Email cannot be empty.";
+  //   if (!re.test(email)) return "Ooops! We need a valid email address.";
+
+  //   return "";
+  // };
+
+  const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
+    if (data.status === 200) {
+      console.log('success ', data.data.results);
+      localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
+
+    } else {
+      errorlog(data, errorresponse)
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  }
+
+  const _onSignUpPressed = () => {
+
+    console.log(username_email_or_phone)
+    let data = {
+      username_email_or_phone: username_email_or_phone.value,
+    }
+    localStorage.setItem('username_email_or_phone', JSON.stringify(data));
+    verifyUser(_verifyCallback, data);
+
+  };
 
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
@@ -135,25 +168,40 @@ const LoginScreen = () => {
             <div className="login_container">
 
               <div className="login_button_container">
-                <input id="username" type="text" placeholder="User Name / Email / Phone Number" className="login_input" />
+                <input id="username" type="text" value={username_email_or_phone.value} onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }} placeholder="User Name / Email / Phone Number" className="login_input" />
               </div>
 
               <div className="login_button_container">
-                <input id="password" type="password" placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
+                <input id="password" type="password" value={password_otp.value} onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }} placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
               </div>
 
               <div className="login_button_sub_container">
 
-                <div className="login_button_container">
+                {/* <div className="login_button_container">
                   <button onClick={handleLogin} className="login_validatebutton">
+                    <div className="login_buttontext">Continue</div>
+                  </button>
+                </div> */}
+
+                <div className="login_button_container">
+                  <button onClick={() => {
+                    let a = JSON.parse(String(localStorage.getItem("otpResponse")))
+                    let receivedStored = Number(decode(a.otp))
+                    let inputotp = Number(password_otp.value)
+                    console.log(receivedStored, "decodedOTP", inputotp, "InputOTP", a, "storedOTP")
+                    if (receivedStored === inputotp) {
+                      console.log("OTP matched")
+                    } else {
+                      console.log("OTP not matched")
+                    }
+                  }} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>
 
                 <div className="login_button_container">
-                  <button onClick={() => {
-                    // history.push('/NewUserForm')
-                  }} className="login_validatebutton">
+                  <button onClick={_onSignUpPressed}
+                    className="login_validatebutton">
                     <div className="login_buttontext">Get OTP</div>
                   </button>
                 </div>
@@ -274,6 +322,10 @@ const LoginScreen = () => {
 
 export default LoginScreen
 function Referrerid(Referrerid: any): string | Blob {
+  throw new Error('Function not implemented.');
+}
+
+function errorlog(data: { status: number; data: string; }, errorresponse: any) {
   throw new Error('Function not implemented.');
 }
 

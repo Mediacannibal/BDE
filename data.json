@@ -25,8 +25,16 @@
                     "disabled": true
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\"email_or_username\":\"admin144\",\r\n\"password\" : \"password@123\"\r\n}"
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "email_or_username",
+                        "value": "",
+                        "type": "text"
+                    }, {
+                        "key": "password",
+                        "value": "",
+                        "type": "text"
+                    }]
                 },
                 "url": "{{url}}api/user/social/signup/"
             },
@@ -82,7 +90,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+                    "raw": "{\r\n\t\"username_email_or_phone\": \"adiakash3@gmail.com\"\r\n}"
                 },
                 "url": "{{url}}api/user/phone/email/otp_verify/"
             },
@@ -175,7 +183,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\t\"username_email_or_phone\": \"9008699748\"\r\n}"
+                    "raw": "{\r\n\t\"username_email_or_phone\": \"adiakash3@gamil.com\"\r\n}"
                 },
                 "url": "{{url}}api/user/phone/email/verify/"
             },
@@ -197,7 +205,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\"company_name\": \"mc\",\r\n\"department\": \"ec\",\r\n\"username\" :\"admin5\",\r\n\"password\" : \"password@123\",\r\n\"phone\" : \"900869977\",\r\n\"user_type\":\"ADMIN\",\r\n\"email\": \"mcannibal5@gmail.com\",\r\n\"firstname\":\"firstndame\",\r\n\"lastname\":\"lastdname\"\r\n }\r\n "
+                    "raw": "{\r\n\"company_name\": \"kiran company_name\",\r\n\"branch_name\": \"kiran branch_name1\",\r\n\"username\" :\"kiran raj\",\r\n\"email\": \"kiranraj123@gmail.com\",\r\n\"firstname\": \"kiran_firstname\",\r\n\"lastname\": \"kiran lastname\",\r\n\"password\": \"password@123\",\r\n\"phone\": \"908699744\",\r\n\"user_type\": \"ADMIN\"\r\n }"
                 },
                 "url": "{{url}}api/user/social/signup/normal/"
             },
@@ -998,4 +1006,14 @@
         }],
         "id": "83a1ab5c-cca9-4110-86e0-4ef21b082c21"
     }]
+
+}
+
+{
+    "request_status": 1,
+    "results": {
+        "email": "kiranraj4939@gmail.com",
+        "otp": "MTg5NA"
+    },
+    "msg": "OTP sent, please check your mobile"
 }
