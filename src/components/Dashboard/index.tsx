@@ -173,7 +173,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
                                 <img className='user_icon' src={profile_picture} />
                                 <div className='header_title'>{username}</div>
-                                <img className={user_menu_open ? 'user_menu_arrow_icon' : 'user_menu_arrow_icon rotate180'} src={up_down_arrow} />
+                                <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
 
                                 {user_menu_open
 

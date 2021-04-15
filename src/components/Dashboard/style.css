@@ -146,7 +146,7 @@
     overflow: hidden;
 }
 
-.user_menu_arrow_icon {
+.open_close_arrow_icon {
     object-fit: contain;
     width: calc(0.3vw + 0.9vh + 0.3vmin);
     height: calc(0.3vw + 0.9vh + 0.3vmin);

@@ -1,36 +1,32 @@
-.Dashboard_Card {
-    background-color: var(--color_8);
-    color: var(--color_5);
+.dashboard_card {
     border-radius: var(--BR1);
-    margin: calc(0.6vw + 1.8vh + 0.6vmin);
-    padding: calc(0.2vw + 0.6vh + 0.2vmin);
-    width: 52vh;
-    height: 35vh;
-    -webkit-box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.1);
+    margin: calc(0.3vw + 0.9vh + 0.3vmin);
+    padding: calc(0.3vw + 0.9vh + 0.3vmin);
+    -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    -moz-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-sizing: border-box;
 }
 
-.Card_Title {
-    color: var(--color_21);
-    font-size: var(--TS4);
-    font-weight: 600;
-    width: 18vh;
-}
-
-.Card_Band {
-    background-color: var(--color_10);
-    width: 100%;
-    height: 0.2vh;
-}
-
-.Card_Details {
-    font-family: 'Barlow';
+.card_title {
+    display: flex;
+    justify-content: space-between;
     font-weight: 600;
     color: var(--color_1);
     font-size: var(--TS7);
     align-self: center;
-    padding: 0 0.6vw;
+    padding: 0 0 var(--TS9) 0;
+    text-decoration: underline;
+    text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
+    text-decoration-color: var(--color_7);
 }
 
-.Card_Details_wrapper {}
+.card_details {
+    font-family: 'Barlow';
+    font-weight: 500;
+    color: var(--color_1);
+    font-size: var(--TS9);
+    align-self: center;
+}
+
+.card_details_wrapper {}

@@ -7,6 +7,8 @@ import Spinner from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
 import { getMainTask, getProject } from 'utils/api';
 
+import * as up_down_arrow from '../../assets/up_down.svg'
+
 
 const HomeScreen = (props: any) => {
 
@@ -21,7 +23,6 @@ const HomeScreen = (props: any) => {
 
   const [unique_task_title, setunique_task_title] = useState([])
 
-
   const [listItems, setlistItems] = useState([
     {
       "zero": "1",
@@ -34,8 +35,6 @@ const HomeScreen = (props: any) => {
       "six": "40",
     }
   ])
-
-
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -95,32 +94,19 @@ const HomeScreen = (props: any) => {
     )
   }
 
-  const Active_projects = () => {
+  const Card = ({ card_title, card_body }) => {
+    const [card_open, setCard_open] = useState(true)
     return (
-      <div className='Dashboard_Card'>
-        <div className='Card_Title'>Active Projects</div>
-        <div className="Card_Band"></div>
-        <div className='Card_Details_wrapper'>
-          {unique_project_title.map((element) => {
-            return <div className="Card_Details">{element}</div>
-          })
-          }
+      <div className='dashboard_card'>
+        <div className='card_title'>
+          {card_title}
+          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
         </div>
-      </div>
-    )
-  }
-
-  const Pending_tasks = () => {
-    return (
-      <div className='Dashboard_Card'>
-        <div className='Card_Title'>Pending Tasks</div>
-        <div className="Card_Band"></div>
-        <div className='Card_Details_wrapper'>
-          {unique_task_title.map((element) => {
-            return <div className="Card_Details">{element}</div>
-          })
-          }
-        </div>
+        {card_open &&
+          <div className='card_details_wrapper'>
+            {card_body}
+          </div>
+        }
       </div>
     )
   }
@@ -142,10 +128,32 @@ const HomeScreen = (props: any) => {
         />
       }
       <div className="body">
-        <div className="xyz">
-          <Active_projects />
-          <Pending_tasks />
-        </div>
+        <Card card_title="Active Projects" card_body={
+          unique_project_title.map((element) => {
+            return <div className="card_details">{element}</div>
+          })}
+        />
+        <Card card_title="Pending Tasks" card_body={
+          unique_project_title.map((element) => {
+            return <div className="card_details">{element}</div>
+          })}
+        />
+        <Card card_title="Stats" card_body={
+          <>
+            <div className="card_details">1,000 Tasks Completed</div>
+            <div className="card_details">500 Features Added</div>
+            <div className="card_details">50,000 Bugs Squashed</div>
+          </>
+        }
+        />
+        <Card card_title="Analystics" card_body={
+          <>
+            <div className="card_details">Visitors 10,000</div>
+            <div className="card_details">Countries</div>
+            <div className="card_details">Devices</div>
+          </>
+        }
+        />
       </div>
     </div >
   );

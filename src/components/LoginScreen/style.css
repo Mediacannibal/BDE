@@ -178,6 +178,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    -moz-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
     box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
     box-sizing: border-box;
     padding: var(--TS7);
@@ -188,10 +190,10 @@
     color: var(--color_5);
     font-size: var(--TS7);
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     justify-content: center;
-    padding: var(--TS11) 0;
+    padding: var(--TS9) 0;
     z-index: 1;
 }
 
