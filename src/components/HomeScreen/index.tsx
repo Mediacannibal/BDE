@@ -15,9 +15,12 @@ const HomeScreen = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-
+  const [unique_project_type, setunique_project_type] = useState([])
   const [unique_project_title, setunique_project_title] = useState([])
+  const [unique_project_status, setunique_project_status] = useState([])
+
   const [unique_task_title, setunique_task_title] = useState([])
+
 
   const [listItems, setlistItems] = useState([
     {
@@ -42,11 +45,19 @@ const HomeScreen = (props: any) => {
       if (data.status === 200) {
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
+        let project_type: Iterable<any> | null | undefined = []
         let title: Iterable<any> | null | undefined = []
+        let status: Iterable<any> | null | undefined = []
+
         data.data.forEach((element: any) => {
+          project_type.push(element.project_type)
           title.push(element.title)
+          status.push(element.status)
         });
+        setunique_project_type(Array.from(new Set(project_type)));
         setunique_project_title(Array.from(new Set(title)))
+        setunique_project_status(Array.from(new Set(status)))
+
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
