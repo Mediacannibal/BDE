@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { addBug, createMainTask } from 'utils/api';
+import { createMainTask } from 'utils/api';
 
 
 const AddEditBug = ({ setPopup }) => {
@@ -181,22 +181,23 @@ const AddEditBug = ({ setPopup }) => {
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
-                        setaddremoveandroid(!addremoveandroid)
+                        setandroidcheckbox(!androidcheckbox)
                       }} />
                     <div className="checkbox_text">Android</div>
                   </div>
 
-                  <div className="addremove_container"
-                    onClick={() => {
-                      setaddremoveandroid(!addremoveandroid)
-                      setandroidcheckbox(!androidcheckbox)
-                    }}>
-                    <div className="addremove_text">
-                      {addremoveandroid ? "Add Device" : "Remove Device"}
+                  {androidcheckbox &&
+                    <div className="addremove_container"
+                      onClick={() => {
+                        setaddremoveandroid(!addremoveandroid)
+                      }}>
+                      <div className="addremove_text">
+                        {addremoveandroid ? "Remove Device" : "Add Device"}
+                      </div>
                     </div>
-                  </div>
+                  }
 
-                  {androidcheckbox ?
+                  {addremoveandroid ?
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput
@@ -224,22 +225,23 @@ const AddEditBug = ({ setPopup }) => {
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
-                        setaddremoveios(!addremoveios)
+                        setioscheckbox(!ioscheckbox)
                       }} />
                     <div className="checkbox_text">IOS</div>
                   </div>
 
-                  <div className="addremove_container"
-                    onClick={() => {
-                      setaddremoveios(!addremoveios)
-                      setioscheckbox(!ioscheckbox)
-                    }}>
-                    <div className="addremove_text">
-                      {addremoveios ? "Add Device" : "Remove Device"}
+                  {ioscheckbox &&
+                    <div className="addremove_container"
+                      onClick={() => {
+                        setaddremoveios(!addremoveios)
+                      }}>
+                      <div className="addremove_text">
+                        {addremoveios ? "Remove Device" : "Add Device"}
+                      </div>
                     </div>
-                  </div>
+                  }
 
-                  {ioscheckbox ?
+                  {addremoveios ?
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput
@@ -258,7 +260,6 @@ const AddEditBug = ({ setPopup }) => {
                     </div>
                     :
                     null}
-
                 </div>
 
                 <div className="input_checkbox">
@@ -266,22 +267,23 @@ const AddEditBug = ({ setPopup }) => {
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
                         console.log(e);
-                        setaddremovebrowser(!addremovebrowser)
+                        setbrowsercheckbox(!browsercheckbox)
                       }} />
                     <div className="checkbox_text">Browser</div>
                   </div>
 
-                  <div className="addremove_container"
-                    onClick={() => {
-                      setaddremovebrowser(!addremovebrowser)
-                      setbrowsercheckbox(!browsercheckbox)
-                    }}>
-                    <div className="addremove_text">
-                      {addremovebrowser ? "Add Device" : "Remove Device"}
+                  {browsercheckbox &&
+                    <div className="addremove_container"
+                      onClick={() => {
+                        setaddremovebrowser(!addremovebrowser)
+                      }}>
+                      <div className="addremove_text">
+                        {addremovebrowser ? "Remove Device" : "Add Device"}
+                      </div>
                     </div>
-                  </div>
+                  }
 
-                  {browsercheckbox ?
+                  {addremovebrowser ?
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput

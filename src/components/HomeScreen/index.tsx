@@ -42,6 +42,20 @@ const HomeScreen = (props: any) => {
   }
 
 
+  const Active_projects = () => {
+    return (
+      <div className='Dashboard_Card'>
+        <div className='Card_Title'>Active Projects</div>
+        <div className="Card_Band"></div>
+        <div className='Card_Details_wrapper'>
+          <div className="Card_Details">Project 1</div>
+          <div className="Card_Details">Project 2</div>
+          <div className="Card_Details">Project 3</div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="main">
       {spinner ?
@@ -60,7 +74,7 @@ const HomeScreen = (props: any) => {
       }
       <div className="body">
         <div className="xyz">
-
+          <Active_projects />
         </div>
       </div>
     </div >
