@@ -25,16 +25,6 @@ const TaskList = (props: any) => {
     }
   ])
 
-
-  const [unique_title, setunique_title] = useState([])
-  const [unique_task_type, setunique_task_type] = useState([])
-  const [unique_priority, setunique_priority] = useState([])
-  const [unique_status, setunique_status] = useState([])
-  const [unique_domain, setunique_domain] = useState([])
-  const [unique_description, setunique_description] = useState([])
-  const [unique_assignee, setunique_assignee] = useState([])
-  const [unique_updated_by, setunique_updated_by] = useState([])
-
   const [filterindicator, setfilterindicator] = useState(false)
 
   const [unique_project_ref, setunique_project_ref] = useState([])
