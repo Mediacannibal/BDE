@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as logo from '../../assets/MC_logo.svg'
+import * as defaultusericon from '../../assets/user_icon.svg'
 import * as back from '../../assets/previous.svg'
 import * as menu from '../../assets/menu.svg'
 import * as home from '../../assets/home (2).svg'
@@ -52,6 +53,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             setusertype(usertype)
             setUsername(username)
             setprofile_picture(profile_picture)
+            console.log("someidentifier", profile_picture)
         }
     }, [])
 
@@ -171,7 +173,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             }} />
                             <img className='header_icon' src={bell} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
-                                <img className='user_icon' src={profile_picture} />
+                                <img className='user_icon'
+                                    src={(profile_picture === undefined) ? defaultusericon : profile_picture} />
                                 <div className='header_title'>{username}</div>
                                 <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
 
