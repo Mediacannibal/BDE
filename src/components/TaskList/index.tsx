@@ -88,6 +88,14 @@ const TaskList = (props: any) => {
     )
   }
 
+  const Projecttitle = () => {
+
+    return listItems.map((ele: any, key: any) => {
+      return <div>{" Project:"}<span>{ele.project_ref}</span></div>
+    })
+
+  }
+
   const screen_header_elements = () => {
     return (
       <>
@@ -274,31 +282,35 @@ const TaskList = (props: any) => {
           }
 
         </div>
-{
-listItems.map((ele:any,key:any)=>{
-  return (<div>{"Project:"}<div>{ele.title}</div></div>);
-})
-}        
+        {/* {
+          listItems.map((ele: any, key: any) => {
+            return (<div>{"Project:"}<div>{ele.project_ref}</div></div>);
+          })
+        } */}
 
-        <Card card_title="Project" card_body={
-          <div className="internal_table">
 
-            <table id='internal_table'>
-              <thead>
-                {(all_project_ref.length === 0) ?
-                  <tr>{renderHeader()}</tr>
-                  :
-                  <tr>{renderHeader2()}</tr>
-                }
-              </thead>
-              <tbody>
-                {
-                  listItems.map(renderBody)
-                }
-              </tbody>
-            </table>
-          </div>
-        }
+
+        <Card
+          card_title={<Projecttitle />}
+          card_body={
+            <div className="internal_table">
+
+              <table id='internal_table'>
+                <thead>
+                  {(all_project_ref.length === 0) ?
+                    <tr>{renderHeader()}</tr>
+                    :
+                    <tr>{renderHeader2()}</tr>
+                  }
+                </thead>
+                <tbody>
+                  {
+                    listItems.map(renderBody)
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
         />
       </div>
 
