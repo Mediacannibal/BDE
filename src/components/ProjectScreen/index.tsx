@@ -99,7 +99,9 @@ const ProjectScreen = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Branch', 'Project Type', 'Title', 'Description', 'File Links', 'Status', 'Start Date', 'End Date']
+    let headerElement = ['Project Type', 'Title', 'Description',
+      // 'File Links', 
+      'Status', 'Start Date', 'End Date']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -109,11 +111,10 @@ const ProjectScreen = (props: any) => {
   const renderBody = (element: any) => {
     return (
       <tr key={element.branch}>
-        <td>{element.branch}</td>
         <td>{element.project_type}</td>
         <td>{element.title}</td>
         <td>{element.description}</td>
-        <td>{element.file_links}</td>
+        {/* <td>{element.file_links}</td> */}
         <td>{element.status}</td>
         <td>{element.start_date}</td>
         <td>{element.end_date}</td>
@@ -130,6 +131,13 @@ const ProjectScreen = (props: any) => {
         </div>
       </>
     )
+  }
+
+  const BranchTitle = () => {
+    return listItems.map((ele: any, key: any) => {
+      return <div>{"Branch:"}<span>{ele.project_ref}</span></div>
+    })
+
   }
 
   const Card = ({ card_title, card_body }) => {
@@ -168,18 +176,46 @@ const ProjectScreen = (props: any) => {
       }
 
       <div className="body">
-        <div className="internal_table">
-          <table id='internal_table'>
-            <thead>
-              <tr>{renderHeader()}</tr>
-            </thead>
-            <tbody>
-              {
-                listItems.map(renderBody)
-              }
-            </tbody>
-          </table>
-        </div>
+
+        <Card
+          card_title="Branch: Name...."
+          card_body={
+            <>
+              <div className="project_details">
+                <div className="project_left_container">
+                  <img className='project_image' src={add} />
+                </div>
+                <div className="project_center_container">
+                  <div className="project_title1">Project Title........</div>
+                  <div className="project_description">Project Description........Project Description........Project Description........
+                  Project Description........Project Description........Project Description........Project Description........Project Description........
+                  Project Description........Project Description........Project Description........Project Description........Project Description........
+                  Project Description........Project Description........Project Description........Project Description........Project Description........
+                  Project Description........Project Description........Project Description........Project Description........</div>
+                </div>
+                <div className="project_right_container">
+                  <div className="project_stats">Type: ........</div>
+                  <div className="project_stats">Status: ........</div>
+                  <div className="project_stats">Start Date: ........</div>
+                  <div className="project_stats">End Date: ........</div>
+                </div>
+              </div>
+              <div className="internal_table">
+
+                <table id='internal_table'>
+                  <thead>
+                    <tr>{renderHeader()}</tr>
+                  </thead>
+                  <tbody>
+                    {
+                      listItems.map(renderBody)
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </>
+          }
+        />
       </div>
     </div>
 

@@ -177,13 +177,13 @@ const LoginScreen = () => {
 
               <div className="login_button_sub_container">
 
-                {/* <div className="login_button_container">
+                <div className="login_button_container">
                   <button onClick={handleLogin} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
-                </div> */}
+                </div>
 
-                <div className="login_button_container">
+                {/* <div className="login_button_container">
                   <button onClick={() => {
                     let a = JSON.parse(String(localStorage.getItem("otpResponse")))
                     let receivedStored = Number(decode(a.otp))
@@ -197,7 +197,7 @@ const LoginScreen = () => {
                   }} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
-                </div>
+                </div> */}
 
                 <div className="login_button_container">
                   <button onClick={_onSignUpPressed}
