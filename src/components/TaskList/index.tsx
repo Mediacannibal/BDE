@@ -53,7 +53,6 @@ const TaskList = (props: any) => {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_title = 
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -70,6 +69,12 @@ const TaskList = (props: any) => {
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
     })
+  }
+
+  const title = (element: any) => {
+    return (
+      <div>Project:<div>{element.title}</div></div>
+    )
   }
 
   const renderHeader2 = () => {
@@ -271,8 +276,9 @@ const TaskList = (props: any) => {
 
         </div>
 
-        <div>Project:<div>{title}</div></div>
 
+
+        {/* <div>Project:<div>{listItems.title}</div></div> */}
         <div className="internal_table">
           <table id='internal_table'>
             <thead>
