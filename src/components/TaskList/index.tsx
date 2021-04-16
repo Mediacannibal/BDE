@@ -274,11 +274,11 @@ const TaskList = (props: any) => {
           }
 
         </div>
-{/* {
+{
 listItems.map((ele:any,key:any)=>{
   return (<div>{"Project:"}<div>{ele.title}</div></div>);
 })
-}         */}
+}        
 
         <Card card_title="Project" card_body={
           <div className="internal_table">

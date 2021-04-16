@@ -1,14 +1,17 @@
 import 'core-js/stable'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'regenerator-runtime/runtime'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
+
+import ReactGA from 'react-ga';
+
 
 import "./app.css";
 
 import LoginScreen from './LoginScreen';
 import ProjectScreen from './ProjectScreen';
-import MeetingScreen from './MeetingScreen'; 
-import Meetingvideo from './MeetingScreen/Meetingvideo'; 
+import MeetingScreen from './MeetingScreen';
+import Meetingvideo from './MeetingScreen/Meetingvideo';
 import TaskList from './TaskList';
 import TaskDetails from './TaskDetails';
 import UserManagement from './UserManagement';
@@ -41,11 +44,19 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/', component: LoginScreen }, 
-  { path: '/meetinghome/:url', component: Meetingvideo }, 
+  { path: '/', component: LoginScreen },
+  { path: '/meetinghome/:url', component: Meetingvideo },
 ]
 
 const App = () => {
+
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  });
+
+
+
   return (
 
     <Router>
@@ -70,4 +81,4 @@ const App = () => {
   )
 }
 
-export default App
+export default withRouter(App)
