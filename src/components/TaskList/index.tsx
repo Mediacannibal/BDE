@@ -10,21 +10,9 @@ import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from '../../assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
+import * as up_down_arrow from '../../assets/up_down.svg'
 
 const TaskList = (props: any) => {
-
-  const [listItems, setlistItems] = useState([
-    {
-      "zero": "1",
-      "Row_name": "Customer 1",
-      "one": "00",
-      "two": "90",
-      "three": "60",
-      "four": "20",
-      "five": "30",
-      "six": "40",
-    }
-  ])
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -40,6 +28,8 @@ const TaskList = (props: any) => {
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
 
+  const [listItems, setlistItems] = useState([])
+  const [title, settitle] = useState([])
 
   let params = useParams();
   useEffect(() => {
@@ -53,7 +43,7 @@ const TaskList = (props: any) => {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_title = 
+
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -65,7 +55,7 @@ const TaskList = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['Project', 'title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
+    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -82,10 +72,7 @@ const TaskList = (props: any) => {
 
   const renderBody = (element: any) => {
     return (
-      <tr key={element.project_ref}>
-        {(all_project_ref.length === 0) ?
-          <td> {element.project_ref}</td>
-          : null}
+      <tr>
         <td onClick={() => {
           setpopup2(true)
           console.log(">><<", popup2)
@@ -94,7 +81,7 @@ const TaskList = (props: any) => {
         <td>{element.priority}</td>
         <td>{element.domain}</td>
         <td>{element.description}</td>
-        <td>{element.assignee}</td>
+        <td>{element.assigned_by}</td>
         <td>{element.image_link}</td>
         <td>{element.status}</td>
       </tr >
@@ -109,6 +96,23 @@ const TaskList = (props: any) => {
           <div>Add Task</div>
         </div>
       </>
+    )
+  }
+
+  const Card = ({ card_title, card_body }) => {
+    const [card_open, setCard_open] = useState(true)
+    return (
+      <div className='dashboard_card'>
+        <div className='card_title'>
+          {card_title}
+          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
+        </div>
+        {card_open &&
+          <div className='card_details_wrapper'>
+            {card_body}
+          </div>
+        }
+      </div>
     )
   }
 
@@ -270,26 +274,32 @@ const TaskList = (props: any) => {
           }
 
         </div>
+{/* {
+listItems.map((ele:any,key:any)=>{
+  return (<div>{"Project:"}<div>{ele.title}</div></div>);
+})
+}         */}
 
-        <div>Project:<div>{title}</div></div>
+        <Card card_title="Project" card_body={
+          <div className="internal_table">
 
-        <div className="internal_table">
-          <table id='internal_table'>
-            <thead>
-              {(all_project_ref.length === 0) ?
-                <tr>{renderHeader()}</tr>
-                :
-                <tr>{renderHeader2()}</tr>
-              }
-            </thead>
-            <tbody>
-              {
-                listItems.map(renderBody)
-              }
-            </tbody>
-          </table>
-        </div>
-
+            <table id='internal_table'>
+              <thead>
+                {(all_project_ref.length === 0) ?
+                  <tr>{renderHeader()}</tr>
+                  :
+                  <tr>{renderHeader2()}</tr>
+                }
+              </thead>
+              <tbody>
+                {
+                  listItems.map(renderBody)
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+        />
       </div>
 
       <Footer />

@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import { getProject, listingTask } from 'utils/api'
 import './style.css'
 import * as add from '../../assets/add.svg'
+import * as up_down_arrow from '../../assets/up_down.svg'
+
 
 const ProjectScreen = (props: any) => {
   const [unique_branch, setunique_branch] = useState(false)
@@ -127,6 +129,23 @@ const ProjectScreen = (props: any) => {
           <div>Add Project</div>
         </div>
       </>
+    )
+  }
+
+  const Card = ({ card_title, card_body }) => {
+    const [card_open, setCard_open] = useState(true)
+    return (
+      <div className='dashboard_card'>
+        <div className='card_title'>
+          {card_title}
+          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
+        </div>
+        {card_open &&
+          <div className='card_details_wrapper'>
+            {card_body}
+          </div>
+        }
+      </div>
     )
   }
 

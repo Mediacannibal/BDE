@@ -123,3 +123,10 @@
     display: flex;
     justify-content: center;
 }
+
+.project_title {
+    color: var(--color_21);
+    font-size: var(--TS4);
+    font-weight: 600;
+    width: 18vh;
+}
