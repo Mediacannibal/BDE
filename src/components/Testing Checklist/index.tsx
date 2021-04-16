@@ -3,11 +3,13 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getMainTask, testListing } from 'utils/api';
+import { getMainTask } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as add from '../../assets/add.svg'
 import * as play from '../../assets/play.svg'
+import * as filter from '../../assets/filter.png'
+
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelection from 'components/Forms/TestSelection';
 
@@ -30,7 +32,6 @@ const TestingChecklist = (props: any) => {
   const [unique_portrait, setunique_portrait] = useState([])
   const [unique_landscape, setunique_landscape] = useState([])
   const [unique_device, setunique_device] = useState([])
-  const [unique_remarks, setunique_remarks] = useState([])
   const [unique_image_link, setunique_image_link] = useState([])
 
   const [filterindicator, setfilterindicator] = useState(false)
@@ -38,7 +39,6 @@ const TestingChecklist = (props: any) => {
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
 
-  const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
 
   const [popup, setpopup] = useState(false)
@@ -67,7 +67,7 @@ const TestingChecklist = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
-      getMainTask(async (data: any, errorresponse: any) => {
+    getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
@@ -205,7 +205,7 @@ const TestingChecklist = (props: any) => {
 
         <div className="bidlog_filterfield_container">
 
-         
+
           <button className="bidrecord_filterandclose_button"
             onClick={() => {
               let data = {

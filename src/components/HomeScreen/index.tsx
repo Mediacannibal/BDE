@@ -104,7 +104,7 @@ const HomeScreen = (props: any) => {
         <td>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
-        <td>{element.assignee}</td>
+        <td>{element.assigned_by}</td>
         <td>{element.status}</td>
       </tr>
     )

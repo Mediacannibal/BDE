@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-import * as send from '../../assets/send.svg'
-import * as eye from '../../assets/eye-visibility.svg'
-import * as eye_invisible from '../../assets/eye-invisible.svg'
+
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { useForm } from 'react-hook-form';
 import * as add from '../../assets/add.svg'
-// import { createaccount, getuserList, postAppdata, updateProfile } from 'utils/api';
-
 
 import Spinner from 'components/Common/Spinner';
-import McInput from 'components/Common/McInput';
 import { userListing } from 'utils/api';
 import NewUserForm from 'components/Forms/NewUserForm';
 
@@ -25,32 +19,11 @@ const UserManagement = (props: any) => {
   const history = useHistory();
   const [isSelect, setisSelect] = useState('')
   const [iseditable, seteditable] = useState(false)
-  const [isfirstnameemptyerror, setfirstnameemptyerror] = useState(false)
-  const [islastnameemptyerror, setlastnameemptyerror] = useState(false)
-  const [isemailIDemptyerror, setemailIDemptyerror] = useState(false)
-  const [isphonenumberemptyerror, setphonenumberemptyerror] = useState(false)
-  const [isusernameemptyerror, setusernameemptyerror] = useState(false)
-  const [ispasswordemptyerror, setpasswordemptyerror] = useState(false)
-  const [isusertypeemptyerror, setusertypeemptyerror] = useState(false)
-  const [spinner, setspinner] = useState(false)
 
-  const [company_name, setcompany_name] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [location, setlocation] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [branch_name, setbranch_name] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [username, setusername] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [firstname, setfirstname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [lastname, setlastname] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [email, setemail] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [phone, setphone] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
-  const [password, setpassword] = useState({ "value": "", "error": "", "isvalid": "false", "isActive": false })
+  const [spinner, setspinner] = useState(false)
 
   const [popup, setpopup] = useState(false)
   const [list, setlist] = useState([])
-
-
-  const [isActive, setIsActive] = useState(false);
-  const [value, setValue] = useState('');
-
 
   const getuserlistdata = () => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
@@ -60,6 +33,8 @@ const UserManagement = (props: any) => {
         setspinner(false)
         console.log('response ' + JSON.stringify(data));
         setlist(data.data)
+        console.log("<><><><><>", data.data);
+
 
       } else {
         setspinner(false)
@@ -102,26 +77,10 @@ const UserManagement = (props: any) => {
 
     return (
       <>
-        <tr key={element.id} onClick={() => {
-          setselecteduser(element)
-          seteditable(true)
-          console.log(element)
-
-          setupdating(true)
-
-          setcompany_name({ "value": element.company_name, "error": "", "isvalid": "false", "isActive": true });
-          setbranch_name({ "value": element.branch_name, "error": "", "isvalid": "false", "isActive": true });
-          setusername({ "value": element.username, "error": "", "isvalid": "false", "isActive": true });
-          setfirstname({ "value": element.firstname, "error": "", "isvalid": "false", "isActive": true });
-          setlastname({ "value": element.lastname, "error": "", "isvalid": "false", "isActive": true });
-          setemail({ "value": element.email, "error": "", "isvalid": "false", "isActive": true });
-          setphone({ "value": element.phone, "error": "", "isvalid": "false", "isActive": true });
-          setisSelect(element.user_type)
-          console.log("csajdkfhj")
-        }}>
+        <tr key={element.id} >
           <td>{element.company_name}</td>
           <td>{element.branch_name}</td>
-          <td>{element.username}</td>
+          <td>{element.user.username}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
           <td>{element.email}</td>

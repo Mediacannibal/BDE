@@ -9,6 +9,7 @@ import Spinner from 'components/Common/Spinner';
 import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from '../../assets/add.svg'
+import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
 
 const TaskList = (props: any) => {
 
@@ -36,69 +37,35 @@ const TaskList = (props: any) => {
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
 
-  const [popup, setpopup] = useState(false)
+  const [popup1, setpopup1] = useState(false)
+  const [popup2, setpopup2] = useState(false)
+
 
   let params = useParams();
   useEffect(() => {
     props.setheader_options(screen_header_elements)
-    // let usertype1 = ""
-    // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
-    // if (UserDetails !== null) {
-    //   usertype1 = UserDetails.user_type
-    //   let user_id = UserDetails.user_id
-    //   console.log(screen, user_id, usertype1)
-    //   setusertype(usertype1)
-    //   setuserID(user_id)
-    // }
+
     setspinner(true)
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    // if (token === null)
-    //   history.push("/")
-    // if (params.id === undefined) {
+
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_ref_array: Iterable<any> | null | undefined = []
-        // let title: Iterable<any> | null | undefined = []
-        // let task_type: Iterable<any> | null | undefined = []
-        // let priority: Iterable<any> | null | undefined = []
-        // let status: Iterable<any> | null | undefined = []
-        // let domain: Iterable<any> | null | undefined = []
-        // let description: Iterable<any> | null | undefined = []
-        // let assignee: Iterable<any> | null | undefined = []
-        data.data.forEach((element: any) => {
-          project_ref_array.push(element.project_ref)
-          // title.push(element.title)
-          // task_type.push(element.task_type)
-          // priority.push(element.priority)
-          // status.push(element.status)
-          // domain.push(element.domain)
-          // description.push(element.description)
-          // assignee.push(element.assignee)
-        });
-        setunique_project_ref(Array.from(new Set(project_ref_array)));
-        // setunique_title(Array.from(new Set(title)))
-        // setunique_task_type(Array.from(new Set(task_type)))
-        // setunique_priority(Array.from(new Set(priority)))
-        // setunique_status(Array.from(new Set(status)))
-        // setunique_domain(Array.from(new Set(domain)))
-        // setunique_description(Array.from(new Set(description)))
-        // setunique_assignee(Array.from(new Set(assignee)))
+        let project_title = 
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
     }, token)
-
   }, [])
 
 
 
   const renderHeader = () => {
-    let headerElement = ['Project ref', 'title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
+    let headerElement = ['Project', 'title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -119,7 +86,10 @@ const TaskList = (props: any) => {
         {(all_project_ref.length === 0) ?
           <td> {element.project_ref}</td>
           : null}
-        <td>{element.title}</td>
+        <td onClick={() => {
+          setpopup2(true)
+          console.log(">><<", popup2)
+        }}>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.domain}</td>
@@ -134,7 +104,7 @@ const TaskList = (props: any) => {
   const screen_header_elements = () => {
     return (
       <>
-        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+        <div className='screen_header_element' onClick={() => { setpopup1(true) }}>
           <img className='header_icon' src={add} />
           <div>Add Task</div>
         </div>
@@ -151,10 +121,19 @@ const TaskList = (props: any) => {
         null
       }
 
-      {popup &&
+      {popup1 &&
         <AddEditTask
           setPopup={() => {
-            setpopup(false)
+            setpopup1(false)
+          }}
+        />
+      }
+
+      {
+        popup2 &&
+        <AddEditTaskLog
+          setPopup={() => {
+            setpopup2(false)
           }}
         />
       }
@@ -271,46 +250,13 @@ const TaskList = (props: any) => {
                 if (data.status === 200) {
                   setspinner(false)
                   setlistItems(data.data)
-                  let project_ref_array: Iterable<any> | null | undefined = []
-                  // let title: Iterable<any> | null | undefined = []
-                  // let description: Iterable<any> | null | undefined = []
-                  // let assignee: Iterable<any> | null | undefined = []
-                  // let updated_by: Iterable<any> | null | undefined = []
-                  // let number_arry: Iterable<any> | null | undefined = []
-                  // let user_arry: Iterable<any> | null | undefined = []
-                  data.data.forEach((element: any) => {
-                    project_ref_array.push(element.project_ref)
-                    // title.push(element.title)
-                    // description.push(element.description)
-                    // assignee.push(element.assignee)
-                    // updated_by.push(element.updated_by)
-                    // number_arry.push(element.number)
-                    // user_arry.push(element.user)
-                  });
-                  setunique_project_ref(Array.from(new Set(project_ref_array)));
-                  // setunique_title(Array.from(new Set(title)))
-                  // setunique_description(Array.from(new Set(description)))
-                  // setunique_assignee(Array.from(new Set(assignee)))
-                  // setunique_updated_by(Array.from(new Set(updated_by)))
-                  // setunique_number_arry(Array.from(new Set(number_arry)))
-                  // setunique_user_arry(Array.from(new Set(user_arry)))
-
-                  console.log(
-                    all_project_ref,
-                    // unique_title,
-                    // unique_description,
-                    // unique_assignee,
-                    // unique_updated_by,
-                    // unique_number_arry,
-                    // unique_user_arry
-                  );
                   setfilterindicator(true)
                 } else {
                   setspinner(false)
                   console.log('error ' + JSON.stringify(data));
                   console.log('error ' + JSON.stringify(errorresponse));
                 }
-              }, token, data)
+              }, token, data[0])
 
             }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
@@ -324,6 +270,8 @@ const TaskList = (props: any) => {
           }
 
         </div>
+
+        <div>Project:<div>{title}</div></div>
 
         <div className="internal_table">
           <table id='internal_table'>
