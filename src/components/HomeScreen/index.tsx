@@ -17,12 +17,6 @@ const HomeScreen = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-  const [unique_project_type, setunique_project_type] = useState([])
-  const [unique_project_title, setunique_project_title] = useState([])
-  const [unique_project_status, setunique_project_status] = useState([])
-
-  const [unique_task_title, setunique_task_title] = useState([])
-
   const [listItems, setlistItems] = useState([
     {
       "zero": "1",
@@ -36,6 +30,8 @@ const HomeScreen = (props: any) => {
     }
   ])
 
+  const [listItems2, setlistItems2] = useState([])
+
   useEffect(() => {
     props.setheader_options(screen_header_elements)
 
@@ -44,19 +40,6 @@ const HomeScreen = (props: any) => {
       if (data.status === 200) {
         console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
-        let project_type: Iterable<any> | null | undefined = []
-        let title: Iterable<any> | null | undefined = []
-        let status: Iterable<any> | null | undefined = []
-
-        data.data.forEach((element: any) => {
-          project_type.push(element.project_type)
-          title.push(element.title)
-          status.push(element.status)
-        });
-        setunique_project_type(Array.from(new Set(project_type)));
-        setunique_project_title(Array.from(new Set(title)))
-        setunique_project_status(Array.from(new Set(status)))
-
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -70,12 +53,7 @@ const HomeScreen = (props: any) => {
   getMainTask(async (data: any, errorresponse: any) => {
     if (data.status === 200) {
       console.log(">>>>>>>>>>>", data.data)
-      setlistItems(data.data)
-      let title: Iterable<any> | null | undefined = []
-      data.data.forEach((element: any) => {
-        title.push(element.title)
-      });
-      setunique_task_title(Array.from(new Set(title)))
+      setlistItems2(data.data)
     } else {
       setspinner(false)
       console.log('error ' + JSON.stringify(data));
@@ -91,6 +69,44 @@ const HomeScreen = (props: any) => {
           <div>Add Project</div>
         </div>
       </>
+    )
+  }
+
+  const renderHeader1 = () => {
+    let headerElement = ['Project Type', 'Title', 'Status']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
+  const renderBody1 = (element: any) => {
+    return (
+      <tr>
+        <td>{element.project_type}</td>
+        <td>{element.title}</td>
+        <td>{element.status}</td>
+      </tr>
+    )
+  }
+
+  const renderHeader2 = () => {
+    let headerElement = ['title', 'Task Type', 'priority', 'assignee', 'status']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
+  const renderBody2 = (element: any) => {
+    return (
+      <tr>
+        <td>{element.title}</td>
+        <td>{element.task_type}</td>
+        <td>{element.priority}</td>
+        <td>{element.assignee}</td>
+        <td>{element.status}</td>
+      </tr>
     )
   }
 
@@ -129,14 +145,34 @@ const HomeScreen = (props: any) => {
       }
       <div className="body">
         <Card card_title="Active Projects" card_body={
-          unique_project_title.map((element) => {
-            return <div className="card_details">{element}</div>
-          })}
+          <div className="internal_table">
+            <table id='internal_table'>
+              <thead>
+                <tr>{renderHeader1()}</tr>
+              </thead>
+              <tbody>
+                {
+                  listItems.map(renderBody1)
+                }
+              </tbody>
+            </table>
+          </div>
+        }
         />
         <Card card_title="Pending Tasks" card_body={
-          unique_project_title.map((element) => {
-            return <div className="card_details">{element}</div>
-          })}
+          <div className="internal_table">
+            <table id='internal_table'>
+              <thead>
+                <tr>{renderHeader2()}</tr>
+              </thead>
+              <tbody>
+                {
+                  listItems2.map(renderBody2)
+                }
+              </tbody>
+            </table>
+          </div>
+        }
         />
         <Card card_title="Stats" card_body={
           <>

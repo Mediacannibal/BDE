@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getMainTask, listingTask } from 'utils/api';
+import { getMainTask } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -77,7 +77,6 @@ const TaskList = (props: any) => {
           // domain.push(element.domain)
           // description.push(element.description)
           // assignee.push(element.assignee)
-
         });
         setunique_project_ref(Array.from(new Set(project_ref_array)));
         // setunique_title(Array.from(new Set(title)))
