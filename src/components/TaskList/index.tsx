@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getMainTask } from 'utils/api';
+import { getMainTask, getProject } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -28,7 +28,8 @@ const TaskList = (props: any) => {
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
 
-  const [listItems, setlistItems] = useState([])
+  const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
   const [title, settitle] = useState([])
 
   let params = useParams();
@@ -41,8 +42,8 @@ const TaskList = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data)
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems1(data.data)
 
       } else {
         setspinner(false)
@@ -52,7 +53,20 @@ const TaskList = (props: any) => {
     }, token)
   }, [])
 
+  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
+  getProject(async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      setspinner(false)
+      // console.log(">>>>>>>>>>>", data.data)
+      setlistItems2(data.data)
+
+    } else {
+      setspinner(false)
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  }, token)
 
   const renderHeader = () => {
     let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
@@ -89,11 +103,9 @@ const TaskList = (props: any) => {
   }
 
   const Projecttitle = () => {
-
-    return listItems.map((ele: any, key: any) => {
-      return <div>{" Project:"}<span>{ele.project_ref}</span></div>
+    return listItems2.map((ele: any, key: any) => {
+      return <div>{" Project:"}<span>{ele.title}</span></div>
     })
-
   }
 
   const screen_header_elements = () => {
@@ -261,7 +273,7 @@ const TaskList = (props: any) => {
               getMainTask(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
-                  setlistItems(data.data)
+                  setlistItems1(data.data)
                   setfilterindicator(true)
                 } else {
                   setspinner(false)
@@ -305,13 +317,14 @@ const TaskList = (props: any) => {
                 </thead>
                 <tbody>
                   {
-                    listItems.map(renderBody)
+                    listItems1.map(renderBody)
                   }
                 </tbody>
               </table>
             </div>
           }
         />
+
       </div>
 
       <Footer />

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask, fileupload } from 'utils/api';
+import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
 const AddEditTask = ({ setPopup }) => {
@@ -42,7 +42,7 @@ const AddEditTask = ({ setPopup }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [inputvalue, setinputvalue] = useState("")
+  const [projectname, setprojectname] = useState("")
   const [isfrontend, setisfrontend] = useState(false)
 
   const [isproject, setisproject] = useState('')
@@ -74,25 +74,19 @@ const AddEditTask = ({ setPopup }) => {
   const [ispopup, setispopup] = useState(false)
   const [dataUri, setDataUri] = useState('');
 
-  const [list, setlist] = useState([{
-    "project_ref": "",
-    "title": "",
-    "task_type": "",
-    "domain": "",
-    "description": "",
-    "assignee": "",
-  }])
+  const [listItems, setlistItems] = useState([])
+  const [spinner, setspinner] = useState(false)
 
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
-  console.log(errors);
+  // console.log(errors);
 
   const _onChangeHandler = (data: any) => {
-    console.log(data.target.files[0])
+    // console.log(data.target.files[0])
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
@@ -102,7 +96,7 @@ const AddEditTask = ({ setPopup }) => {
 
   const Callback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log("respnse :", data.data.result.file_url)
+      // console.log("respnse :", data.data.result.file_url)
       setDataUri(data.data.result.file_url)
     }
     else {
@@ -139,6 +133,32 @@ const AddEditTask = ({ setPopup }) => {
       setPreSendValidator(true)
     }
 
+  }
+
+  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+
+  getProject(async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      setspinner(false)
+      // console.log(">>>>>>>>>>>", data.data)
+      setlistItems(data.data)
+    } else {
+      setspinner(false)
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  }, token)
+
+  const Project_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.title
+      }
+      a.push(data);
+    });
+    return a
   }
 
   return (
@@ -197,16 +217,16 @@ const AddEditTask = ({ setPopup }) => {
                     <div className="Booking_slot_dropdown">
                       <McInput
                         type={"picker"}
-                        name={"PROJECT NAME"}
+                        name={"PROJECT"}
                         id="project_ref"
                         required={true}
                         valid={setproject_namevalid}
                         sendcheck={preSendValidator}
                         value={project_ref}
                         onchange={setproject_ref}
-                        options={[
-                          { "key": "0", "value": "MCBDE" },
-                        ]}
+                        options={
+                          Project_name()
+                        }
                       />
                     </div>
                   </div>
@@ -254,7 +274,6 @@ const AddEditTask = ({ setPopup }) => {
                       />
                     </div>
                   </div>
-
 
                   <div className="inputfield_sub_container">
                     <div className="Booking_slot_dropdown">
