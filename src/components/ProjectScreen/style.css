@@ -1,5 +1,14 @@
 .project_details {
-    display: flex
+    display: flex;
+    padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
+    border-width: 0;
+    border-bottom-width: calc(0.01vw + 0.03vh + 0.01vmin);
+    border-color: var(--color_7);
+    border-style: solid;
+}
+
+.project_details:last-of-type {
+    border-style: none !important;
 }
 
 .project_left_container {
@@ -27,7 +36,7 @@
     text-decoration: underline;
     text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
     text-decoration-color: var(--color_7);
-    padding-bottom: calc(0.17vw + 0.51vh + 0.17vmin);
+    padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
 }
 
 .project_description {
@@ -36,7 +45,7 @@
     color: var(--color_1);
     font-size: var(--TS8);
     text-align: left;
-    padding-bottom: calc(0.17vw + 0.51vh + 0.17vmin);
+    padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
 }
 
 .project_right_container {

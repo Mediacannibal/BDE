@@ -1,4 +1,4 @@
-import Spinner from 'components/Common/Spinner'
+import Spinner, { ProgressBar } from 'components/Common/Spinner'
 import AddEditProject from 'components/Forms/AddEditProject'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -22,20 +22,7 @@ const ProjectScreen = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
-
-  const [listItems, setlistItems] = useState([
-    {
-      "zero": "1",
-      "Row_name": "Customer 1",
-      "one": "00",
-      "two": "90",
-      "three": "60",
-      "four": "20",
-      "five": "30",
-      "six": "40",
-      "seven": "50",
-    }
-  ])
+  const [listItems, setlistItems] = useState([])
 
   let params = useParams();
   useEffect(() => {
@@ -134,16 +121,16 @@ const ProjectScreen = (props: any) => {
   }
 
   const BranchTitle = () => {
-    return listItems.map((ele: any, key: any) => {
-      return <div>{"Branch:"}<span>{ele.project_ref}</span></div>
+    return listItems.map((element: any, key: any) => {
+      return <div>{"Branch:"}<span>{element.branch_ref}</span></div>
     })
 
   }
 
-  const Card = ({ card_title, card_body }) => {
+  const Card = ({ classname, card_title, card_body }) => {
     const [card_open, setCard_open] = useState(true)
     return (
-      <div className='dashboard_card'>
+      <div className={'dashboard_card ' + classname}>
         <div className='card_title'>
           {card_title}
           <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
@@ -160,12 +147,6 @@ const ProjectScreen = (props: any) => {
   return (
 
     <div className="main">
-      {spinner ?
-        <div className="spinner_fullscreen_div">
-          <Spinner />
-        </div> :
-        null
-      }
 
       {popup &&
         <AddEditProject
@@ -176,48 +157,38 @@ const ProjectScreen = (props: any) => {
       }
 
       <div className="body">
-
-        <Card
-          card_title="Branch: Name...."
-          card_body={
-            <>
-              <div className="project_details">
-                <div className="project_left_container">
-                  <img className='project_image' src={add} />
-                </div>
-                <div className="project_center_container">
-                  <div className="project_title1">Project Title........</div>
-                  <div className="project_description">Project Description........Project Description........Project Description........
-                  Project Description........Project Description........Project Description........Project Description........Project Description........
-                  Project Description........Project Description........Project Description........Project Description........Project Description........
-                  Project Description........Project Description........Project Description........Project Description........Project Description........
-                  Project Description........Project Description........Project Description........Project Description........</div>
-                </div>
-                <div className="project_right_container">
-                  <div className="project_stats">Type: ........</div>
-                  <div className="project_stats">Status: ........</div>
-                  <div className="project_stats">Start Date: ........</div>
-                  <div className="project_stats">End Date: ........</div>
-                </div>
-              </div>
-              <div className="internal_table">
-
-                <table id='internal_table'>
-                  <thead>
-                    <tr>{renderHeader()}</tr>
-                  </thead>
-                  <tbody>
-                    {
-                      listItems.map(renderBody)
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </>
-          }
-        />
+        {spinner ?
+          <div className="spinner_fullscreen_div">
+            <ProgressBar />
+          </div> :
+          <Card
+            classname="fullwidth"
+            card_title="Branch: "
+            card_body={
+              listItems.map((element: any, key: any) => {
+                return (
+                  <div className="project_details">
+                    <div className="project_left_container">
+                      <img className='project_image' src={add} />
+                    </div>
+                    <div className="project_center_container">
+                      <div className="project_title1">{element.title}</div>
+                      <div className="project_description">{element.description}</div>
+                    </div>
+                    <div className="project_right_container">
+                      <div className="project_stats">Type: {element.project_type}</div>
+                      <div className="project_stats">Status: {element.status}</div>
+                      <div className="project_stats">Start Date: {element.start_date}</div>
+                      <div className="project_stats">End Date: {element.end_date}</div>
+                    </div>
+                  </div>
+                )
+              })
+            }
+          />
+        }
       </div>
-    </div>
+    </div >
 
   );
 }
