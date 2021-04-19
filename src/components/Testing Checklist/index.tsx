@@ -70,7 +70,7 @@ const TestingChecklist = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log(">>>>>>>>>>>", data.data)
+        // console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
         let project_ref_array: Iterable<any> | null | undefined = []
         let number: Iterable<any> | null | undefined = []

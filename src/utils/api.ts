@@ -20,15 +20,6 @@ export const profile = (callback: (arg0: any, arg1: string) => void) => {
     .catch(err => callback(err, err.response))
 }
 
-export const editProfileImage = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
-  instance.put(`/api/user/edit_profile_image/` + id + `/`, data, {
-    headers: {
-      'Authorization': token ? `Token ${token}` : '',
-      'Content-Type': 'application/json'
-    }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
-}
 
 export const verifyUser = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/api/user/phone/email/otp_verify/`, data, {

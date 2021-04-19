@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getMainTask } from 'utils/api';
+import { getMainTask, getProject } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
@@ -16,11 +16,12 @@ const TaskList = (props: any) => {
 
   const [filterindicator, setfilterindicator] = useState(false)
 
-  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [unique_title, setunique_title] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
 
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
+  const [listItems, setlistItems] = useState([])
 
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
@@ -28,7 +29,8 @@ const TaskList = (props: any) => {
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
 
-  const [listItems, setlistItems] = useState([])
+  const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
   const [title, settitle] = useState([])
 
   let params = useParams();
@@ -41,8 +43,8 @@ const TaskList = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data)
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems1(data.data)
 
       } else {
         setspinner(false)
@@ -52,7 +54,24 @@ const TaskList = (props: any) => {
     }, token)
   }, [])
 
+  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
+  getProject(async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      setspinner(false)
+      // console.log(">>>>>>>>>>>", data.data)
+      setlistItems2(data.data)
+      let title: Iterable<any> | null | undefined = []
+      data.data.forEach((element: any) => {
+        title.push(element.title)
+      });
+      setunique_title(Array.from(new Set(title)));
+    } else {
+      setspinner(false)
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  }, token)
 
   const renderHeader = () => {
     let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
@@ -89,11 +108,21 @@ const TaskList = (props: any) => {
   }
 
   const Projecttitle = () => {
-
-    return listItems.map((ele: any, key: any) => {
-      return <div>{" Project:"}<span>{ele.project_ref}</span></div>
+    return listItems2.map((ele: any, key: any) => {
+      return <div>{" Project:"}<span>{ele.title}</span></div>
     })
+  }
 
+  const Project_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.title
+      }
+      a.push(data);
+    });
+    return a
   }
 
   const screen_header_elements = () => {
@@ -163,7 +192,7 @@ const TaskList = (props: any) => {
             }} >
             <option hidden value="">Project Name</option>
             {
-              unique_project_ref.map((element) => {
+              unique_title.map((element) => {
                 return <option value={element}>{element}</option>
               })
             }
@@ -261,7 +290,7 @@ const TaskList = (props: any) => {
               getMainTask(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
-                  setlistItems(data.data)
+                  setlistItems1(data.data)
                   setfilterindicator(true)
                 } else {
                   setspinner(false)
@@ -305,13 +334,14 @@ const TaskList = (props: any) => {
                 </thead>
                 <tbody>
                   {
-                    listItems.map(renderBody)
+                    listItems1.map(renderBody)
                   }
                 </tbody>
               </table>
             </div>
           }
         />
+
       </div>
 
       <Footer />

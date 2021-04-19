@@ -40,7 +40,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}api/auth/profile",
+            "name": "{{url}}api/user/profile/",
             "id": "ad891794-5379-40b0-9ca4-8d2355ace3c3",
             "protocolProfileBehavior": {
                 "disableBodyPruning": true
@@ -86,7 +86,8 @@
                 }, {
                     "key": "Authorization",
                     "value": "Token {{token}}",
-                    "type": "text"
+                    "type": "text",
+                    "disabled": true
                 }],
                 "body": {
                     "mode": "raw",
@@ -182,8 +183,12 @@
                     "type": "text"
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n\t\"username_email_or_phone\": \"adiakash3@gamil.com\"\r\n}"
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "email_otp",
+                        "value": "4338",
+                        "type": "text"
+                    }]
                 },
                 "url": "{{url}}api/user/phone/email/verify/"
             },
@@ -205,7 +210,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\"company_name\": \"kiran company_name\",\r\n\"branch_name\": \"kiran branch_name1\",\r\n\"username\" :\"kiran raj\",\r\n\"email\": \"kiranraj123@gmail.com\",\r\n\"firstname\": \"kiran_firstname\",\r\n\"lastname\": \"kiran lastname\",\r\n\"password\": \"password@123\",\r\n\"phone\": \"908699744\",\r\n\"user_type\": \"ADMIN\"\r\n }"
+                    "raw": "{\r\n\"company_name\": \"kiran company_name\",\r\n\"branch_name\": \"kiran branch_name1\",\r\n\"username\" :\"kiran wwlname\",\r\n\"email\": \"kiranraj1234@gmail.com\",\r\n\"firstname\": \"kiran_firstname\",\r\n\"lastname\": \"kiran lastname\",\r\n\"password\": \"password@123\",\r\n\"phone\": \"9086997447\",\r\n\"user_type\": \"ADMIN\"\r\n }"
                 },
                 "url": "{{url}}api/user/social/signup/normal/"
             },
@@ -217,6 +222,120 @@
                 "method": "GET",
                 "header": [],
                 "url": "{{url}}api/user/list/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/email/otp_validation/",
+            "id": "dbdb6a7f-0f29-47c1-912c-8801af70f20c",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "email_otp",
+                        "value": "2980",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}api/user/email/otp_validation/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/userlist/",
+            "id": "1e210e0f-174c-43f1-bb81-ddff8848543a",
+            "request": {
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "url": "{{url}}api/user/userlist/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/userlist/",
+            "id": "c41200d7-fcf0-4f0e-9cc0-2e1865f15a25",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n        \"user_list_type\": \"PROJECTS\",\r\n        \"role\": \"Admin\",\r\n        \"deleted_by\": 1\r\n    }"
+                },
+                "url": "{{url}}api/user/userlist/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/userlist/edit/2/",
+            "id": "30e5e096-3e52-42ba-98a8-dc3292ee5a60",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "user_list_type",
+                        "value": "BRANCH",
+                        "type": "text"
+                    }, {
+                        "key": "role",
+                        "value": "User",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}api/user/userlist/edit/2/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/userlist/deleted/",
+            "id": "8a6fe626-39fa-4f22-aeb3-64d394abe4c4",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }, {
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "user_id",
+                        "value": "10",
+                        "type": "text",
+                        "disabled": true
+                    }, {
+                        "key": "delete",
+                        "value": "ff",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}api/user/userlist/deleted/10/"
             },
             "response": []
         }],
@@ -239,7 +358,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "    {\r\n        \"Company_title\": \"some ddd string\",\r\n        \"locations\": \"asdfg\",\r\n        \"contact_number\": \"sdf\",\r\n        \"Company_size\": \"sdf\",\r\n        \"address\": \"sdaf\",\r\n        \"created_by\": \"1\",\r\n        \"deleted_at\": \"2021-04-01\",\r\n        \"created_at\": \"2021-04-01T16:13:45.306055Z\",\r\n        \"updated_at\": \"2021-04-01T16:13:45.306055Z\"\r\n    }"
+                    "raw": " {\r\n        \"company_title\": \"wte4dfghyrut6i\",\r\n        \"locations\": \"qwdegth\",\r\n        \"contact_number\": \"900869979\",\r\n        \"company_size\": \"frgthyj\",\r\n        \"address\": \"swdefrgthyjukl;\",\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T04:32:03.046093Z\",\r\n        \"updated_at\": \"2021-04-19T10:22:18.035156Z\",\r\n        \"created_by\": 3,\r\n        \"updated_by\": 3,\r\n        \"deleted_by\": null\r\n    }"
                 },
                 "url": "{{url}}company/add/"
             },
@@ -255,47 +374,6 @@
                     "type": "text"
                 }],
                 "url": "{{url}}company/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/project/add/",
-            "id": "9332b21b-81da-4534-90b2-d58ca3dc23c0",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": ""
-                },
-                "url": "{{url}}company/project/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/project/add/",
-            "id": "2a9f3d48-5c06-4e04-bbc1-1efb53a46d16",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"id\": 4,\r\n        \"project_type\": \"DEVELOPMENT\",\r\n        \"title\": \"WATER\",\r\n        \"description\": \"SADEFGR\",\r\n        \"file_links\": \"QSDW\",\r\n        \"logo\": \"SD\",\r\n        \"linked_tasks\": \"SD\",\r\n        \"status\": null,\r\n        \"start_date\": \"2021-04-08\",\r\n        \"end_date\": \"2021-04-08\",\r\n        \"deleted_at\": \"2021-04-08\",\r\n        \"created_at\": \"2021-04-08T16:50:52.667868Z\",\r\n        \"updated_at\": \"2021-04-08T16:50:52.667868Z\",\r\n        \"branch\": 1,\r\n        \"created_by\": 2,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
-                },
-                "url": "{{url}}company/project/add/"
             },
             "response": []
         }, {
@@ -327,30 +405,9 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\r\n        \"branch_name\": \"wdddds\",\r\n        \"Company_ref\": 2,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
+                    "raw": "{\r\n\r\n        \"branch_name\": \"wdddds\",\r\n        \"company_ref\": \"dhfdf\",\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
                 },
                 "url": "{{url}}company/branch/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/project/edit/1/",
-            "id": "4dc13088-0b43-4bec-93e9-afa0fb3b2b40",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n    \"branch\": \"hp\",\r\n    \"project_type\": \"DEVELOPMENTS\",\r\n    \"title\": \"wdef\",\r\n    \"description\": \"wd\",\r\n    \"file_links\": \"swd\",\r\n    \"logo\": \"sdfvvc\",\r\n    \"linked_tasks\": \"sda\",\r\n    \"status\": \"START\",\r\n    \"start_date\": \"2021-04-06\",\r\n    \"end_date\": \"2021-04-06\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-06T06:24:03.657302Z\",\r\n    \"updated_at\": \"2021-04-06T06:24:03.657302Z\"\r\n}"
-                },
-                "url": "{{url}}company/project/edit/1/"
             },
             "response": []
         }, {
@@ -386,98 +443,40 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n    \"id\": 1,\r\n    \"Company_title\": \"some string\",\r\n    \"locations\": \"asdfvb\",\r\n    \"contact_number\": \"sADddfsdfF\",\r\n    \"Company_size\": \"sdddfdfadf\",\r\n    \"address\": \"sWdfdfdfdffsfdDASF\",\r\n    \"created_by\": \"ASD\",\r\n    \"updated_by\": \"SDA\",\r\n    \"deleted_by\": \"ASD\",\r\n    \"deleted_at\": \"2021-04-06\",\r\n    \"created_at\": \"2021-04-05T19:55:28.697793Z\",\r\n    \"updated_at\": \"2021-04-05T19:55:28.697793Z\"\r\n}"
+                    "raw": " {\r\n        \"company_title\": \"wte4yffrut6i\",\r\n        \"locations\": \"qwdegth\",\r\n        \"contact_number\": \"9008699748\",\r\n        \"company_size\": \"frgthyj\",\r\n        \"address\": \"swdefrgthyjukl;\",\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T04:32:03.046093Z\",\r\n        \"updated_at\": \"2021-04-19T10:22:18.035156Z\",\r\n        \"created_by\": 3,\r\n        \"updated_by\": 3,\r\n        \"deleted_by\": null\r\n    }"
                 },
-                "url": "{{url}}company/edit/1/"
+                "url": "{{url}}company/edit/2/"
             },
             "response": []
         }, {
-            "name": "{{url}}company/project_user/add/",
-            "id": "cad4d66b-1b79-418f-ab79-841e17d9669a",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": "{{url}}company/project_user/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/project_user/add/",
-            "id": "4b6f6038-d014-489d-815f-71ab0e7aabb0",
+            "name": "{{url}}company/company/delete/1/",
+            "id": "d8de8175-225a-46ac-8d07-c0211d4d30a4",
             "request": {
                 "method": "POST",
                 "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }, {
                     "key": "Authorization",
                     "value": "Token {{token}}",
                     "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"roll\": \"ADMIN\",\r\n        \"deleted_at\": \"2021-04-07\",\r\n        \"project_ref\": 2,\r\n        \"user_ref\": 1,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 2,\r\n        \"deleted_by\": 2\r\n    }"
-                },
-                "url": "{{url}}company/project_user/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/branch_user/add/",
-            "id": "ab1897ca-b3f1-4b56-ab74-c8d636a997a2",
-            "request": {
-                "method": "GET",
-                "header": [{
+                }, {
+                    "warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
                     "key": "Content-Type",
                     "value": "application/json",
                     "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "url": "{{url}}company/branch_user/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/branch_user/add/",
-            "id": "9fc69bcd-e588-40c9-8718-3f2b5a792f76",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"roll\": \"USER\",\r\n        \"deleted_at\": \"2021-04-09\",\r\n        \"user_ref\": 2,\r\n        \"branch_ref\": 2,\r\n        \"created_by\": 2,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "delete",
+                        "value": "true",
+                        "type": "text"
+                    }]
                 },
-                "url": "{{url}}company/branch_user/add/"
+                "url": "{{url}}company/company/delete/1/"
             },
             "response": []
         }, {
-            "name": "{{url}}company/company_user/add/",
-            "id": "1df94c46-0322-44e9-9b24-c92ca6411964",
-            "protocolProfileBehavior": {
-                "disableBodyPruning": true
-            },
-            "request": {
-                "method": "GET",
-                "header": [],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"roll\": \"ADMIN\",\r\n        \"deleted_at\": \"2021-04-09\",\r\n        \"user_ref\": 2,\r\n        \"project_ref\": 4,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
-                },
-                "url": "{{url}}company/company_user/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/company_user/add/",
-            "id": "83455d75-9efd-438c-a8b9-21de8f084207",
+            "name": "{{url}}company/branch/delete/1/",
+            "id": "a238556e-c865-4065-969b-2ef0893059d8",
             "request": {
                 "method": "POST",
                 "header": [{
@@ -490,73 +489,14 @@
                     "type": "text"
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"roll\": \"ADMIN\",\r\n        \"deleted_at\": \"2021-04-09\",\r\n        \"user_ref\": 2,\r\n        \"project_ref\": 4,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "delete",
+                        "value": "True",
+                        "type": "text"
+                    }]
                 },
-                "url": "{{url}}company/company_user/add/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/project_user/edit/1/",
-            "id": "df970f6e-7140-4731-9d43-ed477c21aa34",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": " {\r\n        \"id\": 2,\r\n        \"roll\": \"ADMIN\",\r\n        \"project_ref\": 2,\r\n        \"deleted_at\": \"2021-04-08\",\r\n        \"user_ref\": 1,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 2,\r\n        \"deleted_by\": 2\r\n    }"
-                },
-                "url": "{{url}}company/project_user/edit/1/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/company_user/edit/1/",
-            "id": "b7165223-69fc-4eeb-a598-74f61391e57f",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }, {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\r\n        \"roll\": \"ADMIN\",\r\n        \"deleted_at\": \"2021-04-11\",\r\n        \"user_ref\": 2,\r\n        \"project_ref\": 4,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
-                },
-                "url": "{{url}}company/company_user/edit/1/"
-            },
-            "response": []
-        }, {
-            "name": "{{url}}company/company_user/edit/1/",
-            "id": "f8489fb9-9f3a-420f-9b7f-10a0c14d4ad9",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }, {
-                    "key": "Authorization",
-                    "value": "Token {{token}}",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": " {\r\n        \"roll\": \"USER\",\r\n        \"deleted_at\": \"2021-04-10\",\r\n        \"user_ref\": 2,\r\n        \"project_ref\": 4,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": 1\r\n    }"
-                },
-                "url": "{{url}}company/company_user/edit/1/"
+                "url": "{{url}}company/branch/delete/1/"
             },
             "response": []
         }],
@@ -579,7 +519,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"qsdlukyjthgfvdccwef\",\r\n        \"domain\": \"frontend\",\r\n        \"description\": \"xsd\",\r\n        \"remarks\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"time_spent\": \"12min\",\r\n        \"parent_child\": \"12\",\r\n        \"assigned_by\": \"kiran\",\r\n        \"assigned_to\": \"kiran\",\r\n        \"deleted_at\": \"2021-04-16\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": 7,\r\n        \"updated_by\": 4,\r\n        \"deleted_by\": 2\r\n    }"
+                    "raw": " {\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swdfv\",\r\n        \"domain\": \"backend\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwbnhjh,.k,mghfdssef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wddghjkyl;ilkjhgfdsdgrthukef\",\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"assisted_by\": null,\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null\r\n    }"
                 },
                 "url": "{{url}}tasks/maintask/add/"
             },
@@ -597,14 +537,13 @@
                     "value": "Token {{token}}",
                     "type": "text"
                 }, {
-                    "key": "",
-                    "value": "",
-                    "type": "text",
-                    "disabled": true
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n        \"id\": 1,\r\n        \"project_ref\": \"that is projects isro\",\r\n        \"task_type\": \"BUG\",\r\n        \"status\": \"In Progress\",\r\n        \"title\": \"may be not just\",\r\n        \"description\": \"wdwfgedf\",\r\n        \"remarks\": \"sdfdeffe\",\r\n        \"image_link\": null,\r\n        \"linked_logs\": null,\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null,\r\n        \"deleted_at\": null\r\n    }"
+                    "raw": " {\r\n        \"id\": 4,\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swdfv\",\r\n        \"domain\": \"backend\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wdef\",\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"assisted_by\": null,\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null\r\n    }"
                 },
                 "url": "{{url}}tasks/maintask/add/"
             },
@@ -625,9 +564,34 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n        \"id\": 73,\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"qsdkjcsdhkjchdskjhwef\",\r\n        \"domain\": \"frontend\",\r\n        \"description\": \"xsd\",\r\n        \"remarks\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"time_spent\": \"12min\",\r\n        \"parent_child\": \"12\",\r\n        \"assigned_by\": \"kiran\",\r\n        \"assigned_to\": \"kiran\",\r\n        \"deleted_at\": \"2021-04-12\",\r\n        \"created_at\": \"2021-04-12T05:56:26.430831Z\",\r\n        \"updated_at\": \"2021-04-12T05:56:26.430831Z\",\r\n        \"project_ref\": 4,\r\n        \"created_by\": 7,\r\n        \"updated_by\": 4,\r\n        \"deleted_by\": 2\r\n    }"
+                    "raw": " {\r\n        \"id\": 4,\r\n        \"priority\": \"High\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swdfv\",\r\n        \"domain\": \"backend\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wdef\",\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"assisted_by\": null,\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null\r\n    }"
                 },
-                "url": "{{url}}tasks/maintask/edit/76/"
+                "url": "{{url}}tasks/maintask/edit/4/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks/maintask/delete/1/",
+            "id": "21f8ce9d-c3d0-4685-aef9-c88f73aa474a",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "delete",
+                        "value": "Fasle",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}tasks/maintask/delete/4/"
             },
             "response": []
         }, {
@@ -968,6 +932,120 @@
                 "url": "{{url}}tasks/backend/list/"
             },
             "response": []
+        }, {
+            "name": "{{url}}tasks/project/delete/2/",
+            "id": "783243d3-0a5c-44d0-80bf-53829c8a6b1f",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "delete",
+                        "value": "false",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}tasks/project/delete/2/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks/tasklog/delete/1/",
+            "id": "f29c5b20-6d5d-4e04-bbf2-8e33f1d2fe96",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "delete",
+                        "value": "false",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}tasks/tasklog/delete/1/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks/project/add/",
+            "id": "1982eeac-ae7a-4c00-b590-44b69150636d",
+            "request": {
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "url": "{{url}}tasks/project/add/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks/project/add/",
+            "id": "4f4a1b5b-6c5a-48ef-8607-028227670d74",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n        \"id\": 2,\r\n        \"company_ref\": \"swcdcdcdqd\",\r\n        \"branch_ref\": \"sdscdcdcdf\",\r\n        \"design\": true,\r\n        \"development\": true,\r\n        \"marketting\": true,\r\n        \"title\": \"qwergthj\",\r\n        \"description\": \"werthy\",\r\n        \"logo\": \"http://127.0.0.1:8000/admin/company/project/add/\",\r\n        \"start_date\": \"2021-04-19\",\r\n        \"end_date\": \"2021-04-20\",\r\n        \"deleted_at\": \"\",\r\n        \"created_at\": \"2021-04-19T04:53:27.796027Z\",\r\n        \"updated_at\": \"2021-04-19T04:53:27.796027Z\",\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": null\r\n    }"
+                },
+                "url": "{{url}}tasks/project/add/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}tasks/project/edit/3/",
+            "id": "67d17c5f-b613-4f9b-b2a3-e1f5cd6c4c62",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "title",
+                        "value": "sdf",
+                        "type": "text"
+                    }]
+                },
+                "url": "{{url}}tasks/project/edit/3/"
+            },
+            "response": []
         }],
         "id": "9b7e6c12-0153-417a-a3ce-c1d64a658c18"
     }, {
@@ -1006,15 +1084,4 @@
         }],
         "id": "83a1ab5c-cca9-4110-86e0-4ef21b082c21"
     }]
-
 }
-
-{
-    "request_status": 1,
-    "results": {
-        "email": "kiranraj4939@gmail.com",
-        "otp": "MTg5NA"
-    },
-    "msg": "OTP sent, please check your mobile"
-}
-

@@ -3,7 +3,7 @@ import SimpleEditor from 'react-simple-image-editor';
 import React, { useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import { newUserSignup } from 'utils/api';
+import { getCompanyDetails, newUserSignup } from 'utils/api';
 import Popup from 'components/Common/Popup';
 import { useHistory } from 'react-router-dom';
 import './style.css'
@@ -39,8 +39,9 @@ const NewUserForm = ({ setPopup }) => {
   const [usertypevalid, setusertypevalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
+  const [spinner, setspinner] = useState(false)
 
-  const [list, setlist] = useState([{
+  const [listItems, setlistItems] = useState([{
     "company_name": "",
     "location": "",
     "branch_name": "",
@@ -82,6 +83,32 @@ const NewUserForm = ({ setPopup }) => {
     else {
       setPreSendValidator(true)
     }
+  }
+
+  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+
+  getCompanyDetails(async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      setspinner(false)
+      // console.log(">>>>>>>>>>>", data.data)
+      setlistItems(data.data)
+    } else {
+      setspinner(false)
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
+  }, token)
+
+  const Company_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.Company_title
+      }
+      a.push(data);
+    });
+    return a
   }
 
   return (
@@ -148,7 +175,7 @@ const NewUserForm = ({ setPopup }) => {
                     value={company_name}
                     onchange={setcompany_name}
                     options={[
-                      { "key": "0", "value": "MEDIA CANNIBAL" },
+                      Company_name()
                     ]}
                   />
                 </div>

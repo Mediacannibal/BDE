@@ -44,7 +44,7 @@ const ProjectScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log(">>>>>>>>>>>", data.data)
+        // console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
         let branch: Iterable<any> | null | undefined = []
         let project_type: Iterable<any> | null | undefined = []
