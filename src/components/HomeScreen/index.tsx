@@ -38,7 +38,7 @@ const HomeScreen = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        console.log(">>>>>>>>>>>", data.data)
+        // console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data)
       } else {
         setspinner(false)
@@ -52,7 +52,7 @@ const HomeScreen = (props: any) => {
   let token = JSON.parse(String(localStorage.getItem("AuthToken")))
   getMainTask(async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log(">>>>>>>>>>>", data.data)
+      // console.log(">>>>>>>>>>>", data.data)
       setlistItems2(data.data)
     } else {
       setspinner(false)
