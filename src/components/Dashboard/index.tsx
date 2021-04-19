@@ -52,7 +52,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
-            setprofile_picture(profile_picture)
+            setprofile_picture(((profile_picture === undefined) || (profile_picture === null)) ? defaultusericon : profile_picture)
             console.log("someidentifier", profile_picture)
         }
     }, [])
@@ -173,8 +173,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             }} />
                             <img className='header_icon' src={bell} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
-                                <img className='user_icon'
-                                    src={(profile_picture === undefined) ? defaultusericon : profile_picture} />
+                                <img className='user_icon' src={profile_picture} />
                                 <div className='header_title'>{username}</div>
                                 <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
 
@@ -196,7 +195,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                             <div className="header_settings"
                                                 onClick={() => { setsettings_popup(true) }}>
                                                 <img className='header_icon' src={settings} />
-                                                <div>Settings</div>
+                                                <div className='header_title'>Settings</div>
                                             </div>
                                         </div>
                                         <div className='user_menu_item'

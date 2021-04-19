@@ -34,6 +34,10 @@
     padding-right: var(--TS11) !important;
 }
 
+.fullwidth {
+    width: 100% !important;
+}
+
 :root {
     --TS1: calc(1.15vw + 3.45vh + 1.15vmin);
     --TS2: calc(0.79vw + 2.37vh + 0.79vmin);
@@ -453,13 +457,12 @@ tr:nth-child(even) {
 
 .spinner_fullscreen_div {
     width: 100%;
-    height: 100%;
+    height: 80%;
     position: fixed;
-    top: 0px;
     z-index: 20;
-    background-color: var(--color_5);
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .sub_title {
