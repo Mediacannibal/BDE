@@ -16,11 +16,12 @@ const TaskList = (props: any) => {
 
   const [filterindicator, setfilterindicator] = useState(false)
 
-  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [unique_title, setunique_title] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
 
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
+  const [listItems, setlistItems] = useState([])
 
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
@@ -60,7 +61,11 @@ const TaskList = (props: any) => {
       setspinner(false)
       // console.log(">>>>>>>>>>>", data.data)
       setlistItems2(data.data)
-
+      let title: Iterable<any> | null | undefined = []
+      data.data.forEach((element: any) => {
+        title.push(element.title)
+      });
+      setunique_title(Array.from(new Set(title)));
     } else {
       setspinner(false)
       console.log('error ' + JSON.stringify(data));
@@ -106,6 +111,18 @@ const TaskList = (props: any) => {
     return listItems2.map((ele: any, key: any) => {
       return <div>{" Project:"}<span>{ele.title}</span></div>
     })
+  }
+
+  const Project_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.title
+      }
+      a.push(data);
+    });
+    return a
   }
 
   const screen_header_elements = () => {
@@ -175,7 +192,7 @@ const TaskList = (props: any) => {
             }} >
             <option hidden value="">Project Name</option>
             {
-              unique_project_ref.map((element) => {
+              unique_title.map((element) => {
                 return <option value={element}>{element}</option>
               })
             }
