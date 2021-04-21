@@ -18,9 +18,6 @@ const AddEditTest = ({ setPopup }) => {
 
   const [development, setdevelopment] = useState('')
   const [tasktype, settasktype] = useState('')
-
-
-
   const [test_title, settest_title] = useState('');
   const [test_description, settest_description] = useState('');
   const [potraitcheckbox, setpotraitcheckbox] = useState('')

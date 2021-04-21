@@ -1,9 +1,9 @@
 import McInput from 'components/Common/McInput'
 import SimpleEditor from 'react-simple-image-editor';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import { getCompanyDetails, newUserSignup } from 'utils/api';
+import { getBranchDetails, getCompanyDetails, newUserSignup } from 'utils/api';
 import Popup from 'components/Common/Popup';
 import { useHistory } from 'react-router-dom';
 import './style.css'
@@ -41,26 +41,15 @@ const NewUserForm = ({ setPopup }) => {
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-  const [listItems, setlistItems] = useState([{
-    "company_name": "",
-    "location": "",
-    "branch_name": "",
-    "username": "",
-    "firstname": "",
-    "lastname": "",
-    "email": "",
-    "phone": "",
-    "user_type": "",
-    "password": "",
-  }])
+  const [listItems, setlistItems] = useState([])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data); 
   };
-  console.log(errors);
+  // console.log(errors);
 
   const Validate = () => {
     console.log(companynamevalid, branchvalid, usernamevalid,
@@ -85,26 +74,52 @@ const NewUserForm = ({ setPopup }) => {
     }
   }
 
-  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+  useEffect(() => {
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-  getCompanyDetails(async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      setspinner(false)
-      // console.log(">>>>>>>>>>>", data.data)
-      setlistItems(data.data)
-    } else {
-      setspinner(false)
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
-  }, token)
+    getCompanyDetails(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>777>>>>>", data.data.results)
+        setlistItems(data.data.results)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+
+    getBranchDetails(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>777>>>>>", data.data.results)
+        setlistItems(data.data.results)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+  }, [])
 
   const Company_name = () => {
     let a: any = [];
     listItems.forEach(element => {
       let data = {
         "key": element.id,
-        "value": element.Company_title
+        "value": element.company_title
+      }
+      a.push(data);
+    });
+    return a
+  }
+
+  const Branch_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.branch_name
       }
       a.push(data);
     });
@@ -174,9 +189,9 @@ const NewUserForm = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={company_name}
                     onchange={setcompany_name}
-                    options={[
+                    options={
                       Company_name()
-                    ]}
+                    }
                   />
                 </div>
               </div>
@@ -192,9 +207,9 @@ const NewUserForm = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={branch_name}
                     onchange={setbranch_name}
-                    options={[
-                      { "key": "0", "value": "DEV" },
-                    ]}
+                    options={
+                      Branch_name()
+                    }
                   />
                 </div>
               </div>

@@ -74,7 +74,7 @@ const TaskDetails = () => {
         // getBidlogdata(async (data: any, errorresponse: any) => {
         //   if (data.status === 200) {
         setspinner(false)
-        //     setlistItems(data.data)
+        //     setlistItems(data.data.results)
         //     let amount_arry: Iterable<any> | null | undefined = []
         //     let bookeddate_arry: Iterable<any> | null | undefined = []
         //     let bracketcombination_arry: Iterable<any> | null | undefined = []
@@ -82,7 +82,7 @@ const TaskDetails = () => {
         //     let name_arry: Iterable<any> | null | undefined = []
         //     let number_arry: Iterable<any> | null | undefined = []
         //     let user_arry: Iterable<any> | null | undefined = []
-        //     data.data.forEach((element: any) => {
+        //     data.data.results.forEach((element: any) => {
         //       amount_arry.push(element.amount)
         //       bookeddate_arry.push(element.bookeddate)
         //       bracketcombination_arry.push(element.bracketcombination)
@@ -129,7 +129,7 @@ const TaskDetails = () => {
           // getBidlogbyagentnumberdata(async (data: any, errorresponse: any) => {
           //   if (data.status === 200) {
           //     setspinner(false)
-          //     setlistItems(data.data)
+          //     setlistItems(data.data.results)
           //   } else {
           //     setspinner(false)
           //     console.log('error ' + JSON.stringify(data));
@@ -143,7 +143,7 @@ const TaskDetails = () => {
           // getBidlogbyagentdata(async (data: any, errorresponse: any) => {
           //   if (data.status === 200) {
           //     setspinner(false)
-          //     setlistItems(data.data)
+          //     setlistItems(data.data.results)
           //   } else {
           //     setspinner(false)
           //     console.log('error ' + JSON.stringify(data));

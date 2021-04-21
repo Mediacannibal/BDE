@@ -43,9 +43,26 @@ const TaskList = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
-        setlistItems1(data.data)
+        // console.log(">>>>>>>>>>>", data.data.results)
+        setlistItems1(data.data.results)
 
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>123123>>>>>", data.data.results)
+        setlistItems2(data.data.results)
+        let title: Iterable<any> | null | undefined = []
+        data.data.results.forEach((element: any) => {
+          title.push(element.title)
+        });
+        setunique_title(Array.from(new Set(title)));
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -54,24 +71,7 @@ const TaskList = (props: any) => {
     }, token)
   }, [])
 
-  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-  getProject(async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      setspinner(false)
-      // console.log(">>>>>>>>>>>", data.data)
-      setlistItems2(data.data)
-      let title: Iterable<any> | null | undefined = []
-      data.data.forEach((element: any) => {
-        title.push(element.title)
-      });
-      setunique_title(Array.from(new Set(title)));
-    } else {
-      setspinner(false)
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
-  }, token)
 
   const renderHeader = () => {
     let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
@@ -100,7 +100,7 @@ const TaskList = (props: any) => {
         <td>{element.priority}</td>
         <td>{element.domain}</td>
         <td>{element.description}</td>
-        <td>{element.assigned_by}</td>
+        <td>{element.assigned_to}</td>
         <td>{element.image_link}</td>
         <td>{element.status}</td>
       </tr >
@@ -290,7 +290,7 @@ const TaskList = (props: any) => {
               getMainTask(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
-                  setlistItems1(data.data)
+                  setlistItems1(data.data.results)
                   setfilterindicator(true)
                 } else {
                   setspinner(false)

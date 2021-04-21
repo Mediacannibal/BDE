@@ -12,12 +12,14 @@ import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
-import { verifyUser } from 'utils/api';
+import { generateOTP, otpValidation } from 'utils/api';
 
 const LoginScreen = () => {
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
+  const [otp, setotp] = useState({ value: '', error: '' });
+
 
 
   const handleKeyPress = (event: { key: string; }) => {
@@ -67,7 +69,7 @@ const LoginScreen = () => {
 
           let activationdata = new FormData()
           activationdata.append('username', temp1.username_email_or_phone)
-          activationdata.append('auth_provider', "trt")
+          activationdata.append('auth_provider', "MC")
           //code
 
           validateData(activationdata, decode(storedotp), code)
@@ -106,7 +108,7 @@ const LoginScreen = () => {
       username_email_or_phone: username_email_or_phone.value,
     }
     localStorage.setItem('username_email_or_phone', JSON.stringify(data));
-    verifyUser(_verifyCallback, data);
+    generateOTP(_verifyCallback, data);
 
   };
 

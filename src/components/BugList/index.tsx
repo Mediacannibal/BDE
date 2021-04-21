@@ -67,9 +67,9 @@ const BugList = (props: any) => {
     //   if (params.id === undefined) {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        console.log("!!!!!!!!!!!!!!!!", data.data)
+        // console.log("!!!!!!!!!!!!!!!!", data.data)
         setspinner(false)
-        setlistItems(data.data)
+        setlistItems(data.data.results)
         let project_ref_array: Iterable<any> | null | undefined = []
         let bug_title: Iterable<any> | null | undefined = []
         let protrait: Iterable<any> | null | undefined = []
@@ -78,7 +78,7 @@ const BugList = (props: any) => {
         let ios: Iterable<any> | null | undefined = []
         let browser: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
-        data.data.forEach((element: any) => {
+        data.data.results.forEach((element: any) => {
           project_ref_array.push(element.project_ref)
           bug_title.push(element.bug_title)
           protrait.push(element.protrait)
@@ -286,7 +286,7 @@ const BugList = (props: any) => {
               getBidlogfiltereddata(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
-                  setlistItems(data.data)
+                  setlistItems(data.data.results)
                   let amount_arry: Iterable<any> | null | undefined = []
                   let bookeddate_arry: Iterable<any> | null | undefined = []
                   let bracketcombination_arry: Iterable<any> | null | undefined = []

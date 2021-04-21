@@ -2,7 +2,7 @@ import Spinner, { ProgressBar } from 'components/Common/Spinner'
 import AddEditProject from 'components/Forms/AddEditProject'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getProject, listingTask } from 'utils/api'
+import { getProject, getUserlist, listingTask, userListing } from 'utils/api'
 import './style.css'
 import * as add from '../../assets/add.svg'
 import * as up_down_arrow from '../../assets/up_down.svg'
@@ -19,10 +19,16 @@ const ProjectScreen = (props: any) => {
   const [unique_start_date, setunique_start_date] = useState(false)
   const [unique_end_date, setunique_end_date] = useState(false)
 
+  const [unique_user, setunique_user] = useState(false)
+  const [unique_user_list_type, setunique_user_list_type] = useState(false)
+  const [unique_ref, setunique_ref] = useState(false)
+  const [unique_role, setunique_role] = useState(false)
+
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
   const [listItems, setlistItems] = useState([])
+  const [list, setlist] = useState([])
 
   let params = useParams();
   useEffect(() => {
@@ -45,7 +51,7 @@ const ProjectScreen = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data)
+        setlistItems(data.data.results)
         let branch: Iterable<any> | null | undefined = []
         let project_type: Iterable<any> | null | undefined = []
         let title: Iterable<any> | null | undefined = []
@@ -55,7 +61,7 @@ const ProjectScreen = (props: any) => {
         let status: Iterable<any> | null | undefined = []
         let start_date: Iterable<any> | null | undefined = []
         let end_date: Iterable<any> | null | undefined = []
-        data.data.forEach((element: any) => {
+        data.data.results.forEach((element: any) => {
           branch.push(element.branch)
           project_type.push(element.project_type)
           title.push(element.title)
@@ -82,13 +88,25 @@ const ProjectScreen = (props: any) => {
       }
     }, token)
 
+    userListing((data: any, errorresponse: any) => {
+
+      if (data.status === 200) {
+        setspinner(false)
+        console.log('response ' + JSON.stringify(data));
+        setlist(data.data.results)
+        // console.log("<><><><><>", data.data);
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      };
+    }, token)
   }, [])
 
 
+
   const renderHeader = () => {
-    let headerElement = ['Project Type', 'Title', 'Description',
-      // 'File Links', 
-      'Status', 'Start Date', 'End Date']
+    let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -96,16 +114,22 @@ const ProjectScreen = (props: any) => {
   }
 
   const renderBody = (element: any) => {
+
     return (
-      <tr key={element.branch}>
-        <td>{element.project_type}</td>
-        <td>{element.title}</td>
-        <td>{element.description}</td>
-        {/* <td>{element.file_links}</td> */}
-        <td>{element.status}</td>
-        <td>{element.start_date}</td>
-        <td>{element.end_date}</td>
-      </tr>
+      <>
+        <tr key={element.id} >
+          <td>{element.company_name}</td>
+          <td>{element.branch_name}</td>
+          <td>{element.username}</td>
+          <td>{element.firstname}</td>
+          <td>{element.lastname}</td>
+          <td>{element.email}</td>
+          <td>{element.phone}</td>
+          <td>{element.user_type}</td>
+          <td>{"*************"}</td>
+          {/* <td> <img  className='Bid_addicon' src={edit} /></td> */}
+        </tr>
+      </>
     )
   }
 
@@ -118,13 +142,6 @@ const ProjectScreen = (props: any) => {
         </div>
       </>
     )
-  }
-
-  const BranchTitle = () => {
-    return listItems.map((element: any, key: any) => {
-      return <div>{"Branch:"}<span>{element.branch_ref}</span></div>
-    })
-
   }
 
   const Card = ({ classname, card_title, card_body }) => {
@@ -175,6 +192,22 @@ const ProjectScreen = (props: any) => {
                       <div className="project_title1">{element.title}</div>
                       <div className="project_description">{element.description}</div>
                     </div>
+
+                    <div>
+                      <div className="internal_table">
+                        <table id='internal_table'>
+                          <thead>
+                            <tr>{renderHeader()}</tr>
+                          </thead>
+                          <tbody>
+                            {
+                              list.map(renderBody)
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
                     <div className="project_right_container">
                       <div className="project_stats">Type: {element.project_type}</div>
                       <div className="project_stats">Status: {element.status}</div>

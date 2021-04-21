@@ -23,6 +23,10 @@ const AddEditTask = ({ setPopup }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
+  const [development, setdevelopment] = useState('')
+  const [tasktype, settasktype] = useState('')
+  const [test_title, settest_title] = useState('');
+
   const [project_type, setproject_type] = useState('')
   const [project_title, setproject_title] = useState('')
   const [project_description, setproject_description] = useState('')
@@ -69,7 +73,8 @@ const AddEditTask = ({ setPopup }) => {
   const [isdomainvalid, setdomainvalid] = useState(false)
   const [apiselectvalid, setapiselectvalid] = useState(false)
   const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
-
+  const [developmentvalid, setdevelopmentvalid] = useState(false)
+  const [istesttitlevalid, settesttitlevalid] = useState(false)
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [ispopup, setispopup] = useState(false)
   const [dataUri, setDataUri] = useState('');
@@ -126,6 +131,7 @@ const AddEditTask = ({ setPopup }) => {
       || project_typevalid === true
       || titlevalid === true
       || descriptionvaild === true
+      || istesttitlevalid === true
     ) {
       setispopup(true)
     }
@@ -135,19 +141,21 @@ const AddEditTask = ({ setPopup }) => {
 
   }
 
-  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+  useEffect(() => {
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-  getProject(async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      setspinner(false)
-      // console.log(">>>>>>>>>>>", data.data)
-      setlistItems(data.data)
-    } else {
-      setspinner(false)
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
-  }, token)
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems(data.data.results)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+  }, [])
 
   const Project_name = () => {
     let a: any = [];
@@ -428,6 +436,214 @@ const AddEditTask = ({ setPopup }) => {
                     </>
                     :
                     null
+                  }
+                </div>
+
+                <div className="addedit_task_container1">
+                  {(task_type === "TEST") ?
+                    <>
+                      <div className="inputfield_sub_container">
+                        <div className="Booking_slot_dropdown">
+                          <McInput
+                            type={"picker"}
+                            name={"DEVELOPMENT"}
+                            id="usertype_data"
+                            required={true}
+                            valid={setdevelopmentvalid}
+                            sendcheck={preSendValidator}
+                            value={development}
+                            onchange={setdevelopment}
+                            options={[
+                              { "key": "0", "value": "DEVELOPMENT" }
+                            ]} />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="textinput_box_container">
+                          <McInput
+                            label={"Test Title"}
+                            id="test_title_data"
+                            name={`data.test_title`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            valid={settesttitlevalid}
+                            sendcheck={preSendValidator}
+                            value={test_title}
+                            onchange={settest_title} />
+                        </div>
+                      </div>
+
+                      <div className="inputfield_sub_container">
+                        <div className="Booking_slot_dropdown">
+                          <McInput
+                            type={"checkbox"}
+                            name={"Portrait"}
+                            id="Portrait"
+                            required={true}
+                            valid={setpotraitcheckboxvalid}
+                            sendcheck={preSendValidator}
+                            value={potraitcheckbox}
+                            onchange={setpotraitcheckbox}
+                            options={[
+                              { "key": "0", "value": "Portrait" },
+                              { "key": "1", "value": "Landscape" },
+                            ]}
+                          />
+                        </div>
+                      </div>
+
+                      {/* <div className="input_checkbox">
+                        <div className="checkbox_sub_container">
+                          <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
+                          <div className="checkbox_text">Portrait</div>
+                        </div>
+
+                        <div className="checkbox_sub_container">
+                          <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
+                          <div className="checkbox_text">Landscape</div>
+                        </div>
+                      </div> */}
+
+                      <div className="user_band">
+
+                      </div>
+
+                      <div className="input_devices">
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setandroidcheckbox(!androidcheckbox)
+                              }} />
+                            <div className="checkbox_text">Android</div>
+                          </div>
+
+                          {androidcheckbox &&
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddremoveandroid(!addremoveandroid)
+                              }}>
+                              <div className="addremove_text">
+                                {addremoveandroid ? "Remove Device" : "Add Device"}
+                              </div>
+                            </div>
+                          }
+
+                          {addremoveandroid ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"Android"}
+                                  id="android_data"
+                                  name={`data.android`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isandroidvalid}
+                                  setvalid={setandroidvalid}
+                                  value={android}
+                                  onChange={setandroid}
+                                />
+                              </div>
+                            </div>
+                            :
+                            null
+                          }
+                        </div>
+
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setioscheckbox(!ioscheckbox)
+                              }} />
+                            <div className="checkbox_text">IOS</div>
+                          </div>
+
+                          {ioscheckbox &&
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddremoveios(!addremoveios)
+                              }}>
+                              <div className="addremove_text">
+                                {addremoveios ? "Remove Device" : "Add Device"}
+                              </div>
+                            </div>
+                          }
+
+                          {addremoveios ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"IOS"}
+                                  id="ios_data"
+                                  name={`data.ios`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isiosvalid}
+                                  setvalid={setiosvalid}
+                                  value={ios}
+                                  onChange={setios} />
+                              </div>
+                            </div>
+                            :
+                            null
+                          }
+                        </div>
+
+                        <div className="input_checkbox">
+                          <div className="checkbox_sub_container">
+                            <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
+                              onChange={(e) => {
+                                console.log(e);
+                                setbrowsercheckbox(!browsercheckbox)
+                              }} />
+                            <div className="checkbox_text">Browser</div>
+                          </div>
+
+                          {browsercheckbox &&
+                            <div className="addremove_container"
+                              onClick={() => {
+                                setaddremovebrowser(!addremovebrowser)
+                              }}>
+                              <div className="addremove_text">
+                                {addremovebrowser ? "Remove Detail" : "Add Detail"}
+                              </div>
+                            </div>
+                          }
+
+                          {addremovebrowser ?
+                            <div className="inputfield_sub_container">
+                              <div className="textinput_box_container">
+                                <McInput
+                                  label={"Browser"}
+                                  id="browser_data"
+                                  name={`data.browser`}
+                                  inputtype="Text"
+                                  type="text"
+                                  min_length="3"
+                                  required={true}
+                                  valid={isbrowservalid}
+                                  setvalid={setbrowservalid}
+                                  value={browser}
+                                  onChange={setbrowser}
+                                />
+                              </div>
+                            </div>
+                            :
+                            null}
+                        </div>
+                      </div>
+                    </>
+                    : null
                   }
                 </div>
 

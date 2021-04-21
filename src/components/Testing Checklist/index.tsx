@@ -71,7 +71,7 @@ const TestingChecklist = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data)
+        setlistItems(data.data.results)
         let project_ref_array: Iterable<any> | null | undefined = []
         let number: Iterable<any> | null | undefined = []
         let test: Iterable<any> | null | undefined = []
@@ -79,7 +79,7 @@ const TestingChecklist = (props: any) => {
         let landscape: Iterable<any> | null | undefined = []
         let device: Iterable<any> | null | undefined = []
         let image_link: Iterable<any> | null | undefined = []
-        data.data.forEach((element: any) => {
+        data.data.results.forEach((element: any) => {
           project_ref_array.push(element.project_ref)
           number.push(element.number)
           test.push(element.test)

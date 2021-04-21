@@ -17,7 +17,7 @@ const HomeScreen = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-  const [listItems, setlistItems] = useState([
+  const [listItems1, setlistItems1] = useState([
     {
       "zero": "1",
       "Row_name": "Customer 1",
@@ -29,8 +29,8 @@ const HomeScreen = (props: any) => {
       "six": "40",
     }
   ])
-
   const [listItems2, setlistItems2] = useState([])
+
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -39,7 +39,19 @@ const HomeScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         // console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data)
+        setlistItems1(data.data.results)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+
+
+    getMainTask(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems2(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -49,17 +61,7 @@ const HomeScreen = (props: any) => {
 
   }, [])
 
-  let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-  getMainTask(async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      // console.log(">>>>>>>>>>>", data.data)
-      setlistItems2(data.data)
-    } else {
-      setspinner(false)
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
-  }, token)
+
 
   const screen_header_elements = () => {
     return (
@@ -73,7 +75,7 @@ const HomeScreen = (props: any) => {
   }
 
   const renderHeader1 = () => {
-    let headerElement = ['Project Type', 'Title', 'Status']
+    let headerElement = ['Title']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -83,9 +85,7 @@ const HomeScreen = (props: any) => {
   const renderBody1 = (element: any) => {
     return (
       <tr>
-        <td>{element.project_type}</td>
         <td>{element.title}</td>
-        <td>{element.status}</td>
       </tr>
     )
   }
@@ -104,7 +104,7 @@ const HomeScreen = (props: any) => {
         <td>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
-        <td>{element.assigned_by}</td>
+        <td>{element.assigned_to}</td>
         <td>{element.status}</td>
       </tr>
     )
@@ -152,7 +152,7 @@ const HomeScreen = (props: any) => {
               </thead>
               <tbody>
                 {
-                  listItems.map(renderBody1)
+                  listItems1.map(renderBody1)
                 }
               </tbody>
             </table>
@@ -196,7 +196,7 @@ const HomeScreen = (props: any) => {
 }
 
 export default HomeScreen
-function gwtProject(arg0: (data: any, errorresponse: any) => Promise<void>, token: any) {
+function gtProject(arg0: (data: any, errorresponse: any) => Promise<void>) {
   throw new Error('Function not implemented.');
 }
 

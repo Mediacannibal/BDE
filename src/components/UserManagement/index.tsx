@@ -32,10 +32,8 @@ const UserManagement = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log('response ' + JSON.stringify(data));
-        setlist(data.data)
-        console.log("<><><><><>", data.data);
-
-
+        setlist(data.data.results)
+        // console.log("<><><><><>", data.data);
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -114,7 +112,6 @@ const UserManagement = (props: any) => {
       }
 
       <div className="body">
-
         <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
           <table id='internal_table'>
             <thead>{renderHeader()}</thead>

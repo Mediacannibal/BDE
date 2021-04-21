@@ -21,7 +21,7 @@ export const profile = (callback: (arg0: any, arg1: string) => void) => {
 }
 
 
-export const verifyUser = (callback: (arg0: any, arg1: string) => void, data: any) => {
+export const generateOTP = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/api/user/phone/email/otp_verify/`, data, {
     headers: {
       'Content-Type': 'application/json'
@@ -96,10 +96,9 @@ export const userListing = (callback: (arg0: any, arg1: string) => void, token: 
     .catch(err => callback(err, err.response))
 }
 
-export const otpValidation = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+export const otpValidation = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`api/user/email/otp_validation/`, data, {
     headers: {
-      'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
     }
   }).then((res) => { callback(res, 'sucess') })
@@ -238,6 +237,15 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))
 }
+// export const createMainTask = (callback: (arg0: any, arg1: string) => void, token: any, data: any, id: any) => {
+//   instance.put(`tasks/maintask/add/` + id + `/`, data, {
+//     headers: {
+//       'Authorization': token ? `Token ${token}` : '',
+//       'Content-Type': 'application/json'
+//     }
+//   }).then((res) => { callback(res, 'sucess') })
+//     .catch(err => callback(err, err.response))
+// }
 
 export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.get(`tasks/maintask/add/`, {
