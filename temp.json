@@ -1,3 +1,35 @@
-{"foxtoss" : [task_data1, task_data2, task_data3, task_data4],
- "mcbde" : [task_data1, task_data2, task_data3, task_data4], 
- "projectx" : [task_data1, task_data2, task_data3, task_data4]}
+response === === === === === == > {
+    "data": {
+        "request_status": 1,
+        "result": {
+            "request_status": 0,
+            "results": {
+                "msg": "Entered otp is invalid"
+            }
+        },
+        "msg": "Success"
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+        "content-length": "109",
+        "content-type": "application/json"
+    },
+    "config": {
+        "url": "/api/user/social/signup/",
+        "method": "post",
+        "data": "{\"auth_provider\":\"otp\",\"email_otp\":\"\",\"username\":\"data@mediacannibal.com\"}",
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "https://apimcbde.mediacannibal.com",
+        "transformRequest": [null],
+        "transformResponse": [null],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1
+    },
+    "request": {}
+}

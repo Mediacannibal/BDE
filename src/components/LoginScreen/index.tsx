@@ -18,9 +18,9 @@ const LoginScreen = () => {
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
+
   const [otp, setotp] = useState({ value: '', error: '' });
-
-
+  
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -32,67 +32,10 @@ const LoginScreen = () => {
 
   }, [])
 
-  const validateData = (activationdata: FormData, storedotp: string, otp: string) => {
-    console.log('storedotp =' + storedotp);
-    console.log('inputotp =' + otp);
-    console.log('activationdata :' + JSON.stringify(activationdata))
-    if (storedotp === otp) {
-      // validateData(activationdata,decode(storedotp),otp.value)        
-
-      console.log('userinput:' + JSON.stringify(activationdata))
-      Sociallogin(loginCallback, activationdata);
-
-      // activateUser(_onvalidotp,activationdata)
-    }
-    else {
-      console.log('error validating otp');
-    }
-  }
-
-  const _verifyOTP = (code: string) => {
-    localStorage.using('userinput').then((userinput: { data: string; }) => {
-      console.log('userinput:' + JSON.stringify(userinput.data));
-      localStorage.using('verifyrespone').then((data: { data: string; }) => {
-        let temp = JSON.parse(data.data);
-        let temp1 = JSON.parse(userinput.data);
-        let storedotp = temp.results.otp;
-
-        let temp2 = localStorage.using('NotificationToken').then((notificationdata: { data: any; }) => {
-          console.log('NotificationToken:' + JSON.stringify(notificationdata.data));
-          let notificationtoken = notificationdata.data
-          // const activationdata =
-          // {
-          //   "username": temp1.username_email_or_phone,
-          //   "auth_provider": "trt",
-          //   "fcm_token": JSON.parse(notificationtoken)
-          // }
-
-          let activationdata = new FormData()
-          activationdata.append('username', temp1.username_email_or_phone)
-          activationdata.append('auth_provider', "MC")
-          //code
-
-          validateData(activationdata, decode(storedotp), code)
-          return data.data;
-        });
-        return userinput.data;
-      });
-    });
-  }
-
-  // const emailValidator = (email: string) => {
-  //   const re = /\S+@\S+\.\S+/;
-
-  //   if (!email || email.length <= 0) return "Email cannot be empty.";
-  //   if (!re.test(email)) return "Ooops! We need a valid email address.";
-
-  //   return "";
-  // };
-
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
     if (data.status === 200) {
       console.log('success ', data.data.results);
-      localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
+      // localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
 
     } else {
       errorlog(data, errorresponse)
@@ -102,7 +45,6 @@ const LoginScreen = () => {
   }
 
   const _onSignUpPressed = () => {
-
     console.log(username_email_or_phone)
     let data = {
       username_email_or_phone: username_email_or_phone.value,
@@ -112,15 +54,24 @@ const LoginScreen = () => {
 
   };
 
+  const OTPvalidate = () => {
+    let data = {
+      auth_provider: "otp",
+      email_otp: password_otp.value,
+      username: username_email_or_phone.value
+    }
+    Sociallogin(loginCallback, data)
+  };
+
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
       console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-      if (data.data.result.user_details.auth_type === "GOOGLE" && "FACEBOOK")
+      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FACEBOOK" && "OTP")
         history.push('/NewUserForm')
       else
-        if (data.data.result.user_details.auth_type === "MC")
+        if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
           history.push('/Home')
     } else {
       console.log('error ' + JSON.stringify(data));
@@ -180,7 +131,7 @@ const LoginScreen = () => {
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={handleLogin} className="login_validatebutton">
+                  <button onClick={OTPvalidate} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>

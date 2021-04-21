@@ -67,50 +67,50 @@ const TestingChecklist = (props: any) => {
     let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
-    getMainTask(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data.results)
-        let project_ref_array: Iterable<any> | null | undefined = []
-        let number: Iterable<any> | null | undefined = []
-        let test: Iterable<any> | null | undefined = []
-        let portrait: Iterable<any> | null | undefined = []
-        let landscape: Iterable<any> | null | undefined = []
-        let device: Iterable<any> | null | undefined = []
-        let image_link: Iterable<any> | null | undefined = []
-        data.data.results.forEach((element: any) => {
-          project_ref_array.push(element.project_ref)
-          number.push(element.number)
-          test.push(element.test)
-          portrait.push(element.portrait)
-          landscape.push(element.landscape)
-          device.push(element.device)
-          image_link.push(element.image_link)
-        });
-        setunique_project_ref(Array.from(new Set(project_ref_array)));
-        setunique_number(Array.from(new Set(number)));
-        setunique_test(Array.from(new Set(test)))
-        setunique_portrait(Array.from(new Set(portrait)))
-        setunique_landscape(Array.from(new Set(landscape)))
-        setunique_device(Array.from(new Set(device)))
-        setunique_image_link(Array.from(new Set(image_link)))
+    // getMainTask(async (data: any, errorresponse: any) => {
+    //   if (data.status === 200) {
+    //     setspinner(false)
+    //     // console.log(">>>>>>>>>>>", data.data)
+    //     setlistItems(data.data.results)
+    //     let project_ref_array: Iterable<any> | null | undefined = []
+    //     let number: Iterable<any> | null | undefined = []
+    //     let test: Iterable<any> | null | undefined = []
+    //     let portrait: Iterable<any> | null | undefined = []
+    //     let landscape: Iterable<any> | null | undefined = []
+    //     let device: Iterable<any> | null | undefined = []
+    //     let image_link: Iterable<any> | null | undefined = []
+    //     data.data.results.forEach((element: any) => {
+    //       project_ref_array.push(element.project_ref)
+    //       number.push(element.number)
+    //       test.push(element.test)
+    //       portrait.push(element.portrait)
+    //       landscape.push(element.landscape)
+    //       device.push(element.device)
+    //       image_link.push(element.image_link)
+    //     });
+    //     setunique_project_ref(Array.from(new Set(project_ref_array)));
+    //     setunique_number(Array.from(new Set(number)));
+    //     setunique_test(Array.from(new Set(test)))
+    //     setunique_portrait(Array.from(new Set(portrait)))
+    //     setunique_landscape(Array.from(new Set(landscape)))
+    //     setunique_device(Array.from(new Set(device)))
+    //     setunique_image_link(Array.from(new Set(image_link)))
 
-        console.log(
-          unique_number,
-          unique_test,
-          unique_portrait,
-          unique_landscape,
-          unique_device,
-          unique_image_link
-        );
+    //     console.log(
+    //       unique_number,
+    //       unique_test,
+    //       unique_portrait,
+    //       unique_landscape,
+    //       unique_device,
+    //       unique_image_link
+    //     );
 
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, token)
+    //   } else {
+    //     setspinner(false)
+    //     console.log('error ' + JSON.stringify(data));
+    //     console.log('error ' + JSON.stringify(errorresponse));
+    //   }
+    // }, token)
     // }
   }, [])
 
