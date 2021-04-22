@@ -1,0 +1,41 @@
+.input_checkbox {
+    display: flex;
+}
+
+.checkbox_sub_container {
+    display: flex;
+    font-family: 'Barlow';
+    font-size: var(--TS4);
+    align-self: center;
+    align-items: center;
+}
+
+.checkbox_text {
+    font-family: 'Barlow';
+    font-size: var(--TS4);
+    align-self: center;
+    align-items: center;
+    margin: var(--TS10);
+}
+
+.checkbox {
+    height: 30px;
+    width: 30px;
+    margin: var(--TS9);
+}
+
+.input_devices {}
+
+.fileupload_with_preview {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (min-aspect-ratio: 3/4) {
+    .addedit_task_div_wrapper {
+        display: flex;
+    }
+    .addedit_task_container1 {
+        padding: 0 0 calc(0.4vw + 1.2vh + 0.4vmin) calc(0.4vw + 1.2vh + 0.4vmin);
+    }
+}

@@ -7,9 +7,6 @@ import Popup from 'components/Common/Popup'
 import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
-
-
-
 const AddEditProject = ({ setPopup }) => {
   const history = useHistory();
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -106,7 +103,7 @@ const AddEditProject = ({ setPopup }) => {
               if (data.status === 201) {
                 setispopup(false)
                 console.log('Sucess ========>>>' + JSON.stringify(data));
-                // window.location.reload()
+                window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)

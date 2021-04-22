@@ -4,27 +4,32 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createMainTask, fileupload } from 'utils/api';
+import { addTasklog, createMainTask, createTestlog, fileupload, getMainTask } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
-const AddEditTaskLog = ({ setPopup }) => {
+const AddEditTaskLog = ({ setPopup, taskid }) => {
   const history = useHistory();
 
+  const [task_ref, settask_ref] = useState('')
   const [remarks, setremarks] = useState('')
+  const [image_link, setimage_link] = useState('')
+  const [listItems, setlistItems] = useState([])
+  const [spinner, setspinner] = useState(false)
+
+  const [task, settask_type] = useState('')
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [isremarksvalid, setremarksvalid] = useState(false)
-  
+  const [taskvalid, settaskvalid] = useState(false)
+
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [ispopup, setispopup] = useState(false)
   const [dataUri, setDataUri] = useState('');
 
-  const [list, setlist] = useState([{
-    "remarks": "",
-  }])
+  const [list, setlist] = useState([])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -55,8 +60,6 @@ const AddEditTaskLog = ({ setPopup }) => {
   };
 
   const Validate = () => {
-
-
     if (isproject_namevalid === true
       || isremarksvalid === true
     ) {
@@ -66,6 +69,34 @@ const AddEditTaskLog = ({ setPopup }) => {
       setPreSendValidator(true)
     }
 
+  }
+
+  useEffect(() => {
+    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
+
+    getMainTask(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems(data.data.results)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, token)
+  }, [])
+
+  const task_id = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.id
+      }
+      a.push(data);
+    });
+    return a
   }
 
   return (
@@ -78,15 +109,16 @@ const AddEditTaskLog = ({ setPopup }) => {
           confirmClick={() => {
             let data = [];
             let object = {
+              "task_ref": taskid,
               "remarks": remarks,
             }
             data.push(object)
             console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-            createMainTask(async (data: any, errorresponse: any) => {
+            addTasklog(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess========= ' + JSON.stringify(data));
+                // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -107,11 +139,11 @@ const AddEditTaskLog = ({ setPopup }) => {
         :
         <Popup
           title={"Add / Edit Task"}
+          desc1={"You are Accepting this task."}
+          desc2={"Please click 'Confirm' to proceed?"}
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-
               <div className="addedit_task_div_wrapper">
-
                 <div className="addedit_task_container1">
 
                   <div className="inputfield_sub_container">
@@ -136,7 +168,12 @@ const AddEditTaskLog = ({ setPopup }) => {
                     <div className="fileupload_with_preview">
                       <div className="upload-wrap">
                         <button type="button" className="nice-button">File links</button>
-                        <input type="file" name="file" className="upload-btn" id="activity_input_value" onChange={_onChangeHandler} />
+                        <input type="file" name="file"
+                          className="upload-btn"
+                          id="activity_input_value"
+                          onChange={_onChangeHandler}
+                          value={image_link}
+                        />
                       </div>
                       {
                         (dataUri.length !== 0) && <div>

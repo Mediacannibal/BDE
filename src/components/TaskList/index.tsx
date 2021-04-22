@@ -4,13 +4,15 @@ import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { getMainTask, getProject } from 'utils/api';
-import Spinner from 'components/Common/Spinner';
+import Spinner, { ProgressBar } from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from '../../assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
 import * as up_down_arrow from '../../assets/up_down.svg'
+import * as play from '../../assets/play.svg'
+import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 
 const TaskList = (props: any) => {
 
@@ -28,10 +30,14 @@ const TaskList = (props: any) => {
 
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
+  const [popup3, setpopup3] = useState(false)
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
-  const [title, settitle] = useState([])
+
+  const [seleted_taskid, setseleted_taskid] = useState('')
+
+
 
   let params = useParams();
   useEffect(() => {
@@ -74,7 +80,7 @@ const TaskList = (props: any) => {
 
 
   const renderHeader = () => {
-    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'status']
+    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'track', 'status']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -90,11 +96,13 @@ const TaskList = (props: any) => {
   }
 
   const renderBody = (element: any) => {
+    // const [task_active, settask_active] = useState(false)
     return (
       <tr>
         <td onClick={() => {
           setpopup2(true)
-          console.log(">><<", popup2)
+          // console.log(">><<", popup2)
+          setseleted_taskid(element.id)
         }}>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
@@ -102,6 +110,17 @@ const TaskList = (props: any) => {
         <td>{element.description}</td>
         <td>{element.assigned_to}</td>
         <td>{element.image_link}</td>
+        <td>
+          <div className='screen_header_element'
+            onClick={() => {
+              setpopup3(true)
+              setseleted_taskid(element.id)
+              // settask_active(!task_active)
+              console.log("pppppppppppp", setpopup3)
+            }}>
+            <img className='header_icon' src={play} />
+          </div>
+        </td>
         <td>{element.status}</td>
       </tr >
     )
@@ -154,198 +173,74 @@ const TaskList = (props: any) => {
   }
 
   return (
-    <div className="main">
-      {spinner ?
-        <div className="spinner_fullscreen_div">
-          <Spinner />
-        </div> :
-        null
-      }
+    <>
+      <div className="main">
+        {popup1 &&
+          <AddEditTask
+            setPopup={() => {
+              setpopup1(false);
+            }} />}
 
-      {popup1 &&
-        <AddEditTask
-          setPopup={() => {
-            setpopup1(false)
-          }}
-        />
-      }
+        {popup2 &&
+          <AddEditTaskLog
+            setPopup={() => {
+              setpopup2(false);
+            }}
+            taskid={seleted_taskid} />}
 
-      {
-        popup2 &&
-        <AddEditTaskLog
-          setPopup={() => {
-            setpopup2(false)
-          }}
-        />
-      }
+        {popup3 &&
+          <AddEditTaskTimeLog
+            setPopup={() => {
+              setpopup3(false);
+            }}
+            taskid={seleted_taskid} />}
 
-      <div className="body">
+        <div className="body">
+          {spinner ?
 
-        <div className='main_selector_div'>
-          <select
-            className="projectname_dropdown"
-            id="noformat_dropdown"
-            value={all_project_ref}
-            onChange={(e) => {
-              console.log(e.target.value)
-              setall_project_ref(e.target.value)
-            }} >
-            <option hidden value="">Project Name</option>
-            {
-              unique_title.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-        </div>
-
-        <div className="bidlog_filterfield_container">
-
-          {/* <select
-            className="customer bidrecord_dropdown"
-            id="customerpicker"
-          >
-            <option hidden value="">Customer</option>
-            {
-              unique_updated_by.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="biddatepicker"
-          >
-            <option hidden value="">Bid Date</option>
-            {
-              unique_title.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="dayornightpicker"
-          >
-            <option hidden value="">Slot</option>
-            {
-              unique_assignee.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select>
-
-          <select
-            className="bidrecord_dropdown"
-            id="bracketcombinationpicker"
-          >
-            <option hidden value="">Combi</option>
-            {
-              unique_description.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select> */}
-
-          {/* <select
-            className="bidrecord_dropdown"
-            id="numberpicker"
-          >
-            <option hidden value="">Number</option>
-            {
-              unique_number_arry.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select> */}
-
-          {/* <select
-            className="bidrecord_dropdown"
-            id="amountpicker"
-          >
-            <option value={""}>Amount</option>
-            {
-              unique_project_ref.map((element) => {
-                return <option value={element}>{element}</option>
-              })
-            }
-          </select> */}
-
-          <button className="bidrecord_filterandclose_button"
-            onClick={() => {
-              let data = {
-                "project_ref": all_project_ref,
-                // "amount": document.getElementById("amountpicker").value,
-                // "bookeddate": document.getElementById("biddatepicker").value,
-                // "bracketcombination": document.getElementById("bracketcombinationpicker").value,
-                // "dayornight": document.getElementById("dayornightpicker").value,
-                // "name": document.getElementById("customerpicker").value,
-                // "number": document.getElementById("numberpicker").value,
-                // // "user": document.getElementById("userpicker").value,
-              }
-              console.log(data);
-              let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-              getMainTask(async (data: any, errorresponse: any) => {
-                if (data.status === 200) {
-                  setspinner(false)
-                  setlistItems1(data.data.results)
-                  setfilterindicator(true)
-                } else {
-                  setspinner(false)
-                  console.log('error ' + JSON.stringify(data));
-                  console.log('error ' + JSON.stringify(errorresponse));
-                }
-              }, token, data[0])
-
-            }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
-
-          {filterindicator ?
-            <button className="bidrecord_filterandclose_button"
-              onClick={() => {
-                window.location.reload()
-              }}>X</button>
-            :
-            null
-          }
-
-        </div>
-        {/* {
-          listItems.map((ele: any, key: any) => {
-            return (<div>{"Project:"}<div>{ele.project_ref}</div></div>);
-          })
-        } */}
-
-
-
-        <Card
-          card_title={<Projecttitle />}
-          card_body={
-            <div className="internal_table">
-
-              <table id='internal_table'>
-                <thead>
-                  {(all_project_ref.length === 0) ?
-                    <tr>{renderHeader()}</tr>
-                    :
-                    <tr>{renderHeader2()}</tr>
-                  }
-                </thead>
-                <tbody>
-                  {
-                    listItems1.map(renderBody)
-                  }
-                </tbody>
-              </table>
+            <div className="spinner_fullscreen_div">
+              <ProgressBar />
             </div>
+            :
+            <>
+              <div className='main_selector_div'>
+                <select
+                  className="projectname_dropdown"
+                  id="noformat_dropdown"
+                  value={all_project_ref}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setall_project_ref(e.target.value);
+                  }}>
+                  <option hidden value="">Project Name</option>
+                  {unique_title.map((element) => {
+                    return <option value={element}>{element}</option>;
+                  })}
+                </select>
+              </div>
+
+              <Card
+                card_title={Projecttitle}
+                card_body={<div className="internal_table">
+
+                  <table id='internal_table'>
+                    <thead>
+                      {(all_project_ref.length === 0) ?
+                        <tr>{renderHeader()}</tr>
+                        :
+                        <tr>{renderHeader2()}</tr>}
+                    </thead>
+                    <tbody>
+                      {listItems1.map(renderBody)}
+                    </tbody>
+                  </table>
+                </div>} />
+            </>
           }
-        />
-
-      </div>
-
-      <Footer />
-    </div >
+        </div>
+        <Footer />
+      </div >
+    </>
   )
 }
 

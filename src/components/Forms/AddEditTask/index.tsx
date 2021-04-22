@@ -24,7 +24,6 @@ const AddEditTask = ({ setPopup }) => {
   const [response, setresponse] = useState('')
 
   const [development, setdevelopment] = useState('')
-  const [tasktype, settasktype] = useState('')
   const [test_title, settest_title] = useState('');
 
   const [project_type, setproject_type] = useState('')
@@ -45,12 +44,6 @@ const AddEditTask = ({ setPopup }) => {
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
-
-  const [projectname, setprojectname] = useState("")
-  const [isfrontend, setisfrontend] = useState(false)
-
-  const [isproject, setisproject] = useState('')
-
 
   const [domain, setdomain] = useState('')
   const [priority, setpriority] = useState('')

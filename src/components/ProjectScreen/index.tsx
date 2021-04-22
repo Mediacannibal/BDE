@@ -83,8 +83,8 @@ const ProjectScreen = (props: any) => {
         setunique_end_date(Array.from(new Set(end_date)))
       } else {
         setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
+        // console.log('error ' + JSON.stringify(data));
+        // console.log('error ' + JSON.stringify(errorresponse));
       }
     }, token)
 
@@ -92,7 +92,7 @@ const ProjectScreen = (props: any) => {
 
       if (data.status === 200) {
         setspinner(false)
-        console.log('response ' + JSON.stringify(data));
+        // console.log('response ' + JSON.stringify(data));
         setlist(data.data.results)
         // console.log("<><><><><>", data.data);
       } else {
@@ -120,7 +120,7 @@ const ProjectScreen = (props: any) => {
         <tr key={element.id} >
           <td>{element.company_name}</td>
           <td>{element.branch_name}</td>
-          <td>{element.username}</td>
+          <td>{element.user.username}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
           <td>{element.email}</td>

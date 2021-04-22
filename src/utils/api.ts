@@ -277,6 +277,16 @@ export const deleteMainTask = (callback: (arg0: any, arg1: string) => void, toke
     .catch(err => callback(err, err.response))
 }
 
+export const addTasklog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`tasks/tasklog/add/`, data, {
+    headers: {
+      'Authorization': token ? `Token ${token}` : '',
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
 export const createProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
   instance.post(`tasks/project/add/`, data, {
     headers: {
@@ -347,8 +357,8 @@ export const createBackend = (callback: (arg0: any, arg1: string) => void, token
     .catch(err => callback(err, err.response))
 }
 
-export const createTestlog = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`tasks/tasklog/add/`, {
+export const createTestlog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`tasks/tasklog/add/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -367,10 +377,8 @@ export const getTestlog = (callback: (arg0: any, arg1: string) => void, token: a
     .catch(err => callback(err, err.response))
 }
 
-
-
-export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.post(`tasks/tasktimelog/add/`, {
+export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+  instance.post(`tasks/tasktimelog/add/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

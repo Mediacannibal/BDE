@@ -31,13 +31,13 @@ const UserManagement = (props: any) => {
 
       if (data.status === 200) {
         setspinner(false)
-        console.log('response ' + JSON.stringify(data));
+        // console.log('response ' + JSON.stringify(data));
         setlist(data.data.results)
         // console.log("<><><><><>", data.data);
       } else {
         setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
+        // console.log('error ' + JSON.stringify(data));
+        // console.log('error ' + JSON.stringify(errorresponse));
       };
     }, token)
   }
@@ -72,7 +72,7 @@ const UserManagement = (props: any) => {
   }
 
   const renderBody = (element: any) => {
-
+    console.log("user_details: ", element.user)
     return (
       <>
         <tr key={element.id} >

@@ -37,6 +37,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     const [settings_popup, setsettings_popup] = useState(false)
 
     const [user_menu_open, setUser_menu_open] = useState(false)
+    const [user_notification, setuser_notification] = useState(false)
 
     const location = useLocation();
 
@@ -171,11 +172,48 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             <img className='header_icon' src={chat} onClick={() => {
                                 history.push('/TaskDetails')
                             }} />
-                            <img className='header_icon' src={bell} />
+                            <div>
+                                <img className='header_icon' src={bell} onClick={() => {
+                                    setuser_notification(!user_notification)
+                                }} />
+                            </div>
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
                                 <img className='user_icon' src={profile_picture} />
                                 <div className='header_title'>{username}</div>
                                 <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
+
+                                {user_notification &&
+                                    <div className="user_notification_menu">
+                                        <div>
+                                            <div className="user_notification_header">NOTIFICATIONS</div>
+                                        </div>
+
+                                        <div className="user_notification_title_container">
+
+                                            <div className="user_notification_title_subcontainer1">
+                                                <div>$$$</div>
+                                                <div className="user_notification_title">Media Cannibal</div>
+                                            </div>
+
+                                            <div className="user_notification_title_subcontainer2">
+
+                                                <div>...</div>
+                                                <div>
+                                                    <div className="user_notification_title_text">Call Them</div>
+                                                    <div>miss call</div>
+                                                </div>
+                                                <div>2 hours ago</div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div>
+
+                                        </div>
+
+                                    </div>
+                                }
 
                                 {user_menu_open
 
