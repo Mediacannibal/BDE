@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import moment from 'moment';
 import './style.css'
+import { useAuth } from 'store/authStore';
 
 const CalenderScreen = () => {
+  const { auth } = useAuth();
   const [month, setmonth] = useState(moment())
   const [selected, setselected] = useState(moment("2020-03-02").startOf('day'))
 
@@ -99,9 +101,9 @@ const Week = ({ month, selected, select, date }) => {
     days.push(
       <span
         key={date.toString()}
-        className={"day" + (day.isToday ? " today" : "") + 
-        (day.isCurrentMonth ? "" : " different-month") + 
-        (date.isSame(selected) ? " selected" : "")}
+        className={"day" + (day.isToday ? " today" : "") +
+          (day.isCurrentMonth ? "" : " different-month") +
+          (date.isSame(selected) ? " selected" : "")}
         onClick={() => select(day)}>{day.number}
       </span>
     );

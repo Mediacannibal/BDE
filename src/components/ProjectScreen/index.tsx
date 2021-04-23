@@ -6,9 +6,11 @@ import { getProject, getUserlist, listingTask, userListing } from 'utils/api'
 import './style.css'
 import * as add from '../../assets/add.svg'
 import * as up_down_arrow from '../../assets/up_down.svg'
+import { useAuth } from 'store/authStore';
 
 
 const ProjectScreen = (props: any) => {
+  const { auth } = useAuth();
   const [unique_branch, setunique_branch] = useState(false)
   const [unique_project_type, setunique_project_type] = useState(false)
   const [unique_title, setunique_title] = useState(false)
@@ -43,7 +45,6 @@ const ProjectScreen = (props: any) => {
     //   setuserID(user_id)
     // }
     setspinner(true)
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // if (token === null)
     //   history.push("/")
     // if (params.id === undefined) {
@@ -86,7 +87,7 @@ const ProjectScreen = (props: any) => {
         // console.log('error ' + JSON.stringify(data));
         // console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
 
     userListing((data: any, errorresponse: any) => {
 
@@ -100,7 +101,7 @@ const ProjectScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       };
-    }, token)
+    }, auth)
   }, [])
 
 

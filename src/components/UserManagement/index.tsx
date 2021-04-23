@@ -9,10 +9,12 @@ import * as add from '../../assets/add.svg'
 import Spinner from 'components/Common/Spinner';
 import { userListing } from 'utils/api';
 import NewUserForm from 'components/Forms/NewUserForm';
+import { useAuth } from 'store/authStore';
 
 export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
+  const { auth } = useAuth();
   const [updating, setupdating] = useState(false)
   const [selecteduser, setselecteduser] = useState({})
 
@@ -26,7 +28,6 @@ const UserManagement = (props: any) => {
   const [list, setlist] = useState([])
 
   const getuserlistdata = () => {
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     userListing((data: any, errorresponse: any) => {
 
       if (data.status === 200) {
@@ -39,7 +40,7 @@ const UserManagement = (props: any) => {
         // console.log('error ' + JSON.stringify(data));
         // console.log('error ' + JSON.stringify(errorresponse));
       };
-    }, token)
+    }, auth)
   }
 
   useEffect(() => {

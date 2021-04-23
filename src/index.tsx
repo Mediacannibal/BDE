@@ -12,7 +12,7 @@ import googleAnalytics from '@analytics/google-analytics'
 import { AnalyticsProvider } from 'use-analytics'
 
 
-ReactGA.initialize('G-16Z2T4NP3J');
+ReactGA.initialize('UA-157352486-1');
 
 // Custom inline analytics plugin
 const myPlugin = {
@@ -30,7 +30,7 @@ const analytics = Analytics({
   plugins: [
     myPlugin,
     googleAnalytics({
-      trackingId: 'G-R7GER30TG2'
+      trackingId: 'UA-157352486-1'
     })
   ]
 })

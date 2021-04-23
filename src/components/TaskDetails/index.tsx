@@ -9,10 +9,11 @@ import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 import Spinner from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { Launcher } from 'react-chat-window'
+import { useAuth } from 'store/authStore';
 
 
 const TaskDetails = () => {
-
+  const { auth } = useAuth();
   const [listItems, setlistItems] = useState([
     {
       "zero": "1",
@@ -65,8 +66,7 @@ const TaskDetails = () => {
   let params = useParams();
   useEffect(() => {
     setspinner(false)
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    if (token === null)
+    if (auth)
       // history.push("/")
 
 
@@ -115,7 +115,7 @@ const TaskDetails = () => {
         //     console.log('error ' + JSON.stringify(data));
         //     console.log('error ' + JSON.stringify(errorresponse));
         //   }
-        // }, token)
+        // }, auth)
       }
       else {
 
@@ -135,7 +135,7 @@ const TaskDetails = () => {
           //     console.log('error ' + JSON.stringify(data));
           //     console.log('error ' + JSON.stringify(errorresponse));
           //   }
-          // }, token, params.id, params.number, params.pattren)
+          // }, auth, params.id, params.number, params.pattren)
 
 
         }
@@ -149,7 +149,7 @@ const TaskDetails = () => {
           //     console.log('error ' + JSON.stringify(data));
           //     console.log('error ' + JSON.stringify(errorresponse));
           //   }
-          // }, token, params.id)
+          // }, auth, params.id)
         }
       }
 

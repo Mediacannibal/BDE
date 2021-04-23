@@ -9,14 +9,13 @@ import { getMainTask, getProject } from 'utils/api';
 
 import * as up_down_arrow from '../../assets/up_down.svg'
 
+import { useAuth } from 'store/authStore';
 
 const HomeScreen = (props: any) => {
-
+  const { auth } = useAuth();
   const history = useHistory();
-
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
-
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
 
@@ -24,7 +23,6 @@ const HomeScreen = (props: any) => {
   useEffect(() => {
     props.setheader_options(screen_header_elements)
 
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
@@ -35,7 +33,7 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
 
 
     getMainTask(async (data: any, errorresponse: any) => {
@@ -48,7 +46,7 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
 
   }, [])
 
