@@ -6,9 +6,10 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
 import { createMainTask, fileupload } from 'utils/api';
-
+import { useAuth } from 'store/authStore';
 
 const AddEditTest = ({ setPopup }) => {
+  const { auth } = useAuth();
   const history = useHistory();
   const [number, setnumber] = useState(0)
 
@@ -52,11 +53,10 @@ const AddEditTest = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, token, formdata)
+    fileupload(Callback, auth, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -96,7 +96,6 @@ const AddEditTest = ({ setPopup }) => {
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
             console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
@@ -111,7 +110,7 @@ const AddEditTest = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            }, auth, list)
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
