@@ -4,8 +4,10 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import Popup from 'components/Common/Popup'
 import { createTasktimelog } from 'utils/api';
+import { useAuth } from 'store/authStore';
 
 const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
+  const { auth } = useAuth();
   const history = useHistory();
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -48,7 +50,6 @@ const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
             console.log('seleted_taskid: ', taskid)
             data.push(object)
             console.log("***SUBMIT***", data)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createTasktimelog(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
@@ -63,7 +64,7 @@ const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data[0])
+            }, auth, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

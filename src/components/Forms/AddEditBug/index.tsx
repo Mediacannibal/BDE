@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
 import { createMainTask } from 'utils/api';
-
+import { useAuth } from 'store/authStore';
 
 const AddEditBug = ({ setPopup }) => {
+  const { auth } = useAuth();
   const history = useHistory();
-
 
   const [bug_title, setbug_title] = useState('')
   const [orientation, setorientation] = useState('')
@@ -112,7 +112,6 @@ const AddEditBug = ({ setPopup }) => {
             }
             data.push(object)
             console.log("***SUBMIT***", list)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
@@ -127,7 +126,7 @@ const AddEditBug = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, list)
+            }, auth, list)
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

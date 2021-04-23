@@ -3,14 +3,14 @@ import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 
+import { useAuth } from 'store/authStore';
 
 const ApiRecords = () => {
-
+  const { auth } = useAuth();
   const history = useHistory();
 
   useEffect(() => {
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-    if (token === null)
+    if (auth)
     // history.push("/Login")
     { }
     else {

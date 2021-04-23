@@ -6,8 +6,10 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
+import { useAuth } from 'store/authStore';
 
 const AddEditProject = ({ setPopup }) => {
+  const { auth } = useAuth();
   const history = useHistory();
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
@@ -44,11 +46,10 @@ const AddEditProject = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     console.log(data.target.files[0])
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, token, formdata)
+    fileupload(Callback, auth, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -98,7 +99,6 @@ const AddEditProject = ({ setPopup }) => {
             }
             data.push(object)
             console.log("***SUBMIT***", data)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createProject(async (data: any, errorresponse: any) => {
               if (data.status === 201) {
                 setispopup(false)
@@ -113,7 +113,7 @@ const AddEditProject = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data[0])
+            }, auth, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

@@ -12,9 +12,10 @@ import * as filter from '../../assets/filter.png'
 
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelection from 'components/Forms/TestSelection';
+import { useAuth } from 'store/authStore';
 
 const TestingChecklist = (props: any) => {
-
+  const { auth } = useAuth();
   const [listItems, setlistItems] = useState([
     {
       "zero": "1",
@@ -64,7 +65,6 @@ const TestingChecklist = (props: any) => {
     // console.log("hello, hi, good day",screen_header_elements)
 
     setspinner(false)
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // history.push("/")
     // if (params.id === undefined) {
     // getMainTask(async (data: any, errorresponse: any) => {
@@ -110,7 +110,7 @@ const TestingChecklist = (props: any) => {
     //     console.log('error ' + JSON.stringify(data));
     //     console.log('error ' + JSON.stringify(errorresponse));
     //   }
-    // }, token)
+    // }, auth)
     // }
   }, [])
 
@@ -219,7 +219,6 @@ const TestingChecklist = (props: any) => {
                 // // "user": document.getElementById("userpicker").value,
               }
               console.log(data);
-              let token = JSON.parse(String(localStorage.getItem("AuthToken")))
               getMainTask(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
@@ -263,7 +262,7 @@ const TestingChecklist = (props: any) => {
                   console.log('error ' + JSON.stringify(data));
                   console.log('error ' + JSON.stringify(errorresponse));
                 }
-              }, token, data[0])
+              }, auth, data[0])
 
             }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 

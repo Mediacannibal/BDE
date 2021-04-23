@@ -6,8 +6,10 @@ import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
+import { useAuth } from 'store/authStore';
 
 const AddEditTask = ({ setPopup }) => {
+  const { auth } = useAuth();
   const history = useHistory();
 
   const [project_ref, setproject_ref] = useState('')
@@ -85,11 +87,10 @@ const AddEditTask = ({ setPopup }) => {
 
   const _onChangeHandler = (data: any) => {
     // console.log(data.target.files[0])
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, token, formdata)
+    fileupload(Callback, auth, formdata)
   }
 
   const Callback = async (data: any, errorresponse: any) => {
@@ -135,8 +136,6 @@ const AddEditTask = ({ setPopup }) => {
   }
 
   useEffect(() => {
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
@@ -147,7 +146,7 @@ const AddEditTask = ({ setPopup }) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
   }, [])
 
   const Project_name = () => {
@@ -182,7 +181,6 @@ const AddEditTask = ({ setPopup }) => {
             }
             data.push(object)
             console.log("***SUBMIT***", data)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
@@ -197,7 +195,7 @@ const AddEditTask = ({ setPopup }) => {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data[0])
+            }, auth, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")

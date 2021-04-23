@@ -13,9 +13,10 @@ import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
 import * as up_down_arrow from '../../assets/up_down.svg'
 import * as play from '../../assets/play.svg'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
+import { useAuth } from 'store/authStore';
 
 const TaskList = (props: any) => {
-
+  const { auth } = useAuth();
   const [filterindicator, setfilterindicator] = useState(false)
 
   const [unique_title, setunique_title] = useState([])
@@ -45,7 +46,6 @@ const TaskList = (props: any) => {
     props.setheader_options(screen_header_elements)
 
     setspinner(true)
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -58,7 +58,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -75,7 +75,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token, allornot ? null : 'all')
+    }, auth, allornot ? null : 'all')
   }, [])
 
 
@@ -253,7 +253,7 @@ const TaskList = (props: any) => {
 }
 
 export default TaskList
-function data(arg0: (data: any, errorresponse: any) => Promise<void>, token: any, data: any) {
+function data(arg0: (data: any, errorresponse: any) => Promise<void>, auth: any, data: any) {
   throw new Error('Function not implemented.');
 }
 

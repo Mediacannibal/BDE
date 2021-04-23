@@ -9,9 +9,11 @@ import * as filter from '../../assets/filter.png'
 import { getMainTask, listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 import * as add from '../../assets/add.svg'
+import { useAuth } from 'store/authStore';
+
 
 const BugList = (props: any) => {
-
+  const { auth } = useAuth();
   const [listItems, setlistItems] = useState([
     {
       "zero": "1",
@@ -61,7 +63,6 @@ const BugList = (props: any) => {
   useEffect(() => {
     props.setheader_options(screen_header_elements)
     setspinner(false)
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
     // if (token === null)
     //   // history.push("/")
     //   if (params.id === undefined) {
@@ -111,7 +112,7 @@ const BugList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, auth)
     // }
   }, [])
 
@@ -282,7 +283,6 @@ const BugList = (props: any) => {
                 // "user": document.getElementById("userpicker").value,
               }
               console.log(data);
-              let token = JSON.parse(String(localStorage.getItem("AuthToken")))
               getBidlogfiltereddata(async (data: any, errorresponse: any) => {
                 if (data.status === 200) {
                   setspinner(false)
@@ -326,7 +326,7 @@ const BugList = (props: any) => {
                   console.log('error ' + JSON.stringify(data));
                   console.log('error ' + JSON.stringify(errorresponse));
                 }
-              }, token, data)
+              }, auth, data)
 
             }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
