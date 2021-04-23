@@ -229,7 +229,7 @@ export const deleteBranch = (callback: (arg0: any, arg1: string) => void, token:
 
 // Tasks
 export const createMainTask = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`tasks/maintask/add/`, data, {
+  instance.post(`tasks/maintask/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -248,7 +248,7 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
 // }
 
 export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/maintask/add/?user=all`, {
+  instance.get(`tasks/maintask/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -288,7 +288,7 @@ export const addTasklog = (callback: (arg0: any, arg1: string) => void, token: a
 }
 
 export const createProject = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`tasks/project/add/`, data, {
+  instance.post(`tasks/project/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -297,8 +297,8 @@ export const createProject = (callback: (arg0: any, arg1: string) => void, token
     .catch(err => callback(err, err.response))
 }
 
-export const getProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/project/add/`, {
+export const getProject = (callback: (arg0: any, arg1: string) => void, token: any, param1: any) => {
+  instance.get(`tasks/project/?user=${param1}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

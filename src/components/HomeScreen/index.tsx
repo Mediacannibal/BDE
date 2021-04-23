@@ -28,8 +28,8 @@ const HomeScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log(">>>>>>>>>>>", data.data)
-        setlistItems1(data.data)
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems1(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -42,7 +42,7 @@ const HomeScreen = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
-        setlistItems2(data.data)
+        setlistItems2(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -175,7 +175,8 @@ const HomeScreen = (props: any) => {
                 </>
               }
             />
-            <Card card_title="Analystics"
+            <Card
+              card_title="Analystics"
               card_body={
                 <>
                   <div className="card_details">Visitors 10,000</div>

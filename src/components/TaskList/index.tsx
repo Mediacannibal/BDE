@@ -26,7 +26,8 @@ const TaskList = (props: any) => {
   const [listItems, setlistItems] = useState([])
 
   const [usertype, setusertype] = useState("NORMAL")
-  const [userID, setuserID] = useState("")
+
+  const [allornot, setallornot] = useState(false)
 
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
@@ -74,7 +75,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, token)
+    }, token, allornot ? null : 'all')
   }, [])
 
 
@@ -218,6 +219,13 @@ const TaskList = (props: any) => {
                   })}
                 </select>
               </div>
+
+              <div onClick={() => {
+                setallornot(!allornot)
+              }}>
+                {allornot ? 'all' : 'notall'}
+              </div>
+
 
               <Card
                 card_title={Projecttitle}
