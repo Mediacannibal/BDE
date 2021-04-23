@@ -25,16 +25,8 @@
                     "disabled": true
                 }],
                 "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "email_or_username",
-                        "value": "",
-                        "type": "text"
-                    }, {
-                        "key": "password",
-                        "value": "",
-                        "type": "text"
-                    }]
+                    "mode": "raw",
+                    "raw": "{\r\n\"auth_provider\": \"otp\",\r\n\"email_otp\": \"3280\",\r\n\"username\": \"kiranraj1@gmail.com\"\r\n}"
                 },
                 "url": "{{url}}api/user/social/signup/"
             },
@@ -294,18 +286,10 @@
                     "type": "text"
                 }],
                 "body": {
-                    "mode": "formdata",
-                    "formdata": [{
-                        "key": "user_list_type",
-                        "value": "BRANCH",
-                        "type": "text"
-                    }, {
-                        "key": "role",
-                        "value": "User",
-                        "type": "text"
-                    }]
+                    "mode": "raw",
+                    "raw": "{\r\n    \"deleted\": \"false\"\r\n}"
                 },
-                "url": "{{url}}api/user/userlist/edit/2/"
+                "url": "{{url}}api/user/userlist/edit/10/"
             },
             "response": []
         }, {
@@ -336,6 +320,51 @@
                     }]
                 },
                 "url": "{{url}}api/user/userlist/deleted/10/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}api/user/userlist/filter/?user_list_type=BRANCH&ref=",
+            "id": "73cd8ec1-12b5-4e3f-bd23-da5a77cd5251",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "user_list_type",
+                        "value": "BRANCH",
+                        "type": "text",
+                        "disabled": true
+                    }, {
+                        "key": "ref",
+                        "value": "1",
+                        "type": "text",
+                        "disabled": true
+                    }]
+                },
+                "url": {
+                    "raw": "{{url}}api/user/userlist/filter/?user_list_type=BRANCH&ref=",
+                    "host": ["{{url}}api"],
+                    "path": ["user", "userlist", "filter", ""],
+                    "query": [{
+                        "key": "user_list_type",
+                        "value": "BRANCH"
+                    }, {
+                        "key": "ref",
+                        "value": ""
+                    }]
+                }
             },
             "response": []
         }],
@@ -386,7 +415,15 @@
                     "value": "Token {{token}}",
                     "type": "text"
                 }],
-                "url": "{{url}}company/branch/add/"
+                "url": {
+                    "raw": "{{url}}company/branch/add/?user=all",
+                    "host": ["{{url}}company"],
+                    "path": ["branch", "add", ""],
+                    "query": [{
+                        "key": "user",
+                        "value": "all"
+                    }]
+                }
             },
             "response": []
         }, {
@@ -521,7 +558,7 @@
                     "mode": "raw",
                     "raw": " {\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swddfffdfv\",\r\n        \"domain\": \"UI\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwbnhjh,.k,mghfdssef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wddghjkyl;ilkjhgfdsdgrthukef\",\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"assisted_by\": null,\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null\r\n    }"
                 },
-                "url": "{{url}}tasks/maintask/add/"
+                "url": "{{url}}tasks/maintask/"
             },
             "response": []
         }, {
@@ -542,10 +579,23 @@
                     "type": "text"
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": ""
+                    "mode": "formdata",
+                    "formdata": [{
+                        "key": "user",
+                        "value": "",
+                        "type": "text",
+                        "disabled": true
+                    }]
                 },
-                "url": "{{url}}tasks/maintask/add/"
+                "url": {
+                    "raw": "{{url}}tasks/maintask/?user=all",
+                    "host": ["{{url}}tasks"],
+                    "path": ["maintask", ""],
+                    "query": [{
+                        "key": "user",
+                        "value": "all"
+                    }]
+                }
             },
             "response": []
         }, {
@@ -685,7 +735,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n        \"remarks\": \"ewffe\",\r\n        \"image_link\": \"fefe\",\r\n        \"tasted_by\": \"fefe\",\r\n        \"tasted_at\": \"fefe\",\r\n        \"deleted_at\": \"2021-04-13\",\r\n        \"task_ref\": 61,\r\n        \"created_by\": 1,\r\n        \"updated_by\": 13,\r\n        \"deleted_by\": 4\r\n    }"
+                    "raw": "{\r\n            \"remarks\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n            \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n            \"task_ref\": 8\r\n        }"
                 },
                 "url": "{{url}}tasks/tasklog/add/"
             },
@@ -997,7 +1047,15 @@
                     "value": "application/json",
                     "type": "text"
                 }],
-                "url": "{{url}}tasks/project/add/"
+                "url": {
+                    "raw": "{{url}}tasks/project/add/?user=kiran",
+                    "host": ["{{url}}tasks"],
+                    "path": ["project", "add", ""],
+                    "query": [{
+                        "key": "user",
+                        "value": "kiran"
+                    }]
+                }
             },
             "response": []
         }, {
@@ -1096,5 +1154,75 @@
             "response": []
         }],
         "id": "83a1ab5c-cca9-4110-86e0-4ef21b082c21"
+    }, {
+        "name": "communications",
+        "item": [{
+            "name": "{{url}}communication/notification/",
+            "id": "94b53bf0-41d2-4124-9767-70bd168e824a",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+                "url": "{{url}}communication/notification/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}communication/notification/",
+            "id": "0a4f34f7-d5d2-4845-9318-409e01028fe5",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n            \"notification_type\": \"2\",\r\n            \"ref\": \"2\",\r\n            \"title\": \"wdefgdssfghrthyjuk\",\r\n            \"description\": \"dwedsgjkfgrthjy\",\r\n            \"link\": \"dfegdgfhjkldfghhjyk\",\r\n            \"is_read\": true,\r\n            \"is_clicked\": true,\r\n            \"remind_at\": \"2021-04-22T00:00:00Z\",\r\n            \"deleted_at\": null,\r\n            \"created_at\": \"2021-04-22T16:34:45.460303Z\",\r\n            \"updated_at\": \"2021-04-22T16:34:45.460303Z\",\r\n            \"user\": 6,\r\n            \"created_by\": 6,\r\n            \"updated_by\": 8,\r\n            \"deleted_by\": 8\r\n        }"
+                },
+                "url": "{{url}}communication/notification/"
+            },
+            "response": []
+        }, {
+            "name": "{{url}}communication/notification/edit/1/",
+            "id": "1e667032-df86-43a0-865e-c2c9d43cf798",
+            "request": {
+                "method": "PUT",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n            \"id\": 2,\r\n            \"notification_type\": \"1\",\r\n            \"ref\": \"2\",\r\n            \"title\": \"wdefgdssfghrthyjuk\",\r\n            \"description\": \"dwedsgjkfgrthjy\",\r\n            \"link\": \"dfegdgfhjkldfghhjyk\",\r\n            \"is_read\": true,\r\n            \"is_clicked\": true,\r\n            \"remind_at\": \"2021-05-22T00:00:00Z\",\r\n            \"deleted_at\": null,\r\n            \"created_at\": \"2021-04-22T16:40:15.891683Z\",\r\n            \"updated_at\": \"2021-04-22T16:40:15.891683Z\",\r\n            \"user\": 6,\r\n            \"created_by\": 6,\r\n            \"updated_by\": 8,\r\n            \"deleted_by\": 8\r\n        }"
+                },
+                "url": "{{url}}communication/notification/edit/1/"
+            },
+            "response": []
+        }],
+        "id": "580f36eb-1d1f-4755-95b9-e25ed2e1b4d4"
     }]
 }

@@ -248,7 +248,7 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
 // }
 
 export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/maintask/add/`, {
+  instance.get(`tasks/maintask/add/?user=all`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

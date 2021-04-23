@@ -17,18 +17,7 @@ const HomeScreen = (props: any) => {
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
-  const [listItems1, setlistItems1] = useState([
-    {
-      "zero": "1",
-      "Row_name": "Customer 1",
-      "one": "00",
-      "two": "90",
-      "three": "60",
-      "four": "20",
-      "five": "30",
-      "six": "40",
-    }
-  ])
+  const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
 
 
@@ -39,8 +28,8 @@ const HomeScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
-        setlistItems1(data.data.results)
+        console.log(">>>>>>>>>>>", data.data)
+        setlistItems1(data.data)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -53,7 +42,7 @@ const HomeScreen = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
-        setlistItems2(data.data.results)
+        setlistItems2(data.data)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -143,34 +132,59 @@ const HomeScreen = (props: any) => {
           <div className="spinner_fullscreen_div">
             <ProgressBar />
           </div> :
-          <><Card card_title="Active Projects" card_body={<div className="internal_table">
-            <table id='internal_table'>
-              <thead>
-                <tr>{renderHeader1()}</tr>
-              </thead>
-              <tbody>
-                {listItems1.map(renderBody1)}
-              </tbody>
-            </table>
-          </div>} /><Card card_title="Pending Tasks" card_body={<div className="internal_table">
-            <table id='internal_table'>
-              <thead>
-                <tr>{renderHeader2()}</tr>
-              </thead>
-              <tbody>
-                {listItems2.map(renderBody2)}
-              </tbody>
-            </table>
-          </div>} /><Card card_title="Stats" card_body={<>
-            <div className="card_details">1,000 Tasks Completed</div>
-            <div className="card_details">500 Features Added</div>
-            <div className="card_details">50,000 Bugs Squashed</div>
-          </>} />
-            <Card card_title="Analystics" card_body={<>
-              <div className="card_details">Visitors 10,000</div>
-              <div className="card_details">Countries</div>
-              <div className="card_details">Devices</div>
-            </>} /></>
+          <>
+            <Card
+              card_title="Active Projects"
+              card_body={
+                <div className="internal_table">
+                  <table id='internal_table'>
+                    <thead>
+                      <tr>{renderHeader1()}</tr>
+                    </thead>
+                    <tbody>
+                      {
+                        listItems1.map(renderBody1)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            />
+            <Card
+              card_title="Pending Tasks"
+              card_body={
+                <div className="internal_table">
+                  <table id='internal_table'>
+                    <thead>
+                      <tr>{renderHeader2()}</tr>
+                    </thead>
+                    <tbody>
+                      {listItems2.map(renderBody2)}
+                    </tbody>
+                  </table>
+                </div>
+              }
+            />
+            <Card
+              card_title="Stats"
+              card_body={
+                <>
+                  <div className="card_details">1,000 Tasks Completed</div>
+                  <div className="card_details">500 Features Added</div>
+                  <div className="card_details">50,000 Bugs Squashed</div>
+                </>
+              }
+            />
+            <Card card_title="Analystics"
+              card_body={
+                <>
+                  <div className="card_details">Visitors 10,000</div>
+                  <div className="card_details">Countries</div>
+                  <div className="card_details">Devices</div>
+                </>
+              }
+            />
+          </>
         }
       </div>
     </div >

@@ -184,34 +184,78 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
                                 {user_notification &&
                                     <div className="user_notification_menu">
-                                        <div>
+                                        <div className="user_notification_header_container">
                                             <div className="user_notification_header">NOTIFICATIONS</div>
+                                            <img className='header_icon' src={settings} />
                                         </div>
 
                                         <div className="user_notification_title_container">
 
                                             <div className="user_notification_title_subcontainer1">
-                                                <div>$$$</div>
+                                                <img className='header_icon' src={settings} />
                                                 <div className="user_notification_title">Media Cannibal</div>
                                             </div>
 
                                             <div className="user_notification_title_subcontainer2">
 
-                                                <div>...</div>
-                                                <div>
-                                                    <div className="user_notification_title_text">Call Them</div>
-                                                    <div>miss call</div>
+                                                <div className="user_notification_notify">
+                                                    <img className='header_icon' src={settings} />
+                                                    <div>
+                                                        <div className="user_notification_title_text">Call Them</div>
+                                                        <div>miss call</div>
+                                                    </div>
+                                                    <div>2 hours ago</div>
                                                 </div>
-                                                <div>2 hours ago</div>
+                                                <div className="user_band"></div>
+                                                <div className="user_notification_notify">
+                                                    <img className='header_icon' src={settings} />
+                                                    <div>
+                                                        <div className="user_notification_title_text">What's up</div>
+                                                        <div>hello</div>
+                                                    </div>
+                                                    <div>6 hours ago</div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div className="user_notification_title_container">
+
+                                            <div className="user_notification_title_subcontainer1">
+                                                <div>***</div>
+                                                <div className="user_notification_title">Media Cannibal</div>
+                                            </div>
+
+                                            <div className="user_notification_title_subcontainer2">
+
+                                                <div className="user_notification_notify">
+                                                    <div>...</div>
+                                                    <div>
+                                                        <div className="user_notification_title_text">Call Them</div>
+                                                        <div>miss call</div>
+                                                    </div>
+                                                    <div>2 hours ago</div>
+                                                </div>
+                                                <div className="user_band"></div>
+                                                <div className="user_notification_notify">
+                                                    <div>!!!</div>
+                                                    <div>
+                                                        <div className="user_notification_title_text">What's up</div>
+                                                        <div>hello</div>
+                                                    </div>
+                                                    <div>6 hours ago</div>
+                                                </div>
 
                                             </div>
 
                                         </div>
 
                                         <div>
-
+                                            <div className="user_notification_footer"
+                                                onClick={() => { history.replace('/Notifications') }}
+                                            >ALL NOTIFICATIONS</div>
                                         </div>
-
                                     </div>
                                 }
 

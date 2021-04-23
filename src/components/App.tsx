@@ -26,6 +26,7 @@ import ChatProject from './ChatProject';
 import NewUserForm from './Forms/NewUserForm';
 import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
+import Notifications from './Notifications';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -42,6 +43,7 @@ const dashboard_screen = [
   { path: '/NewUserForm', component: NewUserForm },
   { path: '/TestSelectionForm', component: TestSelectionForm },
   { path: '/ApiRecords', component: ApiRecords },
+  { path: '/Notifications', component: Notifications },
 ]
 
 const fullpage_screen = [
