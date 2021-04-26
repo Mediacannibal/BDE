@@ -247,8 +247,8 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
 //     .catch(err => callback(err, err.response))
 // }
 
-export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/maintask/`, {
+export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, users: any) => {
+  instance.get(`tasks/maintask/?task_type=${task}&user=${users}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -297,8 +297,8 @@ export const createProject = (callback: (arg0: any, arg1: string) => void, token
     .catch(err => callback(err, err.response))
 }
 
-export const getProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/project/`, {
+export const getProject = (callback: (arg0: any, arg1: string) => void, token: any, user_type: any) => {
+  instance.get(`tasks/project/?user=${user_type}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

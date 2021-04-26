@@ -1,4 +1,4 @@
-import { Store, useStore } from "./Store"; 
+import { Store, useStore } from "./Store";
 
 
 export class userDetailsItem {
@@ -57,9 +57,6 @@ export class userDetailsItem {
         this.user = o.user;
         this.user_id = o.user_id;
         this.user_type = o.user_type;
-
-
-
     }
 }
 

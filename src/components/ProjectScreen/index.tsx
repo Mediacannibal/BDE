@@ -21,11 +21,6 @@ const ProjectScreen = (props: any) => {
   const [unique_start_date, setunique_start_date] = useState(false)
   const [unique_end_date, setunique_end_date] = useState(false)
 
-  const [unique_user, setunique_user] = useState(false)
-  const [unique_user_list_type, setunique_user_list_type] = useState(false)
-  const [unique_ref, setunique_ref] = useState(false)
-  const [unique_role, setunique_role] = useState(false)
-
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
