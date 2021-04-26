@@ -395,14 +395,33 @@
         }, {
             "name": "{{url}}company/add/",
             "id": "ef6cc2e3-844f-43ad-a35d-56fc80745ea9",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
             "request": {
                 "method": "GET",
                 "header": [{
                     "key": "Authorization",
                     "value": "Token {{token}}",
                     "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
                 }],
-                "url": "{{url}}company/add/"
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": []
+                },
+                "url": {
+                    "raw": "{{url}}company/add/?user=kiran",
+                    "host": ["{{url}}company"],
+                    "path": ["add", ""],
+                    "query": [{
+                        "key": "user",
+                        "value": "kiran"
+                    }]
+                }
             },
             "response": []
         }, {
@@ -541,7 +560,7 @@
     }, {
         "name": "tasks_new",
         "item": [{
-            "name": "{{url}}tasks/maintask/add/",
+            "name": "{{url}}tasks/maintask/",
             "id": "2ab1baed-77f9-4865-bc8c-a17ab46d1314",
             "request": {
                 "method": "POST",
@@ -562,7 +581,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/maintask/add/",
+            "name": "{{url}}tasks/maintask/",
             "id": "147cfac1-b412-4dda-9cc9-37e8ba45d0f7",
             "protocolProfileBehavior": {
                 "disableBodyPruning": true
@@ -588,10 +607,13 @@
                     }]
                 },
                 "url": {
-                    "raw": "{{url}}tasks/maintask/?user=all",
+                    "raw": "{{url}}tasks/maintask/?task_type=&user=all",
                     "host": ["{{url}}tasks"],
                     "path": ["maintask", ""],
                     "query": [{
+                        "key": "task_type",
+                        "value": ""
+                    }, {
                         "key": "user",
                         "value": "all"
                     }]
@@ -1034,7 +1056,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/project/add/",
+            "name": "{{url}}tasks/project/",
             "id": "1982eeac-ae7a-4c00-b590-44b69150636d",
             "request": {
                 "method": "GET",
@@ -1048,9 +1070,9 @@
                     "type": "text"
                 }],
                 "url": {
-                    "raw": "{{url}}tasks/project/add/?user=kiran",
+                    "raw": "{{url}}tasks/project/?user=kiran",
                     "host": ["{{url}}tasks"],
-                    "path": ["project", "add", ""],
+                    "path": ["project", ""],
                     "query": [{
                         "key": "user",
                         "value": "kiran"
@@ -1059,7 +1081,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/project/add/",
+            "name": "{{url}}tasks/project/",
             "id": "4f4a1b5b-6c5a-48ef-8607-028227670d74",
             "request": {
                 "method": "POST",
@@ -1076,7 +1098,7 @@
                     "mode": "raw",
                     "raw": "{\r\n        \"id\": 2,\r\n        \"company_ref\": \"swcdcdcdqd\",\r\n        \"branch_ref\": \"sdscdcdcdf\",\r\n        \"design\": true,\r\n        \"development\": true,\r\n        \"marketting\": true,\r\n        \"title\": \"qwergthj\",\r\n        \"description\": \"werthy\",\r\n        \"logo\": \"http://127.0.0.1:8000/admin/company/project/add/\",\r\n        \"start_date\": \"2021-04-19\",\r\n        \"end_date\": \"2021-04-20\",\r\n        \"deleted_at\": \"\",\r\n        \"created_at\": \"2021-04-19T04:53:27.796027Z\",\r\n        \"updated_at\": \"2021-04-19T04:53:27.796027Z\",\r\n        \"created_by\": 1,\r\n        \"updated_by\": 1,\r\n        \"deleted_by\": null\r\n    }"
                 },
-                "url": "{{url}}tasks/project/add/"
+                "url": "{{url}}tasks/project/"
             },
             "response": []
         }, {

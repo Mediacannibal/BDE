@@ -3,7 +3,7 @@ import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
-import Spinner, { ProgressBar } from 'components/Common/Spinner';
+import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
 import { getMainTask, getProject } from 'utils/api';
 

@@ -53,7 +53,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
-            setprofile_picture(((profile_picture === undefined) || (profile_picture === null)) ? defaultusericon : profile_picture)
+            setprofile_picture(((profile_picture === undefined) 
+            || (profile_picture === null)) ? defaultusericon : profile_picture)
             console.log("someidentifier", profile_picture)
         }
     }, [])

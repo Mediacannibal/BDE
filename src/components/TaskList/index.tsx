@@ -4,9 +4,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import { getMainTask, getProject } from 'utils/api';
-import Spinner, { ProgressBar } from 'components/Common/Spinner';
+import { ProgressBar } from 'components/Common/Spinner';
 
-import * as filter from '../../assets/filter.png'
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from '../../assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
@@ -14,10 +13,13 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as play from '../../assets/play.svg'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 import { useAuth } from 'store/authStore';
+import { useuserDetails } from 'store/userDetailsStore';
+import McInput from 'components/Common/McInput';
+import * as filter from '../../assets/filter.png'
 
 const TaskList = (props: any) => {
   const { auth } = useAuth();
-  const [filterindicator, setfilterindicator] = useState(false)
+  const { userDetail, loaduserDetail } = useuserDetails();
 
   const [unique_title, setunique_title] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
@@ -26,9 +28,7 @@ const TaskList = (props: any) => {
   const [spinner, setspinner] = useState(true)
   const [listItems, setlistItems] = useState([])
 
-  const [usertype, setusertype] = useState("NORMAL")
-
-  const [allornot, setallornot] = useState(false)
+  const [allnotall, setallnotall] = useState(true)
 
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
@@ -39,13 +39,28 @@ const TaskList = (props: any) => {
 
   const [seleted_taskid, setseleted_taskid] = useState('')
 
+  const [task, settask] = useState('')
+  const [users, setusers] = useState('')
+
+  const [task_picker, settask_picker] = useState('')
+
+  const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
+  const [setusers_typevalid, setsetusers_typevalid] = useState(false)
+
+  const [user_type, setuser_type] = useState('')
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
 
 
   let params = useParams();
   useEffect(() => {
+    // console.log("<><><><><><><><><><>", auth);
     props.setheader_options(screen_header_elements)
-
+    if (!userDetail) {
+      loaduserDetail()
+    }
     setspinner(true)
+    // console.log("uuuuuuuuuuuuuuu", userDetail);
 
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -58,7 +73,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, task, users)
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -75,10 +90,8 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, allornot ? null : 'all')
+    }, auth, user_type)
   }, [])
-
-
 
   const renderHeader = () => {
     let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'track', 'status']
@@ -117,7 +130,7 @@ const TaskList = (props: any) => {
               setpopup3(true)
               setseleted_taskid(element.id)
               // settask_active(!task_active)
-              console.log("pppppppppppp", setpopup3)
+              // console.log("pppppppppppp", setpopup3)
             }}>
             <img className='header_icon' src={play} />
           </div>
@@ -220,12 +233,85 @@ const TaskList = (props: any) => {
                 </select>
               </div>
 
-              <div onClick={() => {
-                setallornot(!allornot)
-              }}>
-                {allornot ? 'all' : 'notall'}
+              <div className="mc_filter">
+                <div className="inputfield_sub_container">
+                  <div className="Booking_slot_dropdown">
+                    <McInput
+                      type={"picker"}
+                      name={"TASKS"}
+                      id="tasks_type_data"
+                      required={true}
+                      valid={settask_picker_typevalid}
+                      sendcheck={preSendValidator}
+                      value={task}
+                      onchange={settask}
+                      options={[
+                        { "key": "0", "value": "TEST" },
+                        { "key": "1", "value": "BUG" },
+                        { "key": "2", "value": "FEATURE" },
+                        { "key": "3", "value": "UPDATE" },
+                      ]}
+                    />
+                  </div>
+                </div>
+
+                <div className="inputfield_sub_container">
+                  <div className="Booking_slot_dropdown">
+                    <McInput
+                      type={"picker"}
+                      name={"USERS"}
+                      id="users_type_data"
+                      required={true}
+                      valid={setusers_typevalid}
+                      sendcheck={preSendValidator}
+                      value={users}
+                      onchange={setusers}
+                      options={[
+                        { "key": "0", "value": "all" },
+                        { "key": "1", "value": "" },
+                      ]}
+                    />
+                  </div>
+                </div>
+
               </div>
 
+
+              <button className="bidrecord_filterandclose_button"
+                onClick={() => {
+
+                  getMainTask(async (data: any, errorresponse: any) => {
+                    if (data.status === 200) {
+                      setspinner(false)
+                      // console.log(">>>>>>>>>>>", data.data.results)
+                      setlistItems1(data.data.results)
+
+                    } else {
+                      setspinner(false)
+                      console.log('error ' + JSON.stringify(data));
+                      console.log('error ' + JSON.stringify(errorresponse));
+                    }
+                  }, auth, task, users)
+
+
+                  getProject(async (data: any, errorresponse: any) => {
+                    if (data.status === 200) {
+                      setspinner(false)
+                      // console.log(">>>>>>123123>>>>>", data.data.results)
+                      setlistItems2(data.data.results)
+                      let title: Iterable<any> | null | undefined = []
+                      data.data.results.forEach((element: any) => {
+                        title.push(element.title)
+                      });
+                      setunique_title(Array.from(new Set(title)));
+                    } else {
+                      setspinner(false)
+                      console.log('error ' + JSON.stringify(data));
+                      console.log('error ' + JSON.stringify(errorresponse));
+                    }
+                  }, auth, user_type)
+
+                }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
               <Card
                 card_title={Projecttitle}

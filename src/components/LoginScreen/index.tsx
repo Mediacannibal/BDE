@@ -7,20 +7,19 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-import { decode } from 'base-64'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
-import { generateOTP, otpValidation } from 'utils/api';
+import { generateOTP } from 'utils/api';
 
 const LoginScreen = () => {
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
 
-  const [otp, setotp] = useState({ value: '', error: '' });
-  
+  const [ispassword, setispassword] = useState(true)
+
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -45,18 +44,18 @@ const LoginScreen = () => {
   }
 
   const _onSignUpPressed = () => {
+    setispassword(false)
     console.log(username_email_or_phone)
     let data = {
       username_email_or_phone: username_email_or_phone.value,
     }
     localStorage.setItem('username_email_or_phone', JSON.stringify(data));
     generateOTP(_verifyCallback, data);
-
   };
 
   const OTPvalidate = () => {
     let data = {
-      auth_provider: "otp",
+      auth_provider: ispassword ? "mc" : "otp",
       email_otp: password_otp.value,
       username: username_email_or_phone.value
     }
