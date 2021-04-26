@@ -56,7 +56,7 @@ const LoginScreen = () => {
   const OTPvalidate = () => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
-      email_otp: password_otp.value,
+      password: password_otp.value,
       username: username_email_or_phone.value
     }
     Sociallogin(loginCallback, data)
@@ -130,7 +130,7 @@ const LoginScreen = () => {
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={OTPvalidate} className="login_validatebutton">
+                  <button onClick={handleLogin} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>
