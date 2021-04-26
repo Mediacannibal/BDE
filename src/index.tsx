@@ -15,20 +15,20 @@ import { AnalyticsProvider } from 'use-analytics'
 ReactGA.initialize('UA-157352486-1');
 
 // Custom inline analytics plugin
-const myPlugin = {
-  name: 'my-custom-plugin',
-  page: ({ payload }) => {
-    console.log('page view fired', payload)
-  },
-  track: ({ payload }) => {
-    console.log('track event payload', payload)
-  }
-}
+// const myPlugin = {
+//   name: 'my-custom-plugin',
+//   page: ({ payload }) => {
+//     console.log('page view fired', payload)
+//   },
+//   track: ({ payload }) => {
+//     console.log('track event payload', payload)
+//   }
+// }
 
 const analytics = Analytics({
   app: 'MC-BDE',
   plugins: [
-    myPlugin,
+    // myPlugin,
     googleAnalytics({
       trackingId: 'UA-157352486-1'
     })
