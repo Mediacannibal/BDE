@@ -93,8 +93,6 @@ const TaskList = (props: any) => {
     }, auth, user_type)
   }, [])
 
-
-
   const renderHeader = () => {
     let headerElement = ['title', 'Task Type', 'priority', 'domain', 'description', 'assignee', 'image_link', 'track', 'status']
 
@@ -132,7 +130,7 @@ const TaskList = (props: any) => {
               setpopup3(true)
               setseleted_taskid(element.id)
               // settask_active(!task_active)
-              console.log("pppppppppppp", setpopup3)
+              // console.log("pppppppppppp", setpopup3)
             }}>
             <img className='header_icon' src={play} />
           </div>
@@ -315,22 +313,6 @@ const TaskList = (props: any) => {
 
                 }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               <Card
                 card_title={Projecttitle}
                 card_body={<div className="internal_table">
@@ -349,7 +331,7 @@ const TaskList = (props: any) => {
                 </div>} />
             </>
           }
-        </div>?
+        </div>
         <Footer />
       </div >
     </>
