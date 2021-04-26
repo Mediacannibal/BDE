@@ -14,9 +14,12 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as play from '../../assets/play.svg'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 import { useAuth } from 'store/authStore';
+import { useuserDetails } from 'store/userDetailsStore';
 
 const TaskList = (props: any) => {
   const { auth } = useAuth();
+  const { userDetail, loaduserDetail } = useuserDetails();
+
   const [filterindicator, setfilterindicator] = useState(false)
 
   const [unique_title, setunique_title] = useState([])
@@ -43,9 +46,13 @@ const TaskList = (props: any) => {
 
   let params = useParams();
   useEffect(() => {
+    console.log("<><><><><><><><><><>", auth);
     props.setheader_options(screen_header_elements)
-
+    if (!userDetail) {
+      loaduserDetail()
+    }
     setspinner(true)
+    console.log("uuuuuuuuuuuuuuu", userDetail);
 
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -75,7 +82,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, allornot ? null : 'all')
+    }, auth)
   }, [])
 
 
@@ -219,13 +226,6 @@ const TaskList = (props: any) => {
                   })}
                 </select>
               </div>
-
-              <div onClick={() => {
-                setallornot(!allornot)
-              }}>
-                {allornot ? 'all' : 'notall'}
-              </div>
-
 
               <Card
                 card_title={Projecttitle}
