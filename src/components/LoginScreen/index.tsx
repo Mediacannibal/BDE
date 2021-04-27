@@ -162,19 +162,20 @@ const LoginScreen = () => {
                   </button>
                 </div> */}
 
-                <div className="login_button_container">
+                <div className="login_button_container" >
                   <button onClick={() => {
-                    start()
-                    _onSignUpPressed
-                    settimerglow(true)
+                    if (timeLeft / 1000 === 0) {
+                      _onSignUpPressed()
+                      settimerglow(true)
+                      start()
+                    }
                   }}
-                    className="login_validatebutton">
+                    className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"} >
 
                     {timerglow ?
                       <div className="login_resendotp_container">
-                        <div className='login_buttontext'>{timeLeft / 1000 === 0 ? 'Get OTP' : 'RESEND'}</div>
-                        {timeLeft / 1000 > 0 &&
-                          <div className='login_buttontext'>{timeLeft / 1000}</div>}
+                        <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
+                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}</div>
                       </div>
                       :
                       <div className="login_buttontext">Get OTP</div>

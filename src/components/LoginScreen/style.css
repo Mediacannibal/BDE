@@ -215,3 +215,11 @@
 .login_resendotp_container {
     /* display: flex; */
 }
+
+.disabled_text {
+    color: var(--color_15);
+}
+
+.disabled_button {
+    background-color: #757588 !important;
+}
