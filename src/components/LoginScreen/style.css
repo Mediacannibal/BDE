@@ -211,3 +211,7 @@
     width: calc(4.3vw + 12.9vh + 4.3vmin);
     height: calc(2.5vw + 7.5vh + 2.5vmin);
 }
+
+.login_resendotp_container {
+    /* display: flex; */
+}

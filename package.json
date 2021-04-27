@@ -67,7 +67,7 @@
         "react": "^16.11.0",
         "react-bootstrap": "^1.0.0",
         "react-chat-window": "^1.2.1",
-        "react-countdown-hook": "^1.0.2",
+        "react-countdown-hook": "^1.1.0",
         "react-css-grid": "^2.0.0-0",
         "react-custom-scrollbars": "^4.2.1",
         "react-datepicker": "^3.6.0",

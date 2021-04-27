@@ -12,6 +12,7 @@ import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 import { generateOTP } from 'utils/api';
+import useCountDown from 'react-countdown-hook';
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -20,6 +21,10 @@ const LoginScreen = () => {
 
   const [ispassword, setispassword] = useState(true)
 
+  const [timeLeft, { start, pause, resume, reset }] = useCountDown(15 * 1000, 1000);
+  const [timerglow, settimerglow] = useState(false)
+
+  // const [time, settime] = useState(0)
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -120,17 +125,23 @@ const LoginScreen = () => {
             <div className="login_container">
 
               <div className="login_button_container">
-                <input id="username" type="text" value={username_email_or_phone.value} onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }} placeholder="User Name / Email / Phone Number" className="login_input" />
+                <input id="username" type="text"
+                  value={username_email_or_phone.value}
+                  onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }}
+                  placeholder="User Name / Email / Phone Number" className="login_input" />
               </div>
 
               <div className="login_button_container">
-                <input id="password" type="password" value={password_otp.value} onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }} placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
+                <input id="password" type="password"
+                  value={password_otp.value}
+                  onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }}
+                  placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
               </div>
 
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={handleLogin} className="login_validatebutton">
+                  <button onClick={OTPvalidate} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>
@@ -152,14 +163,36 @@ const LoginScreen = () => {
                 </div> */}
 
                 <div className="login_button_container">
-                  <button onClick={_onSignUpPressed}
+                  <button onClick={() => {
+                    start()
+                    _onSignUpPressed
+                    settimerglow(true)
+                  }}
                     className="login_validatebutton">
-                    <div className="login_buttontext">Get OTP</div>
+
+                    {timerglow ?
+                      <div className="login_resendotp_container">
+                        <div className='login_buttontext'>{timeLeft / 1000 === 0 ? 'Get OTP' : 'RESEND'}</div>
+                        {timeLeft / 1000 > 0 &&
+                          <div className='login_buttontext'>{timeLeft / 1000}</div>}
+                      </div>
+                      :
+                      <div className="login_buttontext">Get OTP</div>
+                    }
                   </button>
                 </div>
-
               </div>
             </div>
+
+            {/* <button onClick={() => {
+                    start()
+                  }} className="activity_buttonstart1">
+                    <div className="activity_buttontext1">
+                      START/RETRY
+                </div>
+                  </button> */}
+
+
 
             <div className='loginDescription_Text'>OR</div>
 
