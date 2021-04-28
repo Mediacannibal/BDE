@@ -212,7 +212,15 @@
             "id": "cbfb1bb4-c713-4c62-be94-763d192eacf9",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }, {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
                 "url": "{{url}}api/user/list/"
             },
             "response": []
@@ -414,12 +422,12 @@
                     "urlencoded": []
                 },
                 "url": {
-                    "raw": "{{url}}company/add/?user=kiran",
+                    "raw": "{{url}}company/add/?user=all",
                     "host": ["{{url}}company"],
                     "path": ["add", ""],
                     "query": [{
                         "key": "user",
-                        "value": "kiran"
+                        "value": "all"
                     }]
                 }
             },
@@ -435,9 +443,9 @@
                     "type": "text"
                 }],
                 "url": {
-                    "raw": "{{url}}company/branch/add/?user=all",
+                    "raw": "{{url}}company/branch/?user=all",
                     "host": ["{{url}}company"],
-                    "path": ["branch", "add", ""],
+                    "path": ["branch", ""],
                     "query": [{
                         "key": "user",
                         "value": "all"
@@ -607,7 +615,7 @@
                     }]
                 },
                 "url": {
-                    "raw": "{{url}}tasks/maintask/?task_type=&user=all",
+                    "raw": "{{url}}tasks/maintask/?task_type=&user=",
                     "host": ["{{url}}tasks"],
                     "path": ["maintask", ""],
                     "query": [{
@@ -615,7 +623,7 @@
                         "value": ""
                     }, {
                         "key": "user",
-                        "value": "all"
+                        "value": ""
                     }]
                 }
             },
@@ -1070,12 +1078,12 @@
                     "type": "text"
                 }],
                 "url": {
-                    "raw": "{{url}}tasks/project/?user=kiran",
+                    "raw": "{{url}}tasks/project/?user=",
                     "host": ["{{url}}tasks"],
                     "path": ["project", ""],
                     "query": [{
                         "key": "user",
-                        "value": "kiran"
+                        "value": ""
                     }]
                 }
             },

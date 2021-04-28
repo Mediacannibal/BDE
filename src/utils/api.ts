@@ -1,4 +1,4 @@
-import instance from 'utils/axios'
+import instance from '../utils/axios'
 
 // User
 
@@ -238,8 +238,8 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
     .catch(err => callback(err, err.response))
 }
 
-export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/maintask/?task_type=&user=all`, {
+export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any) => {
+  instance.get(`tasks/maintask/?task_type${task}=&user=${user_list}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -247,16 +247,6 @@ export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: 
   }).then((res) => { callback(res, 'sucess') })
     .catch(err => callback(err, err.response))
 }
-
-// export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, users: any) => {
-//   instance.get(`tasks/maintask/?task_type=${task}&user=${users}`, {
-//     headers: {
-//       'Authorization': token ? `Token ${token}` : '',
-//       'Content-Type': 'application/json'
-//     }
-//   }).then((res) => { callback(res, 'sucess') })
-//     .catch(err => callback(err, err.response))
-// }
 
 export const editMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.put(`tasks/maintask/edit/4/`, {
@@ -298,8 +288,8 @@ export const createProject = (callback: (arg0: any, arg1: string) => void, token
     .catch(err => callback(err, err.response))
 }
 
-export const getProject = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/project/?user=`, {
+export const getProject = (callback: (arg0: any, arg1: string) => void, token: any, users: any) => {
+  instance.get(`tasks/project/?user=${users}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

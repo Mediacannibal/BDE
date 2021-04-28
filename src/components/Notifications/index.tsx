@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
-import * as add from '../../assets/add.svg'
-import Spinner, { ProgressBar } from 'components/Common/Spinner';
-import AddEditProject from 'components/Forms/AddEditProject';
-import { getMainTask, getProject } from 'utils/api';
+import { ProgressBar } from 'components/Common/Spinner';
+
 import * as settings from '../../assets/settings.svg'
 
 import * as up_down_arrow from '../../assets/up_down.svg'
+import Card from 'components/Common/Card';
 
 
 const Notifications = (props: any) => {
@@ -22,24 +21,6 @@ const Notifications = (props: any) => {
 
   }, [])
 
-
-  const Card = ({ card_title, card_body }) => {
-    const [card_open, setCard_open] = useState(true)
-    return (
-      <div className='dashboard_card'>
-        <div className='card_title'>
-          {card_title}
-          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
-        </div>
-        {card_open &&
-          <div className='card_details_wrapper'>
-            {card_body}
-          </div>
-        }
-      </div>
-    )
-  }
-
   return (
     <div className="main">
       <div className="body">
@@ -47,7 +28,8 @@ const Notifications = (props: any) => {
           <div className="spinner_fullscreen_div">
             <ProgressBar />
           </div> :
-          <Card card_title="Notifications"
+          <Card
+            card_title="Notifications"
             card_body={
               <div className="user_notifications_table">
 

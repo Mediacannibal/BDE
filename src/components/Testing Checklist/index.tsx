@@ -3,8 +3,8 @@ import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import Footer from 'components/common/Footer';
-import { getMainTask, getTestlog } from 'utils/api';
-import Spinner, { ProgressBar } from 'components/Common/Spinner';
+import { getTestlog } from 'utils/api';
+import { ProgressBar } from 'components/Common/Spinner';
 
 import * as add from '../../assets/add.svg'
 import * as play from '../../assets/play.svg'
@@ -13,12 +13,14 @@ import * as filter from '../../assets/filter.png'
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
+import { getProject } from 'src/utils/api';
+import Card from '../Common/Card';
 
 const TestingChecklist = (props: any) => {
   const { auth } = useAuth();
-  const [listItems, setlistItems] = useState([])
-
-
+  const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
+  const [unique_title, setunique_title] = useState([])
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -49,8 +51,26 @@ const TestingChecklist = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data.results)
-        setlistItems(data.data.results)
+        setlistItems1(data.data.results)
 
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, auth)
+
+
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>123123>>>>>", data.data.results)
+        setlistItems2(data.data.results)
+        let title: Iterable<any> | null | undefined = []
+        data.data.results.forEach((element: any) => {
+          title.push(element.title)
+        });
+        setunique_title(Array.from(new Set(title)));
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -117,6 +137,12 @@ const TestingChecklist = (props: any) => {
     )
   }
 
+  const Projecttitle = () => {
+    return listItems2.map((ele: any, key: any) => {
+      return <div>{" Project:"}<span>{ele.title}</span></div>
+    })
+  }
+
   return (
     <div className="main">
       {popup &&
@@ -178,18 +204,23 @@ const TestingChecklist = (props: any) => {
 
             </div>
 
-            <div className="internal_table">
-              <table id='internal_table'>
-                <thead>
-                  <tr>{renderHeader()}</tr>
-                </thead>
-                <tbody>
-                  {
-                    listItems.map(renderBody)
-                  }
-                </tbody>
-              </table>
-            </div>
+            <Card
+              card_title={Projecttitle}
+              card_body={
+                <div className="internal_table">
+                  <table id='internal_table'>
+                    <thead>
+                      <tr>{renderHeader()}</tr>
+                    </thead>
+                    <tbody>
+                      {
+                        listItems1.map(renderBody)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            />
           </>
         }
       </div>

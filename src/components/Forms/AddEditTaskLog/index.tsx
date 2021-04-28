@@ -12,26 +12,20 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   const { auth } = useAuth();
   const history = useHistory();
 
-  const [task_ref, settask_ref] = useState('')
   const [remarks, setremarks] = useState('')
   const [image_link, setimage_link] = useState('')
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
-
-  const [task, settask_type] = useState('')
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [isremarksvalid, setremarksvalid] = useState(false)
-  const [taskvalid, settaskvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [ispopup, setispopup] = useState(false)
   const [dataUri, setDataUri] = useState('');
-
-  const [list, setlist] = useState([])
 
   const { register, handleSubmit, errors, reset } = useForm();
 

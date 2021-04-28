@@ -10,6 +10,7 @@ import { getMainTask, getProject } from 'utils/api';
 import * as up_down_arrow from '../../assets/up_down.svg'
 
 import { useAuth } from 'store/authStore';
+import Card from 'components/Common/Card';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -18,6 +19,10 @@ const HomeScreen = (props: any) => {
   const [spinner, setspinner] = useState(true)
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
+
+  const [task, settask] = useState('')
+  const [user_list, setuser_list] = useState('')
+  const [users, setusers] = useState('')
 
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, users)
 
 
     getMainTask(async (data: any, errorresponse: any) => {
@@ -46,7 +51,7 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, task, user_list)
 
   }, [])
 
@@ -96,23 +101,6 @@ const HomeScreen = (props: any) => {
         <td>{element.assigned_to}</td>
         <td>{element.status}</td>
       </tr>
-    )
-  }
-
-  const Card = ({ card_title, card_body }) => {
-    const [card_open, setCard_open] = useState(true)
-    return (
-      <div className='dashboard_card'>
-        <div className='card_title'>
-          {card_title}
-          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
-        </div>
-        {card_open &&
-          <div className='card_details_wrapper'>
-            {card_body}
-          </div>
-        }
-      </div>
     )
   }
 

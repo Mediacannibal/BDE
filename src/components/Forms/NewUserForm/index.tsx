@@ -18,7 +18,6 @@ const NewUserForm = ({ setPopup }) => {
   const [ispopup, setispopup] = useState(false)
 
   const [company_name, setcompany_name] = useState('')
-  const [location, setlocation] = useState('')
   const [branch_name, setbranch_name] = useState('')
   const [firstname, setfirstname] = useState('')
   const [username, setusername] = useState('')

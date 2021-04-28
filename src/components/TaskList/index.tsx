@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
-import { useHistory, useParams } from 'react-router-dom';
-import '../../components/app.css'
+import { useHistory } from 'react-router-dom';
+import 'components/app.css'
 import Footer from 'components/common/Footer';
 import { getMainTask, getProject } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 
 import AddEditTask from 'components/Forms/AddEditTask';
-import * as add from '../../assets/add.svg'
+import * as add from 'assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog';
-import * as up_down_arrow from '../../assets/up_down.svg'
-import * as play from '../../assets/play.svg'
+import * as play from 'assets/play.svg'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 import { useAuth } from 'store/authStore';
 import { useuserDetails } from 'store/userDetailsStore';
 import McInput from 'components/Common/McInput';
-import * as filter from '../../assets/filter.png'
+import * as filter from 'assets/filter.png'
+import Card from 'components/Common/Card';
 
 const TaskList = (props: any) => {
+  const history = useHistory();
   const { auth } = useAuth();
+
   const { userDetail, loaduserDetail } = useuserDetails();
 
   const [unique_title, setunique_title] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
 
-  const history = useHistory();
   const [spinner, setspinner] = useState(true)
-  const [listItems, setlistItems] = useState([])
-
-  const [allnotall, setallnotall] = useState(true)
 
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
@@ -40,19 +38,15 @@ const TaskList = (props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
 
   const [task, settask] = useState('')
+  const [user_list, setuser_list] = useState('')
   const [users, setusers] = useState('')
 
-  const [task_picker, settask_picker] = useState('')
 
   const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
   const [setusers_typevalid, setsetusers_typevalid] = useState(false)
 
-  const [user_type, setuser_type] = useState('')
-
   const [preSendValidator, setPreSendValidator] = useState(false)
 
-
-  let params = useParams();
   useEffect(() => {
     // console.log("<><><><><><><><><><>", auth);
     props.setheader_options(screen_header_elements)
@@ -73,7 +67,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, users)
+    }, auth, task, user_list)
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -90,7 +84,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, user_type)
+    }, auth, users)
   }, [])
 
   const renderHeader = () => {
@@ -110,12 +104,10 @@ const TaskList = (props: any) => {
   }
 
   const renderBody = (element: any) => {
-    // const [task_active, settask_active] = useState(false)
     return (
-      <tr>
+      <tr key={element.id}>
         <td onClick={() => {
           setpopup2(true)
-          // console.log(">><<", popup2)
           setseleted_taskid(element.id)
         }}>{element.title}</td>
         <td>{element.task_type}</td>
@@ -129,8 +121,6 @@ const TaskList = (props: any) => {
             onClick={() => {
               setpopup3(true)
               setseleted_taskid(element.id)
-              // settask_active(!task_active)
-              // console.log("pppppppppppp", setpopup3)
             }}>
             <img className='header_icon' src={play} />
           </div>
@@ -146,18 +136,6 @@ const TaskList = (props: any) => {
     })
   }
 
-  const Project_name = () => {
-    let a: any = [];
-    listItems.forEach(element => {
-      let data = {
-        "key": element.id,
-        "value": element.title
-      }
-      a.push(data);
-    });
-    return a
-  }
-
   const screen_header_elements = () => {
     return (
       <>
@@ -166,23 +144,6 @@ const TaskList = (props: any) => {
           <div>Add Task</div>
         </div>
       </>
-    )
-  }
-
-  const Card = ({ card_title, card_body }) => {
-    const [card_open, setCard_open] = useState(true)
-    return (
-      <div className='dashboard_card'>
-        <div className='card_title'>
-          {card_title}
-          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
-        </div>
-        {card_open &&
-          <div className='card_details_wrapper'>
-            {card_body}
-          </div>
-        }
-      </div>
     )
   }
 
@@ -264,8 +225,8 @@ const TaskList = (props: any) => {
                       required={true}
                       valid={setusers_typevalid}
                       sendcheck={preSendValidator}
-                      value={users}
-                      onchange={setusers}
+                      value={user_list}
+                      onchange={setuser_list}
                       options={[
                         { "key": "0", "value": "all" },
                         { "key": "1", "value": "" },
@@ -291,7 +252,7 @@ const TaskList = (props: any) => {
                       console.log('error ' + JSON.stringify(data));
                       console.log('error ' + JSON.stringify(errorresponse));
                     }
-                  }, auth, task, users)
+                  }, auth, task, user_list)
 
 
                   getProject(async (data: any, errorresponse: any) => {
@@ -309,26 +270,28 @@ const TaskList = (props: any) => {
                       console.log('error ' + JSON.stringify(data));
                       console.log('error ' + JSON.stringify(errorresponse));
                     }
-                  }, auth, user_type)
+                  }, auth)
 
                 }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
               <Card
                 card_title={Projecttitle}
-                card_body={<div className="internal_table">
-
-                  <table id='internal_table'>
-                    <thead>
-                      {(all_project_ref.length === 0) ?
-                        <tr>{renderHeader()}</tr>
-                        :
-                        <tr>{renderHeader2()}</tr>}
-                    </thead>
-                    <tbody>
-                      {listItems1.map(renderBody)}
-                    </tbody>
-                  </table>
-                </div>} />
+                card_body={
+                  <div className="internal_table">
+                    <table id='internal_table'>
+                      <thead>
+                        {(all_project_ref.length === 0) ?
+                          <tr>{renderHeader()}</tr>
+                          :
+                          <tr>{renderHeader2()}</tr>}
+                      </thead>
+                      <tbody>
+                        {listItems1.map(renderBody)}
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              />
             </>
           }
         </div>

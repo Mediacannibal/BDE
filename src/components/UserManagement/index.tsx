@@ -15,13 +15,10 @@ export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
-  const [updating, setupdating] = useState(false)
-  const [selecteduser, setselecteduser] = useState({})
+  
 
   const history = useHistory();
-  const [isSelect, setisSelect] = useState('')
-  const [iseditable, seteditable] = useState(false)
-
+  
   const [spinner, setspinner] = useState(false)
 
   const [popup, setpopup] = useState(false)
@@ -37,8 +34,8 @@ const UserManagement = (props: any) => {
         // console.log("<><><><><>", data.data);
       } else {
         setspinner(false)
-        // console.log('error ' + JSON.stringify(data));
-        // console.log('error ' + JSON.stringify(errorresponse));
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
       };
     }, auth)
   }
@@ -91,7 +88,6 @@ const UserManagement = (props: any) => {
       </>
     )
   }
-
 
   return (
 

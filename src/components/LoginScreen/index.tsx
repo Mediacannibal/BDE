@@ -185,16 +185,6 @@ const LoginScreen = () => {
               </div>
             </div>
 
-            {/* <button onClick={() => {
-                    start()
-                  }} className="activity_buttonstart1">
-                    <div className="activity_buttontext1">
-                      START/RETRY
-                </div>
-                  </button> */}
-
-
-
             <div className='loginDescription_Text'>OR</div>
 
             <div className="SMlogin_button_container">

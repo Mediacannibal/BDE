@@ -80,7 +80,6 @@ const AddEditProject = ({ setPopup }) => {
 
   }
 
-
   return (
     <>
       {ispopup ?
