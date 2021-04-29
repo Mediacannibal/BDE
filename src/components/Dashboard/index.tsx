@@ -90,7 +90,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' },
-        { path: '/ApiRecords', icon: team, title: 'Api Records' },]
+        { path: '/ApiRecords', icon: team, title: 'Api Records' },
+        { path: '/report', icon: team, title: 'Analytics Report' },
+    ]
 
     return (
         <div className="main_wrapper">
