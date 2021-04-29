@@ -20,7 +20,6 @@ export const profile = (callback: (arg0: any, arg1: string) => void) => {
     .catch(err => callback(err, err.response))
 }
 
-
 export const generateOTP = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/api/user/phone/email/otp_verify/`, data, {
     headers: {
