@@ -81,3 +81,17 @@
     padding-top: calc(0.3vw + 0.9vh + 0.3vmin);
     justify-content: center;
 }
+
+.project_sub_text {
+    display: flex;
+    font-weight: 600;
+    color: var(--color_1);
+    font-size: var(--TS8);
+    white-space: nowrap;
+    padding-top: var(--TS11);
+}
+
+.project_task_options {
+    display: flex;
+    justify-content: space-between;
+}

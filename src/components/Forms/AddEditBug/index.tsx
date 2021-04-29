@@ -140,7 +140,7 @@ const AddEditBug = ({ setPopup }) => {
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"checkbox"}
                     name={"Portrait"}

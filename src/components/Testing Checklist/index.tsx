@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
-import Footer from 'components/common/Footer';
 import { getTestlog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 
@@ -15,16 +14,18 @@ import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
 import { getProject } from 'src/utils/api';
 import Card from '../Common/Card';
+import Footer from '../Common/Footer';
 
 const TestingChecklist = (props: any) => {
   const { auth } = useAuth();
+  const history = useHistory();
+
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
   const [unique_title, setunique_title] = useState([])
 
   const [filterindicator, setfilterindicator] = useState(false)
 
-  const history = useHistory();
   const [spinner, setspinner] = useState(true)
 
   const [userID, setuserID] = useState("")
@@ -188,13 +189,13 @@ const TestingChecklist = (props: any) => {
 
             <div className="bidlog_filterfield_container">
 
-              <button className="bidrecord_filterandclose_button"
+              <button
                 onClick={() => {
 
                 }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
               {filterindicator ?
-                <button className="bidrecord_filterandclose_button"
+                <button
                   onClick={() => {
                     window.location.reload()
                   }}>X</button>

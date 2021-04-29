@@ -8,15 +8,15 @@ import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
 
-const AddEditTask = ({ setPopup }) => {
+const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { auth } = useAuth();
   const history = useHistory();
 
-  const [project_ref, setproject_ref] = useState('')
+  const [project_ref, setproject_ref] = useState(projectName)
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
-  const [task_type, settask_type] = useState('')
+  const [task_type, settask_type] = useState(projectTaskType)
   const [android, setandroid] = useState('')
   const [ios, setios] = useState('')
   const [browser, setbrowser] = useState('')
@@ -106,7 +106,6 @@ const AddEditTask = ({ setPopup }) => {
 
   const Validate = () => {
 
-
     if (isproject_namevalid === true
       || istitlevalid === true
       || istask_typevalid === true
@@ -136,6 +135,9 @@ const AddEditTask = ({ setPopup }) => {
   }
 
   useEffect(() => {
+    console.log("Initailized Project Name: ", projectName)
+    console.log("Initailized Feature Task: ", projectTaskType)
+
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
@@ -213,47 +215,55 @@ const AddEditTask = ({ setPopup }) => {
                 <div className="addedit_task_container1">
 
                   <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
-                      <McInput
-                        type={"picker"}
-                        name={"PROJECT"}
-                        id="project_ref"
-                        required={true}
-                        valid={setproject_namevalid}
-                        sendcheck={preSendValidator}
-                        value={project_ref}
-                        onchange={setproject_ref}
-                        options={
-                          Project_name()
-                        }
-                      />
+                    <div >
+                      {(projectName === undefined) ?
+                        <McInput
+                          type={"picker"}
+                          name={"PROJECT"}
+                          id="project_ref"
+                          required={true}
+                          valid={setproject_namevalid}
+                          sendcheck={preSendValidator}
+                          value={project_ref}
+                          onchange={setproject_ref}
+                          options={
+                            Project_name()
+                          }
+                        />
+                        :
+                        <div>{"Project: " + projectName}</div>
+                      }
                     </div>
                   </div>
 
                   <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
-                      <McInput
-                        type={"picker"}
-                        name={"TASK TYPE"}
-                        id="task_type"
-                        required={true}
-                        valid={settask_typevalid}
-                        sendcheck={preSendValidator}
-                        value={task_type}
-                        onchange={settask_type}
-                        options={[
-                          { "key": "0", "value": "PROJECT" },
-                          { "key": "1", "value": "FEATURE" },
-                          { "key": "2", "value": "TEST" },
-                          { "key": "3", "value": "BUG" },
-                          { "key": "4", "value": "UPDATE" },
-                        ]}
-                      />
+                    <div >
+                      {(projectTaskType === undefined) ?
+                        <McInput
+                          type={"picker"}
+                          name={"TASK TYPE"}
+                          id="task_type"
+                          required={true}
+                          valid={settask_typevalid}
+                          sendcheck={preSendValidator}
+                          value={task_type}
+                          onchange={settask_type}
+                          options={[
+                            { "key": "0", "value": "PROJECT" },
+                            { "key": "1", "value": "FEATURE" },
+                            { "key": "2", "value": "TEST" },
+                            { "key": "3", "value": "BUG" },
+                            { "key": "4", "value": "UPDATE" },
+                          ]}
+                        />
+                        :
+                        <div>{"Task Type: " + projectTaskType}</div>
+                      }
                     </div>
                   </div>
 
                   <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
+                    <div >
                       <McInput
                         type={"picker"}
                         name={"PROIRITY"}
@@ -275,7 +285,7 @@ const AddEditTask = ({ setPopup }) => {
                   </div>
 
                   <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
+                    <div >
                       <McInput
                         type={"picker"}
                         name={"DOMAIN"}
@@ -370,7 +380,7 @@ const AddEditTask = ({ setPopup }) => {
                   {(task_type === "PROJECT") ?
                     <>
                       <div className="inputfield_sub_container">
-                        <div className="Booking_slot_dropdown">
+                        <div >
                           <McInput
                             type={"picker"}
                             name={"PROJECT TYPE"}
@@ -434,7 +444,7 @@ const AddEditTask = ({ setPopup }) => {
                   {(task_type === "TEST") ?
                     <>
                       <div className="inputfield_sub_container">
-                        <div className="Booking_slot_dropdown">
+                        <div >
                           <McInput
                             type={"picker"}
                             name={"DEVELOPMENT"}
@@ -468,7 +478,7 @@ const AddEditTask = ({ setPopup }) => {
                       </div>
 
                       <div className="inputfield_sub_container">
-                        <div className="Booking_slot_dropdown">
+                        <div >
                           <McInput
                             type={"checkbox"}
                             name={"Portrait"}
@@ -643,7 +653,7 @@ const AddEditTask = ({ setPopup }) => {
                   {(domain === "FRONT END") ?
                     <>
                       <div className="inputfield_sub_container">
-                        <div className="Booking_slot_dropdown">
+                        <div >
                           <McInput
                             type={"checkbox"}
                             name={"Portrait"}
@@ -825,7 +835,7 @@ const AddEditTask = ({ setPopup }) => {
                       </div>
 
                       <div className="inputfield_sub_container">
-                        <div className="Booking_slot_dropdown">
+                        <div >
                           <McInput
                             type={"picker"}
                             name={"API METHOD"}

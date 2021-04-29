@@ -7,10 +7,9 @@ import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
 import { getMainTask, getProject } from 'utils/api';
 
-import * as up_down_arrow from '../../assets/up_down.svg'
-
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
+import Footer from '../Common/Footer';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -85,7 +84,7 @@ const HomeScreen = (props: any) => {
   }
 
   const renderHeader2 = () => {
-    let headerElement = ['title', 'Task Type', 'priority', 'assignee', 'status']
+    let headerElement = ['Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -95,11 +94,11 @@ const HomeScreen = (props: any) => {
   const renderBody2 = (element: any) => {
     return (
       <tr>
-        <td>{element.title}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
-        <td>{element.assigned_to}</td>
         <td>{element.status}</td>
+        <td>{element.title}</td>
+        <td>{element.assigned_to}</td>
       </tr>
     )
   }
@@ -174,6 +173,7 @@ const HomeScreen = (props: any) => {
           </>
         }
       </div>
+      <Footer />
     </div >
   );
 }

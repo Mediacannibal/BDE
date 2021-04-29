@@ -10,9 +10,9 @@ import { Sociallogin } from '../../utils/actions'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
-import Footer from 'components/common/Footer';
 import { generateOTP } from 'utils/api';
 import useCountDown from 'react-countdown-hook';
+import Footer from '../Common/Footer';
 
 const LoginScreen = () => {
   const history = useHistory();

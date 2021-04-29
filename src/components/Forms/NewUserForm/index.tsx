@@ -178,7 +178,7 @@ const NewUserForm = ({ setPopup }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"picker"}
                     name={"Company Name"}
@@ -196,7 +196,7 @@ const NewUserForm = ({ setPopup }) => {
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"picker"}
                     name={"Branch Name"}
@@ -305,7 +305,7 @@ const NewUserForm = ({ setPopup }) => {
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"picker"}
                     name={"User Type"}

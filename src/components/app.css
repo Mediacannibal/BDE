@@ -10,7 +10,7 @@
     width: 100%;
     margin: calc(0.15vw + 0.45vh + 0.15vmin) calc(0.15vw + 0.45vh + 0.15vmin) calc(0.15vw + 0.45vh + 0.15vmin) calc(1.6vw + 4.8vh + 1.6vmin);
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .page_shift_left {

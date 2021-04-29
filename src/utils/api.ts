@@ -85,7 +85,7 @@ export const newUserSignup = (callback: (arg0: any, arg1: string) => void, token
     .catch(err => callback(err, err.response))
 }
 
-export const userListing = (callback: (arg0: any, arg1: string) => void, token: any) => {
+export const profileUserListing = (callback: (arg0: any, arg1: string) => void, token: any) => {
   instance.get(`/api/user/list/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',

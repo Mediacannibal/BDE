@@ -2,26 +2,23 @@ import { ProgressBar } from 'components/Common/Spinner'
 import AddEditProject from 'components/Forms/AddEditProject'
 import React, { useEffect, useState } from 'react'
 import './style.css'
-import * as add from '../../assets/add.svg'
-import * as play from 'assets/play.svg'
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card'
 import { getMainTask, getProject, userListing } from 'src/utils/api'
-
+import { useHistory } from 'react-router'
+import AddEditTask from '../Forms/AddEditTask'
+import Footer from '../Common/Footer'
+import * as tasklist from '../../assets/tasklist.svg'
+import * as bug from '../../assets/bug.svg'
+import * as tested from '../../assets/tested.svg'
+import * as add from '../../assets/add.svg'
+import * as team from '../../assets/team.svg'
+import AddEditUserList from '../Forms/UserListForm';
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
-  const [unique_branch, setunique_branch] = useState(false)
-  const [unique_project_type, setunique_project_type] = useState(false)
-  const [unique_title, setunique_title] = useState(false)
-  const [unique_description, setunique_description] = useState(false)
-  const [unique_file_links, setunique_file_links] = useState(false)
-  const [unique_linked_tasks, setunique_linked_tasks] = useState(false)
-  const [unique_status, setunique_status] = useState(false)
-  const [unique_start_date, setunique_start_date] = useState(false)
-  const [unique_end_date, setunique_end_date] = useState(false)
+  const history = useHistory();
 
-  const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
 
   const [listItems, setlistItems] = useState([])
@@ -32,10 +29,12 @@ const ProjectScreen = (props: any) => {
   const [popup3, setpopup3] = useState(false)
 
   const [seleted_taskid, setseleted_taskid] = useState('')
+  const [seleted_projectName, setseleted_projectName] = useState('')
+  const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
 
+  const [users, setusers] = useState('all')
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
-  const [users, setusers] = useState('all')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -54,19 +53,18 @@ const ProjectScreen = (props: any) => {
       }
     }, auth, users)
 
-    getProject((data: any, errorresponse: any) => {
-
+    getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log('ProjectTasks: ', data.data.results);
+        // console.log(">>>>>>>>>>>", data.data.results)
         setlistItems2(data.data.results)
-        // console.log("<><><><><>", data.data);
+
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
-      };
-    }, auth, users)
+      }
+    }, auth, task, user_list)
   }, [])
 
   const renderHeader1 = () => {
@@ -94,7 +92,7 @@ const ProjectScreen = (props: any) => {
 
 
   const renderHeader2 = () => {
-    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'assignee', 'status']
+    let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -103,16 +101,16 @@ const ProjectScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr key={element.id}>
-        <td onClick={() => {
-          setpopup2(true)
-          setseleted_taskid(element.id)
-        }}>{element.title}</td>
+      <tr key={element.id} onClick={() => {
+        // setpopup2(true)
+        setseleted_taskid(element.id)
+      }}>
+        <td>{element.domain}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
-        <td>{element.domain}</td>
-        <td>{element.assigned_to}</td>
         <td>{element.status}</td>
+        <td>{element.title}</td>
+        <td>{element.assigned_to}</td>
       </tr >
     )
   }
@@ -120,7 +118,8 @@ const ProjectScreen = (props: any) => {
   const screen_header_elements = () => {
     return (
       <>
-        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+        <div className='screen_header_element'
+          onClick={() => { setpopup1(true) }}>
           <img className='header_icon' src={add} />
           <div>Add Project</div>
         </div>
@@ -133,10 +132,28 @@ const ProjectScreen = (props: any) => {
 
     <div className="main">
 
-      {popup &&
+      {popup1 &&
         <AddEditProject
           setPopup={() => {
-            setpopup(false)
+            setpopup1(false)
+          }}
+        />
+      }
+
+      {popup2 &&
+        <AddEditTask
+          setPopup={() => {
+            setpopup2(false);
+          }}
+          projectName={seleted_projectName}
+          projectTaskType={seleted_projectTaskType}
+        />
+      }
+
+      {popup3 &&
+        <AddEditUserList
+          setPopup={() => {
+            setpopup3(false);
           }}
         />
       }
@@ -184,7 +201,15 @@ const ProjectScreen = (props: any) => {
                             }
                           </tbody>
                         </table>
-
+                        <div className="project_user_options">
+                          <div className="project_sub_text" onClick={() => {
+                            setpopup3(true)
+                            setseleted_projectName(element.title)
+                            setseleted_projectTaskType("FEATURE")
+                          }}>
+                            <img className='header_icon' src={team} />
+                            Add User</div>
+                        </div>
                       </div>
 
                       <div className="internal_table">
@@ -199,6 +224,36 @@ const ProjectScreen = (props: any) => {
                             }
                           </tbody>
                         </table>
+                        <div className="project_task_options">
+                          <div className="project_sub_text" onClick={() => {
+                            history.push('/TaskList')
+                          }}>
+                            <img className='header_icon' src={tasklist} />
+                            Task History</div>
+
+                          <div className="project_sub_text" onClick={() => {
+                            setpopup2(true)
+                            setseleted_projectName(element.title)
+                          }}>
+                            <img className='header_icon' src={add} />
+                            Add Tasks</div>
+
+                          <div className="project_sub_text" onClick={() => {
+                            setpopup2(true)
+                            setseleted_projectName(element.title)
+                            setseleted_projectTaskType("FEATURE")
+                          }}>
+                            <img className='header_icon' src={tested} />
+                            Request Feature</div>
+
+                          <div className="project_sub_text" onClick={() => {
+                            setpopup2(true)
+                            setseleted_projectName(element.title)
+                            setseleted_projectTaskType("BUG")
+                          }}>
+                            <img className='header_icon' src={bug} />
+                            Report Bug</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -208,7 +263,7 @@ const ProjectScreen = (props: any) => {
           />
         }
       </div>
-
+      <Footer />
     </div >
 
   );

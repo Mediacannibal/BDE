@@ -1,59 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-
 import '../../components/app.css'
-import Footer from 'components/common/Footer';
 import * as add from '../../assets/add.svg'
 
-import Spinner from 'components/Common/Spinner';
-import { userListing } from 'utils/api';
 import NewUserForm from 'components/Forms/NewUserForm';
 import { useAuth } from 'store/authStore';
+import Footer from '../Common/Footer';
+import { ProgressBar } from '../Common/Spinner';
+import { profileUserListing } from 'src/utils/api';
 
 export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
-  
-
   const history = useHistory();
-  
-  const [spinner, setspinner] = useState(false)
+
+  const [spinner, setspinner] = useState(true)
 
   const [popup, setpopup] = useState(false)
   const [list, setlist] = useState([])
-
-  const getuserlistdata = () => {
-    userListing((data: any, errorresponse: any) => {
-
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log('response ' + JSON.stringify(data));
-        setlist(data.data.results)
-        // console.log("<><><><><>", data.data);
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      };
-    }, auth)
-  }
 
   useEffect(() => {
 
     // header
     props.setheader_options(screen_header_elements)
 
-    // User listing
-    getuserlistdata()
+    profileUserListing((data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log('response ' + JSON.stringify(data));
+        console.log("User Profile List: ", data.data.result);
+        setlist(data.data.result)
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      };
+    }, auth)
 
   }, [])
 
   const screen_header_elements = () => {
     return (
       <>
-        <div className='screen_header_element' onClick={() => { setpopup(true) }}>
+        <div className='screen_header_element'
+          onClick={() => { setpopup(true) }}>
           <img className='header_icon' src={add} />
           <div>Add User</div>
         </div>
@@ -70,7 +62,7 @@ const UserManagement = (props: any) => {
   }
 
   const renderBody = (element: any) => {
-    console.log("user_details: ", element.user)
+    console.log("user_details: ", element)
     return (
       <>
         <tr key={element.id} >
@@ -92,14 +84,6 @@ const UserManagement = (props: any) => {
   return (
 
     <div className="main">
-
-      {spinner ?
-        <div className="spinner_fullscreen_div">
-          <Spinner />
-        </div> :
-        null
-      }
-
       {popup &&
         <NewUserForm
           setPopup={() => {
@@ -109,16 +93,22 @@ const UserManagement = (props: any) => {
       }
 
       <div className="body">
-        <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
-          <table id='internal_table'>
-            <thead>{renderHeader()}</thead>
-            <tbody>
-              {
-                list.map(renderBody)
-              }
-            </tbody>
-          </table>
-        </div>
+        {spinner ?
+          <div className="spinner_fullscreen_div">
+            <ProgressBar />
+          </div>
+          :
+          <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
+            <table id='internal_table'>
+              <thead>{renderHeader()}</thead>
+              <tbody>
+                {
+                  list.map(renderBody)
+                }
+              </tbody>
+            </table>
+          </div>
+        }
       </div>
       <Footer />
     </div>

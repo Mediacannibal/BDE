@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
-import Footer from 'components/common/Footer';
 import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 import Spinner from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
+import Footer from '../Common/Footer';
 
 
 const TaskDetails = () => {

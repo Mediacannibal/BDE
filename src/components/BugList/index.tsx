@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
-import Footer from 'components/common/Footer';
 import Spinner, { ProgressBar } from 'components/Common/Spinner';
 import * as play from '../../assets/play.svg'
 
@@ -13,6 +12,7 @@ import * as add from '../../assets/add.svg'
 import { useAuth } from 'store/authStore';
 import { getProject } from 'src/utils/api';
 import Card from '../Common/Card';
+import Footer from '../Common/Footer';
 
 
 const BugList = (props: any) => {
@@ -171,13 +171,13 @@ const BugList = (props: any) => {
 
             <div className="bidlog_filterfield_container">
 
-              <button className="bidrecord_filterandclose_button"
+              <button
                 onClick={() => {
 
                 }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
 
               {filterindicator ?
-                <button className="bidrecord_filterandclose_button"
+                <button
                   onClick={() => {
                     window.location.reload()
                   }}>X</button>

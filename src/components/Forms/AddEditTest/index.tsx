@@ -123,7 +123,7 @@ const AddEditTest = ({ setPopup }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"picker"}
                     name={"DEVELOPMENT"}
@@ -140,7 +140,7 @@ const AddEditTest = ({ setPopup }) => {
               </div>
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"picker"}
                     name={"TASK TYPE"}
@@ -207,7 +207,7 @@ const AddEditTest = ({ setPopup }) => {
               </div> */}
 
               <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"checkbox"}
                     name={"Portrait"}
@@ -226,7 +226,7 @@ const AddEditTest = ({ setPopup }) => {
               </div>
 
               {/* <div className="inputfield_sub_container">
-                <div className="Booking_slot_dropdown">
+                <div >
                   <McInput
                     type={"radio"}
                     name={"Portrait123"}
@@ -262,7 +262,7 @@ const AddEditTest = ({ setPopup }) => {
                   </div> */}
 
                   <div className="inputfield_sub_container">
-                    <div className="Booking_slot_dropdown">
+                    <div >
                       <McInput
                         type={"checkbox"}
                         name={"Portrait"}
