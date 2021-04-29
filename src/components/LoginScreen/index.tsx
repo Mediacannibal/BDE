@@ -12,6 +12,7 @@ import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import Footer from 'components/common/Footer';
 import { generateOTP } from 'utils/api';
+import useCountDown from 'react-countdown-hook';
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -20,6 +21,10 @@ const LoginScreen = () => {
 
   const [ispassword, setispassword] = useState(true)
 
+  const [timeLeft, { start, pause, resume, reset }] = useCountDown(15 * 1000, 1000);
+  const [timerglow, settimerglow] = useState(false)
+
+  // const [time, settime] = useState(0)
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -56,7 +61,7 @@ const LoginScreen = () => {
   const OTPvalidate = () => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
-      email_otp: password_otp.value,
+      password: password_otp.value,
       username: username_email_or_phone.value
     }
     Sociallogin(loginCallback, data)
@@ -120,11 +125,17 @@ const LoginScreen = () => {
             <div className="login_container">
 
               <div className="login_button_container">
-                <input id="username" type="text" value={username_email_or_phone.value} onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }} placeholder="User Name / Email / Phone Number" className="login_input" />
+                <input id="username" type="text"
+                  value={username_email_or_phone.value}
+                  onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }}
+                  placeholder="User Name / Email / Phone Number" className="login_input" />
               </div>
 
               <div className="login_button_container">
-                <input id="password" type="password" value={password_otp.value} onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }} placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
+                <input id="password" type="password"
+                  value={password_otp.value}
+                  onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }}
+                  placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
               </div>
 
               <div className="login_button_sub_container">
@@ -151,13 +162,26 @@ const LoginScreen = () => {
                   </button>
                 </div> */}
 
-                <div className="login_button_container">
-                  <button onClick={_onSignUpPressed}
-                    className="login_validatebutton">
-                    <div className="login_buttontext">Get OTP</div>
+                <div className="login_button_container" >
+                  <button onClick={() => {
+                    if (timeLeft / 1000 === 0) {
+                      _onSignUpPressed()
+                      settimerglow(true)
+                      start()
+                    }
+                  }}
+                    className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"} >
+
+                    {timerglow ?
+                      <div className="login_resendotp_container">
+                        <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
+                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}</div>
+                      </div>
+                      :
+                      <div className="login_buttontext">Get OTP</div>
+                    }
                   </button>
                 </div>
-
               </div>
             </div>
 

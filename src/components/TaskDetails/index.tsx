@@ -5,37 +5,13 @@ import '../../components/app.css'
 import Footer from 'components/common/Footer';
 import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
-// import { getBidlogbyagentdata, getBidlogbyagentnumberdata, getBidlogdata } from 'utils/api';
 import Spinner from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
-import { Launcher } from 'react-chat-window'
 import { useAuth } from 'store/authStore';
 
 
 const TaskDetails = () => {
   const { auth } = useAuth();
-  const [listItems, setlistItems] = useState([
-    {
-      "zero": "1",
-      "Row_name": "Customer 1",
-      "one": "00",
-      "two": "90",
-      "three": "60",
-      "four": "20",
-      "five": "30",
-      "six": "40",
-    }
-  ])
-
-  const [unique_amount_arry, setunique_amount_arry] = useState([])
-  const [unique_bookeddate_arry, setunique_bookeddate_arry] = useState([])
-  const [unique_bracketcombination_arry, setunique_bracketcombination_arry] = useState([])
-  const [unique_dayornight_arry, setunique_dayornight_arry] = useState([])
-  const [unique_name_arry, setunique_name_arry] = useState([])
-  const [unique_number_arry, setunique_number_arry] = useState([])
-  const [unique_user_arry, setunique_user_arry] = useState([])
-
-  const [filterindicator, setfilterindicator] = useState(false)
 
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
@@ -49,8 +25,6 @@ const TaskDetails = () => {
   const [taskasigneeinput, settaskasigneeinput] = useState(false)
   const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
-  const [mic, setmic] = useState(true)
-
 
   useEffect(() => {
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -63,154 +37,6 @@ const TaskDetails = () => {
     }
   }, [])
 
-  let params = useParams();
-  useEffect(() => {
-    setspinner(false)
-    if (auth)
-      // history.push("/")
-
-
-      if (params.id === undefined) {
-        // getBidlogdata(async (data: any, errorresponse: any) => {
-        //   if (data.status === 200) {
-        setspinner(false)
-        //     setlistItems(data.data.results)
-        //     let amount_arry: Iterable<any> | null | undefined = []
-        //     let bookeddate_arry: Iterable<any> | null | undefined = []
-        //     let bracketcombination_arry: Iterable<any> | null | undefined = []
-        //     let dayornight_arry: Iterable<any> | null | undefined = []
-        //     let name_arry: Iterable<any> | null | undefined = []
-        //     let number_arry: Iterable<any> | null | undefined = []
-        //     let user_arry: Iterable<any> | null | undefined = []
-        //     data.data.results.forEach((element: any) => {
-        //       amount_arry.push(element.amount)
-        //       bookeddate_arry.push(element.bookeddate)
-        //       bracketcombination_arry.push(element.bracketcombination)
-        //       dayornight_arry.push(element.dayornight)
-        //       name_arry.push(element.name)
-        //       number_arry.push(element.number)
-        //       user_arry.push(element.user)
-        //     });
-        //     setunique_amount_arry(Array.from(new Set(amount_arry)));
-        //     setunique_bookeddate_arry(Array.from(new Set(bookeddate_arry)))
-        //     setunique_bracketcombination_arry(Array.from(new Set(bracketcombination_arry)))
-        //     setunique_dayornight_arry(Array.from(new Set(dayornight_arry)))
-        //     setunique_name_arry(Array.from(new Set(name_arry)))
-        //     setunique_number_arry(Array.from(new Set(number_arry)))
-        //     setunique_user_arry(Array.from(new Set(user_arry)))
-
-        //     console.log(
-        //       unique_amount_arry,
-        //       unique_bookeddate_arry,
-        //       unique_bracketcombination_arry,
-        //       unique_dayornight_arry,
-        //       unique_name_arry,
-        //       unique_number_arry,
-        //       unique_user_arry
-        //     );
-
-
-        //   } else {
-        //     setspinner(false)
-        //     console.log('error ' + JSON.stringify(data));
-        //     console.log('error ' + JSON.stringify(errorresponse));
-        //   }
-        // }, auth)
-      }
-      else {
-
-
-
-        if (params.number !== undefined && params.pattren !== undefined) {
-
-
-          console.log("================>", params.id, params.number, params.pattren)
-
-          // getBidlogbyagentnumberdata(async (data: any, errorresponse: any) => {
-          //   if (data.status === 200) {
-          //     setspinner(false)
-          //     setlistItems(data.data.results)
-          //   } else {
-          //     setspinner(false)
-          //     console.log('error ' + JSON.stringify(data));
-          //     console.log('error ' + JSON.stringify(errorresponse));
-          //   }
-          // }, auth, params.id, params.number, params.pattren)
-
-
-        }
-        else {
-          // getBidlogbyagentdata(async (data: any, errorresponse: any) => {
-          //   if (data.status === 200) {
-          //     setspinner(false)
-          //     setlistItems(data.data.results)
-          //   } else {
-          //     setspinner(false)
-          //     console.log('error ' + JSON.stringify(data));
-          //     console.log('error ' + JSON.stringify(errorresponse));
-          //   }
-          // }, auth, params.id)
-        }
-      }
-
-  }, [])
-
-
-  const renderHeader = () => {
-    let headerElement = ['Name', 'Date/Time Booked', 'Date', 'Slot', 'Combi', 'Number', 'Amount',]
-
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
-  }
-
-  const renderBody = (element: any) => {
-    console.log(element.user, userID)
-    if (usertype !== "SUPERUSER") {
-      if (element.user === userID) {
-        return (
-          <tr key={element.id}>
-            <td className='bidlog_table_column1'>
-              {element.name}
-            </td>
-            <td>{parsetime(element.bookingtimestamp)}</td>
-            <td>{element.bookeddate}</td>
-            <td>{element.dayornight}</td>
-            <td>{element.bracketcombination}</td>
-            <td>{element.number}</td>
-            <td>{element.amount}</td>
-          </tr>
-        )
-      }
-      else {
-        return (
-          null
-        )
-      }
-    }
-    else {
-      return (
-        <tr key={element.id}>
-          <td className='bidlog_table_column1'>
-            {element.name}
-          </td>
-          <td>{parsetime(element.bookingtimestamp)}</td>
-          <td>{element.bookeddate}</td>
-          <td>{element.dayornight}</td>
-          <td>{element.bracketcombination}</td>
-          <td>{element.number}</td>
-          <td>{element.amount}</td>
-        </tr>
-      )
-    }
-  }
-
-  const parsetime = (time: any) => {
-    let d = new Date(time)
-    let a = d.getDate() + '/' + String(d.getMonth() + 1) + '/' + d.getFullYear() + "," + d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-    // console.log(time, d)
-    return a
-  }
   return (
     <div className="main">
       {spinner ?

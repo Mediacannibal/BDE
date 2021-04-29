@@ -1,5 +1,6 @@
-.project_details {
+.project_wrapper {
     display: flex;
+    flex-direction: column;
     padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
     border-width: 0;
     border-bottom-width: calc(0.01vw + 0.03vh + 0.01vmin);
@@ -7,7 +8,7 @@
     border-style: solid;
 }
 
-.project_details:last-of-type {
+.project_wrapper:last-of-type {
     border-style: none !important;
 }
 
@@ -28,14 +29,22 @@
     padding: 0 calc(0.3vw + 0.9vh + 0.3vmin);
 }
 
-.project_title1 {
+.project_title {
     display: flex;
     font-weight: 600;
     color: var(--color_1);
-    font-size: var(--TS7);
+    font-size: var(--TS5);
     text-decoration: underline;
     text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
     text-decoration-color: var(--color_7);
+    padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
+}
+
+.project_subtitle {
+    display: flex;
+    font-weight: 600;
+    color: var(--color_1);
+    font-size: var(--TS6);
     padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
 }
 
@@ -63,180 +72,12 @@
     white-space: nowrap;
 }
 
-.container {
-    position: relative;
-}
-
-.icon {
-    position: relative;
-    top: 5px;
-    left: 5px;
-}
-
-.dateInput {
-    width: 100px;
-    padding-left: 5px;
-    padding-right: 5px;
-    line-height: 28px;
-    font-size: 14pt;
-}
-
-.vertical-center {
+.project_details {
     display: flex;
+}
+
+.project_tables {
+    display: flex;
+    padding-top: calc(0.3vw + 0.9vh + 0.3vmin);
     justify-content: center;
-    align-items: center;
-}
-
-html {
-    font-size: 62.5%;
-}
-
-body {
-    font-family: Arial, Helvetica, Verdana, sans-serif;
-    background: #EFEFEF;
-}
-
-.row {
-    display: flex;
-    width: 100%;
-}
-
-.calendar {
-    display: block;
-    background: #FFFFFF;
-    width: 300px;
-    border: solid 1px #CCCCCC;
-    margin: 10px auto;
-    box-shadow: 0 0 15px 0 #C0C0C0;
-    font-size: 1.3rem;
-    text-align: center;
-    z-index: 999;
-}
-
-.calendar header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #FFFFFF;
-    cursor: default;
-    font-size: 1.4rem;
-    display: block;
-    font-weight: bold;
-    text-transform: uppercase;
-    user-select: none;
-}
-
-.calendar header .month-display {
-    align-items: center;
-    height: 40px;
-    background: #2875C7;
-}
-
-.calendar header .month-label {
-    flex: 1;
-}
-
-.calendar header .arrow {
-    text-align: center;
-    flex-basis: 15%;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background.2s;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.calendar header .arrow:hover {
-    background: #1F5C9D;
-}
-
-.calendar .week {
-    border-top: solid 1px #CCCCCC;
-}
-
-.calendar .week:first-child {
-    border-top: none;
-}
-
-.calendar .day-names {
-    color: #2875C7;
-    font-weight: bold;
-    cursor: default;
-    font-size: 1.2rem
-}
-
-.calendar .day-names .day {
-    cursor: default
-}
-
-.calendar .day-names .day:hover {
-    background: inherit
-}
-
-.calendar .day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    height: 35px;
-    border-left: solid 1px #CCCCCC;
-    cursor: pointer;
-    transition: all .2s
-}
-
-.calendar .day:hover {
-    background: #EFEFEF
-}
-
-.calendar .day:first-child {
-    border-left: none
-}
-
-.calendar .day.today {
-    background: #DCEAF8
-}
-
-.calendar .day.different-month {
-    color: #C0C0C0
-}
-
-.calendar .day.selected {
-    background: #2875C7;
-    color: #FFFFFF
-}
-
-.chevron::before {
-    border-style: solid;
-    border-width: 0.25em 0.25em 0 0;
-    content: '';
-    display: inline-block;
-    height: 0.45em;
-    left: 0.15em;
-    position: relative;
-    top: 0.15em;
-    transform: rotate(-45deg);
-    vertical-align: top;
-    width: 0.45em;
-}
-
-.chevron.right:before {
-    left: 0;
-    transform: rotate(45deg);
-}
-
-.chevron.bottom:before {
-    top: 0;
-    transform: rotate(135deg);
-}
-
-.chevron.left:before {
-    left: 0.25em;
-    transform: rotate(-135deg);
-}
-
-.chevron.button {
-    width: 40px;
-    cursor: pointer;
 }

@@ -13,10 +13,7 @@ const UserProfile = () => {
   const [firstname, setfirstname] = useState("")
   const [lastname, setlastname] = useState("")
   const [email, setemail] = useState("")
-  const [company_name, setcompany_name] = useState("")
-  const [branch, setbranch] = useState("")
-
-
+  
   useEffect(() => {
 
     console.log("screenlocation: ", location.pathname);

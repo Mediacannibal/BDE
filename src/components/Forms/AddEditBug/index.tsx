@@ -158,18 +158,6 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
-              {/* <div className="input_checkbox">
-                        <div className="checkbox_sub_container">
-                          <input type="checkbox" id="Portrait" className="checkbox" name="Portrait" value="Portrait" />
-                          <div className="checkbox_text">Portrait</div>
-                        </div>
-
-                        <div className="checkbox_sub_container">
-                          <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape" />
-                          <div className="checkbox_text">Landscape</div>
-                        </div>
-                      </div> */}
-
               <div className="user_band">
 
               </div>

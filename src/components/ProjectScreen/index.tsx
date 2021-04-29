@@ -1,12 +1,12 @@
-import Spinner, { ProgressBar } from 'components/Common/Spinner'
+import { ProgressBar } from 'components/Common/Spinner'
 import AddEditProject from 'components/Forms/AddEditProject'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { getProject, getUserlist, listingTask, userListing } from 'utils/api'
 import './style.css'
 import * as add from '../../assets/add.svg'
-import * as up_down_arrow from '../../assets/up_down.svg'
+import * as play from 'assets/play.svg'
 import { useAuth } from 'store/authStore';
+import Card from 'components/Common/Card'
+import { getMainTask, getProject, userListing } from 'src/utils/api'
 
 
 const ProjectScreen = (props: any) => {
@@ -25,107 +25,95 @@ const ProjectScreen = (props: any) => {
   const [spinner, setspinner] = useState(true)
 
   const [listItems, setlistItems] = useState([])
-  const [list, setlist] = useState([])
+  const [listItems2, setlistItems2] = useState([])
 
-  let params = useParams();
+  const [popup1, setpopup1] = useState(false)
+  const [popup2, setpopup2] = useState(false)
+  const [popup3, setpopup3] = useState(false)
+
+  const [seleted_taskid, setseleted_taskid] = useState('')
+
+  const [task, settask] = useState('')
+  const [user_list, setuser_list] = useState('')
+  const [users, setusers] = useState('all')
+
   useEffect(() => {
     props.setheader_options(screen_header_elements)
-    // let usertype1 = ""
-    // let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
-    // if (UserDetails !== null) {
-    //   usertype1 = UserDetails.user_type
-    //   let user_id = UserDetails.user_id
-    //   console.log(screen, user_id, usertype1)
-    //   setusertype(usertype1)
-    //   setuserID(user_id)
-    // }
+
     setspinner(true)
-    // if (token === null)
-    //   history.push("/")
-    // if (params.id === undefined) {
+
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
+        console.log("ProjectProfiles: ", data.data.results)
         setlistItems(data.data.results)
-        let branch: Iterable<any> | null | undefined = []
-        let project_type: Iterable<any> | null | undefined = []
-        let title: Iterable<any> | null | undefined = []
-        let description: Iterable<any> | null | undefined = []
-        let file_links: Iterable<any> | null | undefined = []
-        let linked_tasks: Iterable<any> | null | undefined = []
-        let status: Iterable<any> | null | undefined = []
-        let start_date: Iterable<any> | null | undefined = []
-        let end_date: Iterable<any> | null | undefined = []
-        data.data.results.forEach((element: any) => {
-          branch.push(element.branch)
-          project_type.push(element.project_type)
-          title.push(element.title)
-          description.push(element.description)
-          file_links.push(element.file_links)
-          linked_tasks.push(element.linked_tasks)
-          status.push(element.status)
-          start_date.push(element.start_date)
-          end_date.push(element.end_date)
-        });
-        setunique_branch(Array.from(new Set(branch)));
-        setunique_project_type(Array.from(new Set(project_type)));
-        setunique_title(Array.from(new Set(title)))
-        setunique_description(Array.from(new Set(description)))
-        setunique_file_links(Array.from(new Set(file_links)))
-        setunique_linked_tasks(Array.from(new Set(linked_tasks)))
-        setunique_status(Array.from(new Set(status)))
-        setunique_start_date(Array.from(new Set(start_date)))
-        setunique_end_date(Array.from(new Set(end_date)))
       } else {
         setspinner(false)
-        // console.log('error ' + JSON.stringify(data));
-        // console.log('error ' + JSON.stringify(errorresponse));
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, users)
 
-    userListing((data: any, errorresponse: any) => {
+    getProject((data: any, errorresponse: any) => {
 
       if (data.status === 200) {
         setspinner(false)
-        // console.log('response ' + JSON.stringify(data));
-        setlist(data.data.results)
+        console.log('ProjectTasks: ', data.data.results);
+        setlistItems2(data.data.results)
         // console.log("<><><><><>", data.data);
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       };
-    }, auth)
+    }, auth, users)
   }, [])
 
-
-
-  const renderHeader = () => {
-    let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
+  const renderHeader1 = () => {
+    let headerElement = ['Company Name', 'Branch Name', 'First Name', 'Last Name', 'user type']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
     })
   }
 
-  const renderBody = (element: any) => {
+  const renderBody1 = (element: any) => {
 
     return (
       <>
         <tr key={element.id} >
           <td>{element.company_name}</td>
           <td>{element.branch_name}</td>
-          <td>{element.user.username}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
-          <td>{element.email}</td>
-          <td>{element.phone}</td>
           <td>{element.user_type}</td>
-          <td>{"*************"}</td>
-          {/* <td> <img  className='Bid_addicon' src={edit} /></td> */}
         </tr>
       </>
+    )
+  }
+
+
+  const renderHeader2 = () => {
+    let headerElement = ['title', 'Task Type', 'priority', 'domain', 'assignee', 'status']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
+  const renderBody2 = (element: any) => {
+    return (
+      <tr key={element.id}>
+        <td onClick={() => {
+          setpopup2(true)
+          setseleted_taskid(element.id)
+        }}>{element.title}</td>
+        <td>{element.task_type}</td>
+        <td>{element.priority}</td>
+        <td>{element.domain}</td>
+        <td>{element.assigned_to}</td>
+        <td>{element.status}</td>
+      </tr >
     )
   }
 
@@ -140,22 +128,6 @@ const ProjectScreen = (props: any) => {
     )
   }
 
-  const Card = ({ classname, card_title, card_body }) => {
-    const [card_open, setCard_open] = useState(true)
-    return (
-      <div className={'dashboard_card ' + classname}>
-        <div className='card_title'>
-          {card_title}
-          <img className={card_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setCard_open(!card_open) }} />
-        </div>
-        {card_open &&
-          <div className='card_details_wrapper'>
-            {card_body}
-          </div>
-        }
-      </div>
-    )
-  }
 
   return (
 
@@ -180,35 +152,54 @@ const ProjectScreen = (props: any) => {
             card_body={
               listItems.map((element: any, key: any) => {
                 return (
-                  <div className="project_details">
-                    <div className="project_left_container">
-                      <img className='project_image' src={add} />
-                    </div>
-                    <div className="project_center_container">
-                      <div className="project_title1">{element.title}</div>
-                      <div className="project_description">{element.description}</div>
+                  <div className="project_wrapper">
+                    <div className="project_details">
+                      <div className="project_left_container">
+                        <img className='project_image' src={add} />
+                      </div>
+                      <div className="project_center_container">
+                        <div className="project_title">{element.title}</div>
+                        <div className="project_description">{element.description}</div>
+                      </div>
+
+                      <div className="project_right_container">
+                        <div className="project_stats">Type: {element.project_type}</div>
+                        <div className="project_stats">Status: {element.status}</div>
+                        <div className="project_stats">Start Date: {element.start_date}</div>
+                        <div className="project_stats">End Date: {element.end_date}</div>
+                      </div>
                     </div>
 
-                    <div>
+                    <div className="project_tables">
                       <div className="internal_table">
+                        <div className="project_subtitle">Participants:</div>
+
                         <table id='internal_table'>
                           <thead>
-                            <tr>{renderHeader()}</tr>
+                            <tr>{renderHeader1()}</tr>
                           </thead>
                           <tbody>
                             {
-                              list.map(renderBody)
+                              element.Profiles.map(renderBody1)
+                            }
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                      <div className="internal_table">
+                        <div className="project_subtitle">Active Tasks:</div>
+                        <table id='internal_table'>
+                          <thead>
+                            <tr>{renderHeader2()}</tr>
+                          </thead>
+                          <tbody>
+                            {
+                              element.ProjectTasks.map(renderBody2)
                             }
                           </tbody>
                         </table>
                       </div>
-                    </div>
-
-                    <div className="project_right_container">
-                      <div className="project_stats">Type: {element.project_type}</div>
-                      <div className="project_stats">Status: {element.status}</div>
-                      <div className="project_stats">Start Date: {element.start_date}</div>
-                      <div className="project_stats">End Date: {element.end_date}</div>
                     </div>
                   </div>
                 )
@@ -217,6 +208,7 @@ const ProjectScreen = (props: any) => {
           />
         }
       </div>
+
     </div >
 
   );

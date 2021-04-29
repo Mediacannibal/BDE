@@ -15,7 +15,6 @@ const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
   const [isremarksvalid, setremarksvalid] = useState(false)
-  const [taskvalid, settaskvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [ispopup, setispopup] = useState(false)

@@ -11,16 +11,17 @@ import { getBuglog, getMainTask, listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 import * as add from '../../assets/add.svg'
 import { useAuth } from 'store/authStore';
+import { getProject } from 'src/utils/api';
+import Card from '../Common/Card';
 
 
 const BugList = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
 
-  const [listItems, setlistItems] = useState([])
-
-  const [unique_bug_title, setunique_bug_title] = useState([])
-  const [unique_image_link, setunique_image_link] = useState([])
+  const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
+  const [unique_title, setunique_title] = useState([])
 
   const [unique_project_ref, setunique_project_ref] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
@@ -44,8 +45,25 @@ const BugList = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log(">>>>>>>>>>>", data.data.results)
-        setlistItems(data.data.results)
+        setlistItems1(data.data.results)
 
+      } else {
+        setspinner(false)
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, auth)
+
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        setspinner(false)
+        // console.log(">>>>>>123123>>>>>", data.data.results)
+        setlistItems2(data.data.results)
+        let title: Iterable<any> | null | undefined = []
+        data.data.results.forEach((element: any) => {
+          title.push(element.title)
+        });
+        setunique_title(Array.from(new Set(title)));
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -110,6 +128,12 @@ const BugList = (props: any) => {
     )
   }
 
+  const Projecttitle = () => {
+    return listItems2.map((ele: any, key: any) => {
+      return <div>{" Project:"}<span>{ele.title}</span></div>
+    })
+  }
+
   return (
     <div className="main">
       {popup &&
@@ -163,18 +187,23 @@ const BugList = (props: any) => {
 
             </div>
 
-            <div className="internal_table">
-              <table id='internal_table'>
-                <thead>
-                  <tr>{renderHeader()}</tr>
-                </thead>
-                <tbody>
-                  {
-                    listItems.map(renderBody)
-                  }
-                </tbody>
-              </table>
-            </div>
+            <Card
+              card_title={Projecttitle}
+              card_body={
+                <div className="internal_table">
+                  <table id='internal_table'>
+                    <thead>
+                      <tr>{renderHeader()}</tr>
+                    </thead>
+                    <tbody>
+                      {
+                        listItems1.map(renderBody)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            />
 
           </>
         }
