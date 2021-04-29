@@ -20,14 +20,19 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
+import * as play from '../../assets/play.svg'
+import * as add from '../../assets/add.svg'
 import * as api from '../../assets/api.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
+import { getTasktimelog } from 'src/utils/api';
+import { useAuth } from 'src/store/authStore';
 
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const history = useHistory();
+    const { auth } = useAuth();
 
     const [menu_open, setMenu_open] = useState(true)
     const [usertype, setusertype] = useState("NORMAL")
@@ -36,8 +41,14 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const [settings_popup, setsettings_popup] = useState(false)
 
+    const [startorpausetask, setstartorpausetask] = useState(false)
+
     const [user_menu_open, setUser_menu_open] = useState(false)
     const [user_notification, setuser_notification] = useState(false)
+
+    const [spinner, setspinner] = useState(true)
+    const [current_task, setcurrent_task] = useState('')
+
 
     const location = useLocation();
 
@@ -53,10 +64,22 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
-            setprofile_picture(((profile_picture === undefined) 
-            || (profile_picture === null)) ? defaultusericon : profile_picture)
+            setprofile_picture(((profile_picture === undefined)
+                || (profile_picture === null)) ? defaultusericon : profile_picture)
             console.log("someidentifier", profile_picture)
         }
+
+        getTasktimelog(async (data: any, errorresponse: any) => {
+            if (data.status === 200) {
+                setspinner(false)
+                console.log("Current Task: ", data.data[0].tasklog_ref)
+                setcurrent_task(data.data[0].tasklog_ref)
+            } else {
+                setspinner(false)
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+            }
+        }, auth)
     }, [])
 
     const menu_items = [
@@ -163,6 +186,17 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
                     <div className='header_center'>
                         <div className='header_center_subcontainer'>
+                            {(current_task !== undefined) &&
+                                <div>
+                                    {"Active Task: " + current_task}
+                                    {startorpausetask ?
+                                        <img onClick={ } className='header_icon' src={play} />
+                                        :
+                                        <img onClick={ } className='header_icon' src={add} />
+                                    }
+                                    <img className='header_icon' src={team} />
+                                </div>
+                            }
                         </div>
                     </div>
 
