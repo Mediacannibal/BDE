@@ -16,24 +16,5 @@ export const useAuth = () => {
         logout() {
             setAuth(null);
         },
-        // async loginWithCreds(callback: (arg0: AxiosResponse<any>) => void, data: any) {
-        //     const loginInstance = axios.create({
-        //         baseURL: 'https://api.etherealmachines.com'
-        //     });
-        //     console.log("login2data", data);
-
-        //     loginInstance.post(`/auth/token/login/`, data, {
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         }
-        //     })
-        //         .then((res) => {
-        //             callback(res)
-        //             console.log(res)
-        //             console.log('logged in')
-
-        //         })
-        //         .catch(err => callback(err))
-        // }
     }
 };

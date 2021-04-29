@@ -1,5 +1,15 @@
 import instance from '../utils/axios'
 
+
+// export const realtime = (callback: (arg0: any, arg1: string) => void, token: any,) => {
+//   instance.get(`https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:241653669&metrics=rt:activeUsers`, {
+//     headers: {
+//       'Authorization': token ? `Bearer ${token}` : '',
+//     }
+//   }).then((res) => { callback(res, 'sucess') })
+//     .catch(err => callback(err, err.response))
+// }
+
 // User
 
 export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: any) => {
