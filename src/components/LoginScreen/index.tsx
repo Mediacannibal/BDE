@@ -166,7 +166,7 @@ const LoginScreen = () => {
             <div className="SMlogin_button_container">
 
               <GoogleLogin
-                clientId="581422038025-rte3a06d7kumasu887n64uikerfigmiv.apps.googleusercontent.com"
+                clientId="143329247794-2t842j36j0184ndelf6fqoqp3abk0g4i.apps.googleusercontent.com"
                 render={(renderProps: { onClick: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; disabled: boolean | undefined; }) => (
                   <button className="login_SMbutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <img src={google} className="login_SMicon" />

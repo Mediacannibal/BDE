@@ -53,8 +53,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
-            setprofile_picture(((profile_picture === undefined) 
-            || (profile_picture === null)) ? defaultusericon : profile_picture)
+            setprofile_picture(((profile_picture === undefined)
+                || (profile_picture === null)) ? defaultusericon : profile_picture)
             console.log("someidentifier", profile_picture)
         }
     }, [])
@@ -67,7 +67,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' },
-        { path: '/ApiRecords', icon: team, title: 'Api Records' },]
+        { path: '/ApiRecords', icon: team, title: 'Api Records' },
+        { path: '/report', icon: team, title: 'Analytics Report' },
+    ]
 
     return (
         <div className="main_wrapper">
