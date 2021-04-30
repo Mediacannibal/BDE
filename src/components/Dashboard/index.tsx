@@ -25,8 +25,8 @@ import * as add from '../../assets/add.svg'
 import * as api from '../../assets/api.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
-import { getTasktimelog } from 'src/utils/api';
-import { useAuth } from 'src/store/authStore';
+import { getTasktimelog } from 'utils/api';
+import { useAuth } from 'store/authStore';
 
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {

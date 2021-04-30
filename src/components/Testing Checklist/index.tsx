@@ -12,7 +12,7 @@ import * as filter from '../../assets/filter.png'
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
-import { getProject } from 'src/utils/api';
+import { getProject } from 'utils/api';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 
@@ -23,6 +23,8 @@ const TestingChecklist = (props: any) => {
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
   const [unique_title, setunique_title] = useState([])
+
+  const [users, setusers] = useState('all')
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -77,7 +79,7 @@ const TestingChecklist = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, users)
   }, [])
 
   const screen_header_elements = () => {

@@ -3,11 +3,11 @@ import SimpleEditor from 'react-simple-image-editor';
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import { getBranchDetails, getCompanyDetails, newUserSignup } from 'utils/api';
+import { getBranchDetails, getCompanyDetails } from 'utils/api';
 import Popup from 'components/Common/Popup';
 import { useHistory } from 'react-router-dom';
 import './style.css'
-import { userlist } from 'src/utils/api';
+import { userlist } from 'utils/api';
 
 
 const AddEditUserList = ({ setPopup }) => {

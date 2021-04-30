@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import '../../components/app.css'
 import * as add from '../../assets/add.svg'
 
-import NewUserForm from 'components/Forms/NewUserForm';
-import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
 import { ProgressBar } from '../Common/Spinner';
-import { profileUserListing } from 'src/utils/api';
+import { profileUserListing } from 'utils/api';
+import { useAuth } from 'store/authStore';
+import NewUserForm from '../Forms/NewUserForm';
 
 export const header_options = () => <div>Hello</div>
 
@@ -30,8 +30,8 @@ const UserManagement = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log('response ' + JSON.stringify(data));
-        console.log("User Profile List: ", data.data.result);
-        setlist(data.data.result)
+        console.log("User Profile List: ", data.data.results);
+        setlist(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));

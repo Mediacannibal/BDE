@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card'
-import { getMainTask, getProject, userListing } from 'src/utils/api'
+import { getMainTask, getProject } from 'utils/api'
 import { useHistory } from 'react-router'
 import AddEditTask from '../Forms/AddEditTask'
 import Footer from '../Common/Footer'
