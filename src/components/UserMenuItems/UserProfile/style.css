@@ -20,7 +20,6 @@
 }
 
 .user_sub_container1 {
-    background-color: var(--color_8);
     color: var(--color_5);
     border-radius: var(--BR1);
     padding: calc(0.2vw + 0.6vh + 0.2vmin);
@@ -32,7 +31,6 @@
 }
 
 .user_sub_container2 {
-    background-color: var(--color_8);
     color: var(--color_5);
     border-radius: var(--BR1);
     margin: calc(0.6vw + 1.8vh + 0.6vmin);

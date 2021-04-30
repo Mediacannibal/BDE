@@ -101,6 +101,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
+            setPopup()
             let data = [];
             let object = {
               "task_ref": taskid,
@@ -110,19 +111,19 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
             console.log("***SUBMIT***", data)
             addTasklog(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
-                setispopup(false)
                 // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
               } else {
-                setispopup(false)
                 setbackendresponse("Failed, Please Try Again!")
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
             }, auth, data[0])
+            console.log("***SENT***")
+
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -181,10 +182,12 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
             </form >
           }
           confirmClick={() => {
-            console.log("***SEND***")
+            setispopup(true)
             Validate()
           }}
-          cancelClick={setPopup}
+          cancelClick={() => {
+            setPopup()
+          }}
         />
       }
     </>

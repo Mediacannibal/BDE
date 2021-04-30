@@ -17,6 +17,7 @@ import * as filter from 'assets/filter.png'
 import * as up_down_arrow from 'assets/up_down.svg'
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
+import Dashboard from 'components/Dashboard';
 
 const TaskList = (props: any) => {
   const history = useHistory();
@@ -30,11 +31,15 @@ const TaskList = (props: any) => {
   const [spinner, setspinner] = useState(true)
 
   const [popup1, setpopup1] = useState(false)
-  const [popup2, setpopup2] = useState(false)
-  const [popup3, setpopup3] = useState(false)
+  const [addEditTaskLog_popup, setaddEditTaskLog_popup] = useState(false)
+  const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
+
+  const [projecttaskTitle, setprojecttaskTitle] = useState(false)
+  const [project_Name, setproject_Name] = useState(false)
+  const [task_Name, settask_Name] = useState(false)
 
   const [seleted_taskid, setseleted_taskid] = useState('')
 
@@ -56,7 +61,7 @@ const TaskList = (props: any) => {
 
   useEffect(() => {
     // console.log("<><><><><><><><><><>", auth);
-    props.setheader_options(screen_header_elements)    
+    props.setheader_options(screen_header_elements)
     if (!userDetail) {
       loaduserDetail()
     }
@@ -68,7 +73,8 @@ const TaskList = (props: any) => {
         setspinner(false)
         console.log("Task Results: ", data.data.results)
         setlistItems1(data.data.results)
-
+        setproject_Name(data.data.results.project_ref)
+        console.log("Project Name: ", data.data.results[0].project_ref)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -119,11 +125,7 @@ const TaskList = (props: any) => {
   const renderBody = (element: any) => {
     if (all_project_ref.length === 0) {
       return (
-        <tr key={element.id} onClick={() => {
-          setpopup2(true)
-          setseleted_taskid(element.id)
-        }}>
-
+        <tr key={element.id}>
           <td>{element.project_ref}</td>
           <td>{element.domain}</td>
           <td>{element.task_type}</td>
@@ -132,11 +134,16 @@ const TaskList = (props: any) => {
           <td >{element.title}</td>
           <td>{element.description}</td>
           <td>{element.image_link}</td>
-          <td>{element.assigned_to}</td>
+          <td>{element.assigned_to}
+            <img onClick={() => {
+              setaddEditTaskLog_popup(true)
+              setseleted_taskid(element.id)
+            }} className='header_icon' src={add} />
+          </td>
           <td>
             <div className='screen_header_element'
               onClick={() => {
-                setpopup3(true)
+                setaddEditTaskTimeLog_popup(true)
                 setseleted_taskid(element.id)
               }}>
               <img className='header_icon' src={play} />
@@ -149,7 +156,7 @@ const TaskList = (props: any) => {
       return (
         <tr key={element.id}>
           <td onClick={() => {
-            setpopup2(true)
+            setaddEditTaskLog_popup(true)
             setseleted_taskid(element.id)
           }}>{element.title}</td>
           <td>{element.task_type}</td>
@@ -161,7 +168,7 @@ const TaskList = (props: any) => {
           <td>
             <div className='screen_header_element'
               onClick={() => {
-                setpopup3(true)
+                setaddEditTaskTimeLog_popup(true)
                 setseleted_taskid(element.id)
               }}>
               <img className='header_icon' src={play} />
@@ -216,21 +223,29 @@ const TaskList = (props: any) => {
           />
         }
 
-        {popup2 &&
+        {addEditTaskLog_popup &&
           <AddEditTaskLog
             setPopup={() => {
-              setpopup2(false);
+              setaddEditTaskLog_popup(false)
             }}
             taskid={seleted_taskid}
           />
         }
 
-        {popup3 &&
+        {addEditTaskTimeLog_popup &&
           <AddEditTaskTimeLog
             setPopup={() => {
-              setpopup3(false);
+              setaddEditTaskTimeLog_popup(false);
             }}
             taskid={seleted_taskid}
+            startorpausetask={true}
+          />
+        }
+
+        {projecttaskTitle &&
+          <Dashboard
+            projectName={project_Name}
+            taskName={task_Name}
           />
         }
 

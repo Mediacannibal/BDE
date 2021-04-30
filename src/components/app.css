@@ -1,6 +1,5 @@
 #root {
     display: flex;
-    background-color: var(--color_8);
     font-family: Barlow;
 }
 
@@ -82,11 +81,9 @@
     width: 100%;
     text-align-last: center;
     display: grid;
-    background-color: var(--color_8);
 }
 
 .body {
-    background-color: var(--color_8);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -233,7 +230,7 @@
 }
 
 tr:nth-child(even) {
-    background-color: var(--color_7);
+    background-color: #e0e0e0;
 }
 
 /* internal_table css */

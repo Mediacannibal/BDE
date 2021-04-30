@@ -27,12 +27,12 @@ import * as stop from '../../assets/stop.svg'
 import * as api from '../../assets/api.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
-import { getTasktimelog } from 'utils/api';
+import { getMainTask, getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 
 
-const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
+const Dashboard = ({ screen, screen_name, header_options, projectName, taskName }, props: any) => {
 
     const history = useHistory();
     const { auth } = useAuth();
@@ -41,10 +41,15 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     const [usertype, setusertype] = useState("NORMAL")
     const [username, setUsername] = useState("")
     const [profile_picture, setprofile_picture] = useState("")
-    const [popup3, setpopup3] = useState(false)
+    const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
     const [seleted_taskid, setseleted_taskid] = useState('')
+    const [projecttaskTitle, setprojecttaskTitle] = useState(false)
+
+    const [users, setusers] = useState('all')
+    const [task, settask] = useState('')
 
     const [settings_popup, setsettings_popup] = useState(false)
+    const [taskItems, settaskItems] = useState([])
 
     const [startorpausetask, setstartorpausetask] = useState(false)
 
@@ -74,11 +79,24 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log("someidentifier", profile_picture)
         }
 
+        getMainTask(async (data: any, errorresponse: any) => {
+            if (data.status === 200) {
+                setspinner(false)
+                console.log("Task Results: ", data.data.results)
+                settaskItems(data.data.results)
+            } else {
+                setspinner(false)
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+            }
+        }, auth, task, users)
+
         getTasktimelog(async (data: any, errorresponse: any) => {
             if (data.status === 200) {
                 setspinner(false)
                 console.log("Current Task: ", data.data.results[0])
                 setcurrent_task(data.data.results[0])
+                setstartorpausetask(false)
             } else {
                 setspinner(false)
                 console.log('error ' + JSON.stringify(data));
@@ -86,6 +104,17 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             }
         }, auth)
     }, [])
+
+    // const projecttaskTitle = () => {
+    //     return taskItems.map((ele: any, key: any) => {
+    //         return (
+    //             <>
+    //                 <div>{" Project:"}<span>{ele.title}</span></div>
+    //                 <div>{" Task:"}<span>{ele.title}</span></div>
+    //             </>
+    //         )
+    //     })
+    // }
 
     const menu_items = [
         { path: '/Home', icon: home, title: 'Home' },
@@ -109,6 +138,15 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 />
                 :
                 null
+            }
+            {addEditTaskTimeLog_popup &&
+                <AddEditTaskTimeLog
+                    setPopup={() => {
+                        setaddEditTaskTimeLog_popup(false);
+                    }}
+                    taskid={current_task.tasklog_ref}
+                    startorpausetask={startorpausetask}
+                />
             }
             <div className="main_menu_left">
 
@@ -195,15 +233,20 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                         <div className='header_center_subcontainer'>
                             {(current_task !== undefined) &&
                                 <div className="header_title">
-                                    {"Active Task: " + current_task.task_name}
+                                    {"Active Task: "}
+                                    <div onClick={() => { setprojecttaskTitle(!projecttaskTitle) }}>
+                                        <img className={projecttaskTitle ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
+                                    </div>
+                                    {current_task.task_name}
+
                                     {startorpausetask ?
                                         <img onClick={() => {
-                                            setpopup3(true)
-                                        }} className='header_icon' src={pause} />
+                                            setaddEditTaskTimeLog_popup(true)
+                                        }} className='header_icon' src={play} />
                                         :
                                         <img onClick={() => {
-                                            setpopup3(true)
-                                        }} className='header_icon' src={play} />
+                                            setaddEditTaskTimeLog_popup(true)
+                                        }} className='header_icon' src={pause} />
                                     }
                                     <img className='header_icon' src={stop} />
                                 </div>
@@ -211,144 +254,150 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                         </div>
                     </div>
 
-                    {popup3 &&
-                        <AddEditTaskTimeLog
-                            setPopup={() => {
-                                setpopup3(false);
-                            }}
-                            taskid={current_task.tasklog_ref}
-                            startorpausetask={startorpausetask}
-                        />
-                    }
+                    {/* {projecttaskTitle &&
+
+                        // taskItems.map((element: any, key: any) => {
+                        //     return (
+                        //         <div>
+                        //             <div>
+                        //                 {element.project_ref}
+                        //             </div>
+                        //             <div>
+                        //                 {element.title}
+                        //             </div>
+                        //         </div>
+                        //     )
+                        // })
+
+                    } */}
 
                     <div className='header_right'>
-
-                        <div
-                            className='header_subcontainer'>
+                        <div className='header_subcontainer'>
                             <img className='header_icon' src={chat} onClick={() => {
                                 history.push('/TaskDetails')
                             }} />
                             <img className='header_icon' src={bell} onClick={() => {
                                 setuser_notification(!user_notification)
                             }} />
-                            <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
-                                <img className='user_icon' src={profile_picture} />
-                                <div className='header_title'>{username}</div>
-                                <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
-
-                                {user_notification &&
-                                    <div className="user_notification_menu">
-                                        <div className="user_notification_header_container">
-                                            <div className="user_notification_header">NOTIFICATIONS</div>
-                                            <img className='header_icon' src={settings} />
-                                        </div>
-
-                                        <div className="user_notification_title_container">
-
-                                            <div className="user_notification_title_subcontainer1">
-                                                <img className='header_icon' src={settings} />
-                                                <div className="user_notification_title">Media Cannibal</div>
-                                            </div>
-
-                                            <div className="user_notification_title_subcontainer2">
-
-                                                <div className="user_notification_notify">
-                                                    <img className='header_icon' src={settings} />
-                                                    <div>
-                                                        <div className="user_notification_title_text">Call Them</div>
-                                                        <div>miss call</div>
-                                                    </div>
-                                                    <div>2 hours ago</div>
-                                                </div>
-                                                <div className="user_band"></div>
-                                                <div className="user_notification_notify">
-                                                    <img className='header_icon' src={settings} />
-                                                    <div>
-                                                        <div className="user_notification_title_text">What's up</div>
-                                                        <div>hello</div>
-                                                    </div>
-                                                    <div>6 hours ago</div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="user_notification_title_container">
-
-                                            <div className="user_notification_title_subcontainer1">
-                                                <div>***</div>
-                                                <div className="user_notification_title">Media Cannibal</div>
-                                            </div>
-
-                                            <div className="user_notification_title_subcontainer2">
-
-                                                <div className="user_notification_notify">
-                                                    <div>...</div>
-                                                    <div>
-                                                        <div className="user_notification_title_text">Call Them</div>
-                                                        <div>miss call</div>
-                                                    </div>
-                                                    <div>2 hours ago</div>
-                                                </div>
-                                                <div className="user_band"></div>
-                                                <div className="user_notification_notify">
-                                                    <div>!!!</div>
-                                                    <div>
-                                                        <div className="user_notification_title_text">What's up</div>
-                                                        <div>hello</div>
-                                                    </div>
-                                                    <div>6 hours ago</div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div>
-                                            <div className="user_notification_footer"
-                                                onClick={() => { history.replace('/Notifications') }}
-                                            >ALL NOTIFICATIONS</div>
-                                        </div>
-                                    </div>
-                                }
-
-                                {user_menu_open
-
-                                    ? <div className='user_menu'>
-
-                                        <div className='user_menu_item' onClick={() => {
-                                            history.push("/UserProfile")
-                                        }}>
-                                            <img className='header_icon' src={profile_picture} />
-                                            <div className='header_title'>Profile</div>
-                                        </div>
-                                        <div className='user_menu_item'>
-                                            <img className='header_icon' src={back} />
-                                            <div className='header_title'>misc</div>
-                                        </div>
-                                        <div className='user_menu_item'>
-                                            <div className="header_settings"
-                                                onClick={() => { setsettings_popup(true) }}>
-                                                <img className='header_icon' src={settings} />
-                                                <div className='header_title'>Settings</div>
-                                            </div>
-                                        </div>
-                                        <div className='user_menu_item'
-                                            onClick={() => {
-                                                localStorage.clear()
-                                                window.location.reload()
-                                                history.replace('/Login')
-                                            }}>
-                                            <img className='header_icon' src={back} />
-                                            <div className='header_title'>Logout</div>
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-                            </div>
+                        </div>
+                        <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
+                            <img className='user_icon' src={profile_picture} />
+                            <div className='header_title'>{username}</div>
+                            <img className={user_menu_open ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
                         </div>
                     </div>
+
+                    {user_notification &&
+                        <div className="user_notification_menu">
+                            <div className="user_notification_header_container">
+                                <div className="user_notification_header">NOTIFICATIONS</div>
+                                <img className='header_icon' src={settings} />
+                            </div>
+
+                            <div className="user_notification_title_container">
+
+                                <div className="user_notification_title_subcontainer1">
+                                    <img className='header_icon' src={settings} />
+                                    <div className="user_notification_title">Media Cannibal</div>
+                                </div>
+
+                                <div className="user_notification_title_subcontainer2">
+
+                                    <div className="user_notification_notify">
+                                        <img className='header_icon' src={settings} />
+                                        <div>
+                                            <div className="user_notification_title_text">Call Them</div>
+                                            <div>miss call</div>
+                                        </div>
+                                        <div>2 hours ago</div>
+                                    </div>
+                                    <div className="user_band"></div>
+                                    <div className="user_notification_notify">
+                                        <img className='header_icon' src={settings} />
+                                        <div>
+                                            <div className="user_notification_title_text">What's up</div>
+                                            <div>hello</div>
+                                        </div>
+                                        <div>6 hours ago</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div className="user_notification_title_container">
+
+                                <div className="user_notification_title_subcontainer1">
+                                    <div>***</div>
+                                    <div className="user_notification_title">Media Cannibal</div>
+                                </div>
+
+                                <div className="user_notification_title_subcontainer2">
+
+                                    <div className="user_notification_notify">
+                                        <div>...</div>
+                                        <div>
+                                            <div className="user_notification_title_text">Call Them</div>
+                                            <div>miss call</div>
+                                        </div>
+                                        <div>2 hours ago</div>
+                                    </div>
+                                    <div className="user_band"></div>
+                                    <div className="user_notification_notify">
+                                        <div>!!!</div>
+                                        <div>
+                                            <div className="user_notification_title_text">What's up</div>
+                                            <div>hello</div>
+                                        </div>
+                                        <div>6 hours ago</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <div className="user_notification_footer"
+                                    onClick={() => { history.replace('/Notifications') }}
+                                >ALL NOTIFICATIONS</div>
+                            </div>
+                        </div>
+                    }
+
+                    {user_menu_open
+
+                        ? <div className='user_menu'>
+
+                            <div className='user_menu_item' onClick={() => {
+                                history.push("/UserProfile")
+                            }}>
+                                <img className='header_icon' src={profile_picture} />
+                                <div className='header_title'>Profile</div>
+                            </div>
+                            <div className='user_menu_item'>
+                                <img className='header_icon' src={back} />
+                                <div className='header_title'>misc</div>
+                            </div>
+                            <div className='user_menu_item'>
+                                <div className="header_settings"
+                                    onClick={() => { setsettings_popup(true) }}>
+                                    <img className='header_icon' src={settings} />
+                                    <div className='header_title'>Settings</div>
+                                </div>
+                            </div>
+                            <div className='user_menu_item'
+                                onClick={() => {
+                                    localStorage.clear()
+                                    window.location.reload()
+                                    history.replace('/Login')
+                                }}>
+                                <img className='header_icon' src={back} />
+                                <div className='header_title'>Logout</div>
+                            </div>
+                        </div>
+                        : null
+                    }
+
                 </div>
 
                 {screen}
