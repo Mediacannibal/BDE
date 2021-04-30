@@ -27,7 +27,6 @@ import NewUserForm from './Forms/NewUserForm';
 import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
 import Notifications from './Notifications';
-import Report from "./AnaylticsReport/index";
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -45,7 +44,6 @@ const dashboard_screen = [
   { path: '/TestSelectionForm', component: TestSelectionForm },
   { path: '/ApiRecords', component: ApiRecords },
   { path: '/Notifications', component: Notifications },
-  { path: '/report', component: Report },
 ]
 
 const fullpage_screen = [
