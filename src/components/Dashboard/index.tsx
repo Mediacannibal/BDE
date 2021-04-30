@@ -192,9 +192,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                 <div>
                                     {"Active Task: " + current_task}
                                     {startorpausetask ?
-                                        <img onClick={ } className='header_icon' src={play} />
+                                        <img onClick={() => { }} className='header_icon' src={play} />
                                         :
-                                        <img onClick={ } className='header_icon' src={add} />
+                                        <img onClick={() => { }} className='header_icon' src={add} />
                                     }
                                     <img className='header_icon' src={team} />
                                 </div>
