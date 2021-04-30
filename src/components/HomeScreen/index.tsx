@@ -21,7 +21,7 @@ const HomeScreen = (props: any) => {
 
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
-  const [users, setusers] = useState('')
+  const [users, setusers] = useState('all')
 
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const HomeScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
+        // console.log("Project List", data.data)
         setlistItems1(data.data.results)
       } else {
         setspinner(false)

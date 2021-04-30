@@ -388,7 +388,7 @@ export const getBuglog = (callback: (arg0: any, arg1: string) => void, token: an
 }
 
 export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`tasks/tasktimelog/add/`, data, {
+  instance.post(`tasks/tasktimelog/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -398,7 +398,7 @@ export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, t
 }
 
 export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/tasktimelog/add/`, {
+  instance.get(`tasks/tasktimelog/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
