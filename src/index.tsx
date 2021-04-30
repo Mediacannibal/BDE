@@ -10,7 +10,7 @@ import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
-
+import * as serviceWorker from '../serviceWorker';
 
 ReactGA.initialize('UA-157352486-1');
 
@@ -44,3 +44,5 @@ ReactDOM.render(
   </AnalyticsProvider>,
   document.getElementById('root')
 )
+
+serviceWorker.unregister();

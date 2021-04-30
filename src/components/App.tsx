@@ -80,9 +80,10 @@ const App = () => {
 
         {dashboard_screen.map((Data: any) => {
           const [blabla, setblabla] = useState()
+          const [activetaskdetails, setactivetaskdetails] = useState()
           return (
             <Route exact path={Data.path}>
-              <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
+              <Dashboard screen={<Data.component setheader_options={setblabla} setactivetask_details={activetaskdetails} />} screen_name={Data.path} header_options={blabla} current_task={activetaskdetails}  />
             </Route>
           )
         }

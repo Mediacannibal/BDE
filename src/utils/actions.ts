@@ -1,4 +1,4 @@
-import instance from 'utils/axios'
+import instance from '../utils/axios'
 
 export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/api/user/social/signup/`, data, {

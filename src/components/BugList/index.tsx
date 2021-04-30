@@ -6,11 +6,10 @@ import Spinner, { ProgressBar } from 'components/Common/Spinner';
 import * as play from '../../assets/play.svg'
 
 import * as filter from '../../assets/filter.png'
-import { getBuglog, getMainTask, listingBug } from 'utils/api';
+import { getBuglog, getMainTask, getProject, listingBug } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 import * as add from '../../assets/add.svg'
 import { useAuth } from 'store/authStore';
-import { getProject } from 'src/utils/api';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 
@@ -31,6 +30,8 @@ const BugList = (props: any) => {
   const [popup3, setpopup3] = useState(false)
 
   const [seleted_taskid, setseleted_taskid] = useState('')
+
+  const [users, setusers] = useState('')
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -69,7 +70,7 @@ const BugList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, users)
   }, [])
 
   const screen_header_elements = () => {

@@ -3,7 +3,7 @@
     "jsx": "react",
     "module": "commonjs",
     "target": "ES5",
-    "baseUrl": ".",
+    "baseUrl": "./src/",
     "outDir": "./dist/",
     "moduleResolution": "node",
     "lib": [

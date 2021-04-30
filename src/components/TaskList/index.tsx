@@ -56,7 +56,7 @@ const TaskList = (props: any) => {
 
   useEffect(() => {
     // console.log("<><><><><><><><><><>", auth);
-    props.setheader_options(screen_header_elements)
+    props.setheader_options(screen_header_elements)    
     if (!userDetail) {
       loaduserDetail()
     }

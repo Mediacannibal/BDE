@@ -20,24 +20,40 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
+import * as play from '../../assets/play.svg'
+import * as add from '../../assets/add.svg'
+import * as pause from '../../assets/pause.svg'
+import * as stop from '../../assets/stop.svg'
 import * as api from '../../assets/api.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
+import { getTasktimelog } from 'utils/api';
+import { useAuth } from 'store/authStore';
+import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const history = useHistory();
+    const { auth } = useAuth();
 
     const [menu_open, setMenu_open] = useState(true)
     const [usertype, setusertype] = useState("NORMAL")
     const [username, setUsername] = useState("")
     const [profile_picture, setprofile_picture] = useState("")
+    const [popup3, setpopup3] = useState(false)
+    const [seleted_taskid, setseleted_taskid] = useState('')
 
     const [settings_popup, setsettings_popup] = useState(false)
 
+    const [startorpausetask, setstartorpausetask] = useState(false)
+
     const [user_menu_open, setUser_menu_open] = useState(false)
     const [user_notification, setuser_notification] = useState(false)
+
+    const [spinner, setspinner] = useState(true)
+    const [current_task, setcurrent_task] = useState()
+
 
     const location = useLocation();
 
@@ -53,10 +69,22 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
-            setprofile_picture(((profile_picture === undefined) 
-            || (profile_picture === null)) ? defaultusericon : profile_picture)
+            setprofile_picture(((profile_picture === undefined)
+                || (profile_picture === null)) ? defaultusericon : profile_picture)
             console.log("someidentifier", profile_picture)
         }
+
+        getTasktimelog(async (data: any, errorresponse: any) => {
+            if (data.status === 200) {
+                setspinner(false)
+                console.log("Current Task: ", data.data.results[0])
+                setcurrent_task(data.data.results[0])
+            } else {
+                setspinner(false)
+                console.log('error ' + JSON.stringify(data));
+                console.log('error ' + JSON.stringify(errorresponse));
+            }
+        }, auth)
     }, [])
 
     const menu_items = [
@@ -67,7 +95,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
         { path: '/UserManagement', icon: team, title: 'Users' },
-        { path: '/ApiRecords', icon: team, title: 'Api Records' },]
+        { path: '/ApiRecords', icon: team, title: 'Api Records' },
+        { path: '/report', icon: team, title: 'Analytics Report' },
+    ]
 
     return (
         <div className="main_wrapper">
@@ -163,8 +193,33 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
                     <div className='header_center'>
                         <div className='header_center_subcontainer'>
+                            {(current_task !== undefined) &&
+                                <div className="header_title">
+                                    {"Active Task: " + current_task.task_name}
+                                    {startorpausetask ?
+                                        <img onClick={() => {
+                                            setpopup3(true)
+                                        }} className='header_icon' src={pause} />
+                                        :
+                                        <img onClick={() => {
+                                            setpopup3(true)
+                                        }} className='header_icon' src={play} />
+                                    }
+                                    <img className='header_icon' src={stop} />
+                                </div>
+                            }
                         </div>
                     </div>
+
+                    {popup3 &&
+                        <AddEditTaskTimeLog
+                            setPopup={() => {
+                                setpopup3(false);
+                            }}
+                            taskid={current_task.tasklog_ref}
+                            startorpausetask={startorpausetask}
+                        />
+                    }
 
                     <div className='header_right'>
 
@@ -173,11 +228,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             <img className='header_icon' src={chat} onClick={() => {
                                 history.push('/TaskDetails')
                             }} />
-                            <div>
-                                <img className='header_icon' src={bell} onClick={() => {
-                                    setuser_notification(!user_notification)
-                                }} />
-                            </div>
+                            <img className='header_icon' src={bell} onClick={() => {
+                                setuser_notification(!user_notification)
+                            }} />
                             <div className='header_user_wrapper' onClick={() => { setUser_menu_open(!user_menu_open) }}>
                                 <img className='user_icon' src={profile_picture} />
                                 <div className='header_title'>{username}</div>

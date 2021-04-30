@@ -6,7 +6,7 @@ import Popup from 'components/Common/Popup'
 import { createTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 
-const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
+const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
   const { auth } = useAuth();
   const history = useHistory();
 
@@ -39,12 +39,13 @@ const AddEditTaskTimeLog = ({ setPopup, taskid }) => {
       {ispopup ?
         <Popup
           title={"Start Task?"}
-          desc1={"The following Task will be started!"}
+          desc1={(startorpausetask === true) ? "The following Task will be started!" : "The following Task will be paused!"}
           desc2={"Please click 'Yes' to proceed?"}
           confirmClick={() => {
             let data = []
             let object = {
-              "tasklog_ref": taskid
+              "tasklog_ref": taskid,
+              "active": startorpausetask
             }
             console.log('seleted_taskid: ', taskid)
             data.push(object)
