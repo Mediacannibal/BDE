@@ -1,8 +1,17 @@
 import instance from '../utils/axios'
 
 
-// export const realtime = (callback: (arg0: any, arg1: string) => void, token: any,) => {
-//   instance.get(`https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:241653669&metrics=rt:activeUsers`, {
+export const realtime = (callback: (arg0: any, arg1: string) => void, token: any,) => {
+  instance.get(`https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:241653669&metrics=rt:activeUsers`, {
+    headers: {
+      'Authorization': token ? `Bearer ${token}` : '',
+    }
+  }).then((res) => { callback(res, 'sucess') })
+    .catch(err => callback(err, err.response))
+}
+
+// export const queryReport1 = (callback: (arg0: any, arg1: string) => void, token: any, metrics: any, dimensions: any) => {
+//   instance.get(`https://www.googleapis.com/analytics/v3/data/ga?ids=ga:241653669&metrics=${metrics}&dimensions=${dimensions}&start-date=2021-04-10&end-date=2021-04-26`, {
 //     headers: {
 //       'Authorization': token ? `Bearer ${token}` : '',
 //     }
