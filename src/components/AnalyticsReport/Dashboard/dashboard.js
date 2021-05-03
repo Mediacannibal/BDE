@@ -6,7 +6,6 @@ import SourceReport from "./sourceReport";
 import BrowsersReport from "./browsersReport";
 import DevicesReport from "./devicesReport";
 import { LastRow } from "./styles";
-import InputField from "../Components/input";
 import DayVisitsReport_realtime from "./dayVisitsReport_realtime";
 
 const DashBoard = () => {
@@ -16,6 +15,9 @@ const DashBoard = () => {
     <>
       <>
         <DayVisitsReport_realtime
+        metric={"activeUsers"}
+        title={"Users"}
+        dimensions={"browser"}
         />
 
         <DayVisitsReport

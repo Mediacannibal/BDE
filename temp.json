@@ -1,42 +1,41 @@
 {
-  "kind": "analytics#gaData",
-  "id": "https://www.googleapis.com/analytics/v3/data/ga?ids=ga:241653669&metrics=ga:users&start-date=2021-04-10&end-date=2021-04-26",
-  "query": {
-    "start-date": "2021-04-10",
-    "end-date": "2021-04-26",
-    "ids": "ga:241653669",
-    "dimensions": "",
-    "metrics": [
-      "ga:users"
-    ],
-    "start-index": 1,
-    "max-results": 1000
-  },
-  "itemsPerPage": 1000,
-  "totalResults": 1,
-  "selfLink": "https://www.googleapis.com/analytics/v3/data/ga?ids=ga:241653669&metrics=ga:users&start-date=2021-04-10&end-date=2021-04-26",
-  "profileInfo": {
-    "profileId": "241653669",
-    "accountId": "157352486",
-    "webPropertyId": "UA-157352486-1",
-    "internalWebPropertyId": "269500782",
-    "profileName": "MCBDE_241653669",
-    "tableId": "ga:241653669"
-  },
-  "containsSampledData": false,
-  "columnHeaders": [
+  "dimensionHeaders": [
     {
-      "name": "ga:users",
-      "columnType": "METRIC",
-      "dataType": "INTEGER"
+      "name": "city"
     }
   ],
-  "totalsForAllResults": {
-    "ga:users": "2"
-  },
+  "metricHeaders": [
+    {
+      "name": "activeUsers",
+      "type": "TYPE_INTEGER"
+    }
+  ],
   "rows": [
-    [
-      "2"
-    ]
-  ]
+    {
+      "dimensionValues": [
+        {
+          "value": ""
+        }
+      ],
+      "metricValues": [
+        {
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "dimensionValues": [
+        {
+          "value": "Bengaluru"
+        }
+      ],
+      "metricValues": [
+        {
+          "value": "1"
+        }
+      ]
+    }
+  ],
+  "rowCount": 2,
+  "kind": "analyticsData#runRealtimeReport"
 }
