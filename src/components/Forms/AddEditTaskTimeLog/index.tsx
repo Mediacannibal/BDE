@@ -25,7 +25,7 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
       confirmClick={() => {
         let data = []
         let object = {
-          "tasklog_ref": taskid,
+          "task_ref": taskid,
           "active": String(startorpausetask)
         }
         console.log('seleted_taskid: ', taskid)

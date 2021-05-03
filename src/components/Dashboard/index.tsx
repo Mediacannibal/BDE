@@ -52,6 +52,7 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
     const [taskItems, settaskItems] = useState([])
 
     const [startorpausetask, setstartorpausetask] = useState(false)
+    const [startorpausetaskid, setstartorpausetaskid] = useState()
 
     const [user_menu_open, setUser_menu_open] = useState(false)
     const [user_notification, setuser_notification] = useState(false)
@@ -139,15 +140,17 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
                 :
                 null
             }
+
             {addEditTaskTimeLog_popup &&
                 <AddEditTaskTimeLog
                     setPopup={() => {
                         setaddEditTaskTimeLog_popup(false);
                     }}
-                    taskid={current_task.tasklog_ref}
+                    taskid={startorpausetaskid}
                     startorpausetask={startorpausetask}
                 />
             }
+
             <div className="main_menu_left">
 
                 <div className="menu_logo_wrapper">
@@ -232,19 +235,25 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
                     <div className='header_center'>
                         <div className='header_center_subcontainer'>
                             {(current_task !== undefined) &&
-                                <div className="header_title">
+                                <div className="header_title  active_task_wrapper">
                                     {"Active Task: "}
                                     <div onClick={() => { setprojecttaskTitle(!projecttaskTitle) }}>
-                                        <img className={projecttaskTitle ? 'open_close_arrow_icon' : 'open_close_arrow_icon rotate180'} src={up_down_arrow} />
+                                        <img className={projecttaskTitle ?
+                                            'open_close_arrow_icon'
+                                            :
+                                            'open_close_arrow_icon rotate180'} src={up_down_arrow}
+                                        />
                                     </div>
                                     {current_task.task_name}
 
                                     {startorpausetask ?
                                         <img onClick={() => {
+                                            setstartorpausetaskid(current_task.task_ref)
                                             setaddEditTaskTimeLog_popup(true)
                                         }} className='header_icon' src={play} />
                                         :
                                         <img onClick={() => {
+                                            setstartorpausetaskid(current_task.task_ref)
                                             setaddEditTaskTimeLog_popup(true)
                                         }} className='header_icon' src={pause} />
                                     }
@@ -254,22 +263,28 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
                         </div>
                     </div>
 
-                    {/* {projecttaskTitle &&
+                    {projecttaskTitle &&
+                        <div className="projecttask_container">
+                            <div className="projecttask_wrapper">
+                                {taskItems.map((element: any, key: any) => {
+                                    return (
 
-                        // taskItems.map((element: any, key: any) => {
-                        //     return (
-                        //         <div>
-                        //             <div>
-                        //                 {element.project_ref}
-                        //             </div>
-                        //             <div>
-                        //                 {element.title}
-                        //             </div>
-                        //         </div>
-                        //     )
-                        // })
+                                        <div className="projecttask_subwrapper"
+                                            onClick={() => {
+                                                setstartorpausetaskid(element.id)
+                                                setstartorpausetask(true)
+                                                setaddEditTaskTimeLog_popup(true)
+                                            }}>
+                                            <div className="header_title" >
+                                                {element.project_ref + ": " + element.title}
+                                            </div>
+                                        </div>
 
-                    } */}
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    }
 
                     <div className='header_right'>
                         <div className='header_subcontainer'>

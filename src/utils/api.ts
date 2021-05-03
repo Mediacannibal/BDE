@@ -278,7 +278,7 @@ export const deleteMainTask = (callback: (arg0: any, arg1: string) => void, toke
 }
 
 export const addTasklog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`tasks/tasklog/add/`, data, {
+  instance.post(`tasks/tasklog/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
