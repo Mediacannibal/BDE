@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { addDays, format } from "date-fns";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { formatDate, transformToDate } from "./utils";
@@ -19,7 +18,6 @@ const SourceReport = (props) => {
     datasets: [],
   };
   const [reportData, setReportData] = useState(INITIAL_STATE);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalSources, setTotalSources] = useState(0);
 
@@ -64,7 +62,7 @@ const SourceReport = (props) => {
       return new Date(a) - new Date(b);
     });
     const datesFormatted = datesArray.map((date) =>
-      format(new Date(date), "MMM. d, yyyy")
+      (new Date(date), "MMM. d, yyyy")
     );
     const uniqueDates = [...new Set(datesFormatted)];
     let datasetsArray = [];

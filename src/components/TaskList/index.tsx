@@ -74,7 +74,7 @@ const TaskList = (props: any) => {
         console.log("Task Results: ", data.data.results)
         setlistItems1(data.data.results)
         setproject_Name(data.data.results.project_ref)
-        console.log("Project Name: ", data.data.results[0].project_ref)
+        // console.log("Project Name: ", data.data.results[0].project_ref)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -102,7 +102,7 @@ const TaskList = (props: any) => {
 
   const renderHeader = () => {
     if (all_project_ref.length === 0) {
-      let headerElement = ['Project', 'domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'track']
+      let headerElement = ['Project', 'domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'Time Spent', 'track']
       return headerElement.map((key, index) => {
         return <th key={index}>{key.toUpperCase()}
           <img className={up_arrow ?
@@ -114,7 +114,7 @@ const TaskList = (props: any) => {
       })
     }
     else {
-      let headerElement = ['domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'track']
+      let headerElement = ['domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'Time Spent', 'track']
 
       return headerElement.map((key, index) => {
         return <th key={index}>{key.toUpperCase()}</th>
@@ -140,6 +140,7 @@ const TaskList = (props: any) => {
               setseleted_taskid(element.id)
             }} className='header_icon' src={add} />
           </td>
+          <td>{element.time_spent}</td>
           <td>
             <div className='screen_header_element'
               onClick={() => {

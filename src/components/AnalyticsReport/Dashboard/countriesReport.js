@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { PieChartWrapper, colors } from "./styles";
-import { addDays } from "date-fns";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "./styles";
@@ -14,7 +13,6 @@ const CountriesReport = (props) => {
     colors: [],
   };
   const [reportData, setReportData] = useState(INITIAL_STATE);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalCoutries, setTotalCountries] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);

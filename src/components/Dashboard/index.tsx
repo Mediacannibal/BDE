@@ -102,6 +102,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/Home', icon: home, title: 'Home' },
         { path: '/Project', icon: menu, title: 'Project' },
         { path: '/TaskList', icon: tasklist, title: 'Tasks' },
+        { path: '/TaskTimeLog', icon: tasklist, title: 'Task Time Log' },
         { path: '/TestingChecklist', icon: tested, title: 'Test Center' },
         { path: '/BugList', icon: bug, title: 'Bug Log' },
         { path: '/Meeting', icon: meeting, title: 'Meeting' },
