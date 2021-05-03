@@ -1,0 +1,106 @@
+{
+    "reports": [
+      {
+        "columnHeader": {
+          "dimensions": [
+            "ga:date"
+          ],
+          "metricHeader": {
+            "metricHeaderEntries": [
+              {
+                "name": "ga:users",
+                "type": "INTEGER"
+              }
+            ]
+          }
+        },
+        "data": {
+          "rows": [
+            {
+              "dimensions": [
+                "20210423"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210427"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210428"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210429"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "1"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210430"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "1"
+                  ]
+                }
+              ]
+            }
+          ],
+          "totals": [
+            {
+              "values": [
+                "10"
+              ]
+            }
+          ],
+          "rowCount": 5,
+          "minimums": [
+            {
+              "values": [
+                "0"
+              ]
+            }
+          ],
+          "maximums": [
+            {
+              "values": [
+                "3"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+  

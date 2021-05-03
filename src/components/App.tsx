@@ -27,6 +27,7 @@ import NewUserForm from './Forms/NewUserForm';
 import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
 import Notifications from './Notifications';
+import Report from "../components/AnalyticsReport/index";
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -44,6 +45,7 @@ const dashboard_screen = [
   { path: '/TestSelectionForm', component: TestSelectionForm },
   { path: '/ApiRecords', component: ApiRecords },
   { path: '/Notifications', component: Notifications },
+  { path: '/report', component: Report },
 ]
 
 const fullpage_screen = [
@@ -80,10 +82,9 @@ const App = () => {
 
         {dashboard_screen.map((Data: any) => {
           const [blabla, setblabla] = useState()
-          const [activetaskdetails, setactivetaskdetails] = useState()
           return (
             <Route exact path={Data.path}>
-              <Dashboard screen={<Data.component setheader_options={setblabla} setactivetask_details={activetaskdetails} />} screen_name={Data.path} header_options={blabla} current_task={activetaskdetails}  />
+              <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
             </Route>
           )
         }

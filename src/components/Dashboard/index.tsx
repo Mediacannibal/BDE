@@ -20,11 +20,9 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
-import * as play from '../../assets/play.svg'
-import * as add from '../../assets/add.svg'
+import * as api from '../../assets/api.svg'
 import * as pause from '../../assets/pause.svg'
 import * as stop from '../../assets/stop.svg'
-import * as api from '../../assets/api.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
 import { getMainTask, getTasktimelog } from 'utils/api';
@@ -32,7 +30,7 @@ import { useAuth } from 'store/authStore';
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 
 
-const Dashboard = ({ screen, screen_name, header_options, projectName, taskName }, props: any) => {
+const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const history = useHistory();
     const { auth } = useAuth();
@@ -44,6 +42,7 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
     const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
     const [seleted_taskid, setseleted_taskid] = useState('')
     const [projecttaskTitle, setprojecttaskTitle] = useState(false)
+    const [current_task, setcurrent_task] = useState(false)
 
     const [users, setusers] = useState('all')
     const [task, settask] = useState('')
@@ -56,10 +55,6 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
 
     const [user_menu_open, setUser_menu_open] = useState(false)
     const [user_notification, setuser_notification] = useState(false)
-
-    const [spinner, setspinner] = useState(true)
-    const [current_task, setcurrent_task] = useState()
-
 
     const location = useLocation();
 
@@ -82,11 +77,9 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
 
         getMainTask(async (data: any, errorresponse: any) => {
             if (data.status === 200) {
-                setspinner(false)
                 console.log("Task Results: ", data.data.results)
                 settaskItems(data.data.results)
             } else {
-                setspinner(false)
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
             }
@@ -94,28 +87,16 @@ const Dashboard = ({ screen, screen_name, header_options, projectName, taskName 
 
         getTasktimelog(async (data: any, errorresponse: any) => {
             if (data.status === 200) {
-                setspinner(false)
                 console.log("Current Task: ", data.data.results[0])
                 setcurrent_task(data.data.results[0])
                 setstartorpausetask(false)
             } else {
-                setspinner(false)
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
             }
         }, auth)
     }, [])
 
-    // const projecttaskTitle = () => {
-    //     return taskItems.map((ele: any, key: any) => {
-    //         return (
-    //             <>
-    //                 <div>{" Project:"}<span>{ele.title}</span></div>
-    //                 <div>{" Task:"}<span>{ele.title}</span></div>
-    //             </>
-    //         )
-    //     })
-    // }
 
     const menu_items = [
         { path: '/Home', icon: home, title: 'Home' },

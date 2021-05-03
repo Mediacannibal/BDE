@@ -200,6 +200,7 @@ const LoginScreen = () => {
                 buttonText="Login"
                 onSuccess={(Response: { profileObj: any; }) => {
                   console.log(Response);
+                  localStorage.setItem("Bearer",JSON.stringify(Response.accessToken))
                   let userInfo = Response.profileObj;
                   let data = {
                     "lastname": userInfo.familyName,
