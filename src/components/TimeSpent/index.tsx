@@ -7,6 +7,7 @@ import { getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ProgressBar } from 'components/Common/Spinner';
 import Card from 'components/Common/Card';
+import { ContactlessOutlined } from '@material-ui/icons';
 
 const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
   const { auth } = useAuth();
@@ -15,27 +16,46 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(true)
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
+  const [user_type, setuser_type] = useState("")
+  const [Users, setUsers] = useState("")
 
   useEffect(() => {
-
     setspinner(true)
+    let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
+    if (UserDetails !== null) {
+      let usertype = UserDetails.user_type
+      setuser_type(usertype)
+      if (((String(users) === "undefined") || (String(users) === "null"))) {
+        if ((usertype === "ADMIN") || (usertype === "PROJECTADMIN") || (usertype === "SUPERUSER")) {
+          setUsers("all")
+        }
+        else {
+          setUsers("")
+        }
+      }
+      else {
+        setUsers(String(users))
+      }
+      console.log("Users sent for api request: ", Users)
+    }
 
     getTasktimelog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
         console.log("TaskTime Log Results: ", data.data)
         setlistItems(data.data.results)
-      } else {
+      }
+      else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, ((taskId === undefined) || (taskId === null)) ? "" : taskId, ((users === undefined) || (users === null)) ? "" : users)
+    }, auth, ((taskId === undefined) || (taskId === null)) ? "" : taskId, Users)
   }, [])
 
   const renderHeader = () => {
 
-    let headerElement = ((users === undefined) || (users === null)) ?
+    let headerElement = (Users.length === 0) ?
       ['Started At', 'Paused At', 'Time Spent']
       :
       ['Assignee', 'Started At', 'Paused At', 'Time Spent']
@@ -49,12 +69,12 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
     // const [task_active, settask_active] = useState(false)
     return (
       <tr key={element.id}>
-        {((users === undefined) || (users === null)) ? null : 
-        <td onClick={() => {
-          setcompanybranchTitle(!companybranchTitle)
-        }}>
-          {element.first_name + ' ' + element.last_name}
-        </td>
+        {(Users.length === 0) ? null :
+          <td onClick={() => {
+            setcompanybranchTitle(!companybranchTitle)
+          }}>
+            {element.first_name + ' ' + element.last_name}
+          </td>
         }
         <td>{element.created_at}</td>
         <td>{element.updated_at}</td>

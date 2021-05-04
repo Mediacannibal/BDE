@@ -84,6 +84,30 @@ const ProjectScreen = (props: any) => {
     }
   }
 
+  const project_Type = (element: any) => {
+    if (element.design === true) {
+      return ("Design")
+    }
+    else if (element.development === true) {
+      return ("Development")
+    }
+    else if (element.marketting === true) {
+      return ("Marketting")
+    }
+  }
+
+  const project_Status = (element: any) => {
+    if (element.start_date === undefined) {
+      return ("Pending")
+    }
+    else if (element.end_date === undefined) {
+      return ("In Progress")
+    }
+    else if ((element.start_date.length !== 0) && (element.end_date.length !== 0)) {
+      return ("Completed")
+    }
+  }
+
   const renderHeader1 = () => {
     let headerElement = ['Company Name', 'Branch Name', 'First Name', 'Last Name', 'user type']
 
@@ -93,7 +117,6 @@ const ProjectScreen = (props: any) => {
   }
 
   const renderBody1 = (element: any) => {
-
     return (
       <>
         <tr key={element.id}>
@@ -106,7 +129,6 @@ const ProjectScreen = (props: any) => {
       </>
     )
   }
-
 
   const renderHeader2 = () => {
     let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
@@ -199,8 +221,8 @@ const ProjectScreen = (props: any) => {
                       </div>
 
                       <div className="project_right_container">
-                        <div className="project_stats">Type: {element.project_type}</div>
-                        <div className="project_stats">Status: {element.status}</div>
+                        <div className="project_stats">Type: {project_Type(element)}</div>
+                        <div className="project_stats">Status: {project_Status(element)}</div>
                         <div className="project_stats">Start Date: {element.start_date}</div>
                         <div className="project_stats">End Date: {element.end_date}</div>
                       </div>
