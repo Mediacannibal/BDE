@@ -14,11 +14,7 @@ const DashBoard = () => {
   return (
     <>
       <>
-        <DayVisitsReport_realtime
-        metric={"activeUsers"}
-        title={"Users"}
-        dimensions={"browser"}
-        />
+        <DayVisitsReport_realtime title={"Users"} />
 
         <DayVisitsReport
           metric={"ga:users"}

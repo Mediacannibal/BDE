@@ -19,50 +19,208 @@ const DayVisitsReport_realtime = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
 
-  const [activeuserfrom, setactiveuserfrom] = useState('')
-
+  const [metriheaders, setmetriheaders] = useState([])
+  const [dimensionheaders, setdimensionheaders] = useState([])
   const [listItems, setlistItems] = useState([])
 
-  const displayResults = (response) => {
-    console.log("><>????????????", response);
-    setactiveuserfrom(response.result.rows[0].metricValues[0].value)
+  const [metriheaders2, setmetriheaders2] = useState([])
+  const [dimensionheaders2, setdimensionheaders2] = useState([])
+  const [listItems2, setlistItems2] = useState([])
 
+  const [metriheaders3, setmetriheaders3] = useState([])
+  const [dimensionheaders3, setdimensionheaders3] = useState([])
+  const [listItems3, setlistItems3] = useState([])
+
+
+  const displayResults = (response) => {
+    console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders(response.result.dimensionHeaders)
+    setmetriheaders(response.result.metricHeaders)
     setlistItems(response.result.rows)
   };
 
-  // useEffect(() => {
-  //   let token = JSON.parse(String(localStorage.getItem("Bearer")))
-  //   realtime(async (data) => {
-  //     console.log("++++++++++++", data)
-  //   }, token)
-  // });
+  const displayResults2 = (response) => {
+    console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders2(response.result.dimensionHeaders)
+    setmetriheaders2(response.result.metricHeaders)
+    setlistItems2(response.result.rows)
+  };
+
+  const displayResults3 = (response) => {
+    console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders3(response.result.dimensionHeaders)
+    setmetriheaders3(response.result.metricHeaders)
+    setlistItems3(response.result.rows)
+  };
+
+
 
   useEffect(() => {
     const request = {
       startDate,
       endDate,
-      metrics: props.metric,
-      dimensions: props.dimensions,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "city"
+        },
+        {
+          "name": "cityId"
+        },
+        {
+          "name": "country"
+        },
+        {
+          "name": "countryId"
+        },
+
+      ],
     };
     realtime_queryReport(request)
       .then((resp) => displayResults(resp))
       .catch((error) => console.error(error));
+
+
+    const request2 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "appVersion"
+        },
+        {
+          "name": "audienceId"
+        },
+        {
+          "name": "audienceName"
+        },
+        {
+          "name": "deviceCategory"
+        },
+      ],
+    };
+    realtime_queryReport(request2)
+      .then((resp) => displayResults2(resp))
+      .catch((error) => console.error(error));
+
+
+    const request3 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "platform"
+        },
+        {
+          "name": "streamName"
+        },
+        {
+          "name": "unifiedScreenName"
+        }
+      ],
+    };
+    realtime_queryReport(request3)
+      .then((resp) => displayResults3(resp))
+      .catch((error) => console.error(error));
+
+
   }, [startDate, endDate]);
 
-  const renderHeader = () => {
-    let headerElement = ['Country', 'Users']
 
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
+  const renderHeader = (element) => {
+    console.log("element=====222", element);
+    return (
+      <>
+        <th>{element.name}</th>
+      </>
+    )
   }
 
   const renderBody = (element) => {
-    console.log(element);
+    console.log("element=====", element);
     return (
       <tr>
-        <td>{element.dimensionValues[0].value}</td>
-        <td>{element.metricValues[0].value}</td>
+        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
+        {element.metricValues.map((obj) => <td>{obj.value}</td>)}
+      </tr >
+    )
+  }
+
+
+  const renderHeader2 = (element) => {
+    console.log("element=====222", element);
+    return (
+      <>
+        <th>{element.name}</th>
+      </>
+    )
+  }
+
+  const renderBody2 = (element) => {
+    console.log("element=====", element);
+    return (
+      <tr>
+        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
+      </tr >
+    )
+  }
+
+
+  const renderHeader3 = (element) => {
+    console.log("element=====222", element);
+    return (
+      <>
+        <th>{element.name}</th>
+      </>
+    )
+  }
+
+  const renderBody3 = (element) => {
+    console.log("element=====", element);
+    return (
+      <tr>
+        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
       </tr >
     )
   }
@@ -70,18 +228,30 @@ const DayVisitsReport_realtime = (props) => {
 
   return (
     <>
-      <div>
-        Active User from:{activeuserfrom}
+      <div className="internal_table">
+        <table id='internal_table'>
+          <thead>
+            <tr>{dimensionheaders.map(renderHeader)} {metriheaders.map(renderHeader)} </tr>
+          </thead>
+          <tbody> {listItems.map(renderBody)}</tbody>
+        </table>
       </div>
 
       <div className="internal_table">
         <table id='internal_table'>
           <thead>
-            <tr>{renderHeader()}</tr>
+            <tr>{dimensionheaders2.map(renderHeader2)}</tr>
           </thead>
-          <tbody>
-            {listItems.map(renderBody)}
-          </tbody>
+          <tbody>{listItems2.map(renderBody2)} </tbody>
+        </table>
+      </div>
+
+      <div className="internal_table">
+        <table id='internal_table'>
+          <thead>
+            <tr>{dimensionheaders3.map(renderHeader3)}</tr>
+          </thead>
+          <tbody>{listItems3.map(renderBody3)} </tbody>
         </table>
       </div>
     </>
