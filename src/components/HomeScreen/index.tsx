@@ -39,7 +39,6 @@ const HomeScreen = (props: any) => {
       }
     }, auth, users)
 
-
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
@@ -54,7 +53,22 @@ const HomeScreen = (props: any) => {
 
   }, [])
 
-
+  const getClassname = (key: any) => {
+    switch (key) {
+      case "Low":
+        return "textcolor_yellow";
+      case "Normal":
+        return "textcolor_blue";
+      case "High":
+        return "textcolor_orange";
+      case "Urgent":
+        return "textcolor_red";
+      case "Emergency":
+        return "textcolor_red textcolor_blinking";
+      default:
+        return "";
+    }
+  }
 
   const screen_header_elements = () => {
     return (
@@ -93,7 +107,7 @@ const HomeScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr>
+      <tr className={getClassname(element.priority)}>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.status}</td>

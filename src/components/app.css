@@ -312,7 +312,6 @@ tr:nth-child(even) {
     flex-direction: column;
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     padding: calc(0.4vw + 1.2vh + 0.4vmin);
-    overflow: scroll;
 }
 
 .popup_title {

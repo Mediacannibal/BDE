@@ -7,3 +7,20 @@
     height: 100%;
     object-fit: contain;
 }
+
+.companybranch_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: calc(0.15vw + 0.45vh + 0.15vmin);
+    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
+    background-color: #e3e5e6;
+    z-index: 1;
+}
+
+.companybranch_container {
+    display: flex;
+    position: absolute;
+    top: calc(5.5vw + 16.5vh + 5.5vmin);
+    width: 75%;
+    justify-content: center;
+}

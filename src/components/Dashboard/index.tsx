@@ -20,9 +20,9 @@ import * as up_down_arrow from '../../assets/up_down.svg'
 import * as bell from '../../assets/bell.svg'
 import * as chat from '../../assets/chat.svg'
 import * as settings from '../../assets/settings.svg'
-import * as api from '../../assets/api.svg'
 import * as pause from '../../assets/pause.svg'
 import * as stop from '../../assets/stop.svg'
+import * as play from '../../assets/play.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings';
 import { getMainTask, getTasktimelog } from 'utils/api';

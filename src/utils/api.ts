@@ -196,7 +196,7 @@ export const createBranch = (callback: (arg0: any, arg1: string) => void, token:
 }
 
 export const getBranchDetails = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`company/branch/add/`, {
+  instance.get(`company/branch/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -406,8 +406,8 @@ export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, t
     .catch(err => callback(err, err.response))
 }
 
-export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`tasks/tasktimelog/`, {
+export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any, task_Ids: any, users: any) => {
+  instance.get(`tasks/tasktimelog/?task_ids=${task_Ids}&users=${users}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

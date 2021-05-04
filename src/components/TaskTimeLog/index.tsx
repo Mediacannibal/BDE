@@ -6,7 +6,6 @@ import { getTasktimelog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 
 import * as add from '../../assets/add.svg'
-import * as play from '../../assets/play.svg'
 
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
@@ -17,12 +16,13 @@ const TaskTimeLog = (props: any) => {
   const history = useHistory();
 
   const [listItems, setlistItems] = useState([])
+  const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
   const [spinner, setspinner] = useState(true)
 
   const [popup, setpopup] = useState(false)
 
-  const [testselection, settestselection] = useState(false)
+  const [Userid, setUserid] = useState(false)
 
   useEffect(() => {
 
@@ -48,18 +48,18 @@ const TaskTimeLog = (props: any) => {
       <>
         <div className='screen_header_element' onClick={() => { setpopup(true) }}>
           <img className='header_icon' src={add} />
-          <div>Add Test</div>
+          <div>Add Task</div>
         </div>
-        <div className='screen_header_element' onClick={() => { settestselection(true) }}>
+        {/* <div className='screen_header_element' onClick={() => { settestselection(true) }}>
           <img className='header_icon' src={play} />
           <div>Run Test</div>
-        </div>
+        </div> */}
       </>
     )
   }
 
   const renderHeader = () => {
-    let headerElement = ['Task', 'Created By', 'Created At', 'Updated At']
+    let headerElement = ['Task', 'Assignee', 'Started At', 'Paused At', 'Time Spent']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -69,17 +69,42 @@ const TaskTimeLog = (props: any) => {
   const renderBody = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr>
-        <td>{element.task_ref}</td>
-        <td>{element.created_by}</td>
+      <tr key={element.id}>
+        <td>{element.task_name}</td>
+        <td onClick={() => {
+          setcompanybranchTitle(!companybranchTitle)
+          setUserid(element.id)
+        }}>
+          {element.first_name + ' ' + element.last_name}
+        </td>
         <td>{element.created_at}</td>
         <td>{element.updated_at}</td>
+        <td>{element.time_spent}</td>
       </tr >
     )
   }
 
   return (
     <div className="main">
+
+      {companybranchTitle &&
+        <div className="companybranch_container">
+          <div className="companybranch_wrapper">
+            {listItems.map((element: any, key: any) => {
+              return (
+                <div className="companybranch_subwrapper">
+                  <div className="header_title" >
+                    {"Company: " + element.company}
+                  </div>
+                  <div className="header_title" >
+                    {"Branch: " + element.branch}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      }
 
       <div className="body">
         {spinner ?

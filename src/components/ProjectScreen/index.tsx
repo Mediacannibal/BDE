@@ -67,6 +67,23 @@ const ProjectScreen = (props: any) => {
     }, auth, task, user_list)
   }, [])
 
+  const getClassname = (key: any) => {
+    switch (key) {
+      case "Low":
+        return "textcolor_yellow";
+      case "Normal":
+        return "textcolor_blue";
+      case "High":
+        return "textcolor_orange";
+      case "Urgent":
+        return "textcolor_red";
+      case "Emergency":
+        return "textcolor_red textcolor_blinking";
+      default:
+        return "";
+    }
+  }
+
   const renderHeader1 = () => {
     let headerElement = ['Company Name', 'Branch Name', 'First Name', 'Last Name', 'user type']
 
@@ -79,7 +96,7 @@ const ProjectScreen = (props: any) => {
 
     return (
       <>
-        <tr key={element.id} >
+        <tr key={element.id}>
           <td>{element.company_name}</td>
           <td>{element.branch_name}</td>
           <td>{element.firstname}</td>
@@ -101,10 +118,12 @@ const ProjectScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr key={element.id} onClick={() => {
-        // setpopup2(true)
-        setseleted_taskid(element.id)
-      }}>
+      <tr key={element.id}
+        className={getClassname(element.priority)}
+        onClick={() => {
+          // setpopup2(true)
+          setseleted_taskid(element.id)
+        }}>
         <td>{element.domain}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
