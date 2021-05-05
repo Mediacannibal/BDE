@@ -57,6 +57,8 @@ const TaskList = (props: any) => {
   const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [up_arrow, setup_arrow] = useState(true)
+  const [parent_child, setparent_child] = useState('')
+
 
   useEffect(() => {
     // console.log("<><><><><><><><><><>", auth);
@@ -79,8 +81,25 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, users)
+    }, auth, task, users, parent_child)
   }, [])
+
+  const getClassname = (key: any) => {
+    switch (key) {
+      case "Low":
+        return "textcolor_yellow";
+      case "Normal":
+        return "textcolor_blue";
+      case "High":
+        return "textcolor_orange";
+      case "Urgent":
+        return "textcolor_red";
+      case "Emergency":
+        return "textcolor_red textcolor_blinking";
+      default:
+        return "";
+    }
+  }
 
   const renderHeader1 = () => {
     if (all_project_ref.length === 0) {
@@ -104,58 +123,92 @@ const TaskList = (props: any) => {
     }
   }
 
-  const getClassname = (key: any) => {
-    switch (key) {
-      case "Low":
-        return "textcolor_yellow";
-      case "Normal":
-        return "textcolor_blue";
-      case "High":
-        return "textcolor_orange";
-      case "Urgent":
-        return "textcolor_red";
-      case "Emergency":
-        return "textcolor_red textcolor_blinking";
-      default:
-        return "";
-    }
-  }
-
   const renderBody1 = (element: any) => {
+    console.log("element",element)
+    console.log("element.child",element.child)
     if (all_project_ref.length === 0) {
       return (
-        <tr key={element.id} className={getClassname(element.priority)}>
-          <td>{element.project_ref}</td>
-          <td>{element.domain}</td>
-          <td>{element.task_type}</td>
-          <td>{element.priority}</td>
-          <td>{element.status}</td>
-          <td >{element.title}</td>
-          <td>{element.description}</td>
-          <td>{element.image_link}</td>
-          <td>{element.assigned_to}
-            <img onClick={() => {
-              setaddEditTaskLog_popup(true)
-              setseleted_taskId(element.id)
-            }} className='header_icon' src={add} />
-          </td>
-          <td>{element.time_spent}
-            <button onClick={() => {
-              settimeSpent_popup(true)
-              setseleted_taskName(element.title)
-              setseleted_taskId(element.id)
-            }}>Time</button>
-          </td>
-          <td>
-            <div className='screen_header_element'
-              onClick={() => {
-                setaddEditTaskTimeLog_popup(true)
-                setseleted_taskId(element.id)
-              }}>
-              <img className='header_icon' src={play} />
-            </div>
-          </td>
-        </tr >
+        <>
+          <tr key={element.id} className={getClassname(element.priority)}>
+            <td>{element.project_ref}
+              <img className={up_arrow ?
+                'open_close_arrow_icon'
+                :
+                'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow); }} />
+            </td>
+            <td>{element.domain}</td>
+            <td>{element.task_type}</td>
+            <td>{element.priority}</td>
+            <td>{element.status}</td>
+            <td>{element.title}</td>
+            <td>{element.description}</td>
+            <td>{element.image_link}</td>
+            <td>{element.assigned_to}
+              <img onClick={() => {
+                setaddEditTaskLog_popup(true);
+                setseleted_taskId(element.id);
+              }} className='header_icon' src={add} />
+            </td>
+            <td>{element.time_spent}
+              <button onClick={() => {
+                settimeSpent_popup(true);
+                setseleted_taskName(element.title);
+                setseleted_taskId(element.id);
+              }}>Time</button>
+            </td>
+            <td>
+              <div className='screen_header_element'
+                onClick={() => {
+                  setaddEditTaskTimeLog_popup(true);
+                  setseleted_taskId(element.id);
+                }}>
+                <img className='header_icon' src={play} />
+              </div>
+            </td>
+          </tr>
+          <tr key={element.id} className={getClassname(element.priority)}>
+          {element.child?.map((element: any) => {
+            return (<>              
+                <td>{element.project_ref}
+                  <img className={up_arrow ?
+                    'open_close_arrow_icon'
+                    :
+                    'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow); }} />
+                </td>
+                <td>{element.domain}</td>
+                <td>{element.task_type}</td>
+                <td>{element.priority}</td>
+                <td>{element.status}</td>
+                <td>{element.title}</td>
+                <td>{element.description}</td>
+                <td>{element.image_link}</td>
+                <td>{element.assigned_to}
+                  <img onClick={() => {
+                    setaddEditTaskLog_popup(true);
+                    setseleted_taskId(element.id);
+                  }} className='header_icon' src={add} />
+                </td>
+                <td>{element.time_spent}
+                  <button onClick={() => {
+                    settimeSpent_popup(true);
+                    setseleted_taskName(element.title);
+                    setseleted_taskId(element.id);
+                  }}>Time</button>
+                </td>
+                <td>
+                  <div className='screen_header_element'
+                    onClick={() => {
+                      setaddEditTaskTimeLog_popup(true);
+                      setseleted_taskId(element.id);
+                    }}>
+                    <img className='header_icon' src={play} />
+                  </div>
+                </td> 
+                </>            
+            )
+          })}
+          </tr>
+        </>
       )
     }
     else {
@@ -474,8 +527,9 @@ const TaskList = (props: any) => {
                       console.log('error ' + JSON.stringify(data));
                       console.log('error ' + JSON.stringify(errorresponse));
                     }
-                  }, auth, task, users)
+                  }, auth, task, users, parent_child)
                 }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
+
 
               <Card
                 card_title={Projecttitle}

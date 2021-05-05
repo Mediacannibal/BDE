@@ -31,10 +31,15 @@ const ProjectScreen = (props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
   const [seleted_projectName, setseleted_projectName] = useState('')
   const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
+  const [selected_User, setselected_User] = useState()
+  const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
   const [users, setusers] = useState('all')
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
+
+  const [ID, setID] = useState(false)
+  const [parent_child, setparent_child] = useState('')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -44,7 +49,7 @@ const ProjectScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("ProjectProfiles: ", data.data.results)
+        console.log("ProjectProfiles: ", data.data)
         setlistItems(data.data.results)
       } else {
         setspinner(false)
@@ -56,15 +61,14 @@ const ProjectScreen = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data.results)
+        console.log("Project Tasks: ", data.data.results)
         setlistItems2(data.data.results)
-
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, user_list)
+    }, auth, task, user_list, parent_child)
   }, [])
 
   const getClassname = (key: any) => {
@@ -97,19 +101,22 @@ const ProjectScreen = (props: any) => {
   }
 
   const project_Status = (element: any) => {
-    if (element.start_date === undefined) {
+    // console.log("start and End: ", element.start_date, element.end_date);
+    if (element.start_date === null) {
       return ("Pending")
     }
-    else if (element.end_date === undefined) {
-      return ("In Progress")
-    }
-    else if ((element.start_date.length !== 0) && (element.end_date.length !== 0)) {
-      return ("Completed")
+    else {
+      if (element.end_date === null) {
+        return ("In Progress")
+      }
+      else {
+        return ("Completed")
+      }
     }
   }
 
   const renderHeader1 = () => {
-    let headerElement = ['Company Name', 'Branch Name', 'First Name', 'Last Name', 'user type']
+    let headerElement = ['Name', 'user type']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
@@ -120,12 +127,31 @@ const ProjectScreen = (props: any) => {
     return (
       <>
         <tr key={element.id}>
-          <td>{element.company_name}</td>
-          <td>{element.branch_name}</td>
-          <td>{element.firstname}</td>
-          <td>{element.lastname}</td>
+          <td onClick={(e) => {
+            console.log('ID:  ', e);
+            setID(element.id)
+            if (ID) {
+              setcompanybranchTitle(!companybranchTitle)
+              setselected_User(element)
+            }
+          }}>{element.firstname + ' ' + element.lastname}
+          </td>
           <td>{element.user_type}</td>
         </tr>
+        {companybranchTitle &&
+          <div className="companybranch_container">
+            <div className="companybranch_wrapper">
+              <div className="companybranch_subwrapper">
+                <div className="header_title" >
+                  {"Company: " + selected_User.company_name}
+                </div>
+                <div className="header_title" >
+                  {"Branch: " + selected_User.branch_name}
+                </div>
+              </div>
+            </div>
+          </div>
+        }
       </>
     )
   }
@@ -168,7 +194,6 @@ const ProjectScreen = (props: any) => {
     )
   }
 
-
   return (
 
     <div className="main">
@@ -198,6 +223,8 @@ const ProjectScreen = (props: any) => {
           }}
         />
       }
+
+
 
       <div className="body">
         {spinner ?

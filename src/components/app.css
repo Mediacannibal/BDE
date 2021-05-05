@@ -235,6 +235,10 @@ tr:nth-child(even) {
 
 /* internal_table css */
 
+.internal_table {
+    position: relative;
+}
+
 #internal_table {
     font-size: var(--TS7);
     color: var(--color_1);
