@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { addDays, format } from "date-fns";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { formatDate, transformToDate } from "./utils";
@@ -13,7 +14,6 @@ import {
 } from "./styles";
 
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const SourceReport = (props) => {
   const INITIAL_STATE = {
@@ -21,9 +21,9 @@ const SourceReport = (props) => {
     datasets: [],
   };
   const [reportData, setReportData] = useState(INITIAL_STATE);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalSources, setTotalSources] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const transformAPIData = (data) => {
     let transformedData = [];
@@ -66,7 +66,7 @@ const SourceReport = (props) => {
       return new Date(a) - new Date(b);
     });
     const datesFormatted = datesArray.map((date) =>
-      (new Date(date), "MMM. d, yyyy")
+      format(new Date(date), "MMM. d, yyyy")
     );
     const uniqueDates = [...new Set(datesFormatted)];
     let datasetsArray = [];
@@ -165,20 +165,20 @@ const SourceReport = (props) => {
   };
 
   useEffect(() => {
-    const request = {
-      viewID: props.viewID,
-      startDate,
-      endDate,
-      metrics: "ga:users",
-      dimensions: ["ga:source", "ga:date"],
-    };
-    setTimeout(
-      () =>
-        queryReport2(request)
-          .then((resp) => displayResults(resp))
-          .catch((error) => console.error(error)),
-      5500
-    );
+    // const request = {
+    //   viewID: props.viewID,
+    //   startDate,
+    //   endDate,
+    //   metrics: "ga:users",
+    //   dimensions: ["ga:source", "ga:date"],
+    // };
+    // setTimeout(
+    //   () =>
+    //     queryReport2(request)
+    //       .then((resp) => displayResults(resp))
+    //       .catch((error) => console.error(error)),
+    //   5500
+    // );
   }, [startDate, endDate]);
 
   return (
