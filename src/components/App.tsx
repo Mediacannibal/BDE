@@ -1,11 +1,10 @@
 import 'core-js/stable'
 import React, { useEffect, useState } from 'react'
 import 'regenerator-runtime/runtime'
-import { HashRouter as Router, Switch, Route, withRouter, useLocation } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
 
 import ReactGA from 'react-ga';
 
-import { useAnalytics } from 'use-analytics'
 
 import "./app.css";
 
@@ -54,15 +53,6 @@ const fullpage_screen = [
 ]
 
 const App = () => {
-
-  let location = useLocation()
-  const analytics = useAnalytics()
-
-  // When location changes in app send page view
-  useEffect(() => {
-    analytics.page()
-  }, [location])
-
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);

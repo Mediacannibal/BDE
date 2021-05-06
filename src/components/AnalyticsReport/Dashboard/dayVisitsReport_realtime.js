@@ -33,7 +33,7 @@ const DayVisitsReport_realtime = (props) => {
 
 
   const displayResults = (response) => {
-    console.log("><>????????????", response.result.dimensionHeaders);
+    // console.log("><>????????????", response.result.dimensionHeaders);
 
     setdimensionheaders(response.result.dimensionHeaders)
     setmetriheaders(response.result.metricHeaders)
@@ -41,7 +41,7 @@ const DayVisitsReport_realtime = (props) => {
   };
 
   const displayResults2 = (response) => {
-    console.log("><>????????????", response.result.dimensionHeaders);
+    // console.log("><>????????????", response.result.dimensionHeaders);
 
     setdimensionheaders2(response.result.dimensionHeaders)
     setmetriheaders2(response.result.metricHeaders)
@@ -49,7 +49,7 @@ const DayVisitsReport_realtime = (props) => {
   };
 
   const displayResults3 = (response) => {
-    console.log("><>????????????", response.result.dimensionHeaders);
+    // console.log("><>????????????", response.result.dimensionHeaders);
 
     setdimensionheaders3(response.result.dimensionHeaders)
     setmetriheaders3(response.result.metricHeaders)
@@ -169,7 +169,7 @@ const DayVisitsReport_realtime = (props) => {
 
 
   const renderHeader = (element) => {
-    console.log("element=====222", element);
+    // console.log("element=====222", element);
     return (
       <>
         <th>{element.name}</th>
@@ -178,7 +178,7 @@ const DayVisitsReport_realtime = (props) => {
   }
 
   const renderBody = (element) => {
-    console.log("element=====", element);
+    // console.log("element=====", element);
     return (
       <tr>
         {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
@@ -188,17 +188,8 @@ const DayVisitsReport_realtime = (props) => {
   }
 
 
-  const renderHeader2 = (element) => {
-    console.log("element=====222", element);
-    return (
-      <>
-        <th>{element.name}</th>
-      </>
-    )
-  }
-
   const renderBody2 = (element) => {
-    console.log("element=====", element);
+    // console.log("element=====", element);
     return (
       <tr>
         {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
@@ -207,24 +198,7 @@ const DayVisitsReport_realtime = (props) => {
   }
 
 
-  const renderHeader3 = (element) => {
-    console.log("element=====222", element);
-    return (
-      <>
-        <th>{element.name}</th>
-      </>
-    )
-  }
-
-  const renderBody3 = (element) => {
-    console.log("element=====", element);
-    return (
-      <tr>
-        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
-      </tr >
-    )
-  }
-
+ 
 
   return (
     <>
@@ -240,7 +214,7 @@ const DayVisitsReport_realtime = (props) => {
       <div className="internal_table">
         <table id='internal_table'>
           <thead>
-            <tr>{dimensionheaders2.map(renderHeader2)}</tr>
+            <tr>{dimensionheaders2.map(renderHeader)}</tr>
           </thead>
           <tbody>{listItems2.map(renderBody2)} </tbody>
         </table>
@@ -249,9 +223,9 @@ const DayVisitsReport_realtime = (props) => {
       <div className="internal_table">
         <table id='internal_table'>
           <thead>
-            <tr>{dimensionheaders3.map(renderHeader3)}</tr>
+            <tr>{dimensionheaders3.map(renderHeader)}</tr>
           </thead>
-          <tbody>{listItems3.map(renderBody3)} </tbody>
+          <tbody>{listItems3.map(renderBody2)} </tbody>
         </table>
       </div>
     </>

@@ -13,6 +13,8 @@ import {
   colors,
 } from "./styles";
 
+import { queryReport2 } from "./queryReport2";
+
 const SourceReport = (props) => {
   const INITIAL_STATE = {
     labels: [],
@@ -172,10 +174,10 @@ const SourceReport = (props) => {
     };
     setTimeout(
       () =>
-        queryReport(request)
+        queryReport2(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1100
+      5500
     );
   }, [startDate, endDate]);
 

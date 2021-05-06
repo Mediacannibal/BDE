@@ -9,6 +9,7 @@ import {
   DatepickerRow,
   StyledTable,
 } from "./styles";
+import { queryReport2 } from "./queryReport2";
 
 const PageviewsReport = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -51,10 +52,10 @@ const PageviewsReport = (props) => {
     };
     setTimeout(
       () =>
-        queryReport(request)
+        queryReport2(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      9500
     );
   }, [startDate, endDate]);
 

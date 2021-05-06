@@ -13,6 +13,8 @@ import { queryReport } from "./queryReport";
 import { formatDate } from "./utils";
 import { queryReport1 } from 'utils/api';
 
+import { queryReport2 } from "./queryReport2";
+
 const DayVisitsReport = (props) => {
 
 
@@ -110,9 +112,13 @@ const DayVisitsReport = (props) => {
       metrics: props.metric,
       dimensions: ["ga:date"],
     };
-    queryReport(request)
-      .then((resp) => displayResults(resp))
-      .catch((error) => console.error(error));
+    setTimeout(
+      () =>
+        queryReport2(request)
+          .then((resp) => displayResults(resp))
+          .catch((error) => console.error(error)),
+      5500
+    );
   }, [startDate, endDate]);
 
   return (

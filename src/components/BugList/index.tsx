@@ -12,6 +12,7 @@ import * as add from '../../assets/add.svg'
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
+import ReactGA from 'react-ga';
 
 
 const BugList = (props: any) => {
@@ -38,6 +39,7 @@ const BugList = (props: any) => {
   const [spinner, setspinner] = useState(true)
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     props.setheader_options(screen_header_elements)
 
     setspinner(true)

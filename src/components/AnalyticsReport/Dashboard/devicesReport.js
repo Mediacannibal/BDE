@@ -4,6 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, Subtitle, PieChartWrapper, colors } from "./styles";
+import { queryReport2 } from "./queryReport2";
 
 const DevicesReport = (props) => {
   const INITIAL_STATE = {
@@ -66,10 +67,10 @@ const DevicesReport = (props) => {
     };
     setTimeout(
       () =>
-        queryReport(request)
+        queryReport2(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1500
+      5500
     );
   }, [startDate, endDate]);
 

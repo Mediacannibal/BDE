@@ -1,98 +1,67 @@
 {
-  "dimensionHeaders": [
+  "reports": [
     {
-      "name": "country"
-    },
-    {
-      "name": "countryId"
-    },
-    {
-      "name": "city"
-    },
-    {
-      "name": "cityId"
+      "columnHeader": {
+        "metricHeader": {
+          "metricHeaderEntries": [
+            {
+              "name": "ga:users",
+              "type": "INTEGER"
+            },
+            {
+              "name": "ga:newUsers",
+              "type": "INTEGER"
+            },
+            {
+              "name": "ga:percentNewSessions",
+              "type": "PERCENT"
+            }
+          ]
+        }
+      },
+      "data": {
+        "rows": [
+          {
+            "metrics": [
+              {
+                "values": [
+                  "5",
+                  "5",
+                  "16.666666666666664"
+                ]
+              }
+            ]
+          }
+        ],
+        "totals": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ],
+        "rowCount": 1,
+        "minimums": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ],
+        "maximums": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ]
+      }
     }
-  ],
-  "metricHeaders": [
-    {
-      "name": "activeUsers",
-      "type": "TYPE_INTEGER"
-    },
-    {
-      "name": "conversions",
-      "type": "TYPE_INTEGER"
-    },
-    {
-      "name": "eventCount",
-      "type": "TYPE_INTEGER"
-    },
-    {
-      "name": "screenPageViews",
-      "type": "TYPE_INTEGER"
-    }
-  ],
-  "rows": [
-    {
-      "dimensionValues": [
-        {
-          "value": "India"
-        },
-        {
-          "value": "IN"
-        },
-        {
-          "value": "Bengaluru"
-        },
-        {
-          "value": "1007768"
-        }
-      ],
-      "metricValues": [
-        {
-          "value": "1"
-        },
-        {
-          "value": "0"
-        },
-        {
-          "value": "4"
-        },
-        {
-          "value": "2"
-        }
-      ]
-    },
-    {
-      "dimensionValues": [
-        {
-          "value": "India"
-        },
-        {
-          "value": "IN"
-        },
-        {
-          "value": "Shivamogga"
-        },
-        {
-          "value": "1007774"
-        }
-      ],
-      "metricValues": [
-        {
-          "value": "1"
-        },
-        {
-          "value": "0"
-        },
-        {
-          "value": "15"
-        },
-        {
-          "value": "15"
-        }
-      ]
-    }
-  ],
-  "rowCount": 2,
-  "kind": "analyticsData#runRealtimeReport"
+  ]
 }

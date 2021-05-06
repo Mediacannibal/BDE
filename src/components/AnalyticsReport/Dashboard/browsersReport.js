@@ -5,6 +5,8 @@ import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, Subtitle, PieChartWrapper, colors } from "./styles";
 
+import { queryReport2 } from "./queryReport2";
+
 const BrowsersReport = (props) => {
   const INITIAL_STATE = {
     labels: [],
@@ -68,10 +70,10 @@ const BrowsersReport = (props) => {
     };
     setTimeout(
       () =>
-        queryReport(request)
+        queryReport2(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1500
+      9500
     );
   }, [startDate, endDate]);
 
