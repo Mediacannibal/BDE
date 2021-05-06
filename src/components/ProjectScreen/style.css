@@ -59,36 +59,41 @@
 
 .project_right_container {
     display: flex;
-    flex-direction: column;
     right: 0;
     margin-left: auto;
+    flex-direction: column;
+}
+
+.project_right_subcontainer {
+    display: flex;    
 }
 
 .project_stats {
-    display: flex;
     font-weight: 600;
     color: var(--color_1);
     font-size: var(--TS8);
     white-space: nowrap;
+    margin: 0 calc(0.2vw + 0.6vh + 0.2vmin);
 }
 
 .project_details {
     display: flex;
 }
 
+.project_participants_container{
+    width: 100%;
+}
+
+.project_participants_subcontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .project_tables {
     display: flex;
     padding-top: calc(0.3vw + 0.9vh + 0.3vmin);
     justify-content: center;
-}
-
-.actionable_icon_wrapper {
-    display: flex;
-    font-weight: 600;
-    color: var(--color_1);
-    font-size: var(--TS8);
-    white-space: nowrap;
-    padding-top: var(--TS11);
 }
 
 .project_task_options {
@@ -121,21 +126,69 @@
     position: absolute;
 }
 
+.project_table_icons {
+    display: flex;
+    justify-content: space-between;
+}
 
-.actionable_icon_text {
+.label {
+    display: flex;
+    font-weight: 500;
+    color: var(--color_1);
+    font-size: var(--TS8);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.visibility_toggle {
+    position: relative
+}
+
+.visibility_container {
     position: absolute;
     visibility: hidden;
     opacity: 0;
     background-color: var(--color_5);
     border-radius: var(--BR1);
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
+    margin: calc(0.2vw + 0.6vh + 0.2vmin);
     -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
     -moz-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
     box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
     box-sizing: border-box;
+    z-index: 999999;
 }
 
-.actionable_icon_wrapper:hover>.actionable_icon_text {
+.visibility_toggle:hover>.visibility_container {
     visibility: visible;
     opacity: 1;
+}
+
+.visibility_toggle:hover+.visibility_container {
+    visibility: visible;
+    opacity: 1;
+}
+
+.visibility_toggle:active>.visibility_container {
+    visibility: visible;
+    opacity: 1;
+}
+
+.visibility_toggle:active+.visibility_container {
+    visibility: visible;
+    opacity: 1;
+}
+
+.right0 {
+    right: 0;
+    text-align: right;
+    justify-content: flex-end;
+    text-align-last: right;
+}
+
+.left0 {
+    left: 0;
+    text-align: left;
+    justify-content: flex-start;
+    text-align-last: left;
 }
