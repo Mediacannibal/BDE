@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { addDays } from "date-fns";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import {
@@ -9,13 +10,12 @@ import {
   StyledTable,
 } from "./styles";
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const PageviewsReport = (props) => {
   const [reportData, setReportData] = useState([]);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalPages, setTotalPages] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;

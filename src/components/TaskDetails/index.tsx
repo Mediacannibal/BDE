@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
-import { ProgressBar } from 'components/Common/Spinner';
+import Spinner from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
@@ -29,7 +29,6 @@ const TaskDetails = () => {
   useEffect(() => {
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
-      setspinner(false)
       let usertype1 = UserDetails.user_type
       let user_id = UserDetails.user_id
       console.log(screen, user_id, usertype1)
@@ -40,51 +39,53 @@ const TaskDetails = () => {
 
   return (
     <div className="main">
+      {spinner ?
+        <div className="spinner_fullscreen_div">
+          <Spinner />
+        </div> :
+        null
+      }
+
       <div className="body">
-        {spinner ?
-          <div className="spinner_fullscreen_div">
-            <ProgressBar />
+
+        <div className="MAINsomwethin">
+
+          <div className="task_details">
+
+            <div className="column">
+              <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
+            </div>
+
+            <div className="column">
+              <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
+              <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
+              <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
+
+            </div>
+
           </div>
-          :
-          <>
-            <div className="MAINsomwethin">
 
-              <div className="task_details">
+          <div className="tasklog">
+            <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
+            <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
+          </div>
 
-                <div className="column">
-                  <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
+          <div className="chat_container">
+            <div className="subtitle">CHAT</div>
+            <div className="chatbox">
+              <div className="bottom_container">
+                <div className="icon_container" onClick={() => { }}>
+                  <img className="iconimg" src={AttachmentImg} />
                 </div>
-
-                <div className="column">
-                  <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
-                  <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
-                  <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
-
+                <input className="message_box" placeholder="Type a message" />
+                <div className="icon_container" onClick={() => { }}>
+                  <img className="iconimg" src={sendIcon} />
                 </div>
-
               </div>
+            </div>
 
-              <div className="tasklog">
-                <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
-                <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
-              </div>
-
-              <div className="chat_container">
-                <div className="subtitle">CHAT</div>
-                <div className="chatbox">
-                  <div className="bottom_container">
-                    <div className="icon_container" onClick={() => { }}>
-                      <img className="iconimg" src={AttachmentImg} />
-                    </div>
-                    <input className="message_box" placeholder="Type a message" />
-                    <div className="icon_container" onClick={() => { }}>
-                      <img className="iconimg" src={sendIcon} />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  {/* <Launcher
+            <div>
+              {/* <Launcher
                 agentProfile={{
                   teamName: 'react-chat-window',
                   imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
@@ -93,12 +94,12 @@ const TaskDetails = () => {
                 // messageList={this.state.messageList}
                 showEmoji
               /> */}
-                </div>
-              </div>
             </div>
-          </>
-        }
+          </div>
+        </div>
+
       </div>
+
       <Footer />
     </div >
   )

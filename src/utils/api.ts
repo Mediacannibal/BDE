@@ -196,7 +196,7 @@ export const createBranch = (callback: (arg0: any, arg1: string) => void, token:
 }
 
 export const getBranchDetails = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`company/branch/`, {
+  instance.get(`company/branch/add/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -256,8 +256,8 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
     .catch(err => callback(err, err.response))
 }
 
-export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any, parent_child: any) => {
-  instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}`, {
+export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any) => {
+  instance.get(`tasks/maintask/?task_type${task}=&user=${user_list}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -287,7 +287,7 @@ export const deleteMainTask = (callback: (arg0: any, arg1: string) => void, toke
 }
 
 export const addTasklog = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
-  instance.post(`tasks/tasklog/`, data, {
+  instance.post(`tasks/tasklog/add/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -406,8 +406,8 @@ export const createTasktimelog = (callback: (arg0: any, arg1: string) => void, t
     .catch(err => callback(err, err.response))
 }
 
-export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any, task_Ids: any, users: any) => {
-  instance.get(`tasks/tasktimelog/?task_ids=${task_Ids}&users=${users}`, {
+export const getTasktimelog = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`tasks/tasktimelog/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

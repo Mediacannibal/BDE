@@ -19,7 +19,6 @@ const HomeScreen = (props: any) => {
   const [spinner, setspinner] = useState(true)
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
-  const [parent_child, setparent_child] = useState('')
 
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
@@ -43,6 +42,7 @@ const HomeScreen = (props: any) => {
       }
     }, auth, users)
 
+
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
@@ -53,26 +53,11 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, user_list, parent_child)
+    }, auth, task, user_list)
 
   }, [])
 
-  const getClassname = (key: any) => {
-    switch (key) {
-      case "Low":
-        return "textcolor_yellow";
-      case "Normal":
-        return "textcolor_blue";
-      case "High":
-        return "textcolor_orange";
-      case "Urgent":
-        return "textcolor_red";
-      case "Emergency":
-        return "textcolor_red textcolor_blinking";
-      default:
-        return "";
-    }
-  }
+
 
   const screen_header_elements = () => {
     return (
@@ -111,7 +96,7 @@ const HomeScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.status}</td>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import { addDays } from "date-fns";
 import {
   ChartWrapper,
   ReportWrapper,
@@ -13,7 +14,6 @@ import { formatDate } from "./utils";
 import { queryReport1 } from 'utils/api';
 
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const DayVisitsReport = (props) => {
 
@@ -25,9 +25,9 @@ const DayVisitsReport = (props) => {
     values: [],
   };
   const [reportData, setReportData] = useState(INITIAL_STATE);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [average, setAverage] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;

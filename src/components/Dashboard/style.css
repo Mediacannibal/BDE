@@ -84,7 +84,6 @@
 
 .header_left {
     display: flex;
-    z-index: 1;
 }
 
 .header_center {
@@ -97,7 +96,6 @@
 
 .header_right {
     display: flex;
-    z-index: 1;
 }
 
 .header_title {
@@ -163,6 +161,8 @@
     background-color: #e3e5e6;
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
+    width: 100%;
+    min-width: 140px;
     right: calc(-0.4vw - 1.2vh - 0.4vmin);
 }
 
@@ -192,8 +192,9 @@
     background-color: #e3e5e6;
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
+    width: 40vh;
+    min-width: 140px;
     right: calc(-0.4vw - 1.2vh - 0.4vmin);
-    z-index: 1;
 }
 
 .user_notification_header {
@@ -261,25 +262,4 @@
 .user_notification_header_container {
     display: flex;
     justify-content: space-between;
-}
-
-.projecttask_wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: calc(0.15vw + 0.45vh + 0.15vmin);
-    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
-    background-color: #e3e5e6;
-    z-index: 1;
-}
-
-.active_task_wrapper {
-    display: flex;
-}
-
-.projecttask_container {
-    display: flex;
-    position: absolute;
-    top: calc(1.05vw + 3.15vh + 1.05vmin);
-    width: 100%;
-    justify-content: center;
 }

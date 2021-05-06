@@ -1,115 +1,106 @@
 {
-  "reports": [{
-    "columnHeader": {
-      "dimensions": [
-        "ga:date"
-      ],
-      "metricHeader": {
-        "metricHeaderEntries": [{
-          "name": "ga:users",
-          "type": "INTEGER"
-        }]
-      }
-    },
-    "data": {
-      "rows": [{
+    "reports": [
+      {
+        "columnHeader": {
           "dimensions": [
-            "20210423"
+            "ga:date"
           ],
-          "metrics": [{
-            "values": [
-              "2"
+          "metricHeader": {
+            "metricHeaderEntries": [
+              {
+                "name": "ga:users",
+                "type": "INTEGER"
+              }
             ]
-          }]
+          }
         },
-        {
-          "dimensions": [
-            "20210427"
+        "data": {
+          "rows": [
+            {
+              "dimensions": [
+                "20210423"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210427"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210428"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210429"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "1"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimensions": [
+                "20210430"
+              ],
+              "metrics": [
+                {
+                  "values": [
+                    "1"
+                  ]
+                }
+              ]
+            }
           ],
-          "metrics": [{
-            "values": [
-              "3"
-            ]
-          }]
-        },
-        {
-          "dimensions": [
-            "20210428"
+          "totals": [
+            {
+              "values": [
+                "10"
+              ]
+            }
           ],
-          "metrics": [{
-            "values": [
-              "3"
-            ]
-          }]
-        },
-        {
-          "dimensions": [
-            "20210429"
+          "rowCount": 5,
+          "minimums": [
+            {
+              "values": [
+                "0"
+              ]
+            }
           ],
-          "metrics": [{
-            "values": [
-              "1"
-            ]
-          }]
-        },
-        {
-          "dimensions": [
-            "20210430"
-          ],
-          "metrics": [{
-            "values": [
-              "1"
-            ]
-          }]
+          "maximums": [
+            {
+              "values": [
+                "3"
+              ]
+            }
+          ]
         }
-      ],
-      "totals": [{
-        "values": [
-          "10"
-        ]
-      }],
-      "rowCount": 5,
-      "minimums": [{
-        "values": [
-          "0"
-        ]
-      }],
-      "maximums": [{
-        "values": [
-          "3"
-        ]
-      }]
-    }
-  }]
-}
-
-
-{
-  "results": [{
-    "id": 50,
-    "company": null,
-    "branch": null,
-    "username": "GV-113252283217862949302",
-    "first_name": "Data",
-    "last_name": "Setup",
-    "time_spent": null,
-    "task_ref": 5,
-    "task_name": "Css fix",
-    "created_by": "GV-113252283217862949302",
-    "created_at": "2021-05-03T18:33:40.245266Z",
-    "updated_at": null
-  }, {
-    "id": 51,
-    "company": null,
-    "branch": null,
-    "username": "GV-113252283217862949302",
-    "first_name": "Data",
-    "last_name": "Setup",
-    "time_spent": null,
-    "task_ref": 5,
-    "task_name": "Css fix",
-    "created_by": "GV-113252283217862949302",
-    "created_at": "2021-05-03T18:34:05.304311Z",
-    "updated_at": null
-  }]
-}
+      }
+    ]
+  }
+  

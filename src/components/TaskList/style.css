@@ -34,29 +34,3 @@
     display: flex;
     justify-content: center;
 }
-
-.textcolor_blue {
-    color: blue;
-}
-
-.textcolor_yellow {
-    color: yellow;
-}
-
-.textcolor_orange {
-    color: orange;
-}
-
-.textcolor_red {
-    color: red;
-}
-
-.textcolor_blinking {
-    animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-    50% {
-        opacity: 0;
-    }
-}
