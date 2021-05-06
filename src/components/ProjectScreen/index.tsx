@@ -272,13 +272,14 @@ const ProjectScreen = (props: any) => {
                           </tbody>
                         </table>
                         <div className="project_user_options">
-                          <div className="project_sub_text" onClick={() => {
+                          <div className="actionable_icon_wrapper" onClick={() => {
                             setpopup3(true)
                             setseleted_projectName(element.title)
                             setseleted_projectTaskType("FEATURE")
                           }}>
                             <img className='header_icon' src={team} />
-                            Add User</div>
+                            <p className="actionable_icon_text">Add User</p>
+                          </div>
                         </div>
                       </div>
 
@@ -295,37 +296,38 @@ const ProjectScreen = (props: any) => {
                           </tbody>
                         </table>
                         <div className="project_task_options">
-                          <div className="project_sub_text" onClick={() => {
+                          <div className="actionable_icon_wrapper" onClick={() => {
                             history.push('/TaskList')
                           }}>
-                            <div className="project_taskHistory_wrapper">
-                              <img className='header_icon' src={tasklist} />
-                              <p className="project_taskHistory">Task History</p>
-                            </div>
+                            <img className='header_icon' src={tasklist} />
+                            <p className="actionable_icon_text">Task History</p>
                           </div>
 
-                          <div className="project_sub_text" onClick={() => {
+                          <div className="actionable_icon_wrapper" onClick={() => {
                             setpopup2(true)
                             setseleted_projectName(element.title)
                           }}>
                             <img className='header_icon' src={add} />
-                            Add Tasks</div>
+                            <p className="actionable_icon_text">Add Tasks</p>
+                          </div>
 
-                          <div className="project_sub_text" onClick={() => {
+                          <div className="actionable_icon_wrapper" onClick={() => {
                             setpopup2(true)
                             setseleted_projectName(element.title)
                             setseleted_projectTaskType("FEATURE")
                           }}>
                             <img className='header_icon' src={tested} />
-                            Request Feature</div>
+                            <p className="actionable_icon_text"> Request Feature</p>
+                          </div>
 
-                          <div className="project_sub_text" onClick={() => {
+                          <div className="actionable_icon_wrapper" onClick={() => {
                             setpopup2(true)
                             setseleted_projectName(element.title)
                             setseleted_projectTaskType("BUG")
                           }}>
                             <img className='header_icon' src={bug} />
-                            Report Bug</div>
+                            <p className="actionable_icon_text">Report Bug</p>
+                          </div>
                         </div>
                       </div>
                     </div>
