@@ -124,8 +124,8 @@ const TaskList = (props: any) => {
   }
 
   const renderBody1 = (element: any) => {
-    console.log("element",element)
-    console.log("element.child",element.child)
+    console.log("element", element)
+    console.log("element.child", element.child)
     if (all_project_ref.length === 0) {
       return (
         <>
@@ -166,9 +166,10 @@ const TaskList = (props: any) => {
               </div>
             </td>
           </tr>
+
           <tr key={element.id} className={getClassname(element.priority)}>
-          {element.child?.map((element: any) => {
-            return (<>              
+            {element.child?.map((element: any) => {
+              return (<>
                 <td>{element.project_ref}
                   <img className={up_arrow ?
                     'open_close_arrow_icon'
@@ -203,10 +204,10 @@ const TaskList = (props: any) => {
                     }}>
                     <img className='header_icon' src={play} />
                   </div>
-                </td> 
-                </>            
-            )
-          })}
+                </td>
+              </>
+              )
+            })}
           </tr>
         </>
       )

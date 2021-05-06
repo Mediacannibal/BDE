@@ -18,6 +18,7 @@ const HomeScreen = (props: any) => {
   const [spinner, setspinner] = useState(true)
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
+  const [parent_child, setparent_child] = useState('')
 
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
@@ -49,7 +50,7 @@ const HomeScreen = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, user_list)
+    }, auth, task, user_list, parent_child)
 
   }, [])
 

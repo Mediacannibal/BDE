@@ -120,3 +120,16 @@
     justify-content: center;
     position: absolute;
 }
+
+.project_taskHistory_wrapper {
+    position: relative;
+}
+
+.project_taskHistory {
+    position: absolute;
+    visibility: hidden;
+}
+
+.project_taskHistory_wrapper:hover.project_taskHistory {
+    visibility: visible;
+}

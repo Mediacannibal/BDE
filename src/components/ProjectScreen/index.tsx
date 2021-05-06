@@ -41,6 +41,8 @@ const ProjectScreen = (props: any) => {
   const [ID, setID] = useState(false)
   const [parent_child, setparent_child] = useState('')
 
+  const [task_history, settask_history] = useState('Task History')
+
   useEffect(() => {
     props.setheader_options(screen_header_elements)
 
@@ -296,8 +298,11 @@ const ProjectScreen = (props: any) => {
                           <div className="project_sub_text" onClick={() => {
                             history.push('/TaskList')
                           }}>
-                            <img className='header_icon' src={tasklist} />
-                            Task History</div>
+                            <div className="project_taskHistory_wrapper">
+                              <img className='header_icon' src={tasklist} />
+                              <p className="project_taskHistory">Task History</p>
+                            </div>
+                          </div>
 
                           <div className="project_sub_text" onClick={() => {
                             setpopup2(true)
