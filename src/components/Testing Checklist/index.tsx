@@ -53,7 +53,7 @@ const TestingChecklist = (props: any) => {
     getTestlog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data.results)
+        console.log("Test Results: ", data.data.results)
         setlistItems1(data.data.results)
 
       } else {
@@ -62,24 +62,6 @@ const TestingChecklist = (props: any) => {
         console.log('error ' + JSON.stringify(errorresponse));
       }
     }, auth)
-
-
-    getProject(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>123123>>>>>", data.data.results)
-        setlistItems2(data.data.results)
-        let title: Iterable<any> | null | undefined = []
-        data.data.results.forEach((element: any) => {
-          title.push(element.title)
-        });
-        setunique_title(Array.from(new Set(title)));
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, users)
   }, [])
 
   const screen_header_elements = () => {
@@ -97,20 +79,36 @@ const TestingChecklist = (props: any) => {
     )
   }
 
-  const renderHeader = () => {
-    let headerElement = ['No.', 'Project name', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Image link', 'Portrait', 'Landscape', 'Interface', 'track', 'status']
+  const getClassname = (key: any) => {
+    switch (key) {
+      case "Low":
+        return "textcolor_yellow";
+      case "Normal":
+        return "textcolor_blue";
+      case "High":
+        return "textcolor_orange";
+      case "Urgent":
+        return "textcolor_red";
+      case "Emergency":
+        return "textcolor_red textcolor_blinking";
+      default:
+        return "";
+    }
+  }
+
+  const renderHeader1 = () => {
+    let headerElement = ['Project name', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Image link', 'Portrait', 'Landscape', 'Interface', 'track']
 
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
     })
   }
 
-  const renderBody = (element: any) => {
+  const renderBody1 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr>
-        <td>...</td>
-        <td>...</td>
+      <tr className={getClassname(element.priority)}>
+        <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
           // console.log(">><<", popup2)
@@ -135,7 +133,46 @@ const TestingChecklist = (props: any) => {
             <img className='header_icon' src={play} />
           </div>
         </td>
-        <td>{element.status}</td>
+      </tr >
+    )
+  }
+
+  const renderHeader2 = () => {
+    let headerElement = ['Project', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Api Name', 'Api Method', 'Path', 'track']
+
+    return headerElement.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>
+    })
+  }
+
+  const renderBody2 = (element: any) => {
+    // const [task_active, settask_active] = useState(false)
+    return (
+      <tr className={getClassname(element.priority)}>
+        <td>{element.project_ref}</td>
+        <td onClick={() => {
+          setpopup2(true)
+          // console.log(">><<", popup2)
+          setseleted_taskid(element.id)
+        }}>{element.title}</td>
+        <td>{element.task_type}</td>
+        <td>{element.priority}</td>
+        <td>{element.domain}</td>
+        <td>{element.description}</td>
+        <td>...</td>
+        <td>...</td>
+        <td>{element.image_link}</td>
+        <td>
+          <div className='screen_header_element'
+            onClick={() => {
+              setpopup3(true)
+              setseleted_taskid(element.id)
+              // settask_active(!task_active)
+              // console.log("pppppppppppp", setpopup3)
+            }}>
+            <img className='header_icon' src={play} />
+          </div>
+        </td>
       </tr >
     )
   }
@@ -213,11 +250,29 @@ const TestingChecklist = (props: any) => {
                 <div className="internal_table">
                   <table id='internal_table'>
                     <thead>
-                      <tr>{renderHeader()}</tr>
+                      <tr>{renderHeader1()}</tr>
                     </thead>
                     <tbody>
                       {
-                        listItems1.map(renderBody)
+                        listItems1.map(renderBody1)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            />
+
+            <Card
+              card_title={Projecttitle}
+              card_body={
+                <div className="internal_table">
+                  <table id='internal_table'>
+                    <thead>
+                      <tr>{renderHeader2()}</tr>
+                    </thead>
+                    <tbody>
+                      {
+                        listItems1.map(renderBody2)
                       }
                     </tbody>
                   </table>

@@ -16,6 +16,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   const [image_link, setimage_link] = useState('')
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
+  const [users, setusers] = useState('all')
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
@@ -26,6 +27,8 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [ispopup, setispopup] = useState(false)
   const [dataUri, setDataUri] = useState('');
+
+  const [tasktype, settasktype] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -78,7 +81,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, tasktype, users)
   }, [])
 
   const task_id = () => {
@@ -101,6 +104,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
+            setPopup()
             let data = [];
             let object = {
               "task_ref": taskid,
@@ -110,19 +114,19 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
             console.log("***SUBMIT***", data)
             addTasklog(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
-                setispopup(false)
                 // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
               } else {
-                setispopup(false)
                 setbackendresponse("Failed, Please Try Again!")
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
             }, auth, data[0])
+            console.log("***SENT***")
+
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -181,10 +185,12 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
             </form >
           }
           confirmClick={() => {
-            console.log("***SEND***")
+            setispopup(true)
             Validate()
           }}
-          cancelClick={setPopup}
+          cancelClick={() => {
+            setPopup()
+          }}
         />
       }
     </>

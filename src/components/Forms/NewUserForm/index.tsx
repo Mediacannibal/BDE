@@ -40,7 +40,8 @@ const NewUserForm = ({ setPopup }) => {
   const [preSendValidator, setPreSendValidator] = useState(false)
   const [spinner, setspinner] = useState(false)
 
-  const [listItems, setlistItems] = useState([])
+  const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -79,8 +80,8 @@ const NewUserForm = ({ setPopup }) => {
     getCompanyDetails(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>777>>>>>", data.data.results)
-        setlistItems(data.data.results)
+        console.log("Company Details: ", data.data.results)
+        setlistItems1(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -91,8 +92,8 @@ const NewUserForm = ({ setPopup }) => {
     getBranchDetails(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>777>>>>>", data.data.results)
-        setlistItems(data.data.results)
+        console.log("Branch Details: ", data.data.results)
+        setlistItems2(data.data.results)
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
@@ -103,7 +104,7 @@ const NewUserForm = ({ setPopup }) => {
 
   const Company_name = () => {
     let a: any = [];
-    listItems.forEach(element => {
+    listItems1.forEach(element => {
       let data = {
         "key": element.id,
         "value": element.company_title
@@ -115,7 +116,7 @@ const NewUserForm = ({ setPopup }) => {
 
   const Branch_name = () => {
     let a: any = [];
-    listItems.forEach(element => {
+    listItems2.forEach(element => {
       let data = {
         "key": element.id,
         "value": element.branch_name

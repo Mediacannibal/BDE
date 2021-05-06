@@ -31,10 +31,17 @@ const ProjectScreen = (props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
   const [seleted_projectName, setseleted_projectName] = useState('')
   const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
+  const [selected_User, setselected_User] = useState()
+  const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
   const [users, setusers] = useState('all')
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
+
+  const [ID, setID] = useState(false)
+  const [parent_child, setparent_child] = useState('')
+
+  const [task_history, settask_history] = useState('Task History')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -44,7 +51,7 @@ const ProjectScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("ProjectProfiles: ", data.data.results)
+        console.log("ProjectProfiles: ", data.data)
         setlistItems(data.data.results)
       } else {
         setspinner(false)
@@ -56,40 +63,59 @@ const ProjectScreen = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data.results)
+        console.log("Project Tasks: ", data.data.results)
         setlistItems2(data.data.results)
-
       } else {
         setspinner(false)
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, user_list)
+    }, auth, task, user_list, parent_child)
   }, [])
 
-  const renderHeader1 = () => {
-    let headerElement = ['Company Name', 'Branch Name', 'First Name', 'Last Name', 'user type']
-
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
+  const getClassname = (key: any) => {
+    switch (key) {
+      case "Low":
+        return "textcolor_yellow";
+      case "Normal":
+        return "textcolor_blue";
+      case "High":
+        return "textcolor_orange";
+      case "Urgent":
+        return "textcolor_red";
+      case "Emergency":
+        return "textcolor_red textcolor_blinking";
+      default:
+        return "";
+    }
   }
 
-  const renderBody1 = (element: any) => {
-
-    return (
-      <>
-        <tr key={element.id} >
-          <td>{element.company_name}</td>
-          <td>{element.branch_name}</td>
-          <td>{element.firstname}</td>
-          <td>{element.lastname}</td>
-          <td>{element.user_type}</td>
-        </tr>
-      </>
-    )
+  const project_Type = (element: any) => {
+    if (element.design === true) {
+      return ("Design")
+    }
+    else if (element.development === true) {
+      return ("Development")
+    }
+    else if (element.marketting === true) {
+      return ("Marketting")
+    }
   }
 
+  const project_Status = (element: any) => {
+    // console.log("start and End: ", element.start_date, element.end_date);
+    if ((element.start_date === null) && (element.end_date === null)) {
+      return ("To Be Started")
+    }
+    else {
+      if (element.end_date === null) {
+        return ("In Progress")
+      }
+      else {
+        return ("Completed")
+      }
+    }
+  }
 
   const renderHeader2 = () => {
     let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
@@ -101,10 +127,12 @@ const ProjectScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr key={element.id} onClick={() => {
-        // setpopup2(true)
-        setseleted_taskid(element.id)
-      }}>
+      <tr key={element.id}
+        className={getClassname(element.priority)}
+        onClick={() => {
+          // setpopup2(true)
+          setseleted_taskid(element.id)
+        }}>
         <td>{element.domain}</td>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
@@ -126,7 +154,6 @@ const ProjectScreen = (props: any) => {
       </>
     )
   }
-
 
   return (
 
@@ -158,6 +185,8 @@ const ProjectScreen = (props: any) => {
         />
       }
 
+
+
       <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
@@ -175,45 +204,104 @@ const ProjectScreen = (props: any) => {
                         <img className='project_image' src={add} />
                       </div>
                       <div className="project_center_container">
-                        <div className="project_title">{element.title}</div>
+                        <div className="project_title">{element.title + ": " + project_Type(element)}</div>
                         <div className="project_description">{element.description}</div>
                       </div>
 
                       <div className="project_right_container">
-                        <div className="project_stats">Type: {element.project_type}</div>
-                        <div className="project_stats">Status: {element.status}</div>
-                        <div className="project_stats">Start Date: {element.start_date}</div>
-                        <div className="project_stats">End Date: {element.end_date}</div>
+                        <div className="project_right_subcontainer">
+                          <div className="project_stats visibility_toggle">Status: {project_Status(element)}
+                            <div className="visibility_container right0">
+                              {element.start_date !== null && <div className="label right0">Started: {element.start_date}</div>}
+                              {element.end_date !== null && <div className="label right0">Completed: {element.end_date}</div>}
+                            </div>
+                          </div>
+
+
+                          <div className="project_right_subcontainer">
+                            <div className="project_participants_container">
+                              <div className="project_participants_subcontainer">
+                                <div className="project_stats">Participants:</div>
+                                <div className="project_user_options">
+                                  <div className="visibility_toggle" onClick={() => {
+                                    setpopup3(true)
+                                    setseleted_projectName(element.title)
+                                    setseleted_projectTaskType("FEATURE")
+                                  }}>
+                                    <img className='header_icon' src={team} />
+                                    <div className="visibility_container">
+                                      <p className="label">Add User</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {
+                                element.Profiles.map((element: any) => (
+                                  <div key={element.id} className="visibility_toggle">
+                                    <div className="project_stats left0">{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
+                                    <div className="visibility_container">
+                                      <div className="label" >
+                                        {element.company_name + ": " + element.branch_name}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))
+                              }
+                            </div>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
 
                     <div className="project_tables">
                       <div className="internal_table">
-                        <div className="project_subtitle">Participants:</div>
+                        <div className="project_table_icons">
+                          <div className="project_subtitle">Active Tasks:</div>
+                          <div className="project_task_options">
+                            <div className="visibility_toggle" onClick={() => {
+                              history.push('/TaskList')
+                            }}>
+                              <img className='header_icon' src={tasklist} />
+                              <div className="visibility_container">
+                                <p className="label">Task History</p>
+                              </div>
+                            </div>
 
-                        <table id='internal_table'>
-                          <thead>
-                            <tr>{renderHeader1()}</tr>
-                          </thead>
-                          <tbody>
-                            {
-                              element.Profiles.map(renderBody1)
-                            }
-                          </tbody>
-                        </table>
-                        <div className="project_user_options">
-                          <div className="project_sub_text" onClick={() => {
-                            setpopup3(true)
-                            setseleted_projectName(element.title)
-                            setseleted_projectTaskType("FEATURE")
-                          }}>
-                            <img className='header_icon' src={team} />
-                            Add User</div>
+                            <div className="visibility_toggle" onClick={() => {
+                              setpopup2(true)
+                              setseleted_projectName(element.title)
+                            }}>
+                              <img className='header_icon' src={add} />
+                              <div className="visibility_container">
+                                <p className="label">Add Tasks</p>
+                              </div>
+                            </div>
+
+                            <div className="visibility_toggle" onClick={() => {
+                              setpopup2(true)
+                              setseleted_projectName(element.title)
+                              setseleted_projectTaskType("FEATURE")
+                            }}>
+                              <img className='header_icon' src={tested} />
+                              <div className="visibility_container">
+                                <p className="label"> Request Feature</p>
+                              </div>
+                            </div>
+
+                            <div className="visibility_toggle" onClick={() => {
+                              setpopup2(true)
+                              setseleted_projectName(element.title)
+                              setseleted_projectTaskType("BUG")
+                            }}>
+                              <img className='header_icon' src={bug} />
+                              <div className="visibility_container">
+                                <p className="label">Report Bug</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="internal_table">
-                        <div className="project_subtitle">Active Tasks:</div>
                         <table id='internal_table'>
                           <thead>
                             <tr>{renderHeader2()}</tr>
@@ -224,36 +312,6 @@ const ProjectScreen = (props: any) => {
                             }
                           </tbody>
                         </table>
-                        <div className="project_task_options">
-                          <div className="project_sub_text" onClick={() => {
-                            history.push('/TaskList')
-                          }}>
-                            <img className='header_icon' src={tasklist} />
-                            Task History</div>
-
-                          <div className="project_sub_text" onClick={() => {
-                            setpopup2(true)
-                            setseleted_projectName(element.title)
-                          }}>
-                            <img className='header_icon' src={add} />
-                            Add Tasks</div>
-
-                          <div className="project_sub_text" onClick={() => {
-                            setpopup2(true)
-                            setseleted_projectName(element.title)
-                            setseleted_projectTaskType("FEATURE")
-                          }}>
-                            <img className='header_icon' src={tested} />
-                            Request Feature</div>
-
-                          <div className="project_sub_text" onClick={() => {
-                            setpopup2(true)
-                            setseleted_projectName(element.title)
-                            setseleted_projectTaskType("BUG")
-                          }}>
-                            <img className='header_icon' src={bug} />
-                            Report Bug</div>
-                        </div>
                       </div>
                     </div>
                   </div>

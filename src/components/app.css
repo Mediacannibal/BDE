@@ -1,6 +1,5 @@
 #root {
     display: flex;
-    background-color: var(--color_8);
     font-family: Barlow;
 }
 
@@ -82,11 +81,9 @@
     width: 100%;
     text-align-last: center;
     display: grid;
-    background-color: var(--color_8);
 }
 
 .body {
-    background-color: var(--color_8);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -233,10 +230,14 @@
 }
 
 tr:nth-child(even) {
-    background-color: var(--color_7);
+    background-color: #e0e0e0;
 }
 
 /* internal_table css */
+
+.internal_table {
+    position: relative;
+}
 
 #internal_table {
     font-size: var(--TS7);
@@ -315,7 +316,6 @@ tr:nth-child(even) {
     flex-direction: column;
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     padding: calc(0.4vw + 1.2vh + 0.4vmin);
-    overflow: scroll;
 }
 
 .popup_title {

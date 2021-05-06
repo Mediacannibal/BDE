@@ -77,6 +77,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
 
+  const [users, setusers] = useState('all')
+
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
@@ -148,7 +150,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth)
+    }, auth, users)
   }, [])
 
   const Project_name = () => {
@@ -257,7 +259,9 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           ]}
                         />
                         :
-                        <div>{"Task Type: " + projectTaskType}</div>
+                        <div>
+                          {"Task Type: " + projectTaskType}
+                        </div>
                       }
                     </div>
                   </div>
