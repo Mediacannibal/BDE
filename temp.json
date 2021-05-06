@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "results": [{
     "id": 1,
     "company_ref": 1,
@@ -305,3 +306,71 @@
     }]
   }]
 }
+=======
+  "reports": [
+    {
+      "columnHeader": {
+        "metricHeader": {
+          "metricHeaderEntries": [
+            {
+              "name": "ga:users",
+              "type": "INTEGER"
+            },
+            {
+              "name": "ga:newUsers",
+              "type": "INTEGER"
+            },
+            {
+              "name": "ga:percentNewSessions",
+              "type": "PERCENT"
+            }
+          ]
+        }
+      },
+      "data": {
+        "rows": [
+          {
+            "metrics": [
+              {
+                "values": [
+                  "5",
+                  "5",
+                  "16.666666666666664"
+                ]
+              }
+            ]
+          }
+        ],
+        "totals": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ],
+        "rowCount": 1,
+        "minimums": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ],
+        "maximums": [
+          {
+            "values": [
+              "5",
+              "5",
+              "16.666666666666664"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+>>>>>>> c440aaf85688bb12baeea7c41d4cbfc7158fdbd7

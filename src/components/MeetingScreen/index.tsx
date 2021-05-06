@@ -1,11 +1,16 @@
-import React, {  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button } from '@material-ui/core';
 import "./style.css"
+import ReactGA from 'react-ga';
 
 const MeetingScreen = () => {
 
 	const [url, setUrl] = useState('')
 
+	useEffect(() => {
+		ReactGA.pageview(window.location.pathname + window.location.search);
+
+	}, [])
 
 	const join = () => {
 		if (url !== "") {
@@ -31,6 +36,6 @@ const MeetingScreen = () => {
 		</div>
 	)
 }
- 
+
 
 export default MeetingScreen;

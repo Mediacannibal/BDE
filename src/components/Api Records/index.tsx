@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
-
+import ReactGA from 'react-ga';
 import { useAuth } from 'store/authStore';
 
 const ApiRecords = () => {
@@ -10,6 +10,7 @@ const ApiRecords = () => {
   const history = useHistory();
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     if (auth)
     // history.push("/Login")
     { }

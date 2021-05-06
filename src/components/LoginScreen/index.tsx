@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { generateOTP } from 'utils/api';
 import useCountDown from 'react-countdown-hook';
 import Footer from '../Common/Footer';
+import ReactGA from 'react-ga';
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -33,6 +34,7 @@ const LoginScreen = () => {
   }
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
   }, [])
 

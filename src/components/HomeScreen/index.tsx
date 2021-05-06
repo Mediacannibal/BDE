@@ -10,6 +10,7 @@ import { getMainTask, getProject } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
+import ReactGA from 'react-ga';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -26,6 +27,8 @@ const HomeScreen = (props: any) => {
 
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
     props.setheader_options(screen_header_elements)
 
     getProject(async (data: any, errorresponse: any) => {

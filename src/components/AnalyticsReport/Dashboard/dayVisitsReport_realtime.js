@@ -12,111 +12,222 @@ import { realtime_queryReport } from "./realtime_queryReport";
 import { formatDate } from "./utils";
 import { useAuth } from 'store/authStore';
 import { realtime } from 'utils/api';
+import '../../../components/app.css'
 
 const DayVisitsReport_realtime = (props) => {
-
-  const { auth } = useAuth();
-
-  const INITIAL_STATE = {
-    labels: [],
-    values: [],
-  };
-  const [reportData, setReportData] = useState(INITIAL_STATE);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
-  const [average, setAverage] = useState(0);
+
+  const [metriheaders, setmetriheaders] = useState([])
+  const [dimensionheaders, setdimensionheaders] = useState([])
+  const [listItems, setlistItems] = useState([])
+
+  const [metriheaders2, setmetriheaders2] = useState([])
+  const [dimensionheaders2, setdimensionheaders2] = useState([])
+  const [listItems2, setlistItems2] = useState([])
+
+  const [metriheaders3, setmetriheaders3] = useState([])
+  const [dimensionheaders3, setdimensionheaders3] = useState([])
+  const [listItems3, setlistItems3] = useState([])
+
 
   const displayResults = (response) => {
-    console.log(response, "><>????????????");
-    const queryResult = response.result.reports[0].data.rows;
-    const total = response.result.reports[0].data.totals[0].values[0];
-    setAverage(parseInt(total / response.result.reports[0].data.rowCount));
-    let labels = [];
-    let values = [];
-    queryResult.forEach((row) => {
-      values.push(row.metrics[0].values[0]);
-    });
-    setReportData({
-      ...reportData,
-      labels,
-      values,
-    });
+    // console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders(response.result.dimensionHeaders)
+    setmetriheaders(response.result.metricHeaders)
+    setlistItems(response.result.rows)
   };
 
-  const data = {
-    labels: reportData.labels,
-    datasets: [
-      {
-        label: `${props.title} per day`,
-        fill: false,
-        lineTension: 0.3,
-        borderColor: "#35213d",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "#375751",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: reportData.values,
-      },
-    ],
+  const displayResults2 = (response) => {
+    // console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders2(response.result.dimensionHeaders)
+    setmetriheaders2(response.result.metricHeaders)
+    setlistItems2(response.result.rows)
   };
 
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            suggestedMin: 0,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          ticks: {
-            autoSkip: true,
-            maxTicksLimit: 7,
-          },
-        },
-      ],
-    },
-    maintainAspectRatio: false,
-    legend: {
-      display: false,
-    },
-    plugins: {
-      datalabels: {
-        font: {
-          size: 0,
-        },
-      },
-    },
+  const displayResults3 = (response) => {
+    // console.log("><>????????????", response.result.dimensionHeaders);
+
+    setdimensionheaders3(response.result.dimensionHeaders)
+    setmetriheaders3(response.result.metricHeaders)
+    setlistItems3(response.result.rows)
   };
+
+
 
   useEffect(() => {
-    // const request = {
-    // };
-    // realtime_queryReport(request)
-    //   .then((resp) => displayResults(resp))
-    //   .catch((error) => console.error(error));
-    // console.log("<><><><><><>", displayResults)
+    const request = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "city"
+        },
+        {
+          "name": "cityId"
+        },
+        {
+          "name": "country"
+        },
+        {
+          "name": "countryId"
+        },
 
-    let token = JSON.parse(String(localStorage.getItem("Bearer")))
-    realtime(async (data) => {
-      console.log("++++++++++++", data)
-    }, token)
-  });
+      ],
+    };
+    realtime_queryReport(request)
+      .then((resp) => displayResults(resp))
+      .catch((error) => console.error(error));
+
+
+    const request2 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "appVersion"
+        },
+        {
+          "name": "audienceId"
+        },
+        {
+          "name": "audienceName"
+        },
+        {
+          "name": "deviceCategory"
+        },
+      ],
+    };
+    realtime_queryReport(request2)
+      .then((resp) => displayResults2(resp))
+      .catch((error) => console.error(error));
+
+
+    const request3 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "platform"
+        },
+        {
+          "name": "streamName"
+        },
+        {
+          "name": "unifiedScreenName"
+        }
+      ],
+    };
+    realtime_queryReport(request3)
+      .then((resp) => displayResults3(resp))
+      .catch((error) => console.error(error));
+
+
+  }, [startDate, endDate]);
+
+
+  const renderHeader = (element) => {
+    // console.log("element=====222", element);
+    return (
+      <>
+        <th>{element.name}</th>
+      </>
+    )
+  }
+
+  const renderBody = (element) => {
+    // console.log("element=====", element);
+    return (
+      <tr>
+        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
+        {element.metricValues.map((obj) => <td>{obj.value}</td>)}
+      </tr >
+    )
+  }
+
+
+  const renderBody2 = (element) => {
+    // console.log("element=====", element);
+    return (
+      <tr>
+        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
+      </tr >
+    )
+  }
+
+
+ 
 
   return (
-    <ReportWrapper>
-      <ChartTitle>{`${props.title} per day`}</ChartTitle>
-      <Subtitle>{`Average - ${average} ${props.title}`}</Subtitle>
-      {reportData && (
-        <ChartWrapper>
-          <Line data={data} options={options} width={100} height={250} />
-        </ChartWrapper>
-      )}
-    </ReportWrapper>
+    <>
+      <div className="internal_table">
+        <table id='internal_table'>
+          <thead>
+            <tr>{dimensionheaders.map(renderHeader)} {metriheaders.map(renderHeader)} </tr>
+          </thead>
+          <tbody> {listItems.map(renderBody)}</tbody>
+        </table>
+      </div>
+
+      <div className="internal_table">
+        <table id='internal_table'>
+          <thead>
+            <tr>{dimensionheaders2.map(renderHeader)}</tr>
+          </thead>
+          <tbody>{listItems2.map(renderBody2)} </tbody>
+        </table>
+      </div>
+
+      <div className="internal_table">
+        <table id='internal_table'>
+          <thead>
+            <tr>{dimensionheaders3.map(renderHeader)}</tr>
+          </thead>
+          <tbody>{listItems3.map(renderBody2)} </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

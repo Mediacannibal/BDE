@@ -5,6 +5,7 @@ import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "./styles";
 
+import { queryReport2 } from "./queryReport2";
 
 const CountriesReport = (props) => {
   const INITIAL_STATE = {
@@ -85,10 +86,10 @@ const CountriesReport = (props) => {
     };
     setTimeout(
       () =>
-        queryReport(request)
+        queryReport2(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      5500
     );
   }, [startDate, endDate]);
 
