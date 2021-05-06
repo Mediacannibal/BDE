@@ -14,6 +14,7 @@ import { formatDate } from "./utils";
 import { useAuth } from 'store/authStore';
 import { realtime } from 'utils/api';
 import '../../../components/app.css'
+import Card from 'components/Common/Card';
 
 const DayVisitsReport_realtime = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));
@@ -59,6 +60,7 @@ const DayVisitsReport_realtime = (props) => {
 
 
   useEffect(() => {
+
     const request = {
       startDate,
       endDate,
@@ -198,36 +200,38 @@ const DayVisitsReport_realtime = (props) => {
   }
 
 
- 
+
 
   return (
     <>
-      <div className="internal_table">
-        <table id='internal_table'>
-          <thead>
-            <tr>{dimensionheaders.map(renderHeader)} {metriheaders.map(renderHeader)} </tr>
-          </thead>
-          <tbody> {listItems.map(renderBody)}</tbody>
-        </table>
-      </div>
+      <Card
+        card_title="Active RealTime Users"
+        card_body={
+          <div className="internal_table" onClick={() => { console.log("hiiiiiiiihelloooo"); }}>
+            <table id='internal_table'>
+              <thead>
+                <tr>{dimensionheaders.map(renderHeader)} {metriheaders.map(renderHeader)} </tr>
+              </thead>
+              <tbody> {listItems.map(renderBody)}</tbody>
+            </table>
 
-      <div className="internal_table">
-        <table id='internal_table'>
-          <thead>
-            <tr>{dimensionheaders2.map(renderHeader)}</tr>
-          </thead>
-          <tbody>{listItems2.map(renderBody2)} </tbody>
-        </table>
-      </div>
+            <table id='internal_table'>
+              <thead>
+                <tr>{dimensionheaders2.map(renderHeader)}</tr>
+              </thead>
+              <tbody>{listItems2.map(renderBody2)} </tbody>
+            </table>
 
-      <div className="internal_table">
-        <table id='internal_table'>
-          <thead>
-            <tr>{dimensionheaders3.map(renderHeader)}</tr>
-          </thead>
-          <tbody>{listItems3.map(renderBody2)} </tbody>
-        </table>
-      </div>
+            <table id='internal_table'>
+              <thead>
+                <tr>{dimensionheaders3.map(renderHeader)}</tr>
+              </thead>
+              <tbody>{listItems3.map(renderBody2)} </tbody>
+            </table>
+          </div>
+        }
+      />
+
     </>
   );
 };
