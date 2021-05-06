@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-
 export const queryReport = (props) => {
   const {
     viewID,
