@@ -765,9 +765,6 @@ const OtherReports = (props) => {
         );
 
 
-
-
-
     }, [startDate, endDate]);
 
 
