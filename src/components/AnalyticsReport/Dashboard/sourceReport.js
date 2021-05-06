@@ -14,7 +14,6 @@ import {
 } from "./styles";
 
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const SourceReport = (props) => {
   const INITIAL_STATE = {
@@ -25,7 +24,6 @@ const SourceReport = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalSources, setTotalSources] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const transformAPIData = (data) => {
     let transformedData = [];

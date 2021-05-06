@@ -5,7 +5,6 @@ import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, Subtitle, PieChartWrapper, colors } from "./styles";
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const DevicesReport = (props) => {
   const INITIAL_STATE = {
@@ -17,7 +16,6 @@ const DevicesReport = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalUsers, setTotalUsers] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;
