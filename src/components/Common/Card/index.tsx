@@ -14,7 +14,7 @@ const Card = ({ classname, card_title, card_body, onexpand }) => {
                     'open_close_arrow_icon rotate180'
                 } src={up_down_arrow} onClick={() => { 
                     setCard_open(!card_open)
-                    onexpand
+                    {!card_open && onexpand}
                      }} />
             </div>
             {card_open &&
