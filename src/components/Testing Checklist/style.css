@@ -1,9 +1,0 @@
-.filter_icon_container {
-    height: var(--TS5);
-    padding-left: calc(0.1vw + 0.3vh + 0.3vmin);
-}
-
-.filter_icon {
-    height: 100%;
-    object-fit: contain;
-}
