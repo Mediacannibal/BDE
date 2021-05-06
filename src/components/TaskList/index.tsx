@@ -45,8 +45,8 @@ const TaskList = (props: any) => {
 
   const [project, setproject] = useState('')
   const [task, settask] = useState('')
-  const [priority, setpriority] = useState('')
-  const [domain, setdomain] = useState('')
+  const [task_priority, settask_priority] = useState('')
+  const [task_domain, settask_domain] = useState('')
   const [user_list, setuser_list] = useState('')
 
   const [users, setusers] = useState('all')
@@ -441,8 +441,8 @@ const TaskList = (props: any) => {
                       required={true}
                       valid={settask_picker_typevalid}
                       sendcheck={preSendValidator}
-                      value={domain}
-                      onchange={setdomain}
+                      value={task_domain}
+                      onchange={settask_domain}
                       options={[
                         { "key": "0", "value": "FRONT END" },
                         { "key": "1", "value": "BACK END" },
@@ -484,8 +484,8 @@ const TaskList = (props: any) => {
                       required={true}
                       valid={settask_picker_typevalid}
                       sendcheck={preSendValidator}
-                      value={priority}
-                      onchange={setpriority}
+                      value={task_priority}
+                      onchange={settask_priority}
                       options={[
                         { "key": "0", "value": "LOW" },
                         { "key": "1", "value": "NORMAL" },
@@ -502,20 +502,20 @@ const TaskList = (props: any) => {
                 onClick={() => {
                   getMainTask(async (data: any, errorresponse: any) => {
                     if (data.status === 200) {
-                      let data = {
-                        "project": document.getElementById("task_project_data").value,
-                        "domain": document.getElementById("task_domain_data").value,
-                        "task_type": document.getElementById("task_type_data").value,
-                        "priority": document.getElementById("task_priority_data").value,
-                      }
+                      // let requestData = {
+                      //   "project_ref": project,
+                      //   "domain": task_domain,
+                      //   "task_type": task,
+                      //   "priority": task_priority,
+                      // }
                       setspinner(false)
-                      console.log("Task Results: ", data.data.results)
+                      console.log("Filter Task Results: ", data.data.results)
                       setlistItems1(data.data.results)
                       let project_ref: Iterable<any> | null | undefined = []
                       let domain: Iterable<any> | null | undefined = []
                       let task_type: Iterable<any> | null | undefined = []
                       let priority: Iterable<any> | null | undefined = []
-                      data.data.forEach((element: any) => {
+                      data.data.results.forEach((element: any) => {
                         project_ref.push(element.project_ref)
                         domain.push(element.domain)
                         task_type.push(element.task_type)

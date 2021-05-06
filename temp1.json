@@ -1,106 +1,141 @@
 {
-    "reports": [
-      {
-        "columnHeader": {
-          "dimensions": [
-            "ga:date"
-          ],
-          "metricHeader": {
-            "metricHeaderEntries": [
-              {
-                "name": "ga:users",
-                "type": "INTEGER"
-              }
-            ]
-          }
-        },
-        "data": {
-          "rows": [
-            {
-              "dimensions": [
-                "20210423"
-              ],
-              "metrics": [
-                {
-                  "values": [
-                    "2"
-                  ]
-                }
-              ]
-            },
-            {
-              "dimensions": [
-                "20210427"
-              ],
-              "metrics": [
-                {
-                  "values": [
-                    "3"
-                  ]
-                }
-              ]
-            },
-            {
-              "dimensions": [
-                "20210428"
-              ],
-              "metrics": [
-                {
-                  "values": [
-                    "3"
-                  ]
-                }
-              ]
-            },
-            {
-              "dimensions": [
-                "20210429"
-              ],
-              "metrics": [
-                {
-                  "values": [
-                    "1"
-                  ]
-                }
-              ]
-            },
-            {
-              "dimensions": [
-                "20210430"
-              ],
-              "metrics": [
-                {
-                  "values": [
-                    "1"
-                  ]
-                }
-              ]
-            }
-          ],
-          "totals": [
-            {
-              "values": [
-                "10"
-              ]
-            }
-          ],
-          "rowCount": 5,
-          "minimums": [
-            {
-              "values": [
-                "0"
-              ]
-            }
-          ],
-          "maximums": [
-            {
-              "values": [
-                "3"
-              ]
-            }
-          ]
-        }
+  "reports": [{
+    "columnHeader": {
+      "dimensions": [
+        "ga:date"
+      ],
+      "metricHeader": {
+        "metricHeaderEntries": [{
+          "name": "ga:users",
+          "type": "INTEGER"
+        }]
       }
-    ]
-  }
-  
+    },
+    "data": {
+      "rows": [{
+          "dimensions": [
+            "20210423"
+          ],
+          "metrics": [{
+            "values": [
+              "2"
+            ]
+          }]
+        },
+        {
+          "dimensions": [
+            "20210427"
+          ],
+          "metrics": [{
+            "values": [
+              "3"
+            ]
+          }]
+        },
+        {
+          "dimensions": [
+            "20210428"
+          ],
+          "metrics": [{
+            "values": [
+              "3"
+            ]
+          }]
+        },
+        {
+          "dimensions": [
+            "20210429"
+          ],
+          "metrics": [{
+            "values": [
+              "1"
+            ]
+          }]
+        },
+        {
+          "dimensions": [
+            "20210430"
+          ],
+          "metrics": [{
+            "values": [
+              "1"
+            ]
+          }]
+        }
+      ],
+      "totals": [{
+        "values": [
+          "10"
+        ]
+      }],
+      "rowCount": 5,
+      "minimums": [{
+        "values": [
+          "0"
+        ]
+      }],
+      "maximums": [{
+        "values": [
+          "3"
+        ]
+      }]
+    }
+  }]
+}
+
+
+{
+  "results": [{
+    "id": 2,
+    "project_ref": "MCBDE",
+    "priority": "Urgent",
+    "task_type": "TEST",
+    "status": "In Progress",
+    "title": "signup test",
+    "domain": "UI",
+    "description": "test",
+    "remarks": null,
+    "image_link": null,
+    "linked_logs": "",
+    "time_spent": null,
+    "parent_child": null,
+    "assigned_by": null,
+    "assigned_to": null,
+    "assisted_by": null,
+    "created_by": null,
+    "created_at": "2021-04-19T14:28:07.243462Z",
+    "updated_by": null,
+    "updated_at": "2021-04-29T12:47:30.661785Z",
+    "deleted_by": null,
+    "deleted_at": null,
+    "child": []
+  }]
+}
+
+{
+  "results": [{
+    "id": 2,
+    "project_ref": "MCBDE",
+    "priority": "Urgent",
+    "task_type": "TEST",
+    "status": "In Progress",
+    "title": "signup test",
+    "domain": "UI",
+    "description": "test",
+    "remarks": null,
+    "image_link": null,
+    "linked_logs": "",
+    "time_spent": null,
+    "parent_child": null,
+    "assigned_by": null,
+    "assigned_to": null,
+    "assisted_by": null,
+    "created_by": null,
+    "created_at": "2021-04-19T14:28:07.243462Z",
+    "updated_by": null,
+    "updated_at": "2021-04-29T12:47:30.661785Z",
+    "deleted_by": null,
+    "deleted_at": null,
+    "child": []
+  }]
+}
