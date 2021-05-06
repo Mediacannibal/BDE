@@ -12,7 +12,8 @@ import { realtime_queryReport } from "./realtime_queryReport";
 import { formatDate } from "./utils";
 import { useAuth } from 'store/authStore';
 import { realtime } from 'utils/api';
-import '../../../components/app.css'
+import '../../../components/app.css';
+import{addDays} from 'date-fns';
 
 const DayVisitsReport_realtime = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));

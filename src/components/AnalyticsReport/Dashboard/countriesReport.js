@@ -6,6 +6,7 @@ import { queryReport } from "./queryReport";
 import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "./styles";
 
 import { queryReport2 } from "./queryReport2";
+import{addDays} from 'date-fns';
 
 const CountriesReport = (props) => {
   const INITIAL_STATE = {
@@ -17,6 +18,7 @@ const CountriesReport = (props) => {
   const [endDate, setEndDate] = useState(new Date());
   const [totalCoutries, setTotalCountries] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;
