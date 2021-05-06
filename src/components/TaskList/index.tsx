@@ -59,6 +59,10 @@ const TaskList = (props: any) => {
   const [up_arrow, setup_arrow] = useState(true)
   const [parent_child, setparent_child] = useState('')
 
+  const [unique_project_ref, setunique_project_ref] = useState([])
+  const [unique_domain, setunique_domain] = useState([])
+  const [unique_task_type, setunique_task_type] = useState([])
+  const [unique_priority, setunique_priority] = useState([])
 
   useEffect(() => {
     // console.log("<><><><><><><><><><>", auth);
@@ -492,44 +496,46 @@ const TaskList = (props: any) => {
                     />
                   </div>
                 </div>
-
-                <div className="inputfield_sub_container">
-                  <div className="taskusers_dropdown">
-                    <McInput
-                      type={"picker"}
-                      name={"Assignee"}
-                      id="task_users_data"
-                      required={true}
-                      valid={setusers_typevalid}
-                      sendcheck={preSendValidator}
-                      value={user_list}
-                      onchange={setuser_list}
-                      options={[
-                        { "key": "0", "value": "all" },
-                        { "key": "1", "value": "" },
-                      ]}
-                    />
-                  </div>
-                </div>
               </div>
 
               <button className="taskfilter_button"
                 onClick={() => {
-
                   getMainTask(async (data: any, errorresponse: any) => {
                     if (data.status === 200) {
+                      let data = {
+                        "project": document.getElementById("task_project_data").value,
+                        "domain": document.getElementById("task_domain_data").value,
+                        "task_type": document.getElementById("task_type_data").value,
+                        "priority": document.getElementById("task_priority_data").value,
+                      }
                       setspinner(false)
                       console.log("Task Results: ", data.data.results)
                       setlistItems1(data.data.results)
-                      setproject_Name(data.data.results.project_ref)
-                      // console.log("Project Name: ", data.data.results[0].project_ref)
+                      let project_ref: Iterable<any> | null | undefined = []
+                      let domain: Iterable<any> | null | undefined = []
+                      let task_type: Iterable<any> | null | undefined = []
+                      let priority: Iterable<any> | null | undefined = []
+                      data.data.forEach((element: any) => {
+                        project_ref.push(element.project_ref)
+                        domain.push(element.domain)
+                        task_type.push(element.task_type)
+                        priority.push(element.priority)
+                      });
+                      setunique_project_ref(Array.from(new Set(project_ref)));
+                      setunique_domain(Array.from(new Set(domain)))
+                      setunique_task_type(Array.from(new Set(task_type)))
+                      setunique_priority(Array.from(new Set(priority)))
                     } else {
                       setspinner(false)
                       console.log('error ' + JSON.stringify(data));
                       console.log('error ' + JSON.stringify(errorresponse));
                     }
                   }, auth, task, users, parent_child)
-                }}>Filter <div className="filter_icon_container"><img className='filter_icon' src={filter} /></div></button>
+                }}>Filter
+                <div className="filter_icon_container">
+                  <img className='filter_icon' src={filter} />
+                </div>
+              </button>
 
 
               <Card
@@ -576,4 +582,3 @@ export default TaskList
 function data(arg0: (data: any, errorresponse: any) => Promise<void>, auth: any, data: any) {
   throw new Error('Function not implemented.');
 }
-
