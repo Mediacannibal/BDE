@@ -27,7 +27,6 @@ import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
 import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
-import TaskTimeLog from './TaskTimeLog';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -35,7 +34,6 @@ const dashboard_screen = [
   { path: '/Meeting', component: MeetingScreen },
   { path: '/TaskDetails', component: TaskDetails },
   { path: '/TaskList', component: TaskList },
-  { path: '/TaskTimeLog', component: TaskTimeLog },
   { path: '/TestingChecklist', component: TestingChecklist },
   { path: '/BugList', component: BugList },
   { path: '/UserManagement', component: UserManagement },

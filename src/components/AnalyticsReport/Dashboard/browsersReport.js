@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { addDays } from "date-fns";
 import { Pie } from "react-chartjs-2";
 import CustomDatePicker from "./datepicker";
 import { queryReport } from "./queryReport";
 import { ChartTitle, Subtitle, PieChartWrapper, colors } from "./styles";
 
 import { queryReport2 } from "./queryReport2";
-import{addDays} from 'date-fns';
 
 const BrowsersReport = (props) => {
   const INITIAL_STATE = {
@@ -14,9 +14,9 @@ const BrowsersReport = (props) => {
     colors: [],
   };
   const [reportData, setReportData] = useState(INITIAL_STATE);
+  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
   const [endDate, setEndDate] = useState(new Date());
   const [totalUsers, setTotalUsers] = useState(0);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -10));
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;
