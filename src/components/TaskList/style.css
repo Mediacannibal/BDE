@@ -1,0 +1,62 @@
+.filter_icon_container {
+    height: var(--TS5);
+    padding-left: calc(0.1vw + 0.3vh + 0.3vmin);
+}
+
+.filter_icon {
+    height: 100%;
+    object-fit: contain;
+}
+
+.projectname_dropdown {
+    font-size: var(--TS5);
+    text-align: center;
+    font-weight: 500;
+    padding: 0px calc(0.2vw + 0.6vh + 0.2vmin);
+    margin: 0px calc(0.3vw + 0.9vh + 0.3vmin);
+    background-color: transparent;
+    border-color: transparent;
+    border-color: var(--color_1);
+    border-width: calc(0.05vw + 0.15vh + 0.05vmin);
+    border-style: solid;
+    border-radius: 2vw;
+}
+
+.main_selector_div {
+    color: var(--color_2);
+    font-size: var(--TS4);
+    text-align: center;
+    font-weight: 600;
+    padding: 2vh 0;
+    text-decoration: underline;
+    text-underline-offset: 2vh;
+    text-decoration-color: var(--color_7);
+    display: flex;
+    justify-content: center;
+}
+
+.textcolor_blue {
+    color: blue;
+}
+
+.textcolor_yellow {
+    color: yellow;
+}
+
+.textcolor_orange {
+    color: orange;
+}
+
+.textcolor_red {
+    color: red;
+}
+
+.textcolor_blinking {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}

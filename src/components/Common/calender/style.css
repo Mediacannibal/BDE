@@ -1,0 +1,125 @@
+.container {
+    position: relative;
+}
+
+.row {
+    display: flex;
+}
+
+.calendar .CalHeader .month-display {
+    align-items: center;
+    background: var(--color_13);
+    padding: var(--TS7) var(--TS2);
+}
+
+.calendar .CalHeader .month-label {
+    flex: 1;
+    text-decoration: underline;
+    text-decoration-color: var(--color_1);
+    text-underline-offset: calc(0.2vw + 0.6vh + 0.2vmin);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.calendar .week {
+    border-top: solid 1px var(--color_5);
+}
+
+.calendar .week:first-child {
+    border-top: none;
+}
+
+.calendar .day-names {
+    background: var(--color_13);
+    color: var(--color_5);
+    font-weight: 500;
+    cursor: default;
+}
+
+.calendar .day-names .day {
+    cursor: default;
+}
+
+.calendar .day-names .day:hover {
+    background: inherit
+}
+
+.calendar .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-left: solid 1px var(--color_5);
+    cursor: pointer;
+    transition: all .2s;
+    width: calc(2.3vw + 6.9vh + 2.3vmin);
+    height: var(--TS1);
+}
+
+.calendar .day_number1 {
+    line-height: 1.6;
+    font-size: var(--TS5);
+}
+
+.calendar .day_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-left: solid 1px var(--color_5);
+    cursor: pointer;
+    transition: all .2s;
+    width: calc(2.3vw + 6.9vh + 2.3vmin);
+    line-height: 1.6;
+}
+
+.calendar .day:hover {
+    background: var(--color_16);
+}
+
+.calendar .day:first-child {
+    border-left: none
+}
+
+.calendar .today {
+    background: var(--color_4);
+}
+
+.calendar .different-month {
+    color: #868686
+}
+
+.calendar .day.selected {
+    background: var(--color_16);
+    color: var(--color_5);
+}
+
+.chevron::before {
+    border-style: solid;
+    border-width: 0.23em 0.23em 0 0;
+    content: '';
+    display: inline-block;
+    height: 0.45em;
+    left: 0.15em;
+    position: relative;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 0.45em;
+}
+
+.chevron.right:before {
+    transform: rotate(45deg);
+}
+
+.chevron.left:before {
+    transform: rotate(-135deg);
+}
+
+.chevron.button {
+    cursor: pointer;
+    display: flex;
+}
+
+.highlighted {
+    color: var(--color_1) !important;
+}

@@ -1,0 +1,79 @@
+.filter_icon {
+    height: 100%;
+    object-fit: contain;
+}
+
+.MAINsomwethin {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 1vh 2vw;
+}
+
+.task_details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtitle {
+    margin: 1vh 0;
+    font-size: var(--TS6);
+    font-weight: 600;
+    display: flex;
+}
+
+.chatbox {
+    margin: 1vh 0;
+    width: 100%;
+    background: antiquewhite;
+    height: 37vh;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom_container {
+    height: 8vh;
+    background: cadetblue;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.message_box {
+    padding: 0.5vh;
+    background-color: var(--color_5);
+    border-radius: calc(0.6vw + 0.6vh);
+    border-color: transparent;
+    height: 5vh;
+    font-size: var(--TS5);
+    text-align: center;
+    font-weight: 600;
+    color: var(--color_2);
+    width: 70%;
+    box-sizing: border-box;
+    justify-self: center;
+    align-self: center;
+}
+
+.icon_container {
+    background-color: var(--color_12);
+    border-radius: calc(2.6vw + 2.6vh);
+    border-color: transparent;
+    display: flex;
+    align-items: center;
+    padding: 1vh 2vw;
+    margin: 2vh 0;
+    width: 1vw;
+    height: 5vh;
+    justify-content: center;
+    align-self: center;
+}
+
+.iconimg {
+    height: 5vh;
+}
