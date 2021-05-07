@@ -137,8 +137,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   }
 
   useEffect(() => {
-    console.log("Initailized Project Name: ", projectName)
-    console.log("Initailized Feature Task: ", projectTaskType)
+    // console.log("Initailized Project Name: ", projectName)
+    // console.log("Initailized Feature Task: ", projectTaskType)
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -184,11 +184,11 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "assignee": assignee,
             }
             data.push(object)
-            console.log("***SUBMIT***", data)
+            // console.log("***SUBMIT***", data)
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess========= ' + JSON.stringify(data));
+                // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -521,7 +521,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setandroidcheckbox(!androidcheckbox)
                               }} />
                             <div className="checkbox_text">Android</div>
@@ -565,7 +565,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setioscheckbox(!ioscheckbox)
                               }} />
                             <div className="checkbox_text">IOS</div>
@@ -608,7 +608,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setbrowsercheckbox(!browsercheckbox)
                               }} />
                             <div className="checkbox_text">Browser</div>
@@ -684,7 +684,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setandroidcheckbox(!androidcheckbox)
                               }} />
                             <div className="checkbox_text">Android</div>
@@ -728,7 +728,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setioscheckbox(!ioscheckbox)
                               }} />
                             <div className="checkbox_text">IOS</div>
@@ -771,7 +771,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           <div className="checkbox_sub_container">
                             <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                               onChange={(e) => {
-                                console.log(e);
+                                // console.log(e);
                                 setbrowsercheckbox(!browsercheckbox)
                               }} />
                             <div className="checkbox_text">Browser</div>
@@ -929,4 +929,4 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   )
 }
 
-export default AddEditTask
+export default AddEditTask;

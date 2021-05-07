@@ -101,12 +101,12 @@ const AddEditUserList = ({ setPopup }) => {
               "role": role,
             }
             data.push(object)
-            console.log("***SUBMIT***", data)
+            // console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             userlist(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess!!!!!!!!' + JSON.stringify(data));
+                // console.log('Sucess!!!!!!!!' + JSON.stringify(data));
                 localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
                 localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
                 history.push('/Home')
@@ -228,4 +228,4 @@ const AddEditUserList = ({ setPopup }) => {
     </>
   );
 }
-export default AddEditUserList
+export default AddEditUserList;

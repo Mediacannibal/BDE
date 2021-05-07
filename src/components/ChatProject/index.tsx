@@ -82,4 +82,4 @@ const ChatProject = () => {
   );
 }
 
-export default ChatProject
+export default ChatProject;

@@ -85,6 +85,6 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   )
 }
 
-export default Popup
+export default Popup;
 
 

@@ -18,6 +18,7 @@ import * as up_down_arrow from 'assets/up_down.svg'
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
 import TimeSpent from 'components/TimeSpent';
+import UpDownArrow from 'components/Common/updownArrow';
 
 const TaskList = (props: any) => {
   const history = useHistory();
@@ -78,7 +79,7 @@ const TaskList = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("Task Results: ", data.data.results)
+        // console.log("Task Results: ", data.data.results)
         setlistItems1([])
         setlistItems1(data.data.results)
       }
@@ -113,14 +114,13 @@ const TaskList = (props: any) => {
   }
 
   const renderHeader1 = () => {
-    let headerElement = ['Project', 'domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'Time Spent', 'track']
+    let headerElement = ['', 'Project', 'domain', 'Task Type', 'priority', 'status', 'Title', 'description', 'image_link', 'assignee', 'Time Spent', 'track']
     return headerElement.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}
-        <img className={up_arrow ?
-          'open_close_arrow_icon'
-          :
-          'open_close_arrow_icon rotate180'
-        } src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow) }} />
+        <UpDownArrow
+          onexpand={() => {
+          }}
+        />
       </th>
     })
   }
@@ -129,12 +129,25 @@ const TaskList = (props: any) => {
     return (
       <>
         <tr key={element.id} className={getClassname(element.priority)}>
-          <td>{element.project_ref}
-            <img className={up_arrow ?
-              'open_close_arrow_icon'
-              :
-              'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow); }} />
+          <td>
+            {((element.child !== undefined) && (element.child.length > 0)) &&
+              <UpDownArrow
+                onexpand={() => {
+                  setup_arrow(!up_arrow)
+                  let temp = listItems1
+                  let objIndex = listItems1.findIndex((obj => obj.id == element.id))
+                  {
+                    element.assisted_by === 'false' ?
+                      temp[objIndex].assisted_by = "true"
+                      :
+                      temp[objIndex].assisted_by = "false"
+                  }
+                  setlistItems1(temp)
+                }}
+              />
+            }
           </td>
+          <td>{element.project_ref}</td>
           <td>{element.domain}</td>
           <td>{element.task_type}</td>
           <td>{element.priority}</td>
@@ -142,19 +155,21 @@ const TaskList = (props: any) => {
           <td
             onClick={() => {
 
-
               let temp = listItems1
-              temp.forEach((ele :any,index:any) => {
-                if(ele.id === element.id){
-                   let x = ele
-                   x.title = "skdfgad"
-                   temp[index] = x
-                }
-              });
+              let objIndex = listItems1.findIndex((obj => obj.id == element.id))
+              temp[objIndex].assisted_by = "blabla"
+              // let temp = listItems1
+              // temp.forEach((ele :any,index:any) => {
+              //   if(ele.id === element.id){
+              //      let x = ele
+              //      x.title = "skdfgad"
+              //      temp[index] = x
+              //   }
+              // });
               setlistItems1(temp)
               // setlistItems1({...listItems1, abc:"new value"});
               //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
-              console.log("TESTEST!!: ", listItems1);
+              // console.log("TESTEST!!: ", listItems1);
             }}
           >{element.title}</td>
           <td>{element.description}</td>
@@ -183,48 +198,53 @@ const TaskList = (props: any) => {
           </td>
         </tr>
 
-        <tr key={element.id} className={getClassname(element.priority)}>
-          {element.child?.map((element: any) => {
-            return (<>
-              <td>{element.project_ref}
-                <img className={up_arrow ?
-                  'open_close_arrow_icon'
-                  :
-                  'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow); }} />
-              </td>
-              <td>{element.domain}</td>
-              <td>{element.task_type}</td>
-              <td>{element.priority}</td>
-              <td>{element.status}</td>
-              <td>{element.title}</td>
-              <td>{element.description}</td>
-              <td>{element.image_link}</td>
-              <td>{element.assigned_to}
-                <img onClick={() => {
-                  setaddEditTaskLog_popup(true);
-                  setseleted_taskId(element.id);
-                }} className='header_icon' src={add} />
-              </td>
-              <td>{element.time_spent}
-                <button onClick={() => {
-                  settimeSpent_popup(true);
-                  setseleted_taskName(element.title);
-                  setseleted_taskId(element.id);
-                }}>Time</button>
-              </td>
-              <td>
-                <div className='screen_header_element'
-                  onClick={() => {
-                    setaddEditTaskTimeLog_popup(true);
+        {element.assisted_by === 'true' &&
+          <tr className={getClassname(element.priority)}>
+            {element.child?.map((element: any) => {
+              return (<>
+                <td key={element.id}>
+                  {((element.child !== undefined) && (element.child.length > 0)) &&
+                    <img className={element.assisted_by === 'true' ?
+                      'open_close_arrow_icon'
+                      :
+                      'open_close_arrow_icon rotate180'} src={up_down_arrow} onClick={() => { setup_arrow(!up_arrow); }}
+                    />}
+                </td>
+                <td>{element.project_ref}</td>
+                <td>{element.domain}</td>
+                <td>{element.task_type}</td>
+                <td>{element.priority}</td>
+                <td>{element.status}</td>
+                <td>{element.title}</td>
+                <td>{element.description}</td>
+                <td>{element.image_link}</td>
+                <td>{element.assigned_to}
+                  <img onClick={() => {
+                    setaddEditTaskLog_popup(true);
                     setseleted_taskId(element.id);
-                  }}>
-                  <img className='header_icon' src={play} />
-                </div>
-              </td>
-            </>
-            )
-          })}
-        </tr>
+                  }} className='header_icon' src={add} />
+                </td>
+                <td>{element.time_spent}
+                  <button onClick={() => {
+                    settimeSpent_popup(true);
+                    setseleted_taskName(element.title);
+                    setseleted_taskId(element.id);
+                  }}>Time</button>
+                </td>
+                <td>
+                  <div className='screen_header_element'
+                    onClick={() => {
+                      setaddEditTaskTimeLog_popup(true);
+                      setseleted_taskId(element.id);
+                    }}>
+                    <img className='header_icon' src={play} />
+                  </div>
+                </td>
+              </>
+              )
+            })}
+          </tr>
+        }
       </>
     )
   }
@@ -420,7 +440,7 @@ const TaskList = (props: any) => {
   )
 }
 
-export default TaskList
+export default TaskList;
 function data(arg0: (data: any, errorresponse: any) => Promise<void>, auth: any, data: any) {
   throw new Error('Function not implemented.');
 }

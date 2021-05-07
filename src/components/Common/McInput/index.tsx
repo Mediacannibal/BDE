@@ -20,7 +20,7 @@ const McInput = (props: any) => {
     const [checkedOptionValue, setcheckedOptionValue] = useState('')
 
     const handleRadioChange = (e: any) => {
-        console.log(e)
+        // console.log(e)
         setcheckedOptionValue(e.target.value)
     }
 
@@ -252,7 +252,7 @@ const McInput = (props: any) => {
                                         name={option.value}
                                         value={option.value}
                                         onChange={(e) => {
-                                            console.log(e);
+                                            // console.log(e);
                                             onOptionClicked(option.value)
                                             seterror_message("")
                                             props.valid(true)

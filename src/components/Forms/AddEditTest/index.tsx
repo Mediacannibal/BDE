@@ -47,12 +47,12 @@ const AddEditTest = ({ setPopup }) => {
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
-  console.log(errors);
+  // console.log(errors);
 
   const _onChangeHandler = (data: any) => {
-    console.log(data.target.files[0])
+    // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
@@ -61,7 +61,7 @@ const AddEditTest = ({ setPopup }) => {
 
   const Callback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log("respnse :", data.data.result.file_url)
+      // console.log("respnse :", data.data.result.file_url)
       setDataUri(data.data.result.file_url)
     }
     else {
@@ -95,11 +95,11 @@ const AddEditTest = ({ setPopup }) => {
           desc1={"The following Test will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
-            console.log("***SUBMIT***", list)
+            // console.log("***SUBMIT***", list)
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
+                // console.log('Sucess ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -393,4 +393,4 @@ const AddEditTest = ({ setPopup }) => {
   )
 }
 
-export default AddEditTest
+export default AddEditTest;

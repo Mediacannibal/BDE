@@ -3,7 +3,6 @@ import './style.css'
 import { useHistory } from 'react-router-dom';
 import '../../components/app.css'
 import { ProgressBar } from 'components/Common/Spinner';
-import * as play from '../../assets/play.svg'
 
 import * as filter from '../../assets/filter.png'
 import { getBuglog, getProject } from 'utils/api';
@@ -21,7 +20,6 @@ const BugList = (props: any) => {
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
-  const [unique_title, setunique_title] = useState([])
 
   const [unique_project_ref, setunique_project_ref] = useState([])
   const [all_project_ref, setall_project_ref] = useState("")
@@ -31,8 +29,6 @@ const BugList = (props: any) => {
   const [popup3, setpopup3] = useState(false)
 
   const [seleted_taskid, setseleted_taskid] = useState('')
-
-  const [users, setusers] = useState('')
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -47,7 +43,7 @@ const BugList = (props: any) => {
     getBuglog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("BugList Results: ", data.data.results)
+        // console.log("BugList Results: ", data.data.results)
         setlistItems1(data.data.results)
 
       } else {
@@ -97,7 +93,7 @@ const BugList = (props: any) => {
   const renderBody1 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}>
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -130,7 +126,7 @@ const BugList = (props: any) => {
   const renderBody2 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}>
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -252,4 +248,4 @@ const BugList = (props: any) => {
   )
 }
 
-export default BugList
+export default BugList;

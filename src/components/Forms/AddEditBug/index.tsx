@@ -65,12 +65,12 @@ const AddEditBug = ({ setPopup }) => {
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
-  console.log(errors);
+  // console.log(errors);
 
   const _onChangeHandler = (data: any) => {
-    console.log(data.target.files[0])
+    // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
@@ -111,11 +111,11 @@ const AddEditBug = ({ setPopup }) => {
               "image_link": image_link,
             }
             data.push(object)
-            console.log("***SUBMIT***", list)
+            // console.log("***SUBMIT***", list)
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess ' + JSON.stringify(data));
+                // console.log('Sucess ' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -167,7 +167,7 @@ const AddEditBug = ({ setPopup }) => {
                   <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
-                        console.log(e);
+                        // console.log(e);
                         setandroidcheckbox(!androidcheckbox)
                       }} />
                     <div className="checkbox_text">Android</div>
@@ -211,7 +211,7 @@ const AddEditBug = ({ setPopup }) => {
                   <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
-                        console.log(e);
+                        // console.log(e);
                         setioscheckbox(!ioscheckbox)
                       }} />
                     <div className="checkbox_text">IOS</div>
@@ -253,7 +253,7 @@ const AddEditBug = ({ setPopup }) => {
                   <div className="checkbox_sub_container">
                     <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                       onChange={(e) => {
-                        console.log(e);
+                        // console.log(e);
                         setbrowsercheckbox(!browsercheckbox)
                       }} />
                     <div className="checkbox_text">Browser</div>
@@ -355,4 +355,4 @@ const AddEditBug = ({ setPopup }) => {
   )
 }
 
-export default AddEditBug
+export default AddEditBug;

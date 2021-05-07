@@ -40,7 +40,7 @@ const LoginScreen = () => {
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
     if (data.status === 200) {
-      console.log('success ', data.data.results);
+      // console.log('success ', data.data.results);
       // localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
 
     } else {
@@ -52,7 +52,7 @@ const LoginScreen = () => {
 
   const _onSignUpPressed = () => {
     setispassword(false)
-    console.log(username_email_or_phone)
+    // console.log(username_email_or_phone)
     let data = {
       username_email_or_phone: username_email_or_phone.value,
     }
@@ -71,7 +71,7 @@ const LoginScreen = () => {
 
   const loginCallback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log('response =================> ' + JSON.stringify(data));
+      // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FACEBOOK" && "OTP")
@@ -92,7 +92,7 @@ const LoginScreen = () => {
       "email_or_username": a,
       "password": b,
     }
-    console.log(a, b);
+    // console.log(a, b);
     Sociallogin(loginCallback, data)
   };
 
@@ -299,7 +299,7 @@ const LoginScreen = () => {
   );
 }
 
-export default LoginScreen
+export default LoginScreen;
 function Referrerid(Referrerid: any): string | Blob {
   throw new Error('Function not implemented.');
 }

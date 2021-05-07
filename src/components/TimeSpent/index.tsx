@@ -36,13 +36,13 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
       else {
         setUsers(String(users))
       }
-      console.log("Users sent for api request: ", Users)
+      // console.log("Users sent for api request: ", Users)
     }
 
     getTasktimelog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("TaskTime Log Results: ", data.data)
+        // console.log("TaskTime Log Results: ", data.data)
         setlistItems(data.data.results)
       }
       else {
@@ -136,4 +136,4 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
   )
 }
 
-export default TimeSpent
+export default TimeSpent;

@@ -28,9 +28,9 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
           "task_ref": taskid,
           "active": String(startorpausetask)
         }
-        console.log('seleted_taskid: ', taskid)
+        // console.log('seleted_taskid: ', taskid)
         data.push(object)
-        console.log("***SUBMIT***", data)
+        // console.log("***SUBMIT***", data)
         createTasktimelog(async (data: any, errorresponse: any) => {
           if (data.status === 200) {
             // console.log('Sucess========= ' + JSON.stringify(data));
@@ -44,7 +44,7 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
             console.log('error ' + JSON.stringify(errorresponse));
           }
         }, auth, data[0])
-        console.log("***SENT***")
+        // console.log("***SENT***")
         setPopup()
       }}
       cancelClick={() => {
@@ -55,4 +55,4 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
   )
 }
 
-export default AddEditTaskTimeLog
+export default AddEditTaskTimeLog;

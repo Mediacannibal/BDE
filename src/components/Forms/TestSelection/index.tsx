@@ -21,7 +21,7 @@ const TestSelection = ({ setTest }) => {
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
 
   const Validate = () => {
@@ -95,4 +95,4 @@ const TestSelection = ({ setTest }) => {
   )
 }
 
-export default TestSelection
+export default TestSelection;

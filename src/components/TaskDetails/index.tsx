@@ -32,7 +32,7 @@ const TaskDetails = () => {
       setspinner(false)
       let usertype1 = UserDetails.user_type
       let user_id = UserDetails.user_id
-      console.log(screen, user_id, usertype1)
+      // console.log(screen, user_id, usertype1)
       setusertype(usertype1)
       setuserID(user_id)
     }
@@ -104,4 +104,4 @@ const TaskDetails = () => {
   )
 }
 
-export default TaskDetails
+export default TaskDetails;

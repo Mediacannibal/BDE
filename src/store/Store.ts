@@ -85,7 +85,7 @@ export function useStores<T>(stores: { [k: string]: Store<T> }):
     const ids = [Object.entries(stores).map(item => item[1].id)];
 
     useLayoutEffect(() => {
-        console.log("stores has changed")
+        // console.log("stores has changed")
         const unsubscribes = Object.entries(stores).map(([id, store]) => store.subscribe((oldVal, newVal) => {
             setValues((oldValues) => ({ ...oldValues, [id]: newVal }));
         }));

@@ -37,8 +37,6 @@ const ProjectScreen = (props: any) => {
   const [users, setusers] = useState('all')
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
-
-  const [ID, setID] = useState(false)
   const [parent_child, setparent_child] = useState('')
 
   const [task_history, settask_history] = useState('Task History')
@@ -51,7 +49,7 @@ const ProjectScreen = (props: any) => {
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("ProjectProfiles: ", data.data)
+        // console.log("ProjectProfiles: ", data.data)
         setlistItems(data.data.results)
       } else {
         setspinner(false)
@@ -63,7 +61,7 @@ const ProjectScreen = (props: any) => {
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("Project Tasks: ", data.data.results)
+        // console.log("Project Tasks: ", data.data.results)
         setlistItems2(data.data.results)
       } else {
         setspinner(false)
@@ -326,4 +324,4 @@ const ProjectScreen = (props: any) => {
 
   );
 }
-export default ProjectScreen
+export default ProjectScreen;

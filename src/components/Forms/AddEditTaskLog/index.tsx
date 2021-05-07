@@ -34,12 +34,12 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
-  console.log(errors);
+  // console.log(errors);
 
   const _onChangeHandler = (data: any) => {
-    console.log(data.target.files[0])
+    // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
@@ -48,7 +48,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
 
   const Callback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log("respnse :", data.data.result.file_url)
+      // console.log("respnse :", data.data.result.file_url)
       setDataUri(data.data.result.file_url)
     }
     else {
@@ -111,7 +111,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
               "remarks": remarks,
             }
             data.push(object)
-            console.log("***SUBMIT***", data)
+            // console.log("***SUBMIT***", data)
             addTasklog(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 // console.log('Sucess========= ' + JSON.stringify(data));
@@ -125,7 +125,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
                 console.log('error ' + JSON.stringify(errorresponse));
               }
             }, auth, data[0])
-            console.log("***SENT***")
+            // console.log("***SENT***")
 
           }}
           cancelClick={() => {
@@ -197,4 +197,4 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   )
 }
 
-export default AddEditTaskLog
+export default AddEditTaskLog;

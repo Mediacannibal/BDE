@@ -52,10 +52,10 @@ const NewUserForm = ({ setPopup }) => {
   // console.log(errors);
 
   const Validate = () => {
-    console.log(companynamevalid, branchvalid, usernamevalid,
-      firstnamevalid, lastnamevalid, emailvalid,
-      phonevalid, passwordvalid, usertypevalid
-    )
+    // console.log(companynamevalid, branchvalid, usernamevalid,
+    //   firstnamevalid, lastnamevalid, emailvalid,
+    //   phonevalid, passwordvalid, usertypevalid
+    // )
     if (companynamevalid === true
       && branchvalid === true
       && usernamevalid === true
@@ -80,7 +80,7 @@ const NewUserForm = ({ setPopup }) => {
     getCompanyDetails(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("Company Details: ", data.data.results)
+        // console.log("Company Details: ", data.data.results)
         setlistItems1(data.data.results)
       } else {
         setspinner(false)
@@ -92,7 +92,7 @@ const NewUserForm = ({ setPopup }) => {
     getBranchDetails(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("Branch Details: ", data.data.results)
+        // console.log("Branch Details: ", data.data.results)
         setlistItems2(data.data.results)
       } else {
         setspinner(false)
@@ -148,12 +148,12 @@ const NewUserForm = ({ setPopup }) => {
               "password": password,
             }
             data.push(object)
-            console.log("***SUBMIT***", data)
+            // console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             newUserSignup(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                console.log('Sucess!!!!!!!!' + JSON.stringify(data));
+                // console.log('Sucess!!!!!!!!' + JSON.stringify(data));
                 localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
                 localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
                 history.push('/Home')
@@ -355,4 +355,4 @@ const NewUserForm = ({ setPopup }) => {
     </>
   );
 }
-export default NewUserForm
+export default NewUserForm;

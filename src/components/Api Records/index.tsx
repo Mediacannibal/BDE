@@ -34,4 +34,4 @@ const ApiRecords = () => {
   );
 }
 
-export default ApiRecords
+export default ApiRecords;

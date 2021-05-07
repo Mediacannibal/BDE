@@ -105,7 +105,7 @@ const Notifications = (props: any) => {
   );
 }
 
-export default Notifications
+export default Notifications;
 function gtProject(arg0: (data: any, errorresponse: any) => Promise<void>) {
   throw new Error('Function not implemented.');
 }

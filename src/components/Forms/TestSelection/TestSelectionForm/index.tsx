@@ -35,7 +35,7 @@ const TestSelectionForm = () => {
   }])
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
 
   const Validate = () => {
@@ -113,7 +113,7 @@ const TestSelectionForm = () => {
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                     onChange={(e) => {
-                      console.log(e)
+                      // console.log(e)
                     }} />
                   <div className="checkbox_text">Potrait</div>
                 </div>
@@ -129,7 +129,7 @@ const TestSelectionForm = () => {
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                     onChange={(e) => {
-                      console.log(e)
+                      // console.log(e)
                     }} />
                   <div className="checkbox_text">Landscape</div>
                 </div>
@@ -162,7 +162,7 @@ const TestSelectionForm = () => {
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                     onChange={(e) => {
-                      console.log(e)
+                      // console.log(e)
                     }} />
                   <div className="checkbox_text">Android</div>
                 </div>
@@ -190,7 +190,7 @@ const TestSelectionForm = () => {
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                     onChange={(e) => {
-                      console.log(e)
+                      // console.log(e)
                     }} />
                   <div className="checkbox_text">Ios</div>
                 </div>
@@ -218,7 +218,7 @@ const TestSelectionForm = () => {
                 <div className="checkbox_sub_container">
                   <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                     onChange={(e) => {
-                      console.log(e)
+                      // console.log(e)
                     }} />
                   <div className="checkbox_text">Browser</div>
                 </div>
@@ -282,4 +282,4 @@ const TestSelectionForm = () => {
   )
 }
 
-export default TestSelectionForm
+export default TestSelectionForm;

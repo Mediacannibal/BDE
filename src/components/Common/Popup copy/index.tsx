@@ -36,7 +36,7 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, 
   }
 
   const renderBody1 = (element: any) => {
-    console.log(element, "===")
+    // console.log(element, "===")
     return (
       <>
         <tr key={element.projectname}>
@@ -59,7 +59,7 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, 
   }
 
   const renderBody2 = (element: any) => {
-    console.log(element, "===")
+    // console.log(element, "===")
     return (
       <>
         <tr key={element.bug_title}>
@@ -258,6 +258,6 @@ const Popup = ({ title, mic, videoscreen, desc1, desc2, listitems1, listitems2, 
   )
 }
 
-export default Popup
+export default Popup;
 
 

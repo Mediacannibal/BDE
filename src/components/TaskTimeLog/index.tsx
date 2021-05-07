@@ -33,7 +33,7 @@ const TaskTimeLog = (props: any) => {
     getTasktimelog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("TaskTime Log Results: ", data.data)
+        // console.log("TaskTime Log Results: ", data.data)
         setlistItems(data.data.results)
       } else {
         setspinner(false)
@@ -138,4 +138,4 @@ const TaskTimeLog = (props: any) => {
   )
 }
 
-export default TaskTimeLog
+export default TaskTimeLog;

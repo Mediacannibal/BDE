@@ -26,4 +26,4 @@ const Card = ({ classname, card_title, card_body, onexpand }) => {
     )
 }
 
-export default Card
+export default Card;

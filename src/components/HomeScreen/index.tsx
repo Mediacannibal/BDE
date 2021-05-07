@@ -95,7 +95,7 @@ const HomeScreen = (props: any) => {
 
   const renderBody1 = (element: any) => {
     return (
-      <tr>
+      <tr key={element.id}>
         <td>{element.title}</td>
       </tr>
     )
@@ -111,7 +111,7 @@ const HomeScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}>
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.status}</td>
@@ -196,7 +196,7 @@ const HomeScreen = (props: any) => {
   );
 }
 
-export default HomeScreen
+export default HomeScreen;
 function gtProject(arg0: (data: any, errorresponse: any) => Promise<void>) {
   throw new Error('Function not implemented.');
 }

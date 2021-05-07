@@ -4,4 +4,4 @@ const instance = axios.create({
   baseURL:  "https://apimcbde.mediacannibal.com"
 })
 
-export default instance
+export default instance;

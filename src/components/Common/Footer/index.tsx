@@ -17,4 +17,4 @@ const Footer = ({bgColor}) => {
     )
 }
 
-export default Footer
+export default Footer;

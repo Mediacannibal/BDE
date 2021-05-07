@@ -16,7 +16,7 @@ const UserProfile = () => {
   
   useEffect(() => {
 
-    console.log("screenlocation: ", location.pathname);
+    // console.log("screenlocation: ", location.pathname);
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
@@ -25,7 +25,7 @@ const UserProfile = () => {
       let firstname = UserDetails.firstname
       let lastname = UserDetails.lastname
       let email = UserDetails.email
-      console.log(screen, usertype)
+      // console.log(screen, usertype)
       setusertype(usertype)
       setprofile_picture(profile_picture)
       setfirstname(firstname)
@@ -123,4 +123,4 @@ const UserProfile = () => {
   );
 }
 
-export default UserProfile
+export default UserProfile;

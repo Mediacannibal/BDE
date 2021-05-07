@@ -40,12 +40,12 @@ const AddEditProject = ({ setPopup }) => {
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
-    console.log(data);
+    // console.log(data);
   };
-  console.log(errors);
+  // console.log(errors);
 
   const _onChangeHandler = (data: any) => {
-    console.log(data.target.files[0])
+    // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
@@ -54,7 +54,7 @@ const AddEditProject = ({ setPopup }) => {
 
   const Callback = async (data: any, errorresponse: any) => {
     if (data.status === 200) {
-      console.log("respnse :", data.data.result.file_url)
+      // console.log("respnse :", data.data.result.file_url)
       setDataUri(data.data.result.file_url)
     }
     else {
@@ -65,8 +65,8 @@ const AddEditProject = ({ setPopup }) => {
 
   const Validate = () => {
 
-    console.log("***VALIDATE***")
-    console.log(isselectslot, title, description)
+    // console.log("***VALIDATE***")
+    // console.log(isselectslot, title, description)
 
     if (slotvalid === true
       && titlevalid === true
@@ -97,11 +97,11 @@ const AddEditProject = ({ setPopup }) => {
               "file_links": dataUri,
             }
             data.push(object)
-            console.log("***SUBMIT***", data)
+            // console.log("***SUBMIT***", data)
             createProject(async (data: any, errorresponse: any) => {
               if (data.status === 201) {
                 setispopup(false)
-                console.log('Sucess ========>>>' + JSON.stringify(data));
+                // console.log('Sucess ========>>>' + JSON.stringify(data));
                 window.location.reload()
                 // alert("successfully added")
                 setbackendresponse("Successfully Added!")
@@ -204,4 +204,4 @@ const AddEditProject = ({ setPopup }) => {
   )
 }
 
-export default AddEditProject
+export default AddEditProject;

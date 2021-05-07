@@ -119,4 +119,4 @@ const Week = ({ month, selected, select, date }) => {
   );
 }
 
-export default CalenderScreen
+export default CalenderScreen;

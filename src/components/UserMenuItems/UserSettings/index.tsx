@@ -24,7 +24,7 @@ const UserSettings = ({ setPopup }) => {
       let usertype1 = UserDetails.user_type
       let username1 = UserDetails.firstname
       let profile_picture = UserDetails.photo_url
-      console.log(screen, usertype1)
+      // console.log(screen, usertype1)
       setusertype(usertype1)
       setUsername(username1)
       setprofile_picture(profile_picture)
@@ -45,4 +45,4 @@ const UserSettings = ({ setPopup }) => {
   );
 }
 
-export default UserSettings
+export default UserSettings;

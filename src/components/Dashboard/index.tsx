@@ -46,6 +46,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     const [users, setusers] = useState('all')
     const [task, settask] = useState('')
+    const [user_list, setuser_list] = useState('')
+    const [parent_child, setparent_child] = useState('')
+    const [task_Ids, settask_Ids] = useState('')
 
     const [settings_popup, setsettings_popup] = useState(false)
     const [taskItems, settaskItems] = useState([])
@@ -60,41 +63,41 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
     useEffect(() => {
 
-        console.log("screenlocation: ", location.pathname);
+        // console.log("screenlocation: ", location.pathname);
 
         let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
         if (UserDetails !== null) {
             let usertype = UserDetails.user_type
             let username = UserDetails.firstname
             let profile_picture = UserDetails.photo_url
-            console.log(screen, usertype)
+            // console.log(screen, usertype)
             setusertype(usertype)
             setUsername(username)
             setprofile_picture(((profile_picture === undefined)
                 || (profile_picture === null)) ? defaultusericon : profile_picture)
-            console.log("someidentifier", profile_picture)
+            // console.log("someidentifier", profile_picture)
         }
 
         getMainTask(async (data: any, errorresponse: any) => {
             if (data.status === 200) {
-                console.log("Task Results: ", data.data.results)
+                // console.log("Task Results: ", data.data.results)
                 settaskItems(data.data.results)
             } else {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
             }
-        }, auth, task, users)
+        }, auth, task, user_list, parent_child)
 
         getTasktimelog(async (data: any, errorresponse: any) => {
             if (data.status === 200) {
-                console.log("Current Task: ", data.data.results[0])
+                // console.log("Current Task: ", data.data.results[0])
                 setcurrent_task(data.data.results[0])
                 setstartorpausetask(false)
             } else {
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
             }
-        }, auth)
+        }, auth, task_Ids, users)
     }, [])
 
 
@@ -250,7 +253,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                             <div className="projecttask_wrapper">
                                 {taskItems.map((element: any, key: any) => {
                                     return (
-
                                         <div className="projecttask_subwrapper"
                                             onClick={() => {
                                                 setstartorpausetaskid(element.id)
@@ -261,7 +263,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                                                 {element.project_ref + ": " + element.title}
                                             </div>
                                         </div>
-
                                     )
                                 })}
                             </div>
@@ -405,4 +406,4 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     )
 }
 
-export default Dashboard
+export default Dashboard;

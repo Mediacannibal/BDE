@@ -30,7 +30,7 @@ const UserManagement = (props: any) => {
       if (data.status === 200) {
         setspinner(false)
         // console.log('response ' + JSON.stringify(data));
-        console.log("User Profile List: ", data.data.results);
+        // console.log("User Profile List: ", data.data.results);
         setlist(data.data.results)
       } else {
         setspinner(false)
@@ -62,7 +62,7 @@ const UserManagement = (props: any) => {
   }
 
   const renderBody = (element: any) => {
-    console.log("user_details: ", element)
+    // console.log("user_details: ", element)
     return (
       <>
         <tr key={element.id} >
@@ -115,4 +115,4 @@ const UserManagement = (props: any) => {
   )
 }
 
-export default UserManagement
+export default UserManagement;

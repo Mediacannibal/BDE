@@ -53,7 +53,7 @@ const TestingChecklist = (props: any) => {
     getTestlog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
         setspinner(false)
-        console.log("Test Results: ", data.data.results)
+        // console.log("Test Results: ", data.data.results)
         setlistItems1(data.data.results)
 
       } else {
@@ -107,7 +107,7 @@ const TestingChecklist = (props: any) => {
   const renderBody1 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}>
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -214,7 +214,7 @@ const TestingChecklist = (props: any) => {
                 id="noformat_dropdown"
                 value={all_project_ref}
                 onChange={(e) => {
-                  console.log(e.target.value)
+                  // console.log(e.target.value)
                   setall_project_ref(e.target.value)
                 }} >
                 <option hidden value="">Project Name</option>
@@ -288,4 +288,4 @@ const TestingChecklist = (props: any) => {
   )
 }
 
-export default TestingChecklist
+export default TestingChecklist;
