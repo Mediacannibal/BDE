@@ -14,7 +14,7 @@ const McInput = (props: any) => {
     const onOptionClicked = (value: any) => {
         props.onchange(value)
         setDropdownOpen(false)
-        console.log("select option value :", props.value)
+        // console.log("select option value :", props.value)
     }
 
     const [checkedOptionValue, setcheckedOptionValue] = useState('')
