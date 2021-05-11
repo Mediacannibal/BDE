@@ -38,25 +38,25 @@ const PageviewsReport = (props) => {
   };
 
   useEffect(() => {
-    const request = {
-      viewID: props.viewID,
-      startDate,
-      endDate,
-      metrics: "ga:pageviews",
-      dimensions: ["ga:pagePath"],
-      orderBy: {
-        fieldName: "ga:pageViews",
-        order: "DESCENDING",
-      },
-      filter: "ga:pagePath!@localhost/",
-    };
-    setTimeout(
-      () =>
-        queryReport2(request)
-          .then((resp) => displayResults(resp))
-          .catch((error) => console.error(error)),
-      9500
-    );
+    // const request = {
+    //   viewID: props.viewID,
+    //   startDate,
+    //   endDate,
+    //   metrics: "ga:pageviews",
+    //   dimensions: ["ga:pagePath"],
+    //   orderBy: {
+    //     fieldName: "ga:pageViews",
+    //     order: "DESCENDING",
+    //   },
+    //   filter: "ga:pagePath!@localhost/",
+    // };
+    // setTimeout(
+    //   () =>
+    //     queryReport2(request)
+    //       .then((resp) => displayResults(resp))
+    //       .catch((error) => console.error(error)),
+    //   9500
+    // );
   }, [startDate, endDate]);
 
   return (

@@ -93,6 +93,10 @@ const OtherReports = (props) => {
     const [dimensionheaders18, setdimensionheaders18] = useState([])
     const [data18, setData18] = useState([]);
 
+    const [metriheaders19, setmetriheaders19] = useState([])
+    const [dimensionheaders19, setdimensionheaders19] = useState([])
+    const [data19, setData19] = useState([]);
+
 
 
     const displayResults = (response) => {
@@ -263,508 +267,538 @@ const OtherReports = (props) => {
     };
 
 
+    const displayResults19 = (response) => {
+        // console.log("><>?other1111 ===", response.result);
+        // console.log("1111columnHeader ===", response.result.reports[0].columnHeader.metricHeader.metricHeaderEntries);
+        setdimensionheaders19(response.result.reports[0].columnHeader.dimensions)
+        setmetriheaders19(response.result.reports[0].columnHeader.metricHeader.metricHeaderEntries)
+        setData19(response.result.reports[0].data.rows)
+    };
+
+
 
     useEffect(() => {
-        const request = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:30dayUsers",
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request)
-                    .then((resp) => displayResults(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
+        // const request = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:30dayUsers",
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request)
+        //             .then((resp) => displayResults(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
 
-        const request2 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:browser", "ga:browserVersion", "ga:operatingSystem", "ga:operatingSystemVersion",
-                "ga:mobileDeviceBranding", "ga:mobileDeviceModel", "ga:mobileDeviceInfo",
-                "ga:mobileDeviceMarketingName", "ga:deviceCategory",
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request2)
-                    .then((resp) => displayResults2(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-
-        const request3 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:userType", "ga:sessionCount", "ga:daysSinceLastSession", "ga:userDefinedValue",
-                "ga:userBucket", "ga:sessionDurationBucket", "ga:mobileDeviceModel", "ga:mobileDeviceInfo",
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request3)
-                    .then((resp) => displayResults3(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
+        // const request2 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:browser", "ga:browserVersion", "ga:operatingSystem", "ga:operatingSystemVersion",
+        //         "ga:mobileDeviceBranding", "ga:mobileDeviceModel", "ga:mobileDeviceInfo",
+        //         "ga:mobileDeviceMarketingName", "ga:deviceCategory",
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request2)
+        //             .then((resp) => displayResults2(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
 
 
-        const request4 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:referralPath", "ga:fullReferrer", "ga:campaign", "ga:source", "ga:medium",
-                "ga:sourceMedium", "ga:keyword", "ga:socialNetwork", "ga:hasSocialSourceReferral"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request4)
-                    .then((resp) => displayResults4(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request5 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro",
-                "ga:city", "ga:latitude", "ga:longitude", "ga:networkDomain"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request5)
-                    .then((resp) => displayResults5(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request51 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:networkLocation", "ga:cityId", "ga:continentId", "ga:countryIsoCode", "ga:metroId",
-                "ga:regionId", "ga:regionIsoCode", "ga:subContinentCode"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request51)
-                    .then((resp) => displayResults51(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request6 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:flashVersion", "ga:javaEnabled", "ga:language", "ga:screenColors", "ga:sourcePropertyDisplayName",
-                "ga:sourcePropertyTrackingId", "ga:screenResolution"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request6)
-                    .then((resp) => displayResults6(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request7 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:hostname", "ga:pagePath", "ga:pagePathLevel1", "ga:pagePathLevel2", "ga:pagePathLevel3",
-                "ga:pagePathLevel4"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request7)
-                    .then((resp) => displayResults7(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request71 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:pageTitle", "ga:landingPagePath", "ga:secondPagePath", "ga:exitPagePath", "ga:previousPagePath",
-                "ga:pageDepth"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request71)
-                    .then((resp) => displayResults71(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request8 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:searchUsed", "ga:searchKeyword", "ga:searchKeywordRefinement", "ga:searchCategory", "ga:searchStartPage",
-                "ga:searchDestinationPage", "ga:searchAfterDestinationPage"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport(request8)
-                    .then((resp) => displayResults8(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
-
-        const request9 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:appInstallerId", "ga:appVersion", "ga:appName", "ga:appId", "ga:screenName",
-                "ga:screenDepth", "ga:landingScreenName", "ga:exitScreenName"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport2(request9)
-                    .then((resp) => displayResults9(resp))
-                    .catch((error) => console.error(error)),
-            3500
-        );
-
-        const request10 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:eventCategory", "ga:eventAction", "ga:eventLabel",
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport2(request10)
-                    .then((resp) => displayResults10(resp))
-                    .catch((error) => console.error(error)),
-            3500
-        );
-
-        const request11 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: "ga:users",
-            dimensions: [
-                "ga:socialInteractionNetwork", "ga:socialInteractionAction", "ga:socialInteractionNetworkAction",
-                "ga:socialInteractionTarget", "ga:socialEngagementType"
-            ]
-        };
-        setTimeout(
-            () =>
-                queryReport2(request11)
-                    .then((resp) => displayResults11(resp))
-                    .catch((error) => console.error(error)),
-            3500
-        );
+        // const request3 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:userType", "ga:sessionCount", "ga:daysSinceLastSession", "ga:userDefinedValue",
+        //         "ga:userBucket", "ga:sessionDurationBucket", "ga:mobileDeviceModel", "ga:mobileDeviceInfo",
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request3)
+        //             .then((resp) => displayResults3(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
 
 
+        // const request4 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:referralPath", "ga:fullReferrer", "ga:campaign", "ga:source", "ga:medium",
+        //         "ga:sourceMedium", "ga:keyword", "ga:socialNetwork", "ga:hasSocialSourceReferral"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request4)
+        //             .then((resp) => displayResults4(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request5 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro",
+        //         "ga:city", "ga:latitude", "ga:longitude", "ga:networkDomain"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request5)
+        //             .then((resp) => displayResults5(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request51 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:networkLocation", "ga:cityId", "ga:continentId", "ga:countryIsoCode", "ga:metroId",
+        //         "ga:regionId", "ga:regionIsoCode", "ga:subContinentCode"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request51)
+        //             .then((resp) => displayResults51(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request6 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:flashVersion", "ga:javaEnabled", "ga:language", "ga:screenColors", "ga:sourcePropertyDisplayName",
+        //         "ga:sourcePropertyTrackingId", "ga:screenResolution"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request6)
+        //             .then((resp) => displayResults6(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request7 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:hostname", "ga:pagePath", "ga:pagePathLevel1", "ga:pagePathLevel2", "ga:pagePathLevel3",
+        //         "ga:pagePathLevel4"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request7)
+        //             .then((resp) => displayResults7(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request71 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:pageTitle", "ga:landingPagePath", "ga:secondPagePath", "ga:exitPagePath", "ga:previousPagePath",
+        //         "ga:pageDepth"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request71)
+        //             .then((resp) => displayResults71(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request8 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:searchUsed", "ga:searchKeyword", "ga:searchKeywordRefinement", "ga:searchCategory", "ga:searchStartPage",
+        //         "ga:searchDestinationPage", "ga:searchAfterDestinationPage"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request8)
+        //             .then((resp) => displayResults8(resp))
+        //             .catch((error) => console.error(error)),
+        //     1500
+        // );
+
+        // const request9 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:appInstallerId", "ga:appVersion", "ga:appName", "ga:appId", "ga:screenName",
+        //         "ga:screenDepth", "ga:landingScreenName", "ga:exitScreenName"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport2(request9)
+        //             .then((resp) => displayResults9(resp))
+        //             .catch((error) => console.error(error)),
+        //     3500
+        // );
+
+        // const request10 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:eventCategory", "ga:eventAction", "ga:eventLabel",
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport2(request10)
+        //             .then((resp) => displayResults10(resp))
+        //             .catch((error) => console.error(error)),
+        //     3500
+        // );
+
+        // const request11 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: "ga:users",
+        //     dimensions: [
+        //         "ga:socialInteractionNetwork", "ga:socialInteractionAction", "ga:socialInteractionNetworkAction",
+        //         "ga:socialInteractionTarget", "ga:socialEngagementType"
+        //     ]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport2(request11)
+        //             .then((resp) => displayResults11(resp))
+        //             .catch((error) => console.error(error)),
+        //     3500
+        // );
 
 
 
-        const request12 = {
+
+
+        // const request12 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:newUsers"
+        //         },
+        //         {
+        //             expression: "ga:30dayUsers"
+        //         },
+        //         {
+        //             expression: "ga:percentNewSessions"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request12)
+        //             .then((resp) => displayResults12(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        // const request13 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:30dayUsers"
+        //         },
+        //         {
+        //             expression: "ga:sessions"
+        //         },
+        //         {
+        //             expression: "ga:sessionDuration"
+        //         },
+        //         {
+        //             expression: "ga:avgSessionDuration"
+        //         },
+        //         {
+        //             expression: "ga:uniqueDimensionCombinations"
+        //         },
+        //         {
+        //             expression: "ga:hits"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request13)
+        //             .then((resp) => displayResults13(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        // const request14 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:30dayUsers"
+        //         },
+        //         {
+        //             expression: "ga:pageValue"
+        //         },
+        //         {
+        //             expression: "ga:entrances"
+        //         },
+        //         {
+        //             expression: "ga:entranceRate"
+        //         },
+        //         {
+        //             expression: "ga:pageviewsPerSession"
+        //         },
+        //         {
+        //             expression: "ga:uniquePageviews"
+        //         },
+        //         {
+        //             expression: "ga:timeOnPage"
+        //         },
+        //         {
+        //             expression: "ga:avgTimeOnPage"
+        //         },
+        //         {
+        //             expression: "ga:exits"
+        //         },
+        //         {
+        //             expression: "ga:exitRate"
+        //         }
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request14)
+        //             .then((resp) => displayResults14(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        // const request15 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:searchResultViews"
+        //         },
+        //         {
+        //             expression: "ga:searchUniques"
+        //         },
+        //         {
+        //             expression: "ga:avgSearchResultViews"
+        //         },
+        //         {
+        //             expression: "ga:searchSessions"
+        //         },
+        //         {
+        //             expression: "ga:percentSessionsWithSearch"
+        //         },
+        //         {
+        //             expression: "ga:searchDepth"
+        //         },
+        //         {
+        //             expression: "ga:avgSearchDepth"
+        //         },
+        //         {
+        //             expression: "ga:searchDuration"
+        //         },
+        //         {
+        //             expression: "ga:avgSearchDuration"
+        //         },
+        //         {
+        //             expression: "ga:searchExits"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request15)
+        //             .then((resp) => displayResults15(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        // const request16 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:pageLoadTime"
+        //         },
+        //         {
+        //             expression: "ga:pageLoadSample"
+        //         },
+        //         {
+        //             expression: "ga:avgPageLoadTime"
+        //         },
+        //         {
+        //             expression: "ga:domainLookupTime"
+        //         },
+        //         {
+        //             expression: "ga:pageDownloadTime"
+        //         },
+        //         {
+        //             expression: "ga:redirectionTime"
+        //         },
+        //         {
+        //             expression: "ga:serverConnectionTime"
+        //         },
+        //         {
+        //             expression: "ga:speedMetricsSample"
+        //         },
+        //         {
+        //             expression: "ga:domInteractiveTime"
+        //         },
+        //         {
+        //             expression: "ga:searchExits"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request16)
+        //             .then((resp) => displayResults16(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        // const request17 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:screenviews"
+        //         },
+        //         {
+        //             expression: "ga:uniqueScreenviews"
+        //         },
+        //         {
+        //             expression: "ga:screenviewsPerSession"
+        //         },
+        //         {
+        //             expression: "ga:timeOnScreen"
+        //         },
+        //         {
+        //             expression: "ga:avgScreenviewDuration"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request17)
+        //             .then((resp) => displayResults17(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+
+        // const request18 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:totalEvents"
+        //         },
+        //         {
+        //             expression: "ga:uniqueEvents"
+        //         },
+        //         {
+        //             expression: "ga:eventValue"
+        //         },
+        //         {
+        //             expression: "ga:avgEventValue"
+        //         },
+        //         {
+        //             expression: "ga:sessionsWithEvent"
+        //         },
+        //         {
+        //             expression: "ga:eventsPerSessionWithEvent"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request18)
+        //             .then((resp) => displayResults18(resp))
+        //             .catch((error) => console.error(error)),
+        //     7500
+        // );
+
+        const request19 = {
             viewID: props.viewID,
             startDate,
             endDate,
             metrics: [
-                {
-                    expression: "ga:newUsers"
-                },
-                {
-                    expression: "ga:30dayUsers"
-                },
-                {
-                    expression: "ga:percentNewSessions"
-                },
+                { expression: "ga:sessionsPerUser" },
+                { expression: "ga:users" },
+                { expression: "ga:newUsers" },
+                // { expression: "ga:bounceRate" },
+                // { expression: "ga:sessionDuration" },
+                // { expression: "ga:avgSessionDuration" },
             ],
-            dimensions: ["ga:date"]
+            dimensions: []
         };
-        setTimeout(
-            () =>
-                queryReport3(request12)
-                    .then((resp) => displayResults12(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-        const request13 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:30dayUsers"
-                },
-                {
-                    expression: "ga:sessions"
-                },
-                {
-                    expression: "ga:sessionDuration"
-                },
-                {
-                    expression: "ga:avgSessionDuration"
-                },
-                {
-                    expression: "ga:uniqueDimensionCombinations"
-                },
-                {
-                    expression: "ga:hits"
-                },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request13)
-                    .then((resp) => displayResults13(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-        const request14 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:30dayUsers"
-                },
-                {
-                    expression: "ga:pageValue"
-                },
-                {
-                    expression: "ga:entrances"
-                },
-                {
-                    expression: "ga:entranceRate"
-                },
-                {
-                    expression: "ga:pageviewsPerSession"
-                },
-                {
-                    expression: "ga:uniquePageviews"
-                },
-                {
-                    expression: "ga:timeOnPage"
-                },
-                {
-                    expression: "ga:avgTimeOnPage"
-                },
-                {
-                    expression: "ga:exits"
-                },
-                {
-                    expression: "ga:exitRate"
-                }
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request14)
-                    .then((resp) => displayResults14(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-        const request15 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:searchResultViews"
-                },
-                {
-                    expression: "ga:searchUniques"
-                },
-                {
-                    expression: "ga:avgSearchResultViews"
-                },
-                {
-                    expression: "ga:searchSessions"
-                },
-                {
-                    expression: "ga:percentSessionsWithSearch"
-                },
-                {
-                    expression: "ga:searchDepth"
-                },
-                {
-                    expression: "ga:avgSearchDepth"
-                },
-                {
-                    expression: "ga:searchDuration"
-                },
-                {
-                    expression: "ga:avgSearchDuration"
-                },
-                {
-                    expression: "ga:searchExits"
-                },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request15)
-                    .then((resp) => displayResults15(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-        const request16 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:pageLoadTime"
-                },
-                {
-                    expression: "ga:pageLoadSample"
-                },
-                {
-                    expression: "ga:avgPageLoadTime"
-                },
-                {
-                    expression: "ga:domainLookupTime"
-                },
-                {
-                    expression: "ga:pageDownloadTime"
-                },
-                {
-                    expression: "ga:redirectionTime"
-                },
-                {
-                    expression: "ga:serverConnectionTime"
-                },
-                {
-                    expression: "ga:speedMetricsSample"
-                },
-                {
-                    expression: "ga:domInteractiveTime"
-                },
-                {
-                    expression: "ga:searchExits"
-                },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request16)
-                    .then((resp) => displayResults16(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-        const request17 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:screenviews"
-                },
-                {
-                    expression: "ga:uniqueScreenviews"
-                },
-                {
-                    expression: "ga:screenviewsPerSession"
-                },
-                {
-                    expression: "ga:timeOnScreen"
-                },
-                {
-                    expression: "ga:avgScreenviewDuration"
-                },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request17)
-                    .then((resp) => displayResults17(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
-
-        const request18 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:totalEvents"
-                },
-                {
-                    expression: "ga:uniqueEvents"
-                },
-                {
-                    expression: "ga:eventValue"
-                },
-                {
-                    expression: "ga:avgEventValue"
-                },
-                {
-                    expression: "ga:sessionsWithEvent"
-                },
-                {
-                    expression: "ga:eventsPerSessionWithEvent"
-                },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request18)
-                    .then((resp) => displayResults18(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
-
+        // setTimeout(
+        //     () =>
+        queryReport3(request19)
+            .then((resp) => displayResults19(resp))
+            .catch((error) => console.error(error));
+        //     7500
+        // );
 
     }, [startDate, endDate]);
 
@@ -795,7 +829,7 @@ const OtherReports = (props) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj) => <td>{obj}</td>)}
             </tr >
         )
     }
@@ -816,7 +850,7 @@ const OtherReports = (props) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj) => <td>{obj}</td>)}
                 {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
             </tr >
         )
@@ -1078,6 +1112,20 @@ const OtherReports = (props) => {
                                 <tr>{dimensionheaders18.map(renderHeader2)} {metriheaders18.map(renderHeader3)} </tr>
                             </thead>
                             <tbody>{data18?.map(renderBody3)} </tbody>
+                        </table>
+                    </div>
+                }
+            />
+
+            <Card
+                card_title="test"
+                card_body={
+                    <div className="internal_table">
+                        <table id='internal_table'>
+                            <thead>
+                                <tr>{dimensionheaders19?.map(renderHeader2)} {metriheaders19?.map(renderHeader3)} </tr>
+                            </thead>
+                            <tbody>{data19?.map(renderBody3)} </tbody>
                         </table>
                     </div>
                 }
