@@ -27,7 +27,7 @@ const ApiRecords = () => {
     <div className="main">
       <div className="body">
 
-        <iframe src="https://apimcbde.mediacannibal.com/doc/" name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
+        <iframe src="https://apimcbde.mediacannibal.com/docs/" name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
 
       </div>
     </div>

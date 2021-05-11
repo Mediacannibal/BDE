@@ -200,9 +200,12 @@ const LoginScreen = () => {
                   </button>
                 )}
                 buttonText="Login"
+                accessType="offline"
+                approvalPrompt="force"
+                prompt='consent'
                 onSuccess={(Response: { profileObj: any; }) => {
                   console.log(Response);
-                  localStorage.setItem("Bearer",JSON.stringify(Response.accessToken))
+                  localStorage.setItem("Bearer", JSON.stringify(Response.accessToken))
                   let userInfo = Response.profileObj;
                   let data = {
                     "lastname": userInfo.familyName,

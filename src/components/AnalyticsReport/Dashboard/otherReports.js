@@ -783,20 +783,22 @@ const OtherReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                {
-                    expression: "ga:pageviews"
-                },
-                { expression: "ga:newUsers" }
+                { expression: "ga:sessionsPerUser" },
+                { expression: "ga:users" },
+                { expression: "ga:newUsers" },
+                // { expression: "ga:bounceRate" },
+                // { expression: "ga:sessionDuration" },
+                // { expression: "ga:avgSessionDuration" },
             ],
-            dimensions: ["ga:date", "ga:hour", "ga:minute", "ga:browser", "ga:country", "ga:city", "ga:latitude", "ga:longitude", "ga:mobileDeviceModel"]
+            dimensions: []
         };
-        setTimeout(
-            () =>
-                queryReport3(request19)
-                    .then((resp) => displayResults19(resp))
-                    .catch((error) => console.error(error)),
-            7500
-        );
+        // setTimeout(
+        //     () =>
+        queryReport3(request19)
+            .then((resp) => displayResults19(resp))
+            .catch((error) => console.error(error));
+        //     7500
+        // );
 
     }, [startDate, endDate]);
 
@@ -827,7 +829,7 @@ const OtherReports = (props) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj) => <td>{obj}</td>)}
             </tr >
         )
     }
@@ -848,7 +850,7 @@ const OtherReports = (props) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj) => <td>{obj}</td>)}
                 {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
             </tr >
         )
@@ -1116,12 +1118,12 @@ const OtherReports = (props) => {
             />
 
             <Card
-                card_title="time range /date range"
+                card_title="test"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
                             <thead>
-                                <tr>{dimensionheaders19.map(renderHeader2)} {metriheaders19.map(renderHeader3)} </tr>
+                                <tr>{dimensionheaders19?.map(renderHeader2)} {metriheaders19?.map(renderHeader3)} </tr>
                             </thead>
                             <tbody>{data19?.map(renderBody3)} </tbody>
                         </table>
