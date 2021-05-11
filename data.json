@@ -210,6 +210,9 @@
         }, {
             "name": "{{url}}api/user/list/",
             "id": "cbfb1bb4-c713-4c62-be94-763d192eacf9",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
             "request": {
                 "method": "GET",
                 "header": [{
@@ -221,7 +224,20 @@
                     "value": "application/json",
                     "type": "text"
                 }],
-                "url": "{{url}}api/user/list/"
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "{{url}}api/user/list/",
+                    "host": ["{{url}}api"],
+                    "path": ["user", "list", ""],
+                    "query": [{
+                        "key": "dwwd",
+                        "value": null,
+                        "disabled": true
+                    }]
+                }
             },
             "response": []
         }, {
@@ -274,7 +290,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n        \"user_list_type\": \"PROJECTS\",\r\n        \"role\": \"Admin\",\r\n        \"deleted_by\": 1\r\n    }"
+                    "raw": "{\r\n    \"user_list_type\": \"PROJECTS\",\r\n    \"ref\": 40,\r\n    \"role\": \"Admin\",\r\n    \"user\": 1\r\n}"
                 },
                 "url": "{{url}}api/user/userlist/"
             },
@@ -615,7 +631,7 @@
                     }]
                 },
                 "url": {
-                    "raw": "{{url}}tasks/maintask/?task_type=&user=",
+                    "raw": "{{url}}tasks/maintask/?task_type=&user=akash,kiran&parent_child=&domain=&priority=",
                     "host": ["{{url}}tasks"],
                     "path": ["maintask", ""],
                     "query": [{
@@ -623,6 +639,15 @@
                         "value": ""
                     }, {
                         "key": "user",
+                        "value": "akash,kiran"
+                    }, {
+                        "key": "parent_child",
+                        "value": ""
+                    }, {
+                        "key": "domain",
+                        "value": ""
+                    }, {
+                        "key": "priority",
                         "value": ""
                     }]
                 }
@@ -737,7 +762,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/tasklog/add/",
+            "name": "{{url}}tasks/tasklog/",
             "id": "5a1dddf4-0247-4bc8-a0c7-99c30d565010",
             "request": {
                 "method": "GET",
@@ -746,11 +771,11 @@
                     "value": "Token {{token}}",
                     "type": "text"
                 }],
-                "url": "{{url}}tasks/tasklog/add/"
+                "url": "{{url}}tasks/tasklog/"
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/tasklog/add/",
+            "name": "{{url}}tasks/tasklog/",
             "id": "7e749334-94ca-4848-80d9-19774dd648fe",
             "request": {
                 "method": "POST",
@@ -765,9 +790,9 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n            \"remarks\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n            \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n            \"task_ref\": 8\r\n        }"
+                    "raw": "{\r\n        \"remarks\": \"yrh\",\r\n        \"image_link\": \"tr\",\r\n        \"task_ref\": 40\r\n    }"
                 },
-                "url": "{{url}}tasks/tasklog/add/"
+                "url": "{{url}}tasks/tasklog/"
             },
             "response": []
         }, {
@@ -780,7 +805,7 @@
                     "value": "Token {{token}}",
                     "type": "text"
                 }],
-                "url": "{{url}}tasks/testlog/add/"
+                "url": "{{url}}tasks/testlog/"
             },
             "response": []
         }, {
@@ -805,7 +830,7 @@
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/tasktimelog/add/",
+            "name": "{{url}}tasks/tasktimelog/",
             "id": "a35a5e87-2c33-41ef-a12e-3cfad0759e63",
             "protocolProfileBehavior": {
                 "disableBodyPruning": true
@@ -822,14 +847,25 @@
                     "type": "text"
                 }],
                 "body": {
-                    "mode": "raw",
-                    "raw": " {\r\n        \"task_ref\": \"this igttggt rrgg s the test\",\r\n        \"created_by\": \"AtgtgSD\"\r\n    }"
+                    "mode": "formdata",
+                    "formdata": []
                 },
-                "url": "{{url}}tasks/tasktimelog/add/"
+                "url": {
+                    "raw": "{{url}}tasks/tasktimelog/?task_ids=&users=",
+                    "host": ["{{url}}tasks"],
+                    "path": ["tasktimelog", ""],
+                    "query": [{
+                        "key": "task_ids",
+                        "value": ""
+                    }, {
+                        "key": "users",
+                        "value": ""
+                    }]
+                }
             },
             "response": []
         }, {
-            "name": "{{url}}tasks/tasktimelog/add/",
+            "name": "{{url}}tasks/tasktimelog/",
             "id": "313d8d26-5885-4e44-8b80-252244ceac43",
             "request": {
                 "method": "POST",
@@ -844,9 +880,9 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\"created_by\": \"wdedfsghtfyhhfgfhghgjuki\",\r\n\"tasklog_ref\": 2\r\n}"
+                    "raw": "{\r\n\"task_ref\": 42, \r\n\"active\": \"true\"\r\n}"
                 },
-                "url": "{{url}}tasks/tasktimelog/add/"
+                "url": "{{url}}tasks/tasktimelog/"
             },
             "response": []
         }, {
@@ -1078,12 +1114,12 @@
                     "type": "text"
                 }],
                 "url": {
-                    "raw": "{{url}}tasks/project/?user=",
+                    "raw": "{{url}}tasks/project/?user=akash,kiran_123",
                     "host": ["{{url}}tasks"],
                     "path": ["project", ""],
                     "query": [{
                         "key": "user",
-                        "value": ""
+                        "value": "akash,kiran_123"
                     }]
                 }
             },

@@ -78,6 +78,8 @@
         "react-facebook-sdk": "^1.1.1",
         "react-flexbox-grid": "^2.1.2",
         "react-ga": "^3.3.0",
+        "react-gantt": "^2.1.8",
+        "react-gantt-elastic": "^1.0.1",
         "react-google-login": "^5.2.2",
         "react-grid-layout": "^0.18.3",
         "react-grid-system": "^6.3.0",

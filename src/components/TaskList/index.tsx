@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
 import 'components/app.css'
-import { getMainTask, getProject } from 'utils/api';
+import { getMainTask } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
+import ReactGantt, { GanttRow } from 'react-gantt';
 
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from 'assets/add.svg'
@@ -13,7 +14,6 @@ import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog';
 import { useAuth } from 'store/authStore';
 import { useuserDetails } from 'store/userDetailsStore';
 import McInput from 'components/Common/McInput';
-import * as filter from 'assets/filter.png'
 import * as up_down_arrow from 'assets/up_down.svg'
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
@@ -40,19 +40,18 @@ const TaskList = (props: any) => {
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
 
-  const [project, setproject] = useState('')
   const [task, settask] = useState('')
+  const [users, setusers] = useState('all')
+  const [parent_child, setparent_child] = useState('')
+  const [project, setproject] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
-
-  const [users, setusers] = useState('all')
 
   const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [up_arrow, setup_arrow] = useState(true)
-  const [parent_child, setparent_child] = useState('')
 
   const isFirstRender = useRef(true)
 
@@ -61,7 +60,7 @@ const TaskList = (props: any) => {
       // console.log("NOT THE FIRST RENDER", isFirstRender.current)
       mainTask()
     }
-  }, [task, users, parent_child])
+  }, [task, users, parent_child, task_domain, task_priority])
 
   useEffect(() => {
     isFirstRender.current = false
@@ -88,13 +87,8 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, users, parent_child)
+    }, auth, task, users, parent_child, task_domain, task_priority)
   }
-
-  const onchange = (e: any) => {
-    // console.log("Selected option: ", e);
-    settask(e)
-  };
 
   const getClassname = (key: any) => {
     switch (key) {
@@ -351,10 +345,10 @@ const TaskList = (props: any) => {
                       value={task_domain}
                       onchange={settask_domain}
                       options={[
-                        { "key": "0", "value": "FRONT END" },
-                        { "key": "1", "value": "BACK END" },
-                        { "key": "0", "value": "UI" },
-                        { "key": "0", "value": "DEV OPS" }
+                        { "key": "0", "value": "FRONTEND" },
+                        { "key": "1", "value": "BACKEND" },
+                        { "key": "2", "value": "UI" },
+                        { "key": "3", "value": "DEV_OPS" }
                       ]}
                     />
                   </div>
@@ -370,9 +364,7 @@ const TaskList = (props: any) => {
                       valid={settask_picker_typevalid}
                       sendcheck={preSendValidator}
                       value={task}
-                      onchange={(e: string) => {
-                        onchange(e)
-                      }}
+                      onchange={settask}
                       options={[
                         { "key": "0", "value": "FEATURE" },
                         { "key": "1", "value": "TEST" },
@@ -392,29 +384,29 @@ const TaskList = (props: any) => {
                       valid={settask_picker_typevalid}
                       sendcheck={preSendValidator}
                       value={task_priority}
-                      onchange={() => {
-                        settask_priority
-                      }}
+                      onchange={settask_priority}
                       options={[
-                        { "key": "0", "value": "LOW" },
-                        { "key": "1", "value": "NORMAL" },
-                        { "key": "0", "value": "HIGH" },
-                        { "key": "0", "value": "URGENT" },
-                        { "key": "0", "value": "EMERGENCY" },
+                        { "key": "0", "value": "Low" },
+                        { "key": "1", "value": "Normal" },
+                        { "key": "0", "value": "High" },
+                        { "key": "0", "value": "Urgent" },
+                        { "key": "0", "value": "Emergency" },
                       ]}
                     />
                   </div>
                 </div>
 
                 <button className="taskfilter_button"
-                  onClick={() => { settask('') }}>Clear
+                  onClick={() => {
+                    settask('')
+                    settask_domain('')
+                    settask_priority('')
+                  }}>Clear
                 <div className="filter_icon_container">
                     {/* <img className='filter_icon' src={filter} /> */}
                   </div>
                 </button>
               </div>
-
-
 
               <Card
                 card_body={

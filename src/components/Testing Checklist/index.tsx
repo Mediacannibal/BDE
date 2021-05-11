@@ -220,7 +220,7 @@ const TestingChecklist = (props: any) => {
                 <option hidden value="">Project Name</option>
                 {
                   unique_project_ref.map((element) => {
-                    return <option value={element}>{element}</option>
+                    return <option key={element} value={element}>{element}</option>
                   })
                 }
               </select>

@@ -28,6 +28,7 @@ import ApiRecords from './Api Records';
 import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
+import DemoScreen from './DemoScreen';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -47,6 +48,7 @@ const dashboard_screen = [
   { path: '/ApiRecords', component: ApiRecords },
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
+  { path: '/DemoScreen', component: DemoScreen },
 ]
 
 const fullpage_screen = [
