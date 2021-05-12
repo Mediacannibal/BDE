@@ -29,6 +29,7 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import DemoScreen from './DemoScreen';
+import AppGantt from './ChatProcess/AppGantt';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -54,13 +55,14 @@ const dashboard_screen = [
 const fullpage_screen = [
   { path: '/', component: LoginScreen },
   { path: '/meetinghome/:url', component: Meetingvideo },
+  { path: '/AppGantt', component: AppGantt },
 ]
 
 const App = () => {
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
-  },[]);
+  }, []);
 
 
 
