@@ -37,11 +37,7 @@ export const queryReport = (props) => {
               endDate: format(new Date(endDate), "yyyy-MM-dd"),
             },
           ],
-          metrics: [
-            {
-              expression: metrics,
-            },
-          ],
+          metrics: metrics,
           dimensions: requestDimensions(dimensions),
           orderBys: orderBy
             ? [

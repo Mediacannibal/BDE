@@ -7,13 +7,11 @@ import {
   ChartTitle,
   Subtitle,
   DatepickerRow,
-} from "./styles";
-import CustomDatePicker from "./datepicker";
-import { queryReport } from "./queryReport";
-import { formatDate } from "./utils";
-import { queryReport1 } from 'utils/api';
-
-import { queryReport2 } from "./queryReport2";
+} from "../styles";
+import CustomDatePicker from "../datepicker";
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
+import { formatDate } from "../utils";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
 
 const DayVisitsReport = (props) => {
 

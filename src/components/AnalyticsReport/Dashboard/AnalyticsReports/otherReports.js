@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "./styles";
+import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "./datepicker";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "./styles";
-import '../App.css'
-import { queryReport } from "./queryReport";
-import { queryReport2 } from "./queryReport2";
-import { queryReport3 } from "./queryReport3";
-import Card from 'components/Common/Card';
+import CustomDatePicker from "../datepicker";
+import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
+import '../../App.css'
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
+import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
+import Card from '../../../Common/Card';
 
 const OtherReports = (props) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
@@ -778,25 +778,25 @@ const OtherReports = (props) => {
         //     7500
         // );
 
-        const request19 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:sessionsPerUser" },
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                // { expression: "ga:bounceRate" },
-                // { expression: "ga:sessionDuration" },
-                // { expression: "ga:avgSessionDuration" },
-            ],
-            dimensions: []
-        };
+        // const request19 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:sessionsPerUser" },
+        //         { expression: "ga:users" },
+        //         { expression: "ga:newUsers" },
+        //         // { expression: "ga:bounceRate" },
+        //         // { expression: "ga:sessionDuration" },
+        //         // { expression: "ga:avgSessionDuration" },
+        //     ],
+        //     dimensions: []
+        // };
         // setTimeout(
         //     () =>
-        queryReport3(request19)
-            .then((resp) => displayResults19(resp))
-            .catch((error) => console.error(error));
+        // queryReport3(request19)
+        //     .then((resp) => displayResults19(resp))
+        //     .catch((error) => console.error(error));
         //     7500
         // );
 

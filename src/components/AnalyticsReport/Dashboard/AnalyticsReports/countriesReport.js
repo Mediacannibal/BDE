@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "./styles";
+import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "./datepicker";
-import { queryReport } from "./queryReport";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "./styles";
+import CustomDatePicker from "../datepicker";
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
+import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
 
-import { queryReport2 } from "./queryReport2";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
 
 const CountriesReport = (props) => {
   const INITIAL_STATE = {
