@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { addDays, format } from "date-fns";
-import CustomDatePicker from "./datepicker";
-import { queryReport } from "./queryReport";
-import { formatDate, transformToDate } from "./utils";
+import CustomDatePicker from "../datepicker";
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
+import { formatDate, transformToDate } from "../utils";
 import {
   ChartTitle,
   ReportWrapper,
@@ -11,9 +11,8 @@ import {
   DatepickerRow,
   ChartWrapper,
   colors,
-} from "./styles";
-
-import { queryReport2 } from "./queryReport2";
+} from "../styles";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
 
 const SourceReport = (props) => {
   const INITIAL_STATE = {

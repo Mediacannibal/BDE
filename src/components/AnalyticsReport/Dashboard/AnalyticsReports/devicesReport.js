@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { addDays } from "date-fns";
 import { Doughnut } from "react-chartjs-2";
-import CustomDatePicker from "./datepicker";
-import { queryReport } from "./queryReport";
-import { ChartTitle, Subtitle, PieChartWrapper, colors } from "./styles";
-import { queryReport2 } from "./queryReport2";
+import CustomDatePicker from "../datepicker";
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
+import { ChartTitle, Subtitle, PieChartWrapper, colors } from "../styles";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
 
 const DevicesReport = (props) => {
   const INITIAL_STATE = {

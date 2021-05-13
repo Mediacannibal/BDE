@@ -7,14 +7,12 @@ import {
   ChartTitle,
   Subtitle,
   DatepickerRow,
-} from "./styles";
-import CustomDatePicker from "./datepicker";
-import { realtime_queryReport } from "./realtime_queryReport";
-import { formatDate } from "./utils";
-import { useAuth } from 'store/authStore';
-import { realtime } from 'utils/api';
-import '../../../components/app.css'
-import Card from 'components/Common/Card';
+} from "../styles";
+import CustomDatePicker from "../datepicker";
+import { realtime_queryReport } from "../AnalyticsReportingApi/realtime_queryReport";
+import { formatDate } from "../utils";
+import '../../../../components/app.css'
+import Card from '../../../Common/Card';
 
 const DayVisitsReport_realtime = (props) => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -10));
@@ -61,110 +59,110 @@ const DayVisitsReport_realtime = (props) => {
 
   useEffect(() => {
 
-    // const request = {
-    //   startDate,
-    //   endDate,
-    //   metrics: [
-    //     {
-    //       "name": "activeUsers"
-    //     },
-    //     {
-    //       "name": "conversions"
-    //     },
-    //     {
-    //       "name": "eventCount"
-    //     },
-    //     {
-    //       "name": "screenPageViews"
-    //     },
-    //   ],
-    //   dimensions: [
-    //     {
-    //       "name": "city"
-    //     },
-    //     {
-    //       "name": "cityId"
-    //     },
-    //     {
-    //       "name": "country"
-    //     },
-    //     {
-    //       "name": "countryId"
-    //     },
+    const request = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "city"
+        },
+        {
+          "name": "cityId"
+        },
+        {
+          "name": "country"
+        },
+        {
+          "name": "countryId"
+        },
 
-    //   ],
-    // };
-    // realtime_queryReport(request)
-    //   .then((resp) => displayResults(resp))
-    //   .catch((error) => console.error(error));
-
-
-    // const request2 = {
-    //   startDate,
-    //   endDate,
-    //   metrics: [
-    //     {
-    //       "name": "activeUsers"
-    //     },
-    //     {
-    //       "name": "conversions"
-    //     },
-    //     {
-    //       "name": "screenPageViews"
-    //     },
-    //   ],
-    //   dimensions: [
-    //     {
-    //       "name": "appVersion"
-    //     },
-    //     {
-    //       "name": "audienceId"
-    //     },
-    //     {
-    //       "name": "audienceName"
-    //     },
-    //     {
-    //       "name": "deviceCategory"
-    //     },
-    //   ],
-    // };
-    // realtime_queryReport(request2)
-    //   .then((resp) => displayResults2(resp))
-    //   .catch((error) => console.error(error));
+      ],
+    };
+    realtime_queryReport(request)
+      .then((resp) => displayResults(resp))
+      .catch((error) => console.error(error));
 
 
-    // const request3 = {
-    //   startDate,
-    //   endDate,
-    //   metrics: [
-    //     {
-    //       "name": "activeUsers"
-    //     },
-    //     {
-    //       "name": "conversions"
-    //     },
-    //     {
-    //       "name": "eventCount"
-    //     },
-    //     {
-    //       "name": "screenPageViews"
-    //     },
-    //   ],
-    //   dimensions: [
-    //     {
-    //       "name": "platform"
-    //     },
-    //     {
-    //       "name": "streamName"
-    //     },
-    //     {
-    //       "name": "unifiedScreenName"
-    //     }
-    //   ],
-    // };
-    // realtime_queryReport(request3)
-    //   .then((resp) => displayResults3(resp))
-    //   .catch((error) => console.error(error));
+    const request2 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "appVersion"
+        },
+        {
+          "name": "audienceId"
+        },
+        {
+          "name": "audienceName"
+        },
+        {
+          "name": "deviceCategory"
+        },
+      ],
+    };
+    realtime_queryReport(request2)
+      .then((resp) => displayResults2(resp))
+      .catch((error) => console.error(error));
+
+
+    const request3 = {
+      startDate,
+      endDate,
+      metrics: [
+        {
+          "name": "activeUsers"
+        },
+        {
+          "name": "conversions"
+        },
+        {
+          "name": "eventCount"
+        },
+        {
+          "name": "screenPageViews"
+        },
+      ],
+      dimensions: [
+        {
+          "name": "platform"
+        },
+        {
+          "name": "streamName"
+        },
+        {
+          "name": "unifiedScreenName"
+        }
+      ],
+    };
+    realtime_queryReport(request3)
+      .then((resp) => displayResults3(resp))
+      .catch((error) => console.error(error));
 
 
   }, [startDate, endDate]);

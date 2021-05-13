@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { addDays } from "date-fns";
-import CustomDatePicker from "./datepicker";
-import { queryReport } from "./queryReport";
+import CustomDatePicker from "../datepicker";
+import { queryReport } from "../AnalyticsReportingApi/queryReport";
 import {
   ChartTitle,
   ReportWrapper,
   Subtitle,
   DatepickerRow,
   StyledTable,
-} from "./styles";
-import { queryReport2 } from "./queryReport2";
+} from "../styles";
+import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
 
 const PageviewsReport = (props) => {
   const [reportData, setReportData] = useState([]);
