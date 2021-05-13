@@ -112,6 +112,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         { path: '/UserManagement', icon: team, title: 'Users' },
         { path: '/ApiRecords', icon: team, title: 'Api Records' },
         { path: '/report', icon: team, title: 'Analytics Report' },
+        { path: '/AppGantt', icon: team, title: 'Gantt Chart' },
     ]
 
     return (

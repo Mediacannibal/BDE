@@ -50,12 +50,12 @@ const dashboard_screen = [
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
   { path: '/DemoScreen', component: DemoScreen },
+  { path: '/AppGantt', component: AppGantt },
 ]
 
 const fullpage_screen = [
   { path: '/', component: LoginScreen },
   { path: '/meetinghome/:url', component: Meetingvideo },
-  { path: '/AppGantt', component: AppGantt },
 ]
 
 const App = () => {
