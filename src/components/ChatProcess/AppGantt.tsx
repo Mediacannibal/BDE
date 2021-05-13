@@ -4,13 +4,7 @@ import { getStartEndDateForProject, initTasks } from "./helper";
 // import "gantt-task-react/dist/index.css";
 import { Gantt } from "../ganttchart/components/gantt/gantt";
 import { ViewMode } from "../ganttchart/types/public-types";
-import type {
-  GanttProps,
-  Task,
-  StylingOption,
-  DisplayOption,
-  EventOption,
-} from "../ganttchart/types/public-types";
+import type { Task } from "../ganttchart/types/public-types";
 
 //Init
 const AppGantt = () => {
@@ -22,7 +16,7 @@ const AppGantt = () => {
     columnWidth = 300;
   } else if (view === ViewMode.Week) {
     columnWidth = 250;
-  }
+  } 
 
   const onTaskChange = (task: Task) => {
     console.log("On date change Id:" + task.id);
@@ -101,3 +95,4 @@ const AppGantt = () => {
 };
 
 export default AppGantt;
+1
