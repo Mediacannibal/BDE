@@ -52,22 +52,22 @@ const DashBoard = () => {
 
             <div className="tab_day_night2">
 
-              <div onClick={(e) => { handleClick(e) }} className={active ? "tab_active2" : "tab_inactive2"}
+              <div onClick={(e) => { handleClick(e) }} className={active === 0 ? "tab_active2" : "tab_inactive2"}
                 active={active === 0} id={0}
               >
                 User Data</div>
 
-              <div onClick={(e) => { handleClick(e) }} className={active ? "tab_inactive2" : "tab_active2"}
+              <div onClick={(e) => { handleClick(e) }} className={active === 1 ? "tab_inactive2" : "tab_active2"}
                 active={active === 1} id={1}
               >
                 Device Data</div>
 
-              <div onClick={(e) => { handleClick(e) }} className={active ? "tab_inactive2" : "tab_active2"}
+              <div onClick={(e) => { handleClick(e) }} className={active === 2 ? "tab_inactive2" : "tab_active2"}
                 active={active === 2} id={2}
               >
                 Website/Webapp/App Performance</div>
 
-              <div onClick={(e) => { handleClick(e) }} className={active ? "tab_inactive2" : "tab_active2"}
+              <div onClick={(e) => { handleClick(e) }} className={active === 3 ? "tab_inactive2" : "tab_active2"}
                 active={active === 3} id={3}
               >
                 Traffic Analysis</div>
