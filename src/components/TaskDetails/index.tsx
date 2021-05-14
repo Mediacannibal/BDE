@@ -34,14 +34,17 @@ const TaskDetails = () => {
   const [userinfo, setuserinfo] = useState('')
   const [chat_log_list, setchat_log_list] = useState([])
 
-
+const addtolist = (message:any) =>{
+  let a = chat_log_list
+  a.push(JSON.parse(String(message)))
+  setchat_log_list(a)
+}
   useEffect(() => {
-    chatSocket.onmessage = (e) => {
+    chatSocket.onmessage = async (e) => {
       var data = JSON.parse(e.data);
       var message = data['message'];
-      let a = chat_log_list
-      a.push(JSON.parse(message))
-      setchat_log_list(a)
+      await addtolist(message)
+      setchat_receive(message)
     };
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
@@ -106,29 +109,29 @@ const TaskDetails = () => {
 
               <div className="chat_container">
                 <div className="subtitle">CHAT</div>
-                
-                <div  className="chatbox">
+
+                <div className="chatbox">
                   {
-                    chat_log_list.map((object, index)=>{
-                      return(
-                        (String(userinfo.firstname + userinfo.lastname) === object.name)?
-                   <div className="message mymessage">    
-                  {
-                  object.name+"\n"+object.message_text+"\n"+object.time
-                   }
-                   </div>
-                   :
-                   <div className="message recievedmessage">    
-                   {
-                   object.name+"\n"+object.message_text+"\n"+object.time
-                    }
-                    </div>
-                    
+                    chat_log_list.map((object, index) => {
+                      return (
+                        (String(userinfo.firstname + userinfo.lastname) === object.name) ?
+                          <div className="message mymessage">
+                            {
+                              object.name + "\n" + object.message_text + "\n" + object.time
+                            }
+                          </div>
+                          :
+                          <div className="message recievedmessage">
+                            {
+                              object.name + "\n" + object.message_text + "\n" + object.time
+                            }
+                          </div>
+
                       )
                     })
                   }
                 </div>
-                
+
                 <div className="bottom_container">
                   <div className="icon_container" onClick={() => { }}>
                     <img className="iconimg" src={AttachmentImg} />
