@@ -34,8 +34,12 @@ const TaskDetails = () => {
 
   const addtolist = (message: any) => {
     let a = chat_log_list
-    a.push(JSON.parse(String(message)))
-    setchat_log_list(a.reverse())
+
+    a.push(JSON.parse(String(message)));
+
+    setchat_log_list(a.sort(function (a, b) {
+      return new Date(b.time) - new Date(a.time);
+    }))
   }
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
