@@ -22,6 +22,11 @@
     display: flex;
 }
 
+.chat_container {
+    display: flex;
+    flex-direction: column;
+}
+
 .chatbox {
     margin: 1vh 0;
     width: 100%;
@@ -30,6 +35,9 @@
     border-radius: 1vw;
     display: flex;
     flex-direction: column-reverse;
+    font-size: var(--TS6);
+    font-weight: 600;
+    text-align-last: start;
 }
 
 .column {
@@ -42,6 +50,8 @@
     background: cadetblue;
     display: flex;
     justify-content: space-evenly;
+    border-radius: calc(0.6vw + 0.6vh);
+    border-color: transparent;
 }
 
 .message_box {
@@ -58,6 +68,7 @@
     box-sizing: border-box;
     justify-self: center;
     align-self: center;
+    text-align-last: start;
 }
 
 .icon_container {
