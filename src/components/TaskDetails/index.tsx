@@ -8,8 +8,7 @@ import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { userInfo } from 'os';
+
 const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
 
 const TaskDetails = () => {
@@ -114,18 +113,22 @@ const TaskDetails = () => {
                     chat_log_list.map((object, index) => {
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
-                          <div className="message mymessage">
-                            {
-                              object.name + "\n" + object.message_text + "\n" + object.time
-                            }
-                          </div>
-                          :
-                          <div className="message recievedmessage">
-                            {
-                              object.name + "\n" + object.message_text + "\n" + object.time
-                            }
-                          </div>
 
+                          <div className="chat_mymessage_container">
+                            <div className="message mymessage">
+                              <div className="chat_user_name">{object.name}</div>
+                              <div className="chat_text_message">{object.message_text}</div>
+                            </div>
+                            <div className="chat_mymessage_time">{object.time}</div>
+                          </div >
+                          :
+                          <div className="chat_recievedmessage_container">
+                            <div className="message recievedmessage">
+                              <div className="chat_user_name">{object.name}</div>
+                              <div className="chat_text_message">{object.message_text}</div>
+                            </div>
+                            <div className="chat_recievedmessage_time">{object.time}</div>
+                          </div >
                       )
                     })
                   }
