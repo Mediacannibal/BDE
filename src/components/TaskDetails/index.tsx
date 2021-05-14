@@ -8,7 +8,9 @@ import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
-
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { userInfo } from 'os';
+const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
 
 const TaskDetails = () => {
   const { auth } = useAuth();
@@ -26,17 +28,27 @@ const TaskDetails = () => {
   const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
 
+
+  const [chat_now, setchat_now] = useState('')
+  const [chat_log, setchat_log] = useState('')
+  const [userinfo, setuserinfo] = useState('')
+
   useEffect(() => {
+    chatSocket.onmessage = (e) => {
+      var data = JSON.parse(e.data);
+      var message = data['message'];
+      setchat_log(String(document.getElementById('chatlog').value) + '\n' + message)
+    };
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
       setspinner(false)
-      let usertype1 = UserDetails.user_type
-      let user_id = UserDetails.user_id
+      setuserinfo(UserDetails)
       // console.log(screen, user_id, usertype1)
-      setusertype(usertype1)
-      setuserID(user_id)
+      setusertype(UserDetails.user_type)
+      setuserID(UserDetails.user_id)
     }
   }, [])
+
 
   return (
     <div className="main">
@@ -71,15 +83,28 @@ const TaskDetails = () => {
 
               <div className="chat_container">
                 <div className="subtitle">CHAT</div>
-                <div className="chatbox">
-                  <div className="bottom_container">
-                    <div className="icon_container" onClick={() => { }}>
-                      <img className="iconimg" src={AttachmentImg} />
-                    </div>
-                    <input className="message_box" placeholder="Type a message" />
-                    <div className="icon_container" onClick={() => { }}>
-                      <img className="iconimg" src={sendIcon} />
-                    </div>
+                <textarea id={"chatlog"} className="chatbox"
+                  value={String(chat_log)}>
+                </textarea>
+                <div className="bottom_container">
+                  <div className="icon_container" onClick={() => { }}>
+                    <img className="iconimg" src={AttachmentImg} />
+                  </div>
+                  <input className="message_box"
+                    placeholder="Type a message"
+                    type="text"
+                    onChange={(e) => { setchat_now(e.target.value) }}
+                    value={chat_now} />
+                  <div className="icon_container" onClick={(e) => {
+                    let message = chat_now
+                    chatSocket.send(JSON.stringify({
+                      'message': userinfo.firstname + ' ' + userinfo.lastname + ":" + message
+                    }));
+                    console.log(message);
+
+                    setchat_now("")
+                  }}>
+                    <img className="iconimg" src={sendIcon} />
                   </div>
                 </div>
 
