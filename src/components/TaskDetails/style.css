@@ -150,3 +150,22 @@
     margin: 1vh 3vh;
     align-self: flex-start;
 }
+
+.activity_selectedimage {
+    width: 100%;
+    padding: 1vh 0;
+}
+
+.attachments_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: calc(8.5vw + 24vh + 8.5vmin);
+    padding: calc(0.15vw + 0.45vh + 0.15vmin);
+    border-radius: calc(0.5vw + 0.3vh + 0.5vmin);
+    left: calc(10vw - 0vh - 3vmin);
+    width: 6vh;
+    height: 25vh;
+}
+
