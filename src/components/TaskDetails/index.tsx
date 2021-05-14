@@ -29,15 +29,19 @@ const TaskDetails = () => {
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
 
 
-  const [chat_now, setchat_now] = useState('')
-  const [chat_log, setchat_log] = useState('')
+  const [chat_send, setchat_send] = useState('')
+  const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
+  const [chat_log_list, setchat_log_list] = useState([])
+
 
   useEffect(() => {
     chatSocket.onmessage = (e) => {
       var data = JSON.parse(e.data);
       var message = data['message'];
-      setchat_log(String(document.getElementById('chatlog').value) + '\n' + message)
+      let a = chat_log_list
+      a.push(JSON.parse(message))
+      setchat_log_list(a)
     };
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
@@ -49,6 +53,25 @@ const TaskDetails = () => {
     }
   }, [])
 
+  const messageSend = () => {
+    let message = chat_send
+    let time = new Date()
+    chatSocket.send(JSON.stringify({
+      'message': JSON.stringify({
+        "name": userinfo.firstname + userinfo.lastname,
+        "message_text": message,
+        "time": String(time.toLocaleString()),
+      })
+    }));
+    console.log(message);
+    setchat_send("")
+  }
+
+  const handleKeyPress = (event: { key: string; }) => {
+    if (event.key === 'Enter') {
+      messageSend()
+    }
+  }
 
   return (
     <div className="main">
@@ -83,9 +106,29 @@ const TaskDetails = () => {
 
               <div className="chat_container">
                 <div className="subtitle">CHAT</div>
-                <textarea id={"chatlog"} className="chatbox"
-                  value={String(chat_log)}>
-                </textarea>
+                
+                <div  className="chatbox">
+                  {
+                    chat_log_list.map((object, index)=>{
+                      return(
+                        (String(userinfo.firstname + userinfo.lastname) === object.name)?
+                   <div className="message mymessage">    
+                  {
+                  object.name+"\n"+object.message_text+"\n"+object.time
+                   }
+                   </div>
+                   :
+                   <div className="message recievedmessage">    
+                   {
+                   object.name+"\n"+object.message_text+"\n"+object.time
+                    }
+                    </div>
+                    
+                      )
+                    })
+                  }
+                </div>
+                
                 <div className="bottom_container">
                   <div className="icon_container" onClick={() => { }}>
                     <img className="iconimg" src={AttachmentImg} />
@@ -93,17 +136,11 @@ const TaskDetails = () => {
                   <input className="message_box"
                     placeholder="Type a message"
                     type="text"
-                    onChange={(e) => { setchat_now(e.target.value) }}
-                    value={chat_now} />
-                  <div className="icon_container" onClick={(e) => {
-                    let message = chat_now
-                    chatSocket.send(JSON.stringify({
-                      'message': userinfo.firstname + ' ' + userinfo.lastname + ":" + message
-                    }));
-                    console.log(message);
-
-                    setchat_now("")
-                  }}>
+                    onChange={(e) => { setchat_send(e.target.value) }}
+                    value={chat_send}
+                    onKeyPress={handleKeyPress}
+                  />
+                  <div className="icon_container" onClick={(e) => { messageSend() }}>
                     <img className="iconimg" src={sendIcon} />
                   </div>
                 </div>

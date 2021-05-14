@@ -43,7 +43,7 @@ const TaskList = (props: any) => {
   const [task, settask] = useState('')
   const [users, setusers] = useState('all')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('')
+  const [project, setproject] = useState('1')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
@@ -87,7 +87,7 @@ const TaskList = (props: any) => {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
-    }, auth, task, users, parent_child, task_domain, task_priority)
+    }, auth, task, users, parent_child, task_domain, task_priority, project)
   }
 
   const getClassname = (key: any) => {
