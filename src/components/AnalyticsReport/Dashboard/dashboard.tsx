@@ -20,7 +20,7 @@ const DashBoard = () => {
 
   const [active, setActive] = useState(0);
   const handleClick = (e: any) => {
-    const index = parseInt(e.target.id, 0);
+    const index = parseInt(e.target.id);
     if (index !== active) {
       setActive(index);
     }

@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "../datepicker";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
-import { queryReport } from "../AnalyticsReportingApi/queryReport";
-import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
-import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
 import '../../App.css'
+import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
 import '../../../../components/app.css'
 import Card from '../../../Common/Card';
 
-const TrafficAnalysisReport = (props) => {
+const UserdataReports = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
     const [endDate, setEndDate] = useState(new Date());
 
@@ -52,7 +46,7 @@ const TrafficAnalysisReport = (props) => {
 
 
 
-    const displayResults = (response) => {
+    const displayResults = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders(response.result.reports[0].columnHeader.dimensions)
@@ -60,7 +54,7 @@ const TrafficAnalysisReport = (props) => {
         setData(response.result.reports[0].data.rows)
     };
 
-    const displayResults2 = (response) => {
+    const displayResults2 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders2(response.result.reports[0].columnHeader.dimensions)
@@ -68,7 +62,7 @@ const TrafficAnalysisReport = (props) => {
         setData2(response.result.reports[0].data.rows)
     };
 
-    const displayResults3 = (response) => {
+    const displayResults3 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders3(response.result.reports[0].columnHeader.dimensions)
@@ -76,7 +70,7 @@ const TrafficAnalysisReport = (props) => {
         setData3(response.result.reports[0].data.rows)
     };
 
-    const displayResults4 = (response) => {
+    const displayResults4 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders4(response.result.reports[0].columnHeader.dimensions)
@@ -84,7 +78,7 @@ const TrafficAnalysisReport = (props) => {
         setData4(response.result.reports[0].data.rows)
     };
 
-    const displayResults5 = (response) => {
+    const displayResults5 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders5(response.result.reports[0].columnHeader.dimensions)
@@ -92,7 +86,7 @@ const TrafficAnalysisReport = (props) => {
         setData5(response.result.reports[0].data.rows)
     };
 
-    const displayResults6 = (response) => {
+    const displayResults6 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders6(response.result.reports[0].columnHeader.dimensions)
@@ -100,7 +94,7 @@ const TrafficAnalysisReport = (props) => {
         setData6(response.result.reports[0].data.rows)
     };
 
-    const displayResults7 = (response) => {
+    const displayResults7 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders7(response.result.reports[0].columnHeader.dimensions)
@@ -108,7 +102,7 @@ const TrafficAnalysisReport = (props) => {
         setData7(response.result.reports[0].data.rows)
     };
 
-    const displayResults8 = (response) => {
+    const displayResults8 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders8(response.result.reports[0].columnHeader.dimensions)
@@ -129,18 +123,24 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
+                {
+                    expression: "ga:users"
+                },
+                {
+                    expression: "ga:newUsers"
+                },
+                {
+                    expression: "ga:sessionsPerUser"
+                },
             ],
-            dimensions: ["ga:date"]
+            dimensions: ["ga:date", "ga:hour", "ga:minute", "ga:userType"]
         };
         setTimeout(
             () =>
-                queryReport(request)
-                    .then((resp) => displayResults(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request)
+                    .then((resp: any) => displayResults(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
 
@@ -149,21 +149,18 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:sessionsPerUser" },
-                { expression: "ga:pageviews" },
-                { expression: "ga:pageviewsPerSession" },
-                { expression: "ga:uniquePageviews" },
-                { expression: "ga:avgSessionDuration" },
-                { expression: "ga:bounceRate" },
+                {
+                    expression: "ga:users"
+                },
             ],
-            dimensions: ["ga:date"]
+            dimensions: ["ga:date", "ga:daysSinceLastSession"]
         };
         setTimeout(
             () =>
-                queryReport(request2)
-                    .then((resp) => displayResults2(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request2)
+                    .then((resp: any) => displayResults2(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
         const request3 = {
@@ -171,18 +168,18 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:sessions" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:percentNewSessions" }
+                {
+                    expression: "ga:30dayUsers"
+                },
             ],
-            dimensions: ["ga:campaign", "ga:source", "ga:medium", "ga:sourceMedium"]
+            dimensions: ["ga:date", "ga:day"]
         };
         setTimeout(
             () =>
-                queryReport(request3)
-                    .then((resp) => displayResults3(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request3)
+                    .then((resp: any) => displayResults3(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
         const request4 = {
@@ -190,17 +187,18 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
+                { expression: "ga:users" },
+                { expression: "ga:bounceRate" },
+                { expression: "ga:sessionDuration" },
             ],
-            dimensions: ["ga:hostname", "ga:pagePath", "ga:landingPagePath", "ga:pageTitle"]
+            dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport(request4)
-                    .then((resp) => displayResults4(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request4)
+                    .then((resp: any) => displayResults4(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
         const request5 = {
@@ -216,10 +214,10 @@ const TrafficAnalysisReport = (props) => {
         };
         setTimeout(
             () =>
-                queryReport(request5)
-                    .then((resp) => displayResults5(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request5)
+                    .then((resp: any) => displayResults5(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
         const request6 = {
@@ -227,20 +225,18 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:pageviews" },
-                { expression: "ga:uniquePageviews" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:bounceRate" },
-                { expression: "ga:exitRate" },
+                { expression: "ga:users" },
+                { expression: "ga:newUsers" },
+                { expression: "ga:sessions" },
             ],
             dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport(request6)
-                    .then((resp) => displayResults6(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request6)
+                    .then((resp: any) => displayResults6(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
         const request7 = {
@@ -248,29 +244,43 @@ const TrafficAnalysisReport = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:pageviews" },
-                { expression: "ga:entranceRate" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:exitRate" },
+                { expression: "ga:users" },
+                { expression: "ga:newUsers" },
+                { expression: "ga:sessions" },
             ],
-            dimensions: ["ga:date"]
+            dimensions: ["ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro", "ga:city", "ga:longitude", "ga:latitude"]
         };
         setTimeout(
             () =>
-                queryReport(request7)
-                    .then((resp) => displayResults7(resp))
-                    .catch((error) => console.error(error)),
-            3500
+                queryReport3(request7)
+                    .then((resp: any) => displayResults7(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
         );
 
+        const request8 = {
+            viewID: props.viewID,
+            startDate,
+            endDate,
+            metrics: [
+                { expression: "ga:users" },
+            ],
+            dimensions: ["ga:userAgeBracket", "ga:userGender"]
+        };
+        setTimeout(
+            () =>
+                queryReport3(request8)
+                    .then((resp: any) => displayResults8(resp))
+                    .catch((error: any) => console.error(error)),
+            1500
+        );
 
     }, [startDate, endDate]);
 
 
 
 
-    const renderHeader2 = (element) => {
+    const renderHeader2 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -280,7 +290,7 @@ const TrafficAnalysisReport = (props) => {
     }
 
 
-    const renderHeader3 = (element) => {
+    const renderHeader3 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -289,12 +299,12 @@ const TrafficAnalysisReport = (props) => {
         )
     }
 
-    const renderBody3 = (element) => {
+    const renderBody3 = (element: any) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions?.map((obj) => <td>{obj}</td>)}
-                {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj: any) => <td>{obj}</td>)}
+                {element.metrics[0].values.map((obj: any) => <td>{obj}</td>)}
             </tr >
         )
     }
@@ -303,7 +313,7 @@ const TrafficAnalysisReport = (props) => {
     return (
         <>
             <Card
-                card_title="User Acquisition"
+                card_title="User Type"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -318,7 +328,7 @@ const TrafficAnalysisReport = (props) => {
 
 
             <Card
-                card_title="User engagement"
+                card_title="Days Since Last Session"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -332,7 +342,7 @@ const TrafficAnalysisReport = (props) => {
             />
 
             <Card
-                card_title="Traffic Acquisition"
+                card_title="Active Users"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -346,7 +356,7 @@ const TrafficAnalysisReport = (props) => {
             />
 
             <Card
-                card_title="Landing Pages"
+                card_title="User Bounce rate on the site"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -360,7 +370,7 @@ const TrafficAnalysisReport = (props) => {
             />
 
             <Card
-                card_title="User Behavior"
+                card_title="User Bounce rate on the site"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -374,7 +384,7 @@ const TrafficAnalysisReport = (props) => {
             />
 
             <Card
-                card_title="User Flow report"
+                card_title="User Acquisition"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -388,7 +398,7 @@ const TrafficAnalysisReport = (props) => {
             />
 
             <Card
-                card_title="Page visited"
+                card_title="User's Locations"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -401,8 +411,22 @@ const TrafficAnalysisReport = (props) => {
                 }
             />
 
+            <Card
+                card_title="Demographic Report"
+                card_body={
+                    <div className="internal_table">
+                        <table id='internal_table'>
+                            <thead>
+                                <tr>{dimensionheaders8?.map(renderHeader2)} {metriheaders8?.map(renderHeader3)} </tr>
+                            </thead>
+                            <tbody>{data8?.map(renderBody3)} </tbody>
+                        </table>
+                    </div>
+                }
+            />
+
         </>
     );
 
 };
-export default TrafficAnalysisReport;
+export default UserdataReports;

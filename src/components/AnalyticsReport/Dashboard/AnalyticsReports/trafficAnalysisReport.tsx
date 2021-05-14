@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "../datepicker";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
-import '../../App.css'
 import { queryReport } from "../AnalyticsReportingApi/queryReport";
-import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
-import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
+import '../../App.css'
 import '../../../../components/app.css'
 import Card from '../../../Common/Card';
 
-const UserdataReports = (props) => {
+const TrafficAnalysisReport = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
     const [endDate, setEndDate] = useState(new Date());
 
@@ -43,16 +37,9 @@ const UserdataReports = (props) => {
     const [dimensionheaders7, setdimensionheaders7] = useState([])
     const [data7, setData7] = useState([]);
 
-    const [metriheaders8, setmetriheaders8] = useState([])
-    const [dimensionheaders8, setdimensionheaders8] = useState([])
-    const [data8, setData8] = useState([]);
 
 
-
-
-
-
-    const displayResults = (response) => {
+    const displayResults = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders(response.result.reports[0].columnHeader.dimensions)
@@ -60,7 +47,7 @@ const UserdataReports = (props) => {
         setData(response.result.reports[0].data.rows)
     };
 
-    const displayResults2 = (response) => {
+    const displayResults2 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders2(response.result.reports[0].columnHeader.dimensions)
@@ -68,7 +55,7 @@ const UserdataReports = (props) => {
         setData2(response.result.reports[0].data.rows)
     };
 
-    const displayResults3 = (response) => {
+    const displayResults3 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders3(response.result.reports[0].columnHeader.dimensions)
@@ -76,7 +63,7 @@ const UserdataReports = (props) => {
         setData3(response.result.reports[0].data.rows)
     };
 
-    const displayResults4 = (response) => {
+    const displayResults4 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders4(response.result.reports[0].columnHeader.dimensions)
@@ -84,7 +71,7 @@ const UserdataReports = (props) => {
         setData4(response.result.reports[0].data.rows)
     };
 
-    const displayResults5 = (response) => {
+    const displayResults5 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders5(response.result.reports[0].columnHeader.dimensions)
@@ -92,7 +79,7 @@ const UserdataReports = (props) => {
         setData5(response.result.reports[0].data.rows)
     };
 
-    const displayResults6 = (response) => {
+    const displayResults6 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders6(response.result.reports[0].columnHeader.dimensions)
@@ -100,23 +87,13 @@ const UserdataReports = (props) => {
         setData6(response.result.reports[0].data.rows)
     };
 
-    const displayResults7 = (response) => {
+    const displayResults7 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders7(response.result.reports[0].columnHeader.dimensions)
         setmetriheaders7(response.result.reports[0].columnHeader.metricHeader.metricHeaderEntries)
         setData7(response.result.reports[0].data.rows)
     };
-
-    const displayResults8 = (response) => {
-        // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
-        // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
-        setdimensionheaders8(response.result.reports[0].columnHeader.dimensions)
-        setmetriheaders8(response.result.reports[0].columnHeader.metricHeader.metricHeaderEntries)
-        setData8(response.result.reports[0].data.rows)
-    };
-
-
 
 
 
@@ -129,24 +106,18 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                {
-                    expression: "ga:users"
-                },
-                {
-                    expression: "ga:newUsers"
-                },
-                {
-                    expression: "ga:sessionsPerUser"
-                },
+                { expression: "ga:users" },
+                { expression: "ga:newUsers" },
+                { expression: "ga:sessions" },
             ],
-            dimensions: ["ga:date", "ga:hour", "ga:minute", "ga:userType"]
+            dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport3(request)
-                    .then((resp) => displayResults(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request)
+                    .then((resp: any) => displayResults(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
 
@@ -155,18 +126,21 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                {
-                    expression: "ga:users"
-                },
+                { expression: "ga:sessionsPerUser" },
+                { expression: "ga:pageviews" },
+                { expression: "ga:pageviewsPerSession" },
+                { expression: "ga:uniquePageviews" },
+                { expression: "ga:avgSessionDuration" },
+                { expression: "ga:bounceRate" },
             ],
-            dimensions: ["ga:date", "ga:daysSinceLastSession"]
+            dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport3(request2)
-                    .then((resp) => displayResults2(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request2)
+                    .then((resp: any) => displayResults2(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
         const request3 = {
@@ -174,18 +148,18 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                {
-                    expression: "ga:30dayUsers"
-                },
+                { expression: "ga:sessions" },
+                { expression: "ga:newUsers" },
+                { expression: "ga:percentNewSessions" }
             ],
-            dimensions: ["ga:date", "ga:day"]
+            dimensions: ["ga:campaign", "ga:source", "ga:medium", "ga:sourceMedium"]
         };
         setTimeout(
             () =>
-                queryReport3(request3)
-                    .then((resp) => displayResults3(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request3)
+                    .then((resp: any) => displayResults3(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
         const request4 = {
@@ -193,18 +167,17 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:bounceRate" },
-                { expression: "ga:sessionDuration" },
+                { expression: "ga:newUsers" },
+                { expression: "ga:sessions" },
             ],
-            dimensions: ["ga:date"]
+            dimensions: ["ga:hostname", "ga:pagePath", "ga:landingPagePath", "ga:pageTitle"]
         };
         setTimeout(
             () =>
-                queryReport3(request4)
-                    .then((resp) => displayResults4(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request4)
+                    .then((resp: any) => displayResults4(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
         const request5 = {
@@ -220,10 +193,10 @@ const UserdataReports = (props) => {
         };
         setTimeout(
             () =>
-                queryReport3(request5)
-                    .then((resp) => displayResults5(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request5)
+                    .then((resp: any) => displayResults5(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
         const request6 = {
@@ -231,18 +204,20 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
+                { expression: "ga:pageviews" },
+                { expression: "ga:uniquePageviews" },
+                { expression: "ga:avgTimeOnPage" },
+                { expression: "ga:bounceRate" },
+                { expression: "ga:exitRate" },
             ],
             dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport3(request6)
-                    .then((resp) => displayResults6(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request6)
+                    .then((resp: any) => displayResults6(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
         const request7 = {
@@ -250,43 +225,29 @@ const UserdataReports = (props) => {
             startDate,
             endDate,
             metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
+                { expression: "ga:pageviews" },
+                { expression: "ga:entranceRate" },
+                { expression: "ga:avgTimeOnPage" },
+                { expression: "ga:avgTimeOnPage" },
+                { expression: "ga:exitRate" },
             ],
-            dimensions: ["ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro", "ga:city", "ga:longitude", "ga:latitude"]
+            dimensions: ["ga:date"]
         };
         setTimeout(
             () =>
-                queryReport3(request7)
-                    .then((resp) => displayResults7(resp))
-                    .catch((error) => console.error(error)),
-            1500
+                queryReport(request7)
+                    .then((resp: any) => displayResults7(resp))
+                    .catch((error: any) => console.error(error)),
+            3500
         );
 
-        const request8 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:users" },
-            ],
-            dimensions: ["ga:userAgeBracket", "ga:userGender"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request8)
-                    .then((resp) => displayResults8(resp))
-                    .catch((error) => console.error(error)),
-            1500
-        );
 
     }, [startDate, endDate]);
 
 
 
 
-    const renderHeader2 = (element) => {
+    const renderHeader2 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -296,7 +257,7 @@ const UserdataReports = (props) => {
     }
 
 
-    const renderHeader3 = (element) => {
+    const renderHeader3 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -305,12 +266,12 @@ const UserdataReports = (props) => {
         )
     }
 
-    const renderBody3 = (element) => {
+    const renderBody3 = (element: any) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions?.map((obj) => <td>{obj}</td>)}
-                {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj: any) => <td>{obj}</td>)}
+                {element.metrics[0].values.map((obj: any) => <td>{obj}</td>)}
             </tr >
         )
     }
@@ -319,7 +280,7 @@ const UserdataReports = (props) => {
     return (
         <>
             <Card
-                card_title="User Type"
+                card_title="User Acquisition"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -334,7 +295,7 @@ const UserdataReports = (props) => {
 
 
             <Card
-                card_title="Days Since Last Session"
+                card_title="User engagement"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -348,7 +309,7 @@ const UserdataReports = (props) => {
             />
 
             <Card
-                card_title="Active Users"
+                card_title="Traffic Acquisition"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -362,7 +323,7 @@ const UserdataReports = (props) => {
             />
 
             <Card
-                card_title="User Bounce rate on the site"
+                card_title="Landing Pages"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -376,7 +337,7 @@ const UserdataReports = (props) => {
             />
 
             <Card
-                card_title="User Bounce rate on the site"
+                card_title="User Behavior"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -390,7 +351,7 @@ const UserdataReports = (props) => {
             />
 
             <Card
-                card_title="User Acquisition"
+                card_title="User Flow report"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -404,7 +365,7 @@ const UserdataReports = (props) => {
             />
 
             <Card
-                card_title="User's Locations"
+                card_title="Page visited"
                 card_body={
                     <div className="internal_table">
                         <table id='internal_table'>
@@ -417,22 +378,8 @@ const UserdataReports = (props) => {
                 }
             />
 
-            <Card
-                card_title="Demographic Report"
-                card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders8?.map(renderHeader2)} {metriheaders8?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data8?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
-                }
-            />
-
         </>
     );
 
 };
-export default UserdataReports;
+export default TrafficAnalysisReport;

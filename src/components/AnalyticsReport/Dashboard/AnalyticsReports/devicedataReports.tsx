@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "../datepicker";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
 import '../../App.css'
 import { queryReport } from "../AnalyticsReportingApi/queryReport";
-import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
-import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
 import Card from '../../../Common/Card';
 
-const DevicedataReports = (props) => {
+const DevicedataReports = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
     const [endDate, setEndDate] = useState(new Date());
 
@@ -27,7 +21,7 @@ const DevicedataReports = (props) => {
     const [data3, setData3] = useState([]);
 
 
-    const displayResults = (response) => {
+    const displayResults = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders(response.result.reports[0].columnHeader.dimensions)
@@ -35,7 +29,7 @@ const DevicedataReports = (props) => {
         setData(response.result.reports[0].data.rows)
     };
 
-    const displayResults2 = (response) => {
+    const displayResults2 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders2(response.result.reports[0].columnHeader.dimensions)
@@ -43,7 +37,7 @@ const DevicedataReports = (props) => {
         setData2(response.result.reports[0].data.rows)
     };
 
-    const displayResults3 = (response) => {
+    const displayResults3 = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders3(response.result.reports[0].columnHeader.dimensions)
@@ -68,8 +62,8 @@ const DevicedataReports = (props) => {
         setTimeout(
             () =>
                 queryReport(request)
-                    .then((resp) => displayResults(resp))
-                    .catch((error) => console.error(error)),
+                    .then((resp: any) => displayResults(resp))
+                    .catch((error: any) => console.error(error)),
             4500
         );
 
@@ -86,8 +80,8 @@ const DevicedataReports = (props) => {
         setTimeout(
             () =>
                 queryReport(request2)
-                    .then((resp) => displayResults2(resp))
-                    .catch((error) => console.error(error)),
+                    .then((resp: any) => displayResults2(resp))
+                    .catch((error: any) => console.error(error)),
             4500
         );
 
@@ -103,8 +97,8 @@ const DevicedataReports = (props) => {
         setTimeout(
             () =>
                 queryReport(request3)
-                    .then((resp) => displayResults3(resp))
-                    .catch((error) => console.error(error)),
+                    .then((resp: any) => displayResults3(resp))
+                    .catch((error: any) => console.error(error)),
             4500
         );
 
@@ -113,7 +107,7 @@ const DevicedataReports = (props) => {
 
 
 
-    const renderHeader2 = (element) => {
+    const renderHeader2 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -123,7 +117,7 @@ const DevicedataReports = (props) => {
     }
 
 
-    const renderHeader3 = (element) => {
+    const renderHeader3 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -132,12 +126,12 @@ const DevicedataReports = (props) => {
         )
     }
 
-    const renderBody3 = (element) => {
+    const renderBody3 = (element: any) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions?.map((obj) => <td>{obj}</td>)}
-                {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj: any) => <td>{obj}</td>)}
+                {element.metrics[0].values.map((obj: any) => <td>{obj}</td>)}
             </tr >
         )
     }

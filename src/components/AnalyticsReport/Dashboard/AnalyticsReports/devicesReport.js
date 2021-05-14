@@ -58,20 +58,20 @@ const DevicesReport = (props) => {
   };
 
   useEffect(() => {
-    // const request = {
-    //   viewID: props.viewID,
-    //   startDate,
-    //   endDate,
-    //   metrics: "ga:users",
-    //   dimensions: ["ga:deviceCategory"],
-    // };
-    // setTimeout(
-    //   () =>
-    //     queryReport2(request)
-    //       .then((resp) => displayResults(resp))
-    //       .catch((error) => console.error(error)),
-    //   5500
-    // );
+    const request = {
+      viewID: props.viewID,
+      startDate,
+      endDate,
+      metrics: "ga:users",
+      dimensions: ["ga:deviceCategory"],
+    };
+    setTimeout(
+      () =>
+        queryReport2(request)
+          .then((resp) => displayResults(resp))
+          .catch((error) => console.error(error)),
+      5500
+    );
   }, [startDate, endDate]);
 
   return (
