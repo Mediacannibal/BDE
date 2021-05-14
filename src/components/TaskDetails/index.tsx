@@ -28,17 +28,16 @@ const TaskDetails = () => {
   const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
 
-
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
   const [chat_log_list, setchat_log_list] = useState([])
 
-const addtolist = (message:any) =>{
-  let a = chat_log_list
-  a.push(JSON.parse(String(message)))
-  setchat_log_list(a)
-}
+  const addtolist = (message: any) => {
+    let a = chat_log_list
+    a.push(JSON.parse(String(message)))
+    setchat_log_list(a.reverse())
+  }
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
       var data = JSON.parse(e.data);

@@ -38,6 +38,7 @@
     font-size: var(--TS6);
     font-weight: 600;
     text-align-last: start;
+    overflow-y: scroll;
 }
 
 .column {
