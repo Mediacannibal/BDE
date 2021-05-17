@@ -31,7 +31,7 @@
     margin: 0;
     width: 100%;
     background: antiquewhite;
-    height: 37vh;
+    height: 60vh;
     border-radius: 1vw;
     display: flex;
     flex-direction: column-reverse;
@@ -163,7 +163,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     position: absolute;
-    top: calc(8.5vw + 24vh + 8.5vmin);
+    bottom: calc(2vw + 6vh + 2vmin);
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     border-radius: calc(0.5vw + 0.3vh + 0.5vmin);
     left: calc(10vw - 0vh - 3vmin);
@@ -187,6 +187,7 @@
 
 .chat_doc_container {
     display: flex;
+    justify-content: space-evenly;
 }
 
 .chat_file_name {
@@ -202,13 +203,22 @@
     height: 5vh;
 }
 
-/* .chat_select_image {
+.chat_select_image {
     display: flex;
     position: absolute;
     width: 100%;
     background-color: black;
     z-index: 100;
-    padding: 5vh 0px;
-    margin: 3vh 0px;
-    height: 10vh;
-} */
+    padding: 5vh 0;
+    margin: 3vh 0;
+    height: 12vh;
+    opacity: 0.2;
+}
+
+.chat_image_download {
+    height: 4vh;
+    position: absolute;
+    z-index: 500;
+    margin: 12vh;
+    width: 10vw;
+}

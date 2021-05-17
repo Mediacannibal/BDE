@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
+import Webcam from "react-webcam";
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
@@ -41,12 +42,12 @@ const TaskDetails = () => {
   const [userinfo, setuserinfo] = useState('')
   const [chat_log_list, setchat_log_list] = useState(
     [
-      {
-        content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
-        message_type: "docs",
-        name: "KiranRaj",
-        time: "5/14/2021, 8:28:05 PM"
-      }
+      // {
+      //   content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
+      //   message_type: "docs",
+      //   name: "KiranRaj",
+      //   time: "5/14/2021, 8:28:05 PM"
+      // }
     ])
   const [dataUri, setDataUri] = useState('');
 
@@ -123,7 +124,7 @@ const TaskDetails = () => {
     }
   }
 
-  const onButtonClick = () => {
+  const onClickDocs = () => {
     // `current` points to the mounted file input element
     inputFile.current.click();
   };
@@ -153,6 +154,20 @@ const TaskDetails = () => {
     }
   };
 
+  // const WebcamCapture = () => {
+  //   const webcamRef = React.useRef(null);
+
+  //   const capture = React.useCallback(
+  //     () => {
+  //       const imageSrc = webcamRef.current.getScreenshot();
+  //     },
+  //     [webcamRef]
+  //   );
+
+  //   const videoConstraints = {
+  //     facingMode: "user"
+  //   };
+  // }
   return (
     <div className="main">
       <div className="body">
@@ -212,10 +227,14 @@ const TaskDetails = () => {
                                   {
                                     object.message_type == "image" ?
                                       <>
-                                        <div className='chat_select_image'></div>
                                         <img className='activity_selectedimage' src={object.content} />
+                                        <div className="chat_doc_container">
+                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
+                                          <img className='chat_doc_icon' src={download} onClick={() => {
+                                            window.open(object.content)
+                                          }} />
+                                        </div>
                                       </>
-
                                       :
                                       <div className="chat_doc_upload recievedmessage">
                                         <div className="chat_doc_container">
@@ -244,14 +263,24 @@ const TaskDetails = () => {
                                 <>
                                   {
                                     object.message_type == "image" ?
-                                      <img className='activity_selectedimage' src={object.content} />
+                                      <>
+                                        <img className='activity_selectedimage' src={object.content} />
+                                        <div className="chat_doc_container">
+                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
+                                          <img className='chat_doc_icon' src={download} onClick={() => {
+                                            window.open(object.content);
+                                          }} />
+                                        </div>
+                                      </>
                                       :
                                       <div className="chat_doc_upload" >
                                         <div className="chat_doc_container">
                                           <img className='chat_doc_icon' src={document} />
-                                          <div className='chat_file_name'>file name</div>
+                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
                                         </div>
-                                        <img className='chat_doc_icon' src={download} />
+                                        <img className='chat_doc_icon' src={download} onClick={() => {
+                                          window.open(object.content)
+                                        }} />
                                       </div>
                                   }
                                 </>
@@ -290,10 +319,22 @@ const TaskDetails = () => {
                 {Attachments &&
                   <div className="attachments_container">
                     <img className="iconimg" src={camera} />
-                    <img className="iconimg" src={document} />
-                    <img className="iconimg" src={gallery} onClick={() => { onButtonClick() }} />
+                    <img className="iconimg" src={document} onClick={() => { onClickDocs() }} />
+                    <img className="iconimg" src={gallery} onClick={() => { onClickDocs() }} />
                   </div>
                 }
+
+                {/* <div>
+                  <Webcam
+                    audio={false}
+                    height={720}
+                    // ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    width={1280}
+                  // videoConstraints={videoConstraints}
+                  />
+                  <button onClick={WebcamCapture()}>Capture photo</button>
+                </div> */}
 
                 <div>
                   {/* Do not delete this code >>>>> This is a image editor */}
