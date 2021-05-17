@@ -61,6 +61,8 @@ const TaskDetails = () => {
 
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
+      console.log(">>>>>>>>>>>>>>",e.data);
+      
       var data = JSON.parse(e.data);
       var message = data['message'];
       await addtolist(message)
@@ -181,6 +183,7 @@ const TaskDetails = () => {
                     //{name:"sdfasdf"}
 
                     chat_log_list.map((object, index) => {
+                      // console.log('chat_log_list',chat_log_list);
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 
@@ -209,7 +212,9 @@ const TaskDetails = () => {
                           <div className="chat_recievedmessage_container">
                             <div className="message recievedmessage">
                               <div className="chat_user_name">{object.name}</div>
-                              <div className="chat_text_message">{object.content}</div>
+                              <div className="chat_text_message">
+                                  {object.message_text}
+                                </div>
                             </div>
                             <div className="chat_recievedmessage_time">{object.time}</div>
                           </div >
