@@ -38,14 +38,7 @@ const TaskDetails = () => {
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
-  const [chat_log_list, setchat_log_list] = useState([
-    {
-      // content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
-      // message_type: "image",
-      // name: "KiranRaj",
-      // time: "5/14/2021, 8:28:05 PM"
-    }
-  ])
+  const [chat_log_list, setchat_log_list] = useState([])
   const [dataUri, setDataUri] = useState('');
 
   const addtolist = (message: any) => {
@@ -61,8 +54,7 @@ const TaskDetails = () => {
 
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
-      console.log(">>>>>>>>>>>>>>",e.data);
-      
+      // console.log(">>>>>>>>>>>>>>", e.data);
       var data = JSON.parse(e.data);
       var message = data['message'];
       await addtolist(message)
@@ -213,8 +205,8 @@ const TaskDetails = () => {
                             <div className="message recievedmessage">
                               <div className="chat_user_name">{object.name}</div>
                               <div className="chat_text_message">
-                                  {object.message_text}
-                                </div>
+                                {object.message_text}
+                              </div>
                             </div>
                             <div className="chat_recievedmessage_time">{object.time}</div>
                           </div >
