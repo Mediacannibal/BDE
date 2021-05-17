@@ -7,6 +7,7 @@ import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 import * as document from '../../assets/document.svg'
 import * as gallery from '../../assets/gallery.svg'
 import * as camera from '../../assets/camera.svg'
+import * as download from '../../assets/download.svg'
 
 import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
@@ -38,7 +39,15 @@ const TaskDetails = () => {
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
-  const [chat_log_list, setchat_log_list] = useState([])
+  const [chat_log_list, setchat_log_list] = useState(
+    [
+      {
+        content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
+        message_type: "docs",
+        name: "KiranRaj",
+        time: "5/14/2021, 8:28:05 PM"
+      }
+    ])
   const [dataUri, setDataUri] = useState('');
 
   const addtolist = (message: any) => {
@@ -49,7 +58,6 @@ const TaskDetails = () => {
     setchat_log_list(a.sort(function (a, b) {
       return new Date(b.time) - new Date(a.time);
     }))
-    // [8,2,2,1]
   }
 
   useEffect(() => {
@@ -86,6 +94,14 @@ const TaskDetails = () => {
     setchat_send("")
   }
 
+  const getfilename = (url) => {
+    let a = "filename";
+    let temp = String(url).split('/')
+    // "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
+    // "[https:,,trtappfiles.s3.amazonaws.com,file,files,Screenshot_2.png],=7-1
+    a = temp[temp.length - 1]
+    return a
+  }
   const docSend = (type: any, url: any) => {
     let message = chat_send
     let time = new Date()
@@ -116,15 +132,20 @@ const TaskDetails = () => {
     // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
+    // console.log(data.target.files[0].type);
+
     formdata.append("file", filedata)
-    fileupload(Callback, auth, formdata)
+    fileupload(Callback, auth, formdata, data.target.files[0])
   }
 
-  const Callback = async (data: any, errorresponse: any) => {
+  const Callback = async (data: any, errorresponse: any, file: any) => {
     if (data.status === 200) {
       // console.log("respnse :", data.data.result.file_url)
       setDataUri(data.data.result.file_url)
-      docSend("image", data.data.result.file_url)
+      let a = "image"
+      if (file.type !== "image/png")
+        a = "docs"
+      docSend(a, data.data.result.file_url)
     }
     else {
       console.log('error ' + JSON.stringify(data));
@@ -175,7 +196,7 @@ const TaskDetails = () => {
                     //{name:"sdfasdf"}
 
                     chat_log_list.map((object, index) => {
-                      // console.log('chat_log_list',chat_log_list);
+                      console.log('chat_log_list', chat_log_list);
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 
@@ -190,9 +211,20 @@ const TaskDetails = () => {
                                 <>
                                   {
                                     object.message_type == "image" ?
-                                      <img className='activity_selectedimage' src={object.content} />
+                                      <>
+                                        <div className='chat_select_image'></div>
+                                        <img className='activity_selectedimage' src={object.content} />
+                                      </>
+
                                       :
-                                      <div>
+                                      <div className="chat_doc_upload recievedmessage">
+                                        <div className="chat_doc_container">
+                                          <img className='chat_doc_icon' src={document} />
+                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
+                                        </div>
+                                        <img className='chat_doc_icon' src={download} onClick={() => {
+                                          window.open(object.content)
+                                        }} />
                                       </div>
                                   }
                                 </>
@@ -204,9 +236,26 @@ const TaskDetails = () => {
                           <div className="chat_recievedmessage_container">
                             <div className="message recievedmessage">
                               <div className="chat_user_name">{object.name}</div>
-                              <div className="chat_text_message">
-                                {object.message_text}
-                              </div>
+                              {object.message_type == "text" ?
+                                <div className="chat_text_message">
+                                  {object.content}
+                                </div>
+                                :
+                                <>
+                                  {
+                                    object.message_type == "image" ?
+                                      <img className='activity_selectedimage' src={object.content} />
+                                      :
+                                      <div className="chat_doc_upload" >
+                                        <div className="chat_doc_container">
+                                          <img className='chat_doc_icon' src={document} />
+                                          <div className='chat_file_name'>file name</div>
+                                        </div>
+                                        <img className='chat_doc_icon' src={download} />
+                                      </div>
+                                  }
+                                </>
+                              }
                             </div>
                             <div className="chat_recievedmessage_time">{object.time}</div>
                           </div >
@@ -247,6 +296,8 @@ const TaskDetails = () => {
                 }
 
                 <div>
+                  {/* Do not delete this code >>>>> This is a image editor */}
+
                   {/* <Launcher
                 agentProfile={{
                   teamName: 'react-chat-window',

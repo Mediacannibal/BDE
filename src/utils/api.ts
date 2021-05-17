@@ -486,12 +486,12 @@ export const getDataerrorlog = (callback: (arg0: any, arg1: string) => void, tok
     .catch(err => callback(err, err.response))
 }
 
-export const fileupload = (callback: (arg0: any, arg1: string) => void, token: any, data: any) => {
+export const fileupload = (callback:any, token: any, data: any, file: any) => {
   instance.post(`tasks/file/uploaded/`, data, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
     }
-  }).then((res) => { callback(res, 'sucess') })
-    .catch(err => callback(err, err.response))
+  }).then((res) => { callback(res, 'sucess',file) })
+    .catch(err => callback(err, err.response,file))
 }
