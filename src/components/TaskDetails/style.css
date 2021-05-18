@@ -31,7 +31,7 @@
     margin: 0;
     width: 100%;
     background: antiquewhite;
-    height: 37vh;
+    height: 60vh;
     border-radius: 1vw;
     display: flex;
     flex-direction: column-reverse;
@@ -103,6 +103,7 @@
     font-weight: 600;
     color: var(--color_2);
     text-align: center;
+    position: relative;
 }
 
 .mymessage {
@@ -154,6 +155,7 @@
 .activity_selectedimage {
     width: 100%;
     padding: 1vh 0;
+    z-index: 0;
 }
 
 .attachments_container {
@@ -161,7 +163,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     position: absolute;
-    top: calc(8.5vw + 24vh + 8.5vmin);
+    bottom: calc(2vw + 6vh + 2vmin);
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     border-radius: calc(0.5vw + 0.3vh + 0.5vmin);
     left: calc(10vw - 0vh - 3vmin);
@@ -169,3 +171,54 @@
     height: 25vh;
 }
 
+/* doc file upload */
+
+.chat_doc_upload {
+    display: flex;
+    width: 100%;
+    height: 7vh;
+    border-radius: calc(0.6vw + 0.6vh);
+    border-color: transparent;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5vh 0;
+}
+
+.chat_doc_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.chat_file_name {
+    align-self: center;
+}
+
+.chat_doc_icon {
+    height: 3.5vh;
+    padding: 1vh;
+}
+
+.chat_download_icon {
+    height: 5vh;
+}
+
+.chat_select_image {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    background-color: black;
+    z-index: 100;
+    padding: 5vh 0;
+    margin: 3vh 0;
+    height: 12vh;
+    opacity: 0.2;
+}
+
+.chat_image_download {
+    height: 4vh;
+    position: absolute;
+    z-index: 500;
+    margin: 12vh;
+    width: 10vw;
+}
