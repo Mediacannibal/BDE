@@ -222,3 +222,18 @@
     margin: 12vh;
     width: 10vw;
 }
+
+.iqGwYi {
+    width: 100% !important;
+    /* position: absolute !important; */
+    display: flex !important;
+    top: 31vh !important;
+} 
+
+.dDQiSh {
+    position: unset !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
