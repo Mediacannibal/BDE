@@ -228,7 +228,7 @@
     /* position: absolute !important; */
     display: flex !important;
     top: 31vh !important;
-} 
+}
 
 .dDQiSh {
     position: unset !important;
@@ -236,4 +236,18 @@
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
+}
+
+.eaYxIY {
+    width: 60% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 0 !important;
+    -webkit-transform: rotateY( 180deg) !important;
+   
+}
+
+.camera_img_preview{
+    width: 30vw;
+    height: 30vh;
 }

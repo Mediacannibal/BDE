@@ -7,7 +7,7 @@ import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
 import * as document from '../../assets/document.svg'
 import * as gallery from '../../assets/gallery.svg'
-import * as camera from '../../assets/camera.svg'
+import * as cameraicon from '../../assets/camera.svg'
 import * as download from '../../assets/download.svg'
 
 import { ProgressBar } from 'components/Common/Spinner';
@@ -23,8 +23,9 @@ const TaskDetails = () => {
   const history = useHistory();
   const inputFile = useRef(true);
   const camera = useRef(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
   const [iscamera, setiscamera] = useState(false)
+  const [imgPreview, setimgPreview] = useState(false)
 
   const [spinner, setspinner] = useState(true)
 
@@ -32,6 +33,7 @@ const TaskDetails = () => {
   const [userID, setuserID] = useState("")
 
   const [Attachments, setAttachments] = useState(false)
+  const [photoMessagesend, setphotoMessagesend] = useState(false)
 
   const [tasknameinput, settasknameinput] = useState(false)
   const [taskpriorityinput, settaskpriorityinput] = useState(false)
@@ -39,11 +41,11 @@ const TaskDetails = () => {
   const [taskasigneeinput, settaskasigneeinput] = useState(false)
   const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
-  const [Screenshot, setScreenshot] = useState({ width: 1920, height: 1080 })
 
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
+  const [photo_send, setphoto_send] = useState('')
   const [chat_log_list, setchat_log_list] = useState(
     [
       // {
@@ -86,6 +88,7 @@ const TaskDetails = () => {
 
   const messageSend = () => {
     let message = chat_send
+    let photo = photo_send
     let time = new Date()
     chatSocket.send(JSON.stringify({
       'message': JSON.stringify({
@@ -93,6 +96,24 @@ const TaskDetails = () => {
         "time": String(time.toLocaleString()),
         "message_type": "text",
         "content": message,
+        "photo": photo,
+      })
+    }));
+    console.log(message);
+    setchat_send("")
+  }
+
+  const photoSend = () => {
+    let message = chat_send
+    let photo = photo_send
+    let time = new Date()
+    chatSocket.send(JSON.stringify({
+      'message': JSON.stringify({
+        "name": userinfo.firstname + userinfo.lastname,
+        "time": String(time.toLocaleString()),
+        "message_type": "image",
+        "content": message,
+        "photo": photo,
       })
     }));
     console.log(message);
@@ -201,7 +222,7 @@ const TaskDetails = () => {
                     //{name:"sdfasdf"}
 
                     chat_log_list.map((object, index) => {
-                      console.log('chat_log_list', chat_log_list);
+                      console.log('chat_log_list', chat_log_list, object);
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 
@@ -209,15 +230,18 @@ const TaskDetails = () => {
                             <div className="message mymessage">
                               <div className="chat_user_name">{object.name}</div>
                               {object.message_type == "text" ?
-                                <div className="chat_text_message">
-                                  {object.content}
-                                </div>
+                                <>
+                                  <div className="chat_text_message">
+                                    {object.content}
+                                  </div>
+                                </>
                                 :
                                 <>
                                   {
                                     object.message_type == "image" ?
                                       <>
                                         <img className='activity_selectedimage' src={object.content} />
+                                        <img className='activity_selectedimage' src={object.photo} />
                                         <div className="chat_doc_container">
                                           <div className='chat_file_name'>{getfilename(object.content)}</div>
                                           <img className='chat_doc_icon' src={download} onClick={() => {
@@ -290,7 +314,8 @@ const TaskDetails = () => {
                       <input id="myInput"
                         type="file"
                         onChange={(ref) => _onChangeHandler(ref)}
-                        ref={inputFile} />
+                        ref={inputFile}
+                      />
                     </div>
                   </>
 
@@ -301,14 +326,26 @@ const TaskDetails = () => {
                     value={chat_send}
                     onKeyPress={handleKeyPress}
                   />
-                  <div className="icon_container" onClick={(e) => { messageSend() }}>
-                    <img className="iconimg" src={sendIcon} />
-                  </div>
+
+                  {photoMessagesend ?
+                    <div className="icon_container" onClick={(e) => {
+                      photoSend()
+                      setimgPreview(false)
+                    }}>
+                      <img className="iconimg" src={sendIcon} />
+                    </div>
+                    :
+                    <div className="icon_container" onClick={(e) => {
+                      messageSend()
+                    }}>
+                      <img className="iconimg" src={sendIcon} />
+                    </div>
+                  }
                 </div>
 
                 {Attachments &&
                   <div className="attachments_container">
-                    <img className="iconimg" src={camera} onClick={() => { setiscamera(!iscamera) }} />
+                    <img className="iconimg" src={cameraicon} onClick={() => { setiscamera(!iscamera) }} />
                     <img className="iconimg" src={document} onClick={() => { onClickDocs() }} />
                     <img className="iconimg" src={gallery} onClick={() => { onClickDocs() }} />
                   </div>
@@ -317,9 +354,27 @@ const TaskDetails = () => {
                 {iscamera &&
                   <div>
                     <Camera ref={camera} />
-                    <button onClick={() => setImage(camera.current.takePhoto())}>Take photo</button>
-                    <img src={image} alt='Taken photo' />
+                    <button onClick={(e) => {
+
+                      console.log(camera.current.takePhoto());
+                      setImage(camera.current.takePhoto())
+                      setphoto_send(camera.current.takePhoto())
+                      setiscamera(false);
+                      setimgPreview(true)
+                    }}
+                    >Take photo
+                    </button>
                   </div>
+                }
+
+                {imgPreview &&
+                  <>
+                    <img className="camera_img_preview" src={image} alt='Taken photo'
+                      onClick={() => {
+                        // console.log("Photo:", image);
+                      }}
+                    />
+                  </>
                 }
 
                 <div>
