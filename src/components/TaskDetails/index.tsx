@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
-import Webcam from "react-webcam";
+import { Camera } from "react-camera-pro";
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
 import * as AttachmentImg from '../../assets/attach-paperclip-symbol.png'
@@ -22,6 +22,9 @@ const TaskDetails = () => {
   const { auth } = useAuth();
   const history = useHistory();
   const inputFile = useRef(true);
+  const camera = useRef(null);
+  const [image, setImage] = useState(null);
+  const [iscamera, setiscamera] = useState(false)
 
   const [spinner, setspinner] = useState(true)
 
@@ -36,6 +39,7 @@ const TaskDetails = () => {
   const [taskasigneeinput, settaskasigneeinput] = useState(false)
   const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
   const [taskHistoryinput, settaskHistoryinput] = useState(false)
+  const [Screenshot, setScreenshot] = useState({ width: 1920, height: 1080 })
 
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
@@ -98,11 +102,10 @@ const TaskDetails = () => {
   const getfilename = (url) => {
     let a = "filename";
     let temp = String(url).split('/')
-    // "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
-    // "[https:,,trtappfiles.s3.amazonaws.com,file,files,Screenshot_2.png],=7-1
     a = temp[temp.length - 1]
     return a
   }
+
   const docSend = (type: any, url: any) => {
     let message = chat_send
     let time = new Date()
@@ -154,20 +157,7 @@ const TaskDetails = () => {
     }
   };
 
-  // const WebcamCapture = () => {
-  //   const webcamRef = React.useRef(null);
 
-  //   const capture = React.useCallback(
-  //     () => {
-  //       const imageSrc = webcamRef.current.getScreenshot();
-  //     },
-  //     [webcamRef]
-  //   );
-
-  //   const videoConstraints = {
-  //     facingMode: "user"
-  //   };
-  // }
   return (
     <div className="main">
       <div className="body">
@@ -318,23 +308,19 @@ const TaskDetails = () => {
 
                 {Attachments &&
                   <div className="attachments_container">
-                    <img className="iconimg" src={camera} />
+                    <img className="iconimg" src={camera} onClick={() => { setiscamera(!iscamera) }} />
                     <img className="iconimg" src={document} onClick={() => { onClickDocs() }} />
                     <img className="iconimg" src={gallery} onClick={() => { onClickDocs() }} />
                   </div>
                 }
 
-                {/* <div>
-                  <Webcam
-                    audio={false}
-                    height={720}
-                    // ref={webcamRef}
-                    screenshotFormat="image/jpeg"
-                    width={1280}
-                  // videoConstraints={videoConstraints}
-                  />
-                  <button onClick={WebcamCapture()}>Capture photo</button>
-                </div> */}
+                {iscamera &&
+                  <div>
+                    <Camera ref={camera} />
+                    <button onClick={() => setImage(camera.current.takePhoto())}>Take photo</button>
+                    <img src={image} alt='Taken photo' />
+                  </div>
+                }
 
                 <div>
                   {/* Do not delete this code >>>>> This is a image editor */}
