@@ -12,8 +12,8 @@ import googleAnalytics from '@analytics/google-analytics'
 import { AnalyticsProvider } from 'use-analytics'
 import * as serviceWorker from '../serviceWorker'; 
 
-import firebase from "firebase/app"
-import "firebase/messaging"
+// import firebase from "firebase/app"
+// import "firebase/messaging"
 
 
 ReactGA.initialize('UA-157352486-1');
@@ -53,31 +53,31 @@ const analytics = Analytics({
 // Initialize the Firebase app in the service worker by passing in
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
-const config = {
-  apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
-  authDomain: "mc-bde.firebaseapp.com",
-  projectId: "mc-bde",
-  storageBucket: "mc-bde.appspot.com",
-  messagingSenderId: "181659839939",
-  appId: "1:181659839939:web:bd1bd39cb9b2232add6176",
-  measurementId: "G-R7GER30TG2"
-}
-firebase.initializeApp(config);
+// const config = {
+//   apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
+//   authDomain: "mc-bde.firebaseapp.com",
+//   projectId: "mc-bde",
+//   storageBucket: "mc-bde.appspot.com",
+//   messagingSenderId: "181659839939",
+//   appId: "1:181659839939:web:bd1bd39cb9b2232add6176",
+//   measurementId: "G-R7GER30TG2"
+// }
+// firebase.initializeApp(config);
  
-const messaging = firebase.messaging();
 // const messaging = firebase.messaging();
-messaging.requestPermission()
-  .then(() => {
-    console.log("have permissions");
-    return messaging.getToken();
-  }).then(
-    (token) => {
-      console.log("token:", token);
-    }
-  )
-  .catch((err) => {
-    console.log("error:", err);
-  })
+// // const messaging = firebase.messaging();
+// messaging.requestPermission()
+//   .then(() => {
+//     console.log("have permissions");
+//     return messaging.getToken();
+//   }).then(
+//     (token) => {
+//       console.log("token:", token);
+//     }
+//   )
+//   .catch((err) => {
+//     console.log("error:", err);
+//   })
 analytics.page()
 
 ReactDOM.render(
