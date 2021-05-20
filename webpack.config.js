@@ -3,6 +3,7 @@ const Dotenv = require('dotenv-webpack')
 const HTMLWebpack = require('html-webpack-plugin')
 const TerserWebpack = require('terser-webpack-plugin')
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -30,7 +31,7 @@ const devTool = () => (isDevelopment ? 'source-map' : '')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index',
+  entry:'./index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: fileName('js'),
@@ -80,21 +81,31 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     publicPath: '/'
-  },
-  plugins: [
-    new Dotenv({
-      systemvars: true
-    }),
-    new HTMLWebpack({
-      template: './src/index.html',
-      filename: 'index.html',
-      favicon: './src/assets/images/logo.svg',
-      minify: { collapseWhitespace: !isDevelopment }
-    }),
-    new BundleAnalyzer({
-      analyzerMode: 'disabled',
-      generateStatsFile: false,
-      statsOptions: { source: false }
-    })
-  ]
+},
+plugins: [
+  new Dotenv({
+    systemvars: true
+  }),
+  new HTMLWebpack({
+    template: './index.html',
+    filename: 'index.html',
+    favicon: './src/assets/images/logo.svg',
+    minify: { collapseWhitespace: !isDevelopment }
+  }),
+  new BundleAnalyzer({
+    analyzerMode: 'disabled',
+    generateStatsFile: false,
+    statsOptions: { source: false }
+  }),
+  new SWPrecacheWebpackPlugin(
+    {
+      cacheId: 'mc-bde',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'firebase-messaging-sw.js',
+      minify: true,
+      // navigateFallback: PUBLIC_PATH + 'index.html',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }
+  ),
+]
 }
