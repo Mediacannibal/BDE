@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import 'components/app.css'
 import { getMainTask } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
-import ReactGantt, { GanttRow } from 'react-gantt';
 
 import AddEditTask from 'components/Forms/AddEditTask';
 import * as add from 'assets/add.svg'
@@ -422,7 +421,6 @@ const TaskList = (props: any) => {
                   </div>
                 }
               />
-
             </>
           }
         </div>

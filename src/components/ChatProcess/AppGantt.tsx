@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ViewSwitcher } from "./components/view-switcher";
 import { getStartEndDateForProject, initTasks } from "./helper";
 // import "gantt-task-react/dist/index.css";
@@ -16,7 +16,12 @@ const AppGantt = () => {
     columnWidth = 300;
   } else if (view === ViewMode.Week) {
     columnWidth = 250;
-  } 
+  }
+
+  useEffect(() => {
+    console.log("this is gant app =================",tasks);
+
+  }, []);
 
   const onTaskChange = (task: Task) => {
     console.log("On date change Id:" + task.id);
@@ -77,7 +82,7 @@ const AppGantt = () => {
         listCellWidth={isChecked ? "155px" : ""}
         columnWidth={columnWidth}
       />
-      <h3>Gantt With Limited Height</h3>
+      {/* <h3>Gantt With Limited Height</h3>
       <Gantt
         tasks={tasks}
         viewMode={view}
@@ -89,7 +94,7 @@ const AppGantt = () => {
         listCellWidth={isChecked ? "155px" : ""}
         ganttHeight={300}
         columnWidth={columnWidth}
-      />
+      /> */}
     </div>
   );
 };

@@ -52,7 +52,7 @@ export const convertToBarTasks = (
 
   // set dependencies
   barTasks = barTasks.map((task, i) => {
-    const dependencies = task.dependencies || [];
+    const dependencies = String(task.dependencies).split(',') || [];
     for (let j = 0; j < dependencies.length; j++) {
       const dependence = barTasks.findIndex(
         value => value.id === dependencies[j]
