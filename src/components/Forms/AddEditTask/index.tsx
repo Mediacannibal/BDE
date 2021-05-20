@@ -87,12 +87,12 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   };
   // console.log(errors);
 
-  const _onChangeHandler = (data: any) => {
+  const _onChangeHandler = (data: any, file: any) => {
     // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
     formdata.append("file", filedata)
-    fileupload(Callback, auth, formdata)
+    fileupload(Callback, auth, formdata, file)
   }
 
   const Callback = async (data: any, errorresponse: any) => {

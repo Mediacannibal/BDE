@@ -1,4 +1,71 @@
 import { Task } from "../ganttchart/types/public-types";
+import React, { useEffect, useState } from 'react'
+import { getMainTask } from "utils/api";
+import { useAuth } from "store/authStore";
+
+// export function initTasks() {
+//   const { auth } = useAuth();
+//   const currentDate = new Date();
+//   const [listItems1, setlistItems1] = useState([])
+
+//   const [task, settask] = useState('')
+//   const [users, setusers] = useState('all')
+//   const [parent_child, setparent_child] = useState('')
+//   const [project, setproject] = useState('1')
+//   const [task_priority, settask_priority] = useState('')
+//   const [task_domain, settask_domain] = useState('')
+
+//   useEffect(() => {
+//     mainTask()
+//   }, [])
+
+//   const mainTask = () => {
+//     // console.log("SELETED TASKTYPE: ", task);
+//     getMainTask(async (data: any, errorresponse: any) => {
+//       if (data.status === 200) {
+//         console.log("Task Results: ", data.data.results)
+//         setlistItems1(data.data.results)
+//       }
+//       else {
+//         console.log('error ' + JSON.stringify(data));
+//         console.log('error ' + JSON.stringify(errorresponse));
+//       }
+//     }, auth, task, users, parent_child, task_domain, task_priority, project)
+//   }
+
+//   // const tasks1 = listItems1.map((obj: any) => {
+//   //   console.log(">>>>>>>>objext:", obj);
+//   //   return (
+//   //     {
+//   //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
+//   //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
+//   //       name: obj.title,
+//   //       id: obj.id,
+//   //       // progress: 25,
+//   //       dependencies: obj.dependencies,
+//   //       type: "task",
+//   //       project: obj.project_ref,
+//   //     }
+//   //   )
+//   // })
+
+//   const tasks: Task[] = []
+//   listItems1.map((obj: any) => {
+//     return (
+//       {
+//         start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
+//         end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
+//         name: obj.title,
+//         id: obj.id,
+//         progress: 25,
+//         dependencies: obj.dependencies,
+//         type: "task",
+//         project: obj.project_ref,
+//       }
+//     )
+//   })
+//   return tasks;
+// }
 
 export function initTasks() {
   const currentDate = new Date();
@@ -32,7 +99,7 @@ export function initTasks() {
       name: "Research",
       id: "Task 1",
       progress: 25,
-      dependencies: ["Task 0"],
+      dependencies: "Task 0",
       type: "task",
       project: "ProjectSample",
     },
@@ -42,7 +109,7 @@ export function initTasks() {
       name: "Discussion with team",
       id: "Task 2",
       progress: 10,
-      dependencies: ["Task 1"],
+      dependencies: "Task 1",
       type: "task",
       project: "ProjectSample",
     },
@@ -52,7 +119,7 @@ export function initTasks() {
       name: "Developing",
       id: "Task 3",
       progress: 2,
-      dependencies: ["Task 2"],
+      dependencies: "Task 1",
       type: "task",
       project: "ProjectSample",
     },
@@ -63,7 +130,7 @@ export function initTasks() {
       id: "Task 4",
       type: "task",
       progress: 70,
-      dependencies: ["Task 2"],
+      dependencies: "Task 1",
       project: "ProjectSample",
     },
     {
@@ -73,7 +140,7 @@ export function initTasks() {
       id: "Task 5",
       progress: currentDate.getMonth(),
       type: "milestone",
-      dependencies: ["Task 4"],
+      dependencies: "Task 1",
       project: "ProjectSample",
     },
     {
@@ -82,7 +149,7 @@ export function initTasks() {
       name: "Party Time",
       id: "Task 6",
       progress: 40,
-      dependencies: ["Task 5", "Task 2"],
+      dependencies: "Task 1",
       isDisabled: false,
       type: "task",
       project: "ProjectSample",

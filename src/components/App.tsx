@@ -28,7 +28,6 @@ import ApiRecords from './Api Records';
 import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
-import DemoScreen from './DemoScreen';
 import AppGantt from './ChatProcess/AppGantt';
 
 const dashboard_screen = [
@@ -49,7 +48,6 @@ const dashboard_screen = [
   { path: '/ApiRecords', component: ApiRecords },
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
-  { path: '/DemoScreen', component: DemoScreen },
   { path: '/AppGantt', component: AppGantt },
 ]
 
