@@ -22,10 +22,10 @@ export const convertToBarTasks = (
   milestoneBackgroundSelectedColor: string
 ) => {
   const dateDelta =
-    dates[1].getTime() -
-    dates[0].getTime() -
-    dates[1].getTimezoneOffset() * 60 * 1000 +
-    dates[0].getTimezoneOffset() * 60 * 1000;
+    dates[1]?.getTime() -
+    dates[0]?.getTime() -
+    dates[1]?.getTimezoneOffset() * 60 * 1000 +
+    dates[0]?.getTimezoneOffset() * 60 * 1000;
   let barTasks = tasks.map((t, i) => {
     return convertToBarTask(
       t,

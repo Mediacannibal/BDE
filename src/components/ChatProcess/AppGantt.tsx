@@ -19,7 +19,7 @@ const AppGantt = () => {
   }
 
   useEffect(() => {
-    console.log("this is gant app =================",tasks);
+    console.log("this is gant app =================", tasks);
 
   }, []);
 
