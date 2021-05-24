@@ -29,6 +29,7 @@ messaging?.onBackgroundMessage(function(payload) {
 });
 
 messaging?.setBackgroundMessageHandler(payload => {
+  console.log(payload);
   const title = payload.data.title;
   const options = {
     body: payload.data.score

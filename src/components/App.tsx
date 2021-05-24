@@ -5,7 +5,6 @@ import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-do
 
 import ReactGA from 'react-ga';
 
-
 import "./app.css";
 
 import LoginScreen from './LoginScreen';
@@ -29,7 +28,7 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
-import { getToken, onMessageListener } from '../../firebase'; 
+import { getToken, onMessageListener} from '../../firebase'; 
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -66,10 +65,14 @@ const App = () => {
     }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
+
 if(navigator.userAgent.toLowerCase().indexOf('safari/') > -1)
-{  onMessageListener().then((message:any) => {
+{  
+  onMessageListener().then((message:any) => {
     console.log(message)
   }).catch(err => console.log('failed: ', err));
+  
+  
 }
 
   return (
