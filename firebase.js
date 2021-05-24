@@ -33,10 +33,10 @@ return new Promise((resolve, reject) => {
 }
 
 
-  export const onMessageListener = () =>
+export const onMessageListener = () =>
   new Promise((resolve) => {
     messaging?.onMessage((payload) => {
       console.log(payload);
       resolve(payload);
     });
-});
+  });

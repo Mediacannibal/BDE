@@ -1,3 +1,4 @@
+import { TaskListTableDefault } from "../components/task-list/task-list-table";
 import { Task, ViewMode } from "../types/public-types";
 
 type DateHelperScales =
@@ -15,13 +16,13 @@ export const addToDate = (
   scale: DateHelperScales
 ) => {
   const newDate = new Date(
-    date.getFullYear() + (scale === "year" ? quantity : 0),
-    date.getMonth() + (scale === "month" ? quantity : 0),
-    date.getDate() + (scale === "day" ? quantity : 0),
-    date.getHours() + (scale === "hour" ? quantity : 0),
+    date?.getFullYear() + (scale === "year" ? quantity : 0),
+    date?.getMonth() + (scale === "month" ? quantity : 0),
+    date?.getDate() + (scale === "day" ? quantity : 0),
+    date?.getHours() + (scale === "hour" ? quantity : 0),
     date.getMinutes() + (scale === "minute" ? quantity : 0),
-    date.getSeconds() + (scale === "second" ? quantity : 0),
-    date.getMilliseconds() + (scale === "millisecond" ? quantity : 0)
+    date?.getSeconds() + (scale === "second" ? quantity : 0),
+    date?.getMilliseconds() + (scale === "millisecond" ? quantity : 0)
   );
   return newDate;
 };
@@ -42,20 +43,22 @@ export const startOfDate = (date: Date, scale: DateHelperScales) => {
     return scores.indexOf(_scale) <= maxScore;
   };
   const newDate = new Date(
-    date.getFullYear(),
-    shouldReset("year") ? 0 : date.getMonth(),
-    shouldReset("month") ? 1 : date.getDate(),
-    shouldReset("day") ? 0 : date.getHours(),
-    shouldReset("hour") ? 0 : date.getMinutes(),
-    shouldReset("minute") ? 0 : date.getSeconds(),
-    shouldReset("second") ? 0 : date.getMilliseconds()
+    date?.getFullYear(),
+    shouldReset("year") ? 0 : date?.getMonth(),
+    shouldReset("month") ? 1 : date?.getDate(),
+    shouldReset("day") ? 0 : date?.getHours(),
+    shouldReset("hour") ? 0 : date?.getMinutes(),
+    shouldReset("minute") ? 0 : date?.getSeconds(),
+    shouldReset("second") ? 0 : date?.getMilliseconds()
   );
   return newDate;
 };
 
 export const ganttDateRange = (tasks: Task[], viewMode: ViewMode) => {
-  let newStartDate: Date = tasks[0].start;
-  let newEndDate: Date = tasks[0].start;
+  // console.log(">>>time.time.time>>>>", tasks);
+
+  let newStartDate: Date = tasks[0]?.start;
+  let newEndDate: Date = tasks[0]?.start;
   for (const task of tasks) {
     if (task.start < newStartDate) {
       newStartDate = task.start;

@@ -208,23 +208,23 @@ const DayVisitsReport_realtime = (props) => {
           <div className="internal_table" onClick={() => { console.log("hiiiiiiiihelloooo"); }}>
             <table id='internal_table'>
               <thead>
-                <tr>{dimensionheaders.map(renderHeader)} {metriheaders.map(renderHeader)} </tr>
+                <tr>{dimensionheaders?.map(renderHeader)} {metriheaders?.map(renderHeader)} </tr>
               </thead>
-              <tbody> {listItems.map(renderBody)}</tbody>
+              <tbody> {listItems?.map(renderBody)}</tbody>
             </table>
 
             <table id='internal_table'>
               <thead>
-                <tr>{dimensionheaders2.map(renderHeader)}</tr>
+                <tr>{dimensionheaders2?.map(renderHeader)}</tr>
               </thead>
-              <tbody>{listItems2.map(renderBody2)} </tbody>
+              <tbody>{listItems2?.map(renderBody2)} </tbody>
             </table>
 
             <table id='internal_table'>
               <thead>
-                <tr>{dimensionheaders3.map(renderHeader)}</tr>
+                <tr>{dimensionheaders3?.map(renderHeader)}</tr>
               </thead>
-              <tbody>{listItems3.map(renderBody2)} </tbody>
+              <tbody>{listItems3?.map(renderBody2)} </tbody>
             </table>
           </div>
         }

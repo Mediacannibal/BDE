@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Pie } from "react-chartjs-2";
-import { PieChartWrapper, colors } from "../styles";
 import { addDays } from "date-fns";
-import CustomDatePicker from "../datepicker";
-import { ChartTitle, ReportWrapper, Subtitle, DatepickerRow } from "../styles";
 import '../../App.css'
 import { queryReport } from "../AnalyticsReportingApi/queryReport";
-import { queryReport2 } from "../AnalyticsReportingApi/queryReport2";
-import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
 import '../../../../components/app.css'
 import Card from '../../../Common/Card';
 
-const WebPerformanceReport = (props) => {
+const WebPerformanceReport = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
     const [endDate, setEndDate] = useState(new Date());
 
@@ -21,7 +15,7 @@ const WebPerformanceReport = (props) => {
 
 
 
-    const displayResults = (response) => {
+    const displayResults = (response: any) => {
         // console.log("><>?other1111 ===", response.result.reports[0].data.rows);
         // console.log("1111columnHeader ===", response.result.reports[0].columnHeader, response.result.reports[0].metricHeader);
         setdimensionheaders(response.result.reports[0].columnHeader.dimensions)
@@ -48,8 +42,8 @@ const WebPerformanceReport = (props) => {
         setTimeout(
             () =>
                 queryReport(request)
-                    .then((resp) => displayResults(resp))
-                    .catch((error) => console.error(error)),
+                    .then((resp: any) => displayResults(resp))
+                    .catch((error: any) => console.error(error)),
             3500
         );
 
@@ -59,7 +53,7 @@ const WebPerformanceReport = (props) => {
 
 
 
-    const renderHeader2 = (element) => {
+    const renderHeader2 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -68,7 +62,7 @@ const WebPerformanceReport = (props) => {
         )
     }
 
-    const renderHeader3 = (element) => {
+    const renderHeader3 = (element: any) => {
         // console.log("element=====222", element);
         return (
             <>
@@ -77,12 +71,12 @@ const WebPerformanceReport = (props) => {
         )
     }
 
-    const renderBody3 = (element) => {
+    const renderBody3 = (element: any) => {
         // console.log("element=====", element);
         return (
             <tr>
-                {element.dimensions?.map((obj) => <td>{obj}</td>)}
-                {element.metrics[0].values.map((obj) => <td>{obj}</td>)}
+                {element.dimensions?.map((obj: any) => <td>{obj}</td>)}
+                {element.metrics[0].values.map((obj: any) => <td>{obj}</td>)}
             </tr >
         )
     }

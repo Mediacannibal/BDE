@@ -103,20 +103,20 @@ const DayVisitsReport = (props) => {
     //   console.log("++++++comon++++++", data.data)
     // }, token, metrics)
 
-    // const request = {
-    //   viewID: props.viewID,
-    //   startDate,
-    //   endDate,
-    //   metrics: props.metric,
-    //   dimensions: ["ga:date"],
-    // };
-    // setTimeout(
-    //   () =>
-    //     queryReport2(request)
-    //       .then((resp) => displayResults(resp))
-    //       .catch((error) => console.error(error)),
-    //   5500
-    // );
+    const request = {
+      viewID: props.viewID,
+      startDate,
+      endDate,
+      metrics: props.metric,
+      dimensions: ["ga:date"],
+    };
+    setTimeout(
+      () =>
+        queryReport2(request)
+          .then((resp) => displayResults(resp))
+          .catch((error) => console.error(error)),
+      5500
+    );
   }, [startDate, endDate]);
 
   return (

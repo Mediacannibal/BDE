@@ -5,7 +5,7 @@
     border-width: calc(0.1vw + 0.3vh + 0.1vmin);
     border-style: solid;
     border-radius: 2vw;
-    width: calc(55vw + 15vh + 15vmin);
+    width: calc(60vw + 20vh + 20vmin);
     margin: 6vh 0;
 }
 
@@ -41,7 +41,7 @@
 .tab_day_night2 {
     display: flex;
     text-align: center;
-    font-size: var(--TS2);
+    font-size: var(--TS4);
     font-weight: 600;
 }
 
