@@ -14,30 +14,28 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging();
-
-export const getToken = () => {
-
-
-  return new Promise((resolve, reject) => {
-    messaging
-      .requestPermission()
-      .then(() => messaging.getToken())
-      .then((firebaseToken) => {
-        resolve(firebaseToken);
-        console.log(firebaseToken);
-      })
-      .catch((err) => {
-        console.log(err);
-        // reject(err);
-      });
-  });
+// const messaging = firebase.messaging();
+const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null
+export const getToken= () =>{
+  
+  
+return new Promise((resolve, reject) => {
+   messaging?.requestPermission().then(() => messaging?.getToken())
+        .then((firebaseToken) => {
+            resolve(firebaseToken);
+            console.log(firebaseToken);
+        })
+        .catch((err) => {
+          console.log(err);
+            reject(err);
+        });
+});
 }
 
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging.onMessage((payload) => {
+    messaging?.onMessage((payload) => {
       console.log(payload);
       resolve(payload);
     });
