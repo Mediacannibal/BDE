@@ -29,7 +29,7 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
-import { getToken, onMessageListener } from './firebase'; 
+import { getToken, onMessageListener } from '../../firebase'; 
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -60,14 +60,17 @@ const fullpage_screen = [
 const App = () => {
 
   useEffect(() => {
-    getToken()
+   if(navigator.userAgent.toLowerCase().indexOf('safari/') > -1)
+    {
+      getToken()
+    }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
-
-  onMessageListener().then((message:any) => {
+if(navigator.userAgent.toLowerCase().indexOf('safari/') > -1)
+{  onMessageListener().then((message:any) => {
     console.log(message)
   }).catch(err => console.log('failed: ', err));
-
+}
 
   return (
 
