@@ -24,9 +24,9 @@ export interface Task {
     progressSelectedColor?: string;
   };
   isDisabled?: boolean;
-  project?: string;
+  project: string;
   // dependencies?: string[];
-  dependencies?: string;
+  dependencies: string;
   
 }
 
