@@ -257,7 +257,7 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
 }
 
 export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any, parent_child: any, domain: any, prioriry: any, project: any) => {
-  instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${domain}&priority=${prioriry}&project=${project}`, {
+  instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${domain}&priority=${prioriry}&project_ref=${project}`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
