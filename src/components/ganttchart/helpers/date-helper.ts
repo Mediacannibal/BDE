@@ -1,3 +1,4 @@
+import { TaskListTableDefault } from "../components/task-list/task-list-table";
 import { Task, ViewMode } from "../types/public-types";
 
 type DateHelperScales =
@@ -54,7 +55,7 @@ export const startOfDate = (date: Date, scale: DateHelperScales) => {
 };
 
 export const ganttDateRange = (tasks: Task[], viewMode: ViewMode) => {
-  console.log(">>>time.time.time>>>>", tasks);
+  // console.log(">>>time.time.time>>>>", tasks);
 
   let newStartDate: Date = tasks[0]?.start;
   let newEndDate: Date = tasks[0]?.start;

@@ -16,29 +16,29 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-export const getToken= () =>{
-  
-  
-return new Promise((resolve, reject) => {
+export const getToken = () => {
+
+
+  return new Promise((resolve, reject) => {
     messaging
-        .requestPermission()
-        .then(() => messaging.getToken())
-        .then((firebaseToken) => {
-            resolve(firebaseToken);
-            console.log(firebaseToken);
-        })
-        .catch((err) => {
-          console.log(err);
-            // reject(err);
-        });
-});
+      .requestPermission()
+      .then(() => messaging.getToken())
+      .then((firebaseToken) => {
+        resolve(firebaseToken);
+        console.log(firebaseToken);
+      })
+      .catch((err) => {
+        console.log(err);
+        // reject(err);
+      });
+  });
 }
 
 
-  export const onMessageListener = () =>
+export const onMessageListener = () =>
   new Promise((resolve) => {
     messaging.onMessage((payload) => {
       console.log(payload);
       resolve(payload);
     });
-});
+  });
