@@ -5,12 +5,13 @@ import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
 import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
-import { getMainTask, getProject } from 'utils/api';
+import { CommonAPi, getMainTask, getProject } from 'utils/api';
 
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
+import { ColourObject } from 'store/ColourStore';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -23,37 +24,41 @@ const HomeScreen = (props: any) => {
 
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
-  const [users, setusers] = useState('all')
-
+  const [project, setproject] = useState('1')
+  const [task_priority, settask_priority] = useState('')
+  const [task_domain, settask_domain] = useState('')
+  const { Colour, setColour, loadColour } = ColourObject()
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
 
     props.setheader_options(screen_header_elements)
 
-    getProject(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("Project List", data.data)
-        setlistItems1(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, users)
+    CommonAPi(
+      {
+        path: `tasks/maintask/?
+        task_type=${task}
+        &user=${user_list}
+        &parent_child=${parent_child}
+        &domain=${''}
+        &priority=${task_priority}
+        &project_ref=${project}`,
 
-    getMainTask(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
-        setlistItems2(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, task, user_list, parent_child)
+        method: "get",
+
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          console.log("Project Tasks: ", data.data.results)
+          setlistItems2(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
 
   }, [])
 
@@ -130,7 +135,7 @@ const HomeScreen = (props: any) => {
           }}
         />
       }
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

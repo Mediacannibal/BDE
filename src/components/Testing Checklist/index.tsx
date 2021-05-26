@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
 import { getTestlog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
+import { ColourObject } from 'store/ColourStore'
 
 import * as add from '../../assets/add.svg'
 import * as play from '../../assets/play.svg'
@@ -12,7 +13,6 @@ import * as filter from '../../assets/filter.png'
 import AddEditTest from 'components/Forms/AddEditTest';
 import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
-import { getProject } from 'utils/api';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 
@@ -23,6 +23,7 @@ const TestingChecklist = (props: any) => {
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
   const [unique_title, setunique_title] = useState([])
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [users, setusers] = useState('all')
 
@@ -49,6 +50,10 @@ const TestingChecklist = (props: any) => {
     props.setheader_options(screen_header_elements)
 
     setspinner(true)
+
+    if (!Colour) {
+      loadColour();
+    }
 
     getTestlog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -201,7 +206,7 @@ const TestingChecklist = (props: any) => {
         />
       }
 
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

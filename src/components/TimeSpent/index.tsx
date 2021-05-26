@@ -6,8 +6,6 @@ import Popup from 'components/Common/Popup'
 import { getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ProgressBar } from 'components/Common/Spinner';
-import Card from 'components/Common/Card';
-import { ContactlessOutlined } from '@material-ui/icons';
 
 const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
   const { auth } = useAuth();

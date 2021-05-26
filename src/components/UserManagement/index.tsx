@@ -8,21 +8,25 @@ import Footer from '../Common/Footer';
 import { ProgressBar } from '../Common/Spinner';
 import { profileUserListing } from 'utils/api';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore'
 import NewUserForm from '../Forms/NewUserForm';
+import UserSettings from 'components/UserMenuItems/UserSettings';
 
 export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
+  const { Colour, setColour, loadColour } = ColourObject()
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
 
-  const [popup, setpopup] = useState(false)
+  const [newUser_popup, setnewUser_popup] = useState(false)
+  const [settings_popup, setsettings_popup] = useState(false)
+
   const [list, setlist] = useState([])
 
   useEffect(() => {
-
     // header
     props.setheader_options(screen_header_elements)
 
@@ -39,13 +43,17 @@ const UserManagement = (props: any) => {
       };
     }, auth)
 
+    if (!Colour) {
+      loadColour();
+    }
+
   }, [])
 
   const screen_header_elements = () => {
     return (
       <>
         <div className='screen_header_element'
-          onClick={() => { setpopup(true) }}>
+          onClick={() => { setnewUser_popup(true) }}>
           <img className='header_icon' src={add} />
           <div>Add User</div>
         </div>
@@ -84,15 +92,23 @@ const UserManagement = (props: any) => {
   return (
 
     <div className="main">
-      {popup &&
+      {newUser_popup &&
         <NewUserForm
           setPopup={() => {
-            setpopup(false)
+            setnewUser_popup(false)
           }}
         />
       }
 
-      <div className="body">
+      {settings_popup &&
+        <UserSettings
+          setPopup={() => {
+            setsettings_popup(false)
+          }}
+        />
+      }
+
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

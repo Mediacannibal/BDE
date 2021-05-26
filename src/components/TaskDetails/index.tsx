@@ -9,6 +9,7 @@ import * as document from '../../assets/document.svg'
 import * as gallery from '../../assets/gallery.svg'
 import * as cameraicon from '../../assets/camera.svg'
 import * as download from '../../assets/download.svg'
+import { ColourObject } from 'store/ColourStore'
 
 import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
@@ -26,6 +27,7 @@ const TaskDetails = () => {
   const [image, setImage] = useState();
   const [iscamera, setiscamera] = useState(false)
   const [imgPreview, setimgPreview] = useState(false)
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
@@ -83,6 +85,10 @@ const TaskDetails = () => {
       // console.log(screen, user_id, usertype1)
       setusertype(UserDetails.user_type)
       setuserID(UserDetails.user_id)
+    }
+
+    if (!Colour) {
+      loadColour();
     }
   }, [])
 
@@ -181,7 +187,7 @@ const TaskDetails = () => {
 
   return (
     <div className="main">
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

@@ -5,25 +5,29 @@ import { useHistory } from 'react-router-dom';
 import { ProgressBar } from 'components/Common/Spinner';
 
 import * as settings from '../../assets/settings.svg'
+import { ColourObject } from 'store/ColourStore'
 
 import * as up_down_arrow from '../../assets/up_down.svg'
 import Card from 'components/Common/Card';
 
-
 const Notifications = (props: any) => {
 
   const history = useHistory();
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
   useEffect(() => {
     setspinner(false)
 
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
 
   return (
     <div className="main">
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

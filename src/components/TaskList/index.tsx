@@ -18,12 +18,14 @@ import Card from 'components/Common/Card'
 import Footer from '../Common/Footer'
 import TimeSpent from 'components/TimeSpent'
 import UpDownArrow from 'components/Common/updownArrow'
+import { ColourObject } from 'store/ColourStore'
 
 const TaskList = (props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
 
   const { userDetail, loaduserDetail } = useuserDetails()
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [unique_title, setunique_title] = useState([])
 
@@ -72,6 +74,10 @@ const TaskList = (props: any) => {
     }
     setspinner(true)
     mainTask()
+
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
 
   const mainTask = () => {
@@ -368,7 +374,7 @@ const TaskList = (props: any) => {
           />
         )}
 
-        <div className='body'>
+        <div className='body' style={{ backgroundColor: Colour.primary }}>
           {spinner ? (
             <div className='spinner_fullscreen_div'>
               <ProgressBar />

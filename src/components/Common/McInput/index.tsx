@@ -3,7 +3,6 @@ import './style.css';
 import '../../../components/app.css'
 import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
-import { FormatColorReset } from '@material-ui/icons';
 
 const McInput = (props: any) => {
 

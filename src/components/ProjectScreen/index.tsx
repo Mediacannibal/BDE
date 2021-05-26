@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card'
-import { getMainTask, getProject } from 'utils/api'
+import { CommonAPi } from 'utils/api'
 import { useHistory } from 'react-router'
 import AddEditTask from '../Forms/AddEditTask'
 import Footer from '../Common/Footer'
@@ -14,12 +14,14 @@ import * as tested from '../../assets/tested.svg'
 import * as add from '../../assets/add.svg'
 import * as team from '../../assets/team.svg'
 import AddEditUserList from '../Forms/UserListForm';
+import { ColourObject } from 'store/ColourStore'
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [listItems, setlistItems] = useState([])
   const [listItems2, setlistItems2] = useState([])
@@ -46,29 +48,35 @@ const ProjectScreen = (props: any) => {
 
     setspinner(true)
 
-    getProject(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("ProjectProfiles: ", data.data)
-        setlistItems(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, users)
+    if (!Colour) {
+      loadColour();
+    }
 
-    getMainTask(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("Project Tasks: ", data.data.results)
-        setlistItems2(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, task, user_list, parent_child)
+    CommonAPi(
+      {
+        path: `tasks/maintask/?
+        task_type=${task}
+        &user=${user_list}
+        &parent_child=${parent_child}
+        &domain=${''}
+        &priority=${''}
+        &project_ref=${''}`,
+
+        method: "get",
+
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          console.log("Project Tasks: ", data.data.results)
+          setlistItems2(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
 
   const getClassname = (key: any) => {
@@ -185,7 +193,7 @@ const ProjectScreen = (props: any) => {
 
 
 
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

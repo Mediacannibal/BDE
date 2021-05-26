@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import '../../../components/app.css'
 import { useHistory } from 'react-router-dom';
+import { ColourObject } from 'store/ColourStore'
 
 
 const UserProfile = () => {
 
   const history = useHistory();
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [usertype, setusertype] = useState("NORMAL")
   const [profile_picture, setprofile_picture] = useState("")
@@ -32,13 +34,17 @@ const UserProfile = () => {
       setlastname(lastname)
       setemail(email)
     }
+
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
 
 
   return (
     <>
       <div className="main">
-        <div className="body">
+        <div className="body" style={{ backgroundColor: Colour.primary }}>
           <div className="user_main_container">
             <div className="user_container">
 

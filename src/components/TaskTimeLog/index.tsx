@@ -6,6 +6,7 @@ import { getTasktimelog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 
 import * as add from '../../assets/add.svg'
+import { ColourObject } from 'store/ColourStore'
 
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
@@ -17,6 +18,7 @@ const TaskTimeLog = (props: any) => {
 
   const [listItems, setlistItems] = useState([])
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
@@ -29,6 +31,10 @@ const TaskTimeLog = (props: any) => {
     props.setheader_options(screen_header_elements)
 
     setspinner(true)
+
+    if (!Colour) {
+      loadColour();
+    }
 
     getTasktimelog(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -106,7 +112,7 @@ const TaskTimeLog = (props: any) => {
         </div>
       }
 
-      <div className="body">
+      <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
