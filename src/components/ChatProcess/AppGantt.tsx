@@ -42,14 +42,13 @@ const AppGantt = () => {
               start: new Date(obj.created_at),
               end: new Date(obj.updated_at),
               name: obj.title,
-              id: obj.id,
+              id: String(obj.id),
               progress: obj.progress,
               dependencies: obj.dependencies,
               type: "task",
               project: obj.project_ref,
             }
           )
-          console.log("???for????", JSON.stringify(new Date(currentDate.getFullYear(), currentDate.getMonth(), 2)));
         });
         setTasks(task)
 
@@ -63,44 +62,29 @@ const AppGantt = () => {
   }, []);
 
   const onTaskChange = (task: Task) => {
-    console.log("On date change Id:" + task.id);
-    let newTasks = tasks.map(t => (task.id === task.id ? task : t));
-    if (task.project) {
-      const [start, end] = getStartEndDateForProject(newTasks, task.project);
-      const project = newTasks[newTasks.findIndex(t => t.id === task.project)];
-      if (
-        project.start.getTime() !== start.getTime() ||
-        project.end.getTime() !== end.getTime()
-      ) {
-        const changedProject = { ...project, start, end };
-        newTasks = newTasks.map(t =>
-          t.id === task.project ? changedProject : t
-        );
-      }
-    }
-    // setTasks(newTasks);
+    console.log("On date change Id:" + task.id, task.start, task.end);
+
   };
 
-  // const onTaskDelete = (task: Task) => {
-  //   const conf = window.confirm("Are you sure about " + task.name + " ?");
-  //   if (conf) {
-  //     setTasks(tasks.filter(t => t.id !== task.id));
-  //   }
-  //   return conf;
-  // };
+  const onProgressChange = async (task: Task) => {
 
-  // const onProgressChange = async (task: Task) => {
-  //   setTasks(tasks.map(t => (t.id === task.id ? task : t)));
-  //   console.log("On progress change Id:" + task.id);
-  // };
+    console.log("On progress change Id:" + task.id, task.progress);
 
-  const onDblClick = (task: Task) => {
-    alert("On Double Click event Id:" + task.id);
+    // let temp = []
+    // exarr.forEach(element => {
+    //   if(element.id === id)
+    //   {
+    //     let temp1 = element 
+    //     temp1.something ="newvalue"
+    //     temp.push(temp1)
+    //   }
+    //   else
+    //   {temp.push(element)}
+    // });
+    // setexarr(temp)
+
   };
 
-  const onSelect = (task: Task, isSelected: boolean) => {
-    console.log(task.name + " has " + (isSelected ? "selected" : "unselected"));
-  };
 
   return (
     <div>
@@ -109,34 +93,16 @@ const AppGantt = () => {
         onViewListChange={setIsChecked}
         isChecked={isChecked}
       />
-      <h3>Gantt With Unlimited Height</h3>
       <Gantt
         tasks={tasks}
         viewMode={view}
         onDateChange={onTaskChange}
-        // onDelete={onTaskDelete}
         // onProgressChange={onProgressChange}
-        onDoubleClick={onDblClick}
-        onSelect={onSelect}
         listCellWidth={isChecked ? "155px" : ""}
         columnWidth={columnWidth}
       />
-      {/* <h3>Gantt With Limited Height</h3>
-      <Gantt
-        tasks={tasks}
-        viewMode={view}
-        onDateChange={onTaskChange}
-        onDelete={onTaskDelete}
-        onProgressChange={onProgressChange}
-        onDoubleClick={onDblClick}
-        onSelect={onSelect}
-        listCellWidth={isChecked ? "155px" : ""}
-        ganttHeight={300}
-        columnWidth={columnWidth}
-      /> */}
     </div>
   );
 };
 
 export default AppGantt;
-1

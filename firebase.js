@@ -20,11 +20,12 @@ export const getToken= () =>{
   
   
 return new Promise((resolve, reject) => {
-   messaging?.requestPermission().then(() => messaging?.getToken())
-        .then((firebaseToken) => {
+   messaging?.requestPermission().then(() => {
+     console.log("permission granted");
+     return messaging?.getToken()}
+     ).then((firebaseToken) => {
             resolve(firebaseToken);
-            console.log(firebaseToken);
-        })
+            console.log(firebaseToken);})
         .catch((err) => {
           console.log(err);
             reject(err);

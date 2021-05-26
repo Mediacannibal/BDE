@@ -1,14 +1,6 @@
-// Scripts for firebase and firebase messaging
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+importScripts('https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.6.2/firebase-messaging.js');
 
-OfflinePluginRuntime.install({
-  onUpdateReady: () => OfflinePluginRuntime.applyUpdate(),
-  onUpdated: () => location.reload(),
-});
-
-// Initialize the Firebase app in the service worker by passing the generated config
 var firebaseConfig = {
     apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
     authDomain: "mc-bde.firebaseapp.com",
@@ -21,10 +13,10 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// Retrieve firebase messaging
-const messaging = firebase.messaging();
+// const messaging = firebase.messaging();
+const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null
 
-messaging.onBackgroundMessage(function(payload) {
+messaging?.onBackgroundMessage(function(payload) {
   console.log('Received background message ', payload);
 
   const notificationTitle = payload.notification.title;
@@ -36,3 +28,10 @@ messaging.onBackgroundMessage(function(payload) {
     notificationOptions);
 });
 
+messaging?.setBackgroundMessageHandler(payload => {
+  const title = payload.data.title;
+  const options = {
+    body: payload.data.score
+  };
+  return self.registration.showNotification(title, options);
+});
