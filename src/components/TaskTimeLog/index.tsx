@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom';
 import '../../components/app.css'
-import { getTasktimelog } from 'utils/api';
+import { CommonAPi, getTasktimelog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 
 import * as add from '../../assets/add.svg'
@@ -26,6 +26,10 @@ const TaskTimeLog = (props: any) => {
 
   const [Userid, setUserid] = useState(false)
 
+  const [task_Ids, settask_Ids] = useState('')
+  const [users, setusers] = useState('all')
+
+
   useEffect(() => {
 
     props.setheader_options(screen_header_elements)
@@ -36,17 +40,23 @@ const TaskTimeLog = (props: any) => {
       loadColour();
     }
 
-    getTasktimelog(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("TaskTime Log Results: ", data.data)
-        setlistItems(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth)
+    CommonAPi(
+      {
+        path: `tasks/tasktimelog/?task_ids=${task_Ids}&users=${users}`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks: ", data.data.results)
+          setlistItems(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
 
   const screen_header_elements = () => {

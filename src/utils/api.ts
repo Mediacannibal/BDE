@@ -262,7 +262,7 @@ let path = props.path;
 let method = props.method;
 let auth = props.auth;
 switch (method) {
-  case "get":
+    case "get":
     instance.get(path, {
       headers:auth?{
         'Authorization': `Token ${auth}`,
@@ -270,7 +270,10 @@ switch (method) {
        }: {
         'Content-Type': 'application/json'
       }
-    }).then((res) => { callback(res, 'sucess') })
+    }).then((res) => { 
+    callback(res, 'sucess')
+    // console.log("===>>",res);
+   })
       .catch(err => callback(err, err.response))  
     break;
     case "post":

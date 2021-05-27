@@ -24,7 +24,6 @@ const ProjectScreen = (props: any) => {
   const { Colour, setColour, loadColour } = ColourObject()
 
   const [listItems, setlistItems] = useState([])
-  const [listItems2, setlistItems2] = useState([])
 
   const [popup1, setpopup1] = useState(false)
   const [popup2, setpopup2] = useState(false)
@@ -36,12 +35,14 @@ const ProjectScreen = (props: any) => {
   const [selected_User, setselected_User] = useState()
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
-  const [users, setusers] = useState('all')
   const [task, settask] = useState('')
-  const [user_list, setuser_list] = useState('')
+  const [user_list, setuser_list] = useState('all')
   const [parent_child, setparent_child] = useState('')
+  const [task_priority, settask_priority] = useState('')
+  const [task_domain, settask_domain] = useState('')
+  const [project, setproject] = useState('1')
 
-  const [task_history, settask_history] = useState('Task History')
+  const [users, setusers] = useState('all')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -54,23 +55,15 @@ const ProjectScreen = (props: any) => {
 
     CommonAPi(
       {
-        path: `tasks/maintask/?
-        task_type=${task}
-        &user=${user_list}
-        &parent_child=${parent_child}
-        &domain=${''}
-        &priority=${''}
-        &project_ref=${''}`,
-
+        path: `tasks/project/?user=${users}`,
         method: "get",
-
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Project Tasks: ", data.data.results)
-          setlistItems2(data.data.results)
+          // console.log("Project Tasks: ", data.data.results)
+          setlistItems(data.data.results)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));

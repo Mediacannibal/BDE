@@ -228,7 +228,7 @@ const TaskDetails = () => {
                     //{name:"sdfasdf"}
 
                     chat_log_list.map((object, index) => {
-                      console.log('chat_log_list', chat_log_list, object);
+                      // console.log('chat_log_list', chat_log_list, object);
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 

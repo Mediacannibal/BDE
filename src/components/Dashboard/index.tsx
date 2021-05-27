@@ -97,7 +97,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     getMainTask(
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
-          console.log('Task Results in GC: ', data.data.results)
+          // console.log('Task Results in GC: ', data.data.results)
           // setunique_project_ref(data.data.results)
         } else {
           console.log('error ' + JSON.stringify(data))

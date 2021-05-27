@@ -34,7 +34,7 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
     getMainTask(
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
-          console.log('Task Results in GC: ', data.data.results)
+          // console.log('Task Results in GC: ', data.data.results)
           // setunique_project_ref(data.data.results)
         } else {
           console.log('error ' + JSON.stringify(data))

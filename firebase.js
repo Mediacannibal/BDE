@@ -21,7 +21,7 @@ export const getToken= () =>{
   
 return new Promise((resolve, reject) => {
    messaging?.requestPermission().then(() => {
-     console.log("permission granted");
+    //  console.log("permission granted");
      return messaging?.getToken()}
      ).then((firebaseToken) => {
             resolve(firebaseToken);

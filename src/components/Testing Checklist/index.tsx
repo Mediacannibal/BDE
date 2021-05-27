@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useHistory, useParams } from 'react-router-dom';
 import '../../components/app.css'
-import { getTestlog } from 'utils/api';
+import { CommonAPi, getTestlog } from 'utils/api';
 import { ProgressBar } from 'components/Common/Spinner';
 import { ColourObject } from 'store/ColourStore'
 
@@ -55,18 +55,23 @@ const TestingChecklist = (props: any) => {
       loadColour();
     }
 
-    getTestlog(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("Test Results: ", data.data.results)
-        setlistItems1(data.data.results)
-
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth)
+    CommonAPi(
+      {
+        path: `tasks/maintask/?task_type=test&user=all`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks: ", data.data.results)
+          setlistItems1(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
 
   const screen_header_elements = () => {

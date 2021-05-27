@@ -34,7 +34,7 @@ const AppGantt = () => {
 
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        console.log("Task Results: ", data.data.results)
+        // console.log("Task Results: ", data.data.results)
         let task: any = []
         data.data.results.forEach((obj: any) => {
           task.push(

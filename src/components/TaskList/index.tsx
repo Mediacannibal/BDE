@@ -33,8 +33,7 @@ const TaskList = (props: any) => {
 
   const [popup1, setpopup1] = useState(false)
   const [addEditTaskLog_popup, setaddEditTaskLog_popup] = useState(false)
-  const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] =
-    useState(false)
+  const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
 
   const [listItems1, setlistItems1] = useState([])
@@ -49,8 +48,7 @@ const TaskList = (props: any) => {
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const [settask_picker_typevalid, setsettask_picker_typevalid] =
-    useState(false)
+  const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -141,7 +139,7 @@ const TaskList = (props: any) => {
       return (
         <th key={index}>
           {key.toUpperCase()}
-          <UpDownArrow onexpand={() => {}} />
+          <UpDownArrow onexpand={() => { }} />
         </th>
       )
     })

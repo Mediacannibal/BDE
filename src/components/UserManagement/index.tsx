@@ -6,7 +6,7 @@ import * as add from '../../assets/add.svg'
 
 import Footer from '../Common/Footer';
 import { ProgressBar } from '../Common/Spinner';
-import { profileUserListing } from 'utils/api';
+import { CommonAPi, profileUserListing } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore'
 import NewUserForm from '../Forms/NewUserForm';
@@ -30,22 +30,27 @@ const UserManagement = (props: any) => {
     // header
     props.setheader_options(screen_header_elements)
 
-    profileUserListing((data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log('response ' + JSON.stringify(data));
-        // console.log("User Profile List: ", data.data.results);
-        setlist(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      };
-    }, auth)
-
     if (!Colour) {
       loadColour();
     }
+
+    CommonAPi(
+      {
+        path: `/api/user/list/`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks:", data.data)
+          setlist(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
 
   }, [])
 

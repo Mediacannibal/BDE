@@ -5,18 +5,20 @@ import '../../components/app.css'
 import { ProgressBar } from 'components/Common/Spinner';
 
 import * as filter from '../../assets/filter.png'
-import { getBuglog, getProject } from 'utils/api';
+import { CommonAPi } from 'utils/api';
 import AddEditBug from 'components/Forms/AddEditBug';
 import * as add from '../../assets/add.svg'
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
+import { ColourObject } from 'store/ColourStore';
 
 
 const BugList = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, setColour, loadColour } = ColourObject()
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
@@ -40,18 +42,28 @@ const BugList = (props: any) => {
 
     setspinner(true)
 
-    getBuglog(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("BugList Results: ", data.data.results)
-        setlistItems1(data.data.results)
+    if (!Colour) {
+      loadColour();
+    }
 
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth)
+
+    CommonAPi(
+      {
+        path: `tasks/maintask/?task_type=bug&user=all`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks:", data.data)
+          setlistItems1(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
 
   const screen_header_elements = () => {
