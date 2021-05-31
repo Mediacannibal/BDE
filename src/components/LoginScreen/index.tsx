@@ -4,7 +4,7 @@ import * as logofull from '../../assets/MC_logo_with_title.svg'
 import * as google from '../../assets/google-logo.svg'
 import * as facebook from '../../assets/facebook.svg'
 import { GoogleLogin } from 'react-google-login';
-import FacebookProvider, { Login } from 'react-facebook';
+import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
 import './style.css'
