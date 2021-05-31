@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import './style.css'
 
 
-const NewUserForm = ({ setPopup }) => {
+const NewUserForm = ({ setPopup }, props: any) => {
   const history = useHistory();
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -42,6 +42,8 @@ const NewUserForm = ({ setPopup }) => {
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
+
+  const [newUser_popup, setnewUser_popup] = useState(false)
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -100,6 +102,8 @@ const NewUserForm = ({ setPopup }) => {
         console.log('error ' + JSON.stringify(errorresponse));
       }
     }, token)
+
+    
   }, [])
 
   const Company_name = () => {
@@ -128,6 +132,16 @@ const NewUserForm = ({ setPopup }) => {
 
   return (
     <>
+      <div>
+        {newUser_popup &&
+          <NewUserForm
+            setPopup={() => {
+              setnewUser_popup(false)
+            }}
+          />
+        }
+      </div>
+
       {ispopup ?
 
         <Popup
@@ -146,18 +160,16 @@ const NewUserForm = ({ setPopup }) => {
               "phone": phoneno,
               "user_type": usertype,
               "password": password,
+              "is_active": true,
             }
             data.push(object)
-            // console.log("***SUBMIT***", data)
             let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             newUserSignup(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                // console.log('Sucess!!!!!!!!' + JSON.stringify(data));
-                localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
-                localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+                localStorage.setItem('AuthToken', JSON.stringify(data.data.token));
+                localStorage.setItem('UserDetails', JSON.stringify(data.data.user_details));
                 history.push('/Home')
-                // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
               } else {

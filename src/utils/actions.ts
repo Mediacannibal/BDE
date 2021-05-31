@@ -9,8 +9,6 @@ export const Sociallogin = (callback: (arg0: any, arg1: string) => void, data: a
     .catch(err => callback(err, err.response))
 }
 
-
-
 export const fileupload = (callback: (arg0: any, arg1: string) => void, data: any) => {
   instance.post(`/appdata/upload/file/`, data, {
     headers: {

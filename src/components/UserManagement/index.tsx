@@ -6,7 +6,7 @@ import * as add from '../../assets/add.svg'
 
 import Footer from '../Common/Footer';
 import { ProgressBar } from '../Common/Spinner';
-import { CommonAPi, profileUserListing } from 'utils/api';
+import { CommonAPi } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore'
 import NewUserForm from '../Forms/NewUserForm';
@@ -51,7 +51,6 @@ const UserManagement = (props: any) => {
           console.log('error ' + JSON.stringify(errorresponse));
         }
       })
-
   }, [])
 
   const screen_header_elements = () => {

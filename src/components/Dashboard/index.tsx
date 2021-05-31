@@ -483,8 +483,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 className='user_menu_item'
                 onClick={() => {
                   localStorage.clear()
-                  window.location.reload()
-                  history.replace('/Login')
+                  // window.location.reload()
+                  history.replace('/')
                 }}
               >
                 <img className='header_icon' src={back} />

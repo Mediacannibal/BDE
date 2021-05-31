@@ -1,6 +1,39 @@
 import instance from '../utils/axios'
 
 
+export const CommonAPi =(props:any,callback:any)=>{
+  let path = props.path;
+  let method = props.method;
+  let auth = props.auth;
+  switch (method) {
+      case "get":
+      instance.get(path, {
+        headers:auth?{
+          'Authorization': `Token ${auth}`,
+          'Content-Type': 'application/json'
+         }: {
+          'Content-Type': 'application/json'
+        }
+      }).then((res) => { 
+      callback(res, 'sucess')
+      // console.log("===>>",res);
+     })
+        .catch(err => callback(err, err.response))  
+      break;
+      case "post":
+        instance.post(path,props.data,{
+          headers:auth?{
+            'Authorization': `Token ${auth}`,
+            'Content-Type': 'application/json'
+           }: {
+            'Content-Type': 'application/json'
+          }
+        }).then((res) => { callback(res, 'sucess') })
+          .catch(err => callback(err, err.response))  
+        break;
+  }
+  }
+  
 export const realtime = (callback: (arg0: any, arg1: string) => void, token: any,) => {
   instance.get(`https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:241653669&metrics=rt:activeUsers`, {
     headers: {
@@ -256,39 +289,6 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
     .catch(err => callback(err, err.response))
 }
 
-
-export const CommonAPi =(props:any,callback:any)=>{
-let path = props.path;
-let method = props.method;
-let auth = props.auth;
-switch (method) {
-    case "get":
-    instance.get(path, {
-      headers:auth?{
-        'Authorization': `Token ${auth}`,
-        'Content-Type': 'application/json'
-       }: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => { 
-    callback(res, 'sucess')
-    // console.log("===>>",res);
-   })
-      .catch(err => callback(err, err.response))  
-    break;
-    case "post":
-      instance.post(path,props.data,{
-        headers:auth?{
-          'Authorization': `Token ${auth}`,
-          'Content-Type': 'application/json'
-         }: {
-          'Content-Type': 'application/json'
-        }
-      }).then((res) => { callback(res, 'sucess') })
-        .catch(err => callback(err, err.response))  
-      break;
-}
-}
 
 export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any, parent_child: any, domain: any, prioriry: any, project: any) => {
   instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${domain}&priority=${prioriry}&project_ref=${project}`, {

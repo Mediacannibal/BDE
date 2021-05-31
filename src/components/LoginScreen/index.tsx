@@ -35,7 +35,6 @@ const LoginScreen = () => {
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
-
   }, [])
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
@@ -74,11 +73,19 @@ const LoginScreen = () => {
       // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+
+      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FACEBOOK" && "OTP")
-        history.push('/NewUserForm')
-      else
+        if (UserDetails.is_active === false)
+          history.push('/NewUserForm')
+        else
+          history.push('/Home')
+      else {
         if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
           history.push('/Home')
+      }
+      window.location.reload()
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
