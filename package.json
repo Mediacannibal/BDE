@@ -112,6 +112,7 @@
         "react-css-grid": "^2.0.0-0",
         "react-custom-scrollbars": "^4.2.1",
         "react-datepicker": "^3.6.0",
+        "react-facebook": "^8.1.4",
         "react-facebook-sdk": "^1.1.1",
         "react-flexbox-grid": "^2.1.2",
         "react-ga": "^3.3.0",
