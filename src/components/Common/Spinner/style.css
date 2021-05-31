@@ -15,7 +15,7 @@
     left: 0;
     top: 0px;
     height: 100%;
-    background-color: #154360;
+    background-color: var(--color_1);
     border-radius: 10px;
     animation: g 2500ms infinite ease-in-out;
     z-index: 2;
@@ -29,7 +29,7 @@
     position: absolute;
     right: -8px;
     top: -3px;
-    background-color: #154360;
+    background-color: var(--color_1);
     border-radius: 40%;
 }
 
@@ -40,13 +40,13 @@
 
 @keyframes g {
     0% {
-        background-color: #154360;
+        background-color: var(--color_1);
     }
     50% {
-        background-color: #60ce80;
+        background-color: var(--color_7);
     }
     100% {
-        background-color: #154360;
+        background-color: var(--color_1);
     }
 }
 

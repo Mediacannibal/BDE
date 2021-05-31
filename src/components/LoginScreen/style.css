@@ -221,5 +221,5 @@
 }
 
 .disabled_button {
-    background-color: #757588 !important;
+    background-color: var(--color_25)!important;
 }

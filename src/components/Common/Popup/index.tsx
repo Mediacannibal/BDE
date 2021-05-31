@@ -18,7 +18,9 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   }, [])
 
   return (
-    <div className="popup_bg" onClick={cancelClick}>
+    <div className="popup_bg"
+      // onClick={cancelClick}
+    >
       <div className="popup_container">
         <div className="popup">
 

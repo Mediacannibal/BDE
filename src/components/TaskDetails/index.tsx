@@ -326,6 +326,9 @@ const TaskDetails = () => {
                   </>
 
                   <input className="message_box"
+                    style={{
+
+                    }}
                     placeholder="Type a message"
                     type="text"
                     onChange={(e) => { setchat_send(e.target.value) }}

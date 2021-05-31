@@ -3,7 +3,7 @@ import './style.css'
 import { useHistory } from 'react-router-dom';
 import '../../components/app.css'
 import Popup from 'components/Common/Popup'
-import { getTasktimelog } from 'utils/api';
+import { CommonAPi, getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ProgressBar } from 'components/Common/Spinner';
 
@@ -37,18 +37,24 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
       // console.log("Users sent for api request: ", Users)
     }
 
-    getTasktimelog(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("TaskTime Log Results: ", data.data)
-        setlistItems(data.data.results)
-      }
-      else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, ((taskId === undefined) || (taskId === null)) ? "" : taskId, Users)
+    CommonAPi(
+      {
+        path: `tasks/tasktimelog/?task_ids=${((taskId === undefined) || (taskId === null)) ? "" : taskId}&users=${Users}`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("TaskTime Log Results: ", data.data)
+          setlistItems(data.data.results)
+        }
+        else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
 
   const renderHeader = () => {
@@ -86,7 +92,7 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
       title={"Time Spent for " + taskName}
       popup_body={
         <>
-          { companybranchTitle &&
+          {companybranchTitle &&
             <div className="companybranch_container">
               <div className="companybranch_wrapper">
                 {listItems.map((element: any, key: any) => {

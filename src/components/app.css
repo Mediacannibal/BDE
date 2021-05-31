@@ -73,6 +73,8 @@
     --color_21: #000000;
     --color_22: #e06a6a19;
     --color_23: #acfc91c2;
+    --color_24: #e0e0e0;
+    --color_25: #757588;
     --BR1: calc(0.1vw + 0.3vh + 0.1vmin);
 }
 
@@ -232,7 +234,7 @@
 }
 
 tr:nth-child(even) {
-    background-color: #e0e0e0;
+    background-color:var(--color_24);
 }
 
 /* internal_table css */
@@ -291,7 +293,7 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #000000df;
+    background-color: var(--color_21);
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;

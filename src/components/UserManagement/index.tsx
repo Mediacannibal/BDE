@@ -16,7 +16,7 @@ export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setColour, loadColour } = ColourObject()
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
