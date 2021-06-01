@@ -27,6 +27,8 @@ export const convertToBarTasks = (
     dates[1]?.getTimezoneOffset() * 60 * 1000 +
     dates[0]?.getTimezoneOffset() * 60 * 1000;
   let barTasks = tasks.map((t, i) => {
+    // console.log("t:", t, "i", i);
+
     return convertToBarTask(
       t,
       i,
@@ -57,10 +59,14 @@ export const convertToBarTasks = (
       const dependence = barTasks.findIndex(
         value => value.id === dependencies[j]
       );
-      if (dependence !== -1) barTasks[dependence].barChildren.push(i);
+      if (dependence !== -1)
+        barTasks[dependence].barChildren.push(i);
     }
+    // console.log("task:", task);
+
     return task;
   });
+  // console.log("barTasks1111:", barTasks);
 
   return barTasks;
 };
@@ -250,8 +256,8 @@ const taskXCoordinate = (
         dates[index].getTime() -
         xDate.getTimezoneOffset() * 60 * 1000 +
         dates[index].getTimezoneOffset() * 60 * 1000) /
-        dateDelta) *
-      columnWidth
+      dateDelta) *
+    columnWidth
   );
   return x;
 };
@@ -350,7 +356,7 @@ const dateByX = (
   let newDate = new Date(((x - taskX) / xStep) * timeStep + taskDate.getTime());
   newDate = new Date(
     newDate.getTime() +
-      (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
+    (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
   );
   return newDate;
 };
