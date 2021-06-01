@@ -142,19 +142,26 @@ import { useAuth } from "store/authStore";
 
 // }
 
-export function getStartEndDateForProject(tasks: Task[], projectId: string) {
-  const projectTasks = tasks.filter(t => t.project === projectId);
-  let start = projectTasks[0].start;
-  let end = projectTasks[0].end;
+export function getStartEndDateForProject(tasks: any, tasklist: any) {
 
-  for (let i = 0; i < projectTasks.length; i++) {
-    const task = projectTasks[i];
-    if (start.getTime() > task.start.getTime()) {
-      start = task.start;
-    }
-    if (end.getTime() < task.end.getTime()) {
-      end = task.end;
-    }
+  // console.log("()()()()==>", tasks, tasklist);
+
+  const getoldobj = (list: any, id: any) => {
+    let obj = {}
+    list.forEach((element: any) => {
+      if (element.id === id)
+        obj = element
+    });
+    return obj
   }
-  return [start, end];
+
+  const getDifference = (sdate1: any, sdate2: any) => {
+
+    const diffInMs = Math.abs(sdate2 - sdate1);
+    // console.log("<><><><><><><><><>", diffInMs);
+    return diffInMs / 1000;
+  }
+
+  let oldobj = getoldobj(tasklist, tasks.id)
+  return [getDifference(tasks.start, oldobj.start), getDifference(tasks.end, oldobj.end)]
 }
