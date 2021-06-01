@@ -75,8 +75,9 @@ const LoginScreen = () => {
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
 
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+      // console.log("dataaa==>", data.data);
 
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FACEBOOK" && "OTP")
+      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "OTP")
         if (UserDetails.is_active === false)
           history.push('/NewUserForm')
         else
@@ -85,11 +86,22 @@ const LoginScreen = () => {
         if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
           history.push('/Home')
       }
-      window.location.reload()
+      // window.location.reload()
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
     };
+  }
+
+  const FBloginCallback = async (data: any, errorresponse: any) => {
+    if (data.status === 200) {
+      localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
+      localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      history.push('/Home')
+    } else {
+      console.log('error ' + JSON.stringify(data));
+      console.log('error ' + JSON.stringify(errorresponse));
+    }
   }
 
   const handleLogin = () => {
@@ -246,7 +258,7 @@ const LoginScreen = () => {
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);
                     formData.append('username', userInfo.id);
-                    Sociallogin(loginCallback, formData)
+                    Sociallogin(FBloginCallback, formData)
                   }}
                   onError={(response: any) => {
                     console.log(response);
