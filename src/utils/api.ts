@@ -209,7 +209,7 @@ export const createCompany = (callback: (arg0: any, arg1: string) => void, token
 }
 
 export const getCompanyDetails = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`company/add/`, {
+  instance.get(`company/add/?user=all`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
@@ -229,7 +229,7 @@ export const createBranch = (callback: (arg0: any, arg1: string) => void, token:
 }
 
 export const getBranchDetails = (callback: (arg0: any, arg1: string) => void, token: any) => {
-  instance.get(`company/branch/`, {
+  instance.get(`company/branch/?user=all`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
