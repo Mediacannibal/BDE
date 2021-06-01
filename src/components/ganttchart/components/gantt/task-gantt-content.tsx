@@ -149,7 +149,7 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
             operationSuccess = result;
           }
         } catch (error) {
-          console.log("????????",error);
+          console.log("????????", error);
           operationSuccess = false;
         }
       } else if (onProgressChange && isNotLikeOriginal) {

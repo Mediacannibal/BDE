@@ -133,22 +133,7 @@ const AppGantt = () => {
   };
 
   const onProgressChange = async (task: Task) => {
-
     // console.log("On progress change Id:" + task.id, task.progress);
-
-    // let temp = []
-    // exarr.forEach(element => {
-    //   if(element.id === id)
-    //   {
-    //     let temp1 = element 
-    //     temp1.something ="newvalue"
-    //     temp.push(temp1)
-    //   }
-    //   else
-    //   {temp.push(element)}
-    // });
-    // setexarr(temp)
-
   };
 
 
