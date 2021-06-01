@@ -97,7 +97,13 @@ const LoginScreen = () => {
     if (data.status === 200) {
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-      history.push('/Home')
+
+      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+
+      if (UserDetails.is_active === false)
+        history.push('/NewUserForm')
+      else
+        history.push('/Home')
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
