@@ -34,7 +34,7 @@ const AppGantt = () => {
 
     getMainTask(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        console.log("Task Results: ", data.data.results)
+        // console.log("Task Results: ", data.data.results)
         let task: any = []
         data.data.results.forEach((obj: any) => {
           task.push(
@@ -79,7 +79,6 @@ const AppGantt = () => {
           if (found) {
             let tem = a
             newidlist.push(a.id)
-            console.log("CHILD ID :", a.id);
             await findchild(a.id, list, newidlist)
             a = tem
           }
@@ -155,29 +154,13 @@ const AppGantt = () => {
         return (t.dependencies === null) ? t : func()
       }
     )
-    // find the next level child for a.id = get list of id ()
-    // and update all sublevel child 
-
-    // let listchildTasks: any = tasks.filter(t1 => tasks.some(t2 => t1.id === t2.dependencies))
-    // let a = listchildTasks;
     setTimeout(() => {
-      console.log("======>>>>", id_list);
-
       id_list.forEach((element: any) => {
         let child_tree = findchild(element, newTasks, [])
-        console.log("=======??", child_tree);
-
-
-
         child_tree.forEach(ele => {
-          console.log(ele);
-
           newTasks = newTasks.map((t: any) => {
             const fun = () => {
               let tem = t
-              console.log(t);
-
-
               const getoldobj = (list: any, id: any) => {
                 let obj = {}
                 list.forEach((element: any) => {
@@ -187,7 +170,6 @@ const AppGantt = () => {
                 return obj
               }
               let oldobj = getoldobj(tasks, task.id)
-
               if (task.start > oldobj.start && task.end > oldobj.end) {
                 tem.start.setSeconds(tem.start.getSeconds() + start)
                 tem.end.setSeconds(tem.end.getSeconds() + end)
@@ -212,12 +194,8 @@ const AppGantt = () => {
                 tem.start.setSeconds(tem.start.getSeconds() - end)
                 tem.end.setSeconds(tem.end.getSeconds() - end)
               }
-              console.log("><><><????", tem);
-
               return tem;
             }
-            console.log("><////", t.id, ele);
-
             return (t.id === ele) ? fun() : t;
           })
           setTasks(newTasks);
@@ -229,23 +207,12 @@ const AppGantt = () => {
 
 
   const onTaskChange = (task: Task) => {
-
-    // console.log("On date change Id:" + task.id, task.barChildren, task.dependencies, '<><><><><><>', task.start, task.end);
-
-    // let newTasks: any = tasks.map(t => (t.id === task.id ? task : t));
-
-    console.log("vvvvv", tasks, task.id)
-
     recurse(task);
   };
-
-
-
 
   const onProgressChange = async (task: Task) => {
     // console.log("On progress change Id:" + task.id, task.progress);
   };
-
 
   return (
     <div>
