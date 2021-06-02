@@ -75,7 +75,7 @@ const LoginScreen = () => {
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
 
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-      // console.log("dataaa==>", data.data);
+      console.log("dataaa==>", UserDetails);
 
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "OTP")
         if (UserDetails.is_active === false)
