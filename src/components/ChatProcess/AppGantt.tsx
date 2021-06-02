@@ -62,14 +62,42 @@ const AppGantt = () => {
   }, []);
 
 
-  const onTaskChange = (task: Task) => {
 
-    console.log("On date change Id:" + task.id, task.barChildren, task.dependencies, '<><><><><><>', task.start, task.end);
+  const findchild = (id, list, id_list) => {
+    let newidlist = id_list
+    let newTasks = list.map(
+      (t: any) => {
+        const func = async () => {
+          let a = t;
+          let arr = String(a.dependencies).split(',')
+          let found = false
+          arr.forEach(ele => {
+            if (ele === id) {
+              found = true;
+            }
+          });
+          if (found) {
+            let tem = a
+            newidlist.push(a.id)
+            console.log("CHILD ID :", a.id);
+            await findchild(a.id, list, newidlist)
+            a = tem
+          }
+          return a;
+        }
+        return (t.dependencies === null) ? t : func()
+      }
+    )
+    return newidlist
+  }
 
+
+  const recurse = (task: Task) => {
+
+    const [start, end] = getStartEndDateForProject(task, tasks);
     let newTasks: any = tasks.map(t => (t.id === task.id ? task : t));
 
-    console.log("vvvvv", tasks, task.id)
-
+    let id_list: any = []
     newTasks = newTasks.map(
       (t: any) => {
         const func = () => {
@@ -83,9 +111,8 @@ const AppGantt = () => {
           });
           if (found) {
             let tem = a
-            const [start, end] = getStartEndDateForProject(task, tasks);
+            id_list.push(a.id)
 
-            // console.log("OOOOOO", start, end, task, tasks);
 
             const getoldobj = (list: any, id: any) => {
               let obj = {}
@@ -128,9 +155,92 @@ const AppGantt = () => {
         return (t.dependencies === null) ? t : func()
       }
     )
-    // console.log("=======", newTasks);
+    // find the next level child for a.id = get list of id ()
+    // and update all sublevel child 
+
+    // let listchildTasks: any = tasks.filter(t1 => tasks.some(t2 => t1.id === t2.dependencies))
+    // let a = listchildTasks;
+    setTimeout(() => {
+      console.log("======>>>>", id_list);
+
+      id_list.forEach((element: any) => {
+        let child_tree = findchild(element, newTasks, [])
+        console.log("=======??", child_tree);
+
+
+
+        child_tree.forEach(ele => {
+          console.log(ele);
+
+          newTasks = newTasks.map((t: any) => {
+            const fun = () => {
+              let tem = t
+              console.log(t);
+
+
+              const getoldobj = (list: any, id: any) => {
+                let obj = {}
+                list.forEach((element: any) => {
+                  if (element.id === id)
+                    obj = element
+                });
+                return obj
+              }
+              let oldobj = getoldobj(tasks, task.id)
+
+              if (task.start > oldobj.start && task.end > oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() + start)
+                tem.end.setSeconds(tem.end.getSeconds() + end)
+              }
+              else if (task.start < oldobj.start && task.end < oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() - start)
+                tem.end.setSeconds(tem.end.getSeconds() - end)
+              }
+              else if (task.start > oldobj.start && task.end === oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() + 0)
+                tem.end.setSeconds(tem.end.getSeconds() + 0)
+              }
+              else if (task.start === oldobj.start && task.end > oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() + end)
+                tem.end.setSeconds(tem.end.getSeconds() + end)
+              }
+              else if (task.start < oldobj.start && task.end === oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() + 0)
+                tem.end.setSeconds(tem.end.getSeconds() + 0)
+              }
+              else if (task.start === oldobj.start && task.end < oldobj.end) {
+                tem.start.setSeconds(tem.start.getSeconds() - end)
+                tem.end.setSeconds(tem.end.getSeconds() - end)
+              }
+              console.log("><><><????", tem);
+
+              return tem;
+            }
+            console.log("><////", t.id, ele);
+
+            return (t.id === ele) ? fun() : t;
+          })
+          setTasks(newTasks);
+        });
+      });
+    }, 200);
     setTasks(newTasks);
+  }
+
+
+  const onTaskChange = (task: Task) => {
+
+    // console.log("On date change Id:" + task.id, task.barChildren, task.dependencies, '<><><><><><>', task.start, task.end);
+
+    // let newTasks: any = tasks.map(t => (t.id === task.id ? task : t));
+
+    console.log("vvvvv", tasks, task.id)
+
+    recurse(task);
   };
+
+
+
 
   const onProgressChange = async (task: Task) => {
     // console.log("On progress change Id:" + task.id, task.progress);
