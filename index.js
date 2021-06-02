@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './index.css';
 import App from 'components/App'
 import { Normalize } from 'styled-normalize'
 import { BrowserRouter } from 'react-router-dom'
@@ -10,15 +11,15 @@ import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
-import * as serviceWorker from './serviceWorker'; 
- 
+import * as serviceWorker from './serviceWorker';
+
 ReactGA.initialize('UA-157352486-1');
 
- 
+
 const analytics = Analytics({
   app: 'MC-BDE',
   plugins: [
-     googleAnalytics({
+    googleAnalytics({
       trackingId: 'UA-157352486-1',
       anonymizeIp: true,
       cookieConfig: {
@@ -34,13 +35,15 @@ const analytics = Analytics({
 analytics.page()
 
 ReactDOM.render(
-  <AnalyticsProvider instance={analytics}>
-    <BrowserRouter forceRefresh={true} >
-      <Normalize />
-      <App />
-    </BrowserRouter>
-  </AnalyticsProvider>,
+  <React.StrictMode>
+    <AnalyticsProvider instance={analytics}>
+      <BrowserRouter forceRefresh={true} >
+        <Normalize />
+        <App />
+      </BrowserRouter>
+    </AnalyticsProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 )
 
-serviceWorker.register();
+serviceWorker.unregister();

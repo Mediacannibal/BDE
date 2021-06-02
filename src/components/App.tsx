@@ -32,7 +32,6 @@ import { getToken, onMessageListener} from '../../firebase';
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
   { path: '/Project', component: ProjectScreen },
-  { path: '/Meeting', component: MeetingScreen },
   { path: '/TaskDetails', component: TaskDetails },
   { path: '/TaskList', component: TaskList },
   { path: '/TaskTimeLog', component: TaskTimeLog },
@@ -52,6 +51,7 @@ const dashboard_screen = [
 
 const fullpage_screen = [
   { path: '/', component: LoginScreen }, 
+  { path: '/Meeting', component: MeetingScreen },
 ]
 
 const App = () => {
