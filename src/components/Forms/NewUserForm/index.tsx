@@ -102,8 +102,6 @@ const NewUserForm = ({ setPopup }, props: any) => {
         console.log('error ' + JSON.stringify(errorresponse));
       }
     }, token)
-
-    
   }, [])
 
   const Company_name = () => {
@@ -143,7 +141,6 @@ const NewUserForm = ({ setPopup }, props: any) => {
       </div>
 
       {ispopup ?
-
         <Popup
           title={"Add / Edit User?"}
           desc1={"The following User will be placed!"}
