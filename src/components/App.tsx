@@ -9,8 +9,7 @@ import "./app.css";
 
 import LoginScreen from './LoginScreen';
 import ProjectScreen from './ProjectScreen';
-import MeetingScreen from './MeetingScreen';
-import Meetingvideo from './MeetingScreen/Meetingvideo';
+import MeetingScreen from './MeetingScreen'; 
 import TaskList from './TaskList';
 import TaskDetails from './TaskDetails';
 import UserManagement from './UserManagement';
@@ -52,8 +51,7 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/', component: LoginScreen },
-  { path: '/meetinghome/:url', component: Meetingvideo },
+  { path: '/', component: LoginScreen }, 
 ]
 
 const App = () => {

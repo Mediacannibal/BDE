@@ -40,8 +40,8 @@ const MeetingScreen = () => {
 	useEffect(() => {
 		ReactGA.pageview(window.location.pathname + window.location.search); 
 
-		socket.current = io.connect("http://apimcbde.mediacannibal.com/");
-		
+		socket.current = io.connect("http://localhost8000/");
+		// socket.current = io.connect("http://apimcbde.mediacannibal.com/");
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
 			setStream(stream);
 			if (userVideo.current) {
