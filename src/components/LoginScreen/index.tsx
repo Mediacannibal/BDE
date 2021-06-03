@@ -7,7 +7,6 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import { generateOTP } from 'utils/api';
@@ -41,7 +40,6 @@ const LoginScreen = () => {
     if (data.status === 200) {
       // console.log('success ', data.data.results);
       // localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
-
     } else {
       errorlog(data, errorresponse)
       console.log('error ' + JSON.stringify(data));
@@ -77,7 +75,7 @@ const LoginScreen = () => {
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
       console.log("dataaa==>", UserDetails);
 
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "OTP")
+      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "otp")
         if (UserDetails.is_active === false)
           history.push('/NewUserForm')
         else
@@ -168,7 +166,7 @@ const LoginScreen = () => {
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={OTPvalidate} className="login_validatebutton">
+                  <button onClick={() => { OTPvalidate() }} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>

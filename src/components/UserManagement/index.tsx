@@ -80,7 +80,7 @@ const UserManagement = (props: any) => {
         <tr key={element.id} >
           <td>{element.company_name}</td>
           <td>{element.branch_name}</td>
-          <td>{element.user.username}</td>
+          <td>{element.username.username}</td>
           <td>{element.firstname}</td>
           <td>{element.lastname}</td>
           <td>{element.email}</td>
