@@ -189,9 +189,9 @@ const NewUserForm = ({ setPopup }, props: any) => {
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
 
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-      console.log("dataaa==>", UserDetails);
+      // console.log("dataaa==>", UserDetails);
 
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "OTP")
+      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
         if (UserDetails.is_active === false)
           history.push('/NewUserForm')
         else
@@ -205,23 +205,6 @@ const NewUserForm = ({ setPopup }, props: any) => {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
     };
-  }
-
-  const FBloginCallback = async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
-      localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-
-      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-
-      if (UserDetails.is_active === false)
-        history.push('/NewUserForm')
-      else
-        history.push('/Home')
-    } else {
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
   }
 
   const handleLogin = () => {
@@ -407,7 +390,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
                           formData.append('auth_provider', "fb");
                           formData.append('email', userInfo.email);
                           formData.append('username', userInfo.id);
-                          Sociallogin(FBloginCallback, formData)
+                          Sociallogin(loginCallback, formData)
                         }}
                         onError={(response: any) => {
                           console.log(response);
