@@ -8,7 +8,6 @@ import type { Task } from "../ganttchart/types/public-types";
 import { getMainTask } from "utils/api";
 import { useAuth } from "store/authStore";
 
-//Init
 const AppGantt = () => {
   const [view, setView] = React.useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = React.useState([]);
@@ -51,17 +50,13 @@ const AppGantt = () => {
           )
         });
         setTasks(task)
-
       }
       else {
         console.log('error ' + JSON.stringify(data));
         console.log('error ' + JSON.stringify(errorresponse));
       }
     }, auth, task, users, parent_child, task_domain, task_priority, project)
-
   }, []);
-
-
 
   const findchild = (id, list, id_list) => {
     let newidlist = id_list
@@ -90,12 +85,9 @@ const AppGantt = () => {
     return newidlist
   }
 
-
   const recurse = (task: Task) => {
-
     const [start, end] = getStartEndDateForProject(task, tasks);
     let newTasks: any = tasks.map(t => (t.id === task.id ? task : t));
-
     let id_list: any = []
     newTasks = newTasks.map(
       (t: any) => {
@@ -112,7 +104,6 @@ const AppGantt = () => {
             let tem = a
             id_list.push(a.id)
 
-
             const getoldobj = (list: any, id: any) => {
               let obj = {}
               list.forEach((element: any) => {
@@ -121,6 +112,7 @@ const AppGantt = () => {
               });
               return obj
             }
+
             let oldobj = getoldobj(tasks, task.id)
 
             if (task.start > oldobj.start && task.end > oldobj.end) {
@@ -204,7 +196,6 @@ const AppGantt = () => {
     }, 200);
     setTasks(newTasks);
   }
-
 
   const onTaskChange = (task: Task) => {
     recurse(task);
