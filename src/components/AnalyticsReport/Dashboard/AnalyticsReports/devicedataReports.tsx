@@ -3,6 +3,7 @@ import { addDays } from "date-fns";
 import '../../App.css'
 import { queryReport } from "../AnalyticsReportingApi/queryReport";
 import Card from '../../../Common/Card';
+import Visual_devicedata_report from "./visual_devicedata_report";
 
 const DevicedataReports = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
@@ -50,22 +51,22 @@ const DevicedataReports = (props: any) => {
 
     useEffect(() => {
 
-        const request = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:users" },
-            ],
-            dimensions: ["ga:deviceCategory"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request)
-                    .then((resp: any) => displayResults(resp))
-                    .catch((error: any) => console.error(error)),
-            4500
-        );
+        // const request = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:users" },
+        //     ],
+        //     dimensions: ["ga:deviceCategory"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request)
+        //             .then((resp: any) => displayResults(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     4500
+        // );
 
 
         const request2 = {
@@ -142,14 +143,25 @@ const DevicedataReports = (props: any) => {
             <Card
                 card_title="Type of devices"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders?.map(renderHeader2)} {metriheaders?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+
+                        <Visual_devicedata_report
+                            title={"Type of devices"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:deviceCategory"]}
+                        />
+
+                        <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders?.map(renderHeader2)} {metriheaders?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data?.map(renderBody3)} </tbody>
+                            </table>
+                        </div>
+                    </>
                 }
             />
 
@@ -157,28 +169,74 @@ const DevicedataReports = (props: any) => {
             <Card
                 card_title="Browser info"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders2?.map(renderHeader2)} {metriheaders2?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data2?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+
+                        <Visual_devicedata_report
+                            title={"Type of Browser"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:browser"]}
+                        />
+
+                        <Visual_devicedata_report
+                            title={"Type of operatingSystem"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:operatingSystem"]}
+                        />
+
+                        <Visual_devicedata_report
+                            title={"Type of operatingSystem"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:operatingSystemVersion"]}
+                        />
+
+
+                        <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders2?.map(renderHeader2)} {metriheaders2?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data2?.map(renderBody3)} </tbody>
+                            </table>
+                        </div>
+                    </>
                 }
             />
 
             <Card
                 card_title="Mobile info"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders3?.map(renderHeader2)} {metriheaders3?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data3?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+
+                        <Visual_devicedata_report
+                            title={"Type of mobileDeviceBranding"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:mobileDeviceBranding"]}
+                        />
+                        <Visual_devicedata_report
+                            title={"Type of mobileDeviceModel"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:mobileDeviceModel"]}
+                        />
+
+                        <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders3?.map(renderHeader2)} {metriheaders3?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data3?.map(renderBody3)} </tbody>
+                            </table>
+                        </div>
+                    </>
                 }
             />
 
