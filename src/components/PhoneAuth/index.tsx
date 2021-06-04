@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import firebase from "../../../firebase";
-import 'firebaseui/dist/firebaseui.css'
 
 declare global {
     interface Window { recaptchaVerifier: any; confirmationResult: any }

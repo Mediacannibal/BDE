@@ -14,7 +14,6 @@ import useCountDown from 'react-countdown-hook';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import firebase from "../../../firebase";
-import 'firebaseui/dist/firebaseui.css'
 import { setuid } from 'process';
 
 declare global {
