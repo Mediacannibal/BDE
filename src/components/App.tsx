@@ -29,6 +29,7 @@ import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
 import { getToken, onMessageListener} from '../../firebase'; 
+import Phoneauth from './Phoneauth';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -48,6 +49,7 @@ const dashboard_screen = [
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
   { path: '/AppGantt', component: AppGantt },
+  { path: '/Phoneauth', component: Phoneauth },
 ]
 
 const fullpage_screen = [

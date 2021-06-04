@@ -13,6 +13,13 @@ import { generateOTP } from 'utils/api';
 import useCountDown from 'react-countdown-hook';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
+import firebase from "../../../firebase";
+import 'firebaseui/dist/firebaseui.css'
+import { setuid } from 'process';
+
+declare global {
+  interface Window { recaptchaVerifier: any; confirmationResult: any }
+}
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -23,6 +30,12 @@ const LoginScreen = () => {
 
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(15 * 1000, 1000);
   const [timerglow, settimerglow] = useState(false)
+
+  const [phone, setphone] = useState('');
+  const [otp, setotp] = useState('');
+
+  const [phoneauth_uid, setphoneauth_uid] = useState('');
+
 
   // const [time, settime] = useState(0)
 
@@ -102,6 +115,74 @@ const LoginScreen = () => {
     Sociallogin(loginCallback, data)
   };
 
+
+
+  //PHONE AUTH OTP
+
+  const setUpRecaptcha = () => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: function (response: any) {
+          console.log("Captcha Resolved", response);
+          onSignInSubmit();
+        },
+        defaultCountry: "IN",
+      }
+    );
+  };
+
+  const onSignInSubmit = () => {
+    // e.preventDefault();
+    setUpRecaptcha();
+    let phoneNumber = "+91" + phone;
+    console.log(phoneNumber);
+    let appVerifier = window.recaptchaVerifier;
+    firebase
+      .auth()
+      .signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then(function (confirmationResult) {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        // console.log(confirmationResult);
+        console.log("OTP is sent");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const onSubmitOtp = () => {
+
+
+    console.log(">>>>>>>>>>", phoneauth_uid)
+    // e.preventDefault();
+    let otpInput = otp;
+    let optConfirm = window.confirmationResult;
+    // console.log(codee);
+    optConfirm
+      .confirm(otpInput)
+      .then(function (result: any) {
+        // User signed in successfully.
+        console.log("Result", result, result.user.uid);
+        // alert("SUCCESSFULL GOOD JOB HEMANTH");
+        // let user = result.user;
+        let data = {
+          auth_provider: ispassword ? "otp" : "mc",
+          username: result.user.uid,
+          phonenumber: username_email_or_phone.value
+        }
+        Sociallogin(loginCallback, data)
+      })
+      .catch(function (error: any) {
+        console.log(error);
+        alert("Incorrect OTP");
+      });
+
+  };
+
   return (
     <div className="login_page">
 
@@ -135,21 +216,31 @@ const LoginScreen = () => {
               <div className="login_button_container">
                 <input id="username" type="text"
                   value={username_email_or_phone.value}
-                  onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }}
+                  onChange={(e) => {
+                    setusername_email_or_phone({ value: e.target.value, error: '' })
+                    setphone(e.target.value)
+                  }}
                   placeholder="User Name / Email / Phone Number" className="login_input" />
+                <div id="recaptcha-container"></div>
               </div>
 
               <div className="login_button_container">
                 <input id="password" type="password"
                   value={password_otp.value}
-                  onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }}
+                  onChange={(e) => {
+                    setpassword_otp({ value: e.target.value, error: '' })
+                    setotp(e.target.value)
+                  }}
                   placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
               </div>
 
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={() => { OTPvalidate() }} className="login_validatebutton">
+                  <button onClick={() => {
+                    OTPvalidate()
+                    onSubmitOtp()
+                  }} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>
@@ -173,9 +264,14 @@ const LoginScreen = () => {
                 <div className="login_button_container" >
                   <button onClick={() => {
                     if (timeLeft / 1000 === 0) {
-                      _onSignUpPressed()
-                      settimerglow(true)
-                      start()
+                      let reg = '^[0-9]$';
+                      if (!reg === false) {
+                        onSignInSubmit()
+                      } else {
+                        _onSignUpPressed()
+                        settimerglow(true)
+                        start()
+                      }
                     }
                   }}
                     className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"} >
