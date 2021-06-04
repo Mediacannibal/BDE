@@ -24,7 +24,7 @@
 .main_menu_left {
     height: 100%;
     position: fixed;
-    background-color: var(--color_6);
+    /* background-color: var(--color_6); */
     display: -ms-flexbox;
     display: flex;
     flex-direction: column;
@@ -42,7 +42,7 @@
 }
 
 .menu_title.active {
-    background-color: var(--color_5);
+    /* background-color: var(--color_5); */
     border-color: var(--color_1);
     border-width: calc(0.05vw + 0.15vh + 0.05vmin) 0;
     border-style: solid;
