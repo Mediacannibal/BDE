@@ -4,6 +4,9 @@ import '../../App.css'
 import { queryReport3 } from "../AnalyticsReportingApi/queryReport3";
 import '../../../../components/app.css'
 import Card from '../../../Common/Card';
+import Visual_usertype_report from "./visual_usertype_report";
+import Visual_daysince_lastsession from "./visual_daysince_lastsession";
+import Visual_users_location from "./visual_users_location";
 
 const UserdataReports = (props: any) => {
     const [startDate, setStartDate] = useState(addDays(new Date(), -30));
@@ -118,69 +121,69 @@ const UserdataReports = (props: any) => {
 
     useEffect(() => {
 
-        const request = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:users"
-                },
-                {
-                    expression: "ga:newUsers"
-                },
-                {
-                    expression: "ga:sessionsPerUser"
-                },
-            ],
-            dimensions: ["ga:date", "ga:hour", "ga:minute", "ga:userType"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request)
-                    .then((resp: any) => displayResults(resp))
-                    .catch((error: any) => console.error(error)),
-            1500
-        );
+        // const request = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:users"
+        //         },
+        //         {
+        //             expression: "ga:newUsers"
+        //         },
+        //         {
+        //             expression: "ga:sessionsPerUser"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date", "ga:hour", "ga:minute", "ga:userType"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request)
+        //             .then((resp: any) => displayResults(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     1500
+        // );
 
 
-        const request2 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:users"
-                },
-            ],
-            dimensions: ["ga:date", "ga:daysSinceLastSession"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request2)
-                    .then((resp: any) => displayResults2(resp))
-                    .catch((error: any) => console.error(error)),
-            1500
-        );
+        // const request2 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:users"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date", "ga:daysSinceLastSession"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request2)
+        //             .then((resp: any) => displayResults2(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     1500
+        // );
 
-        const request3 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                {
-                    expression: "ga:30dayUsers"
-                },
-            ],
-            dimensions: ["ga:date", "ga:day"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request3)
-                    .then((resp: any) => displayResults3(resp))
-                    .catch((error: any) => console.error(error)),
-            1500
-        );
+        // const request3 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         {
+        //             expression: "ga:30dayUsers"
+        //         },
+        //     ],
+        //     dimensions: ["ga:date", "ga:day"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request3)
+        //             .then((resp: any) => displayResults3(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     1500
+        // );
 
         const request4 = {
             viewID: props.viewID,
@@ -201,24 +204,24 @@ const UserdataReports = (props: any) => {
             1500
         );
 
-        const request5 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:sessions" },
-                { expression: "ga:sessionDuration" },
-                { expression: "ga:avgSessionDuration" },
-            ],
-            dimensions: ["ga:userType"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request5)
-                    .then((resp: any) => displayResults5(resp))
-                    .catch((error: any) => console.error(error)),
-            1500
-        );
+        // const request5 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:sessions" },
+        //         { expression: "ga:sessionDuration" },
+        //         { expression: "ga:avgSessionDuration" },
+        //     ],
+        //     dimensions: ["ga:userType"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request5)
+        //             .then((resp: any) => displayResults5(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     1500
+        // );
 
         const request6 = {
             viewID: props.viewID,
@@ -239,24 +242,24 @@ const UserdataReports = (props: any) => {
             1500
         );
 
-        const request7 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
-            ],
-            dimensions: ["ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro", "ga:city", "ga:longitude", "ga:latitude"]
-        };
-        setTimeout(
-            () =>
-                queryReport3(request7)
-                    .then((resp: any) => displayResults7(resp))
-                    .catch((error: any) => console.error(error)),
-            1500
-        );
+        // const request7 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:users" },
+        //         { expression: "ga:newUsers" },
+        //         { expression: "ga:sessions" },
+        //     ],
+        //     dimensions: ["ga:continent", "ga:subContinent", "ga:country", "ga:region", "ga:metro", "ga:city", "ga:longitude", "ga:latitude"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport3(request7)
+        //             .then((resp: any) => displayResults7(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     1500
+        // );
 
         const request8 = {
             viewID: props.viewID,
@@ -315,14 +318,24 @@ const UserdataReports = (props: any) => {
             <Card
                 card_title="User Type"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders?.map(renderHeader2)} {metriheaders?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+                        <Visual_usertype_report
+                            title={"Total type of User's"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:userType", "ga:date"]}
+                        />
+
+                        {/* <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders?.map(renderHeader2)} {metriheaders?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data?.map(renderBody3)} </tbody>
+                            </table>
+                        </div> */}
+                    </>
                 }
             />
 
@@ -330,28 +343,49 @@ const UserdataReports = (props: any) => {
             <Card
                 card_title="Days Since Last Session"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders2?.map(renderHeader2)} {metriheaders2?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data2?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+                        <Visual_daysince_lastsession
+                            title={"User Since Last Session"}
+                            metric={[
+                                { expression: "ga:users" }
+                            ]}
+                            dimension={["ga:date", "ga:daysSinceLastSession"]}
+                        />
+
+                        {/* <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders2?.map(renderHeader2)} {metriheaders2?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data2?.map(renderBody3)} </tbody>
+                            </table>
+                        </div> */}
+                    </>
                 }
             />
 
             <Card
-                card_title="Active Users"
+                card_title="30dayUsers"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders3?.map(renderHeader2)} {metriheaders3?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data3?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+
+                        <Visual_daysince_lastsession
+                            title={" 30dayUsers"}
+                            metric={[
+                                { expression: "ga:30dayUsers" }
+                            ]}
+                            dimension={["ga:date", "ga:day"]}
+                        />
+
+                        {/* <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders3?.map(renderHeader2)} {metriheaders3?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data3?.map(renderBody3)} </tbody>
+                            </table>
+                        </div> */}
+                    </>
                 }
             />
 
@@ -370,44 +404,80 @@ const UserdataReports = (props: any) => {
             />
 
             <Card
-                card_title="User Bounce rate on the site"
+                card_title="User's average Bounce rate on the site"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders5?.map(renderHeader2)} {metriheaders5?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data5?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+                        <Visual_usertype_report
+                            title={"Total type of average users Bounce rate"}
+                            metric={[
+                                { expression: "ga:sessionDuration" },
+                            ]}
+                            dimension={["ga:userType", "ga:date"]}
+                        />
+
+
+                        {/* <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders5?.map(renderHeader2)} {metriheaders5?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data5?.map(renderBody3)} </tbody>
+                            </table>
+                        </div> */}
+                    </>
                 }
             />
 
             <Card
                 card_title="User Acquisition"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders6?.map(renderHeader2)} {metriheaders6?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data6?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+                        <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders6?.map(renderHeader2)} {metriheaders6?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data6?.map(renderBody3)} </tbody>
+                            </table>
+                        </div>
+                    </>
                 }
             />
 
             <Card
                 card_title="User's Locations"
                 card_body={
-                    <div className="internal_table">
-                        <table id='internal_table'>
-                            <thead>
-                                <tr>{dimensionheaders7?.map(renderHeader2)} {metriheaders7?.map(renderHeader3)} </tr>
-                            </thead>
-                            <tbody>{data7?.map(renderBody3)} </tbody>
-                        </table>
-                    </div>
+                    <>
+                        <Visual_users_location
+                            title={"User's Locations"}
+                            metric={[
+                                { expression: "ga:users" },
+                            ]}
+                            dimension={["ga:subContinent"]}
+                        />
+                        <Visual_users_location
+                            title={"User's Locations"}
+                            metric={[
+                                { expression: "ga:users" },
+                            ]}
+                            dimension={["ga:region"]} />
+
+                        <Visual_users_location
+                            title={"User's Locations"}
+                            metric={[
+                                { expression: "ga:users" },
+                            ]}
+                            dimension={["ga:city"]} />
+
+                        <div className="internal_table">
+                            <table id='internal_table'>
+                                <thead>
+                                    <tr>{dimensionheaders7?.map(renderHeader2)} {metriheaders7?.map(renderHeader3)} </tr>
+                                </thead>
+                                <tbody>{data7?.map(renderBody3)} </tbody>
+                            </table>
+                        </div>
+                    </>
                 }
             />
 
