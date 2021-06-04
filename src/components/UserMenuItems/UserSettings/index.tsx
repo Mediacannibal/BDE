@@ -14,7 +14,7 @@ const UserSettings = ({ setPopup }) => {
   const [usertype, setusertype] = useState('NORMAL')
   const [username, setUsername] = useState('')
   const [profile_picture, setprofile_picture] = useState('')
-  const { Colour, colourObj , setcolourObj,setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [ispopup, setispopup] = useState(false)
 
@@ -120,6 +120,8 @@ const UserSettings = ({ setPopup }) => {
                       color={pick_color}
                       onChangeComplete={color => {
                         let newcolour = Colour
+                        let colorobj = colourObj
+
 
                         newcolour = newcolour.map(
                           // (t:any) => t
@@ -127,15 +129,20 @@ const UserSettings = ({ setPopup }) => {
                             const fun = () => {
                               let a = t
                               a.colour = color.hex
+                              let key = String(a.id).substring(2, String(a.id).length)
+                              colorobj[key] = color.hex
+
                               return a
                             }
                             return (t.selected === false) ? fun() : t
                           }
-
                         )
 
                         setColour(newcolour)
-                        // setPopup()
+                        setcolourObj(colorobj)
+
+
+                        setPopup()
                       }} />
                   </div>
                 }

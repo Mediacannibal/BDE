@@ -28,7 +28,7 @@ const HomeScreen = (props: any) => {
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const [users, setusers] = useState('all')
 
   useEffect(() => {
@@ -151,7 +151,7 @@ const HomeScreen = (props: any) => {
           }}
         />
       }
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
+      <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
@@ -160,7 +160,7 @@ const HomeScreen = (props: any) => {
             <Card
               card_title="Active Projects"
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader1()}</tr>
@@ -177,7 +177,7 @@ const HomeScreen = (props: any) => {
             <Card
               card_title="Pending Tasks"
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader2()}</tr>
@@ -193,9 +193,9 @@ const HomeScreen = (props: any) => {
               card_title="Stats"
               card_body={
                 <>
-                  <div className="card_details">1,000 Tasks Completed</div>
-                  <div className="card_details">500 Features Added</div>
-                  <div className="card_details">50,000 Bugs Squashed</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>1,000 Tasks Completed</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>500 Features Added</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>50,000 Bugs Squashed</div>
                 </>
               }
             />
@@ -203,9 +203,9 @@ const HomeScreen = (props: any) => {
               card_title="Analystics"
               card_body={
                 <>
-                  <div className="card_details">Visitors 10,000</div>
-                  <div className="card_details">Countries</div>
-                  <div className="card_details">Devices</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Visitors 10,000</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Countries</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Devices</div>
                 </>
               }
             />

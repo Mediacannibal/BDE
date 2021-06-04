@@ -244,8 +244,8 @@ tr:nth-child(even) {
 
 #internal_table {
     font-size: var(--TS7);
-    color: var(--color_1);
     align-self: center;
+    /* color: var(--color_1); */
 }
 
 #internal_table thead {

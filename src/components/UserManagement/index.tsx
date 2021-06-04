@@ -16,7 +16,7 @@ export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
-  const { Colour, colourObj, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
@@ -30,7 +30,7 @@ const UserManagement = (props: any) => {
     // header
     props.setheader_options(screen_header_elements)
 
-    if (!Colour) {
+    if (!Colour || !colourObj) {
       loadColour();
     }
 
@@ -112,13 +112,13 @@ const UserManagement = (props: any) => {
         />
       }
 
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
+      <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
           </div>
           :
-          <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
+          <div className="internal_table" style={{ width: '97%', overflowY: 'hidden', color: colourObj.color_1 }}>
             <table id='internal_table'>
               <thead>{renderHeader()}</thead>
               <tbody>
