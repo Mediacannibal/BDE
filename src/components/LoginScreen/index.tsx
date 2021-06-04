@@ -171,7 +171,7 @@ const LoginScreen = () => {
         let data = {
           auth_provider: ispassword ? "otp" : "mc",
           username: result.user.uid,
-          phonenumber: username_email_or_phone.value
+          phone: username_email_or_phone.value
         }
         Sociallogin(loginCallback, data)
       })
