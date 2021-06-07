@@ -13,7 +13,7 @@ import Card from 'components/Common/Card';
 const Notifications = (props: any) => {
 
   const history = useHistory();
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
@@ -35,7 +35,7 @@ const Notifications = (props: any) => {
           <Card
             card_title="Notifications"
             card_body={
-              <div className="user_notifications_table">
+              <div className="user_notifications_table" style={{ backgroundColor: colourObj.color_12 }}>
 
                 <div className="user_notification_title_container">
 

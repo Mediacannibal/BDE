@@ -30,7 +30,7 @@
 .chatbox {
     margin: 0;
     width: 100%;
-    background: antiquewhite;
+    /* background: var(--color_5); */
     height: 60vh;
     border-radius: 1vw;
     display: flex;
@@ -48,7 +48,7 @@
 
 .bottom_container {
     height: 8vh;
-    background: cadetblue;
+    /* background: var(--color_14); */
     display: flex;
     justify-content: space-evenly;
     border-radius: calc(0.6vw + 0.6vh);
@@ -57,14 +57,14 @@
 
 .message_box {
     padding: 0.5vh;
-    background-color: var(--color_5);
+    /* background-color: var(--color_5); */
     border-radius: calc(0.6vw + 0.6vh);
     border-color: transparent;
     height: 5vh;
     font-size: var(--TS5);
     text-align: center;
     font-weight: 600;
-    color: var(--color_2);
+    /* color: var(--color_2); */
     width: 70%;
     box-sizing: border-box;
     justify-self: center;
@@ -73,7 +73,7 @@
 }
 
 .icon_container {
-    background-color: var(--color_12);
+    /* background-color: var(--color_12); */
     border-radius: calc(2.6vw + 2.6vh);
     border-color: transparent;
     display: flex;

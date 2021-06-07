@@ -18,7 +18,7 @@ import { ColourObject } from 'store/ColourStore';
 const BugList = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
@@ -218,7 +218,7 @@ const BugList = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader1()}</tr>
@@ -236,7 +236,7 @@ const BugList = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader2()}</tr>

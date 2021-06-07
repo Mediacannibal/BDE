@@ -17,6 +17,7 @@ import * as facebook from '../../../assets/facebook.svg'
 const NewUserForm = ({ setPopup }, props: any) => {
   const history = useHistory();
   const { auth } = useAuth()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
@@ -64,6 +65,12 @@ const NewUserForm = ({ setPopup }, props: any) => {
     // console.log(data); 
   };
   // console.log(errors);
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const Validate = () => {
     // console.log(companynamevalid, branchvalid, usernamevalid,
@@ -271,7 +278,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
 
                 <div className="login_form_bg"></div>
 
-                <div className='loginDescription_Text'>Login or Sign Up with any of the following:</div>
+                <div className='loginDescription_Text' style={{ color: colourObj.color_1 }}>Login or Sign Up with any of the following:</div>
 
                 <div className=" login_popupformcontainer">
 
@@ -323,8 +330,12 @@ const NewUserForm = ({ setPopup }, props: any) => {
                             start()
                           }
                         }}
-                          className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"} >
-
+                          className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"}
+                          style={{ 
+                            color: colourObj.color_5,
+                            backgroundColor: colourObj.color_7,
+                           }}
+                        >
                           {timerglow ?
                             <div className="login_resendotp_container">
                               <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
@@ -338,7 +349,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
                     </div>
                   </div>
 
-                  <div className='loginDescription_Text'>OR</div>
+                  <div className='loginDescription_Text' style={{ color: colourObj.color_5 }}>OR</div>
 
                   <div className="SMlogin_button_container">
 

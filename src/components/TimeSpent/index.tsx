@@ -6,10 +6,12 @@ import Popup from 'components/Common/Popup'
 import { CommonAPi, getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ProgressBar } from 'components/Common/Spinner';
+import { ColourObject } from 'store/ColourStore';
 
 const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(true)
@@ -55,6 +57,10 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
           console.log('error ' + JSON.stringify(errorresponse));
         }
       })
+
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
 
   const renderHeader = () => {
@@ -117,7 +123,7 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
             </div>
             :
             <>
-              <div className="internal_table">
+              <div className="internal_table" style={{ color: colourObj.color_1 }}>
                 <table id='internal_table'>
                   <thead>
                     <tr>{renderHeader()}</tr>

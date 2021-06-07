@@ -11,6 +11,7 @@ import { useAuth } from 'store/authStore';
 const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [project_ref, setproject_ref] = useState(projectName)
   const [title, settitle] = useState('')
@@ -139,6 +140,9 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   useEffect(() => {
     // console.log("Initailized Project Name: ", projectName)
     // console.log("Initailized Feature Task: ", projectTaskType)
+    if (!Colour) {
+      loadColour();
+    }
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -512,7 +516,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         </div>
                       </div> */}
 
-                      <div className="user_band">
+                      <div className="user_band" style={{ backgroundColor: colourObj.color_10 }}>
 
                       </div>
 
@@ -739,7 +743,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                               onClick={() => {
                                 setaddremoveios(!addremoveios)
                               }}>
-                              <div className="addremove_text">
+                              <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                                 {addremoveios ? "Remove Device" : "Add Device"}
                               </div>
                             </div>

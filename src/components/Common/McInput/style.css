@@ -72,7 +72,7 @@
 }
 
 .input_box_wrapper .Label {
-    color: #999;
+    color: var(--color_26);
     pointer-events: none;
     transform-origin: top left;
     transition: all 0.2s ease-out;

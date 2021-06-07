@@ -4,13 +4,15 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { addTasklog, createMainTask, createTestlog, fileupload, getMainTask } from 'utils/api';
+import { addTasklog, fileupload, getMainTask } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTaskLog = ({ setPopup, taskid }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [remarks, setremarks] = useState('')
   const [image_link, setimage_link] = useState('')
@@ -31,6 +33,12 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   const [tasktype, settasktype] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm();
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit

@@ -27,7 +27,7 @@ const TaskDetails = () => {
   const [image, setImage] = useState();
   const [iscamera, setiscamera] = useState(false)
   const [imgPreview, setimgPreview] = useState(false)
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
@@ -187,7 +187,7 @@ const TaskDetails = () => {
 
   return (
     <div className="main">
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
+      <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
@@ -219,7 +219,7 @@ const TaskDetails = () => {
               <div className="chat_container">
                 <div className="subtitle">CHAT</div>
 
-                <div className="chatbox">
+                <div className="chatbox" style={{ background: colourObj.color_5 }}>
                   {
                     // [sdf,dsfsdf,dfsdf,sdf,sdf]
                     // [1,2,34,5,213] 
@@ -313,7 +313,7 @@ const TaskDetails = () => {
                   }
                 </div>
 
-                <div className="bottom_container">
+                <div className="bottom_container" style={{ background: colourObj.color_14 }}>
                   <>
                     <div className="icon_container" onClick={() => { setAttachments(!Attachments) }}>
                       <img className="iconimg" src={AttachmentImg} ></img>
@@ -327,7 +327,8 @@ const TaskDetails = () => {
 
                   <input className="message_box"
                     style={{
-
+                      color: colourObj.color_2,
+                      backgroundColor: colourObj.color_5,
                     }}
                     placeholder="Type a message"
                     type="text"
@@ -337,16 +338,20 @@ const TaskDetails = () => {
                   />
 
                   {photoMessagesend ?
-                    <div className="icon_container" onClick={(e) => {
-                      photoSend()
-                      setimgPreview(false)
-                    }}>
+                    <div className="icon_container"
+                      style={{ backgroundColor: colourObj.color_12 }}
+                      onClick={(e) => {
+                        photoSend()
+                        setimgPreview(false)
+                      }}>
                       <img className="iconimg" src={sendIcon} />
                     </div>
                     :
-                    <div className="icon_container" onClick={(e) => {
-                      messageSend()
-                    }}>
+                    <div className="icon_container"
+                      style={{ backgroundColor: colourObj.color_12 }}
+                      onClick={(e) => {
+                        messageSend()
+                      }}>
                       <img className="iconimg" src={sendIcon} />
                     </div>
                   }

@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS7);
     align-self: center;
     text-decoration: underline;
@@ -25,7 +25,7 @@
 .card_details {
     font-family: 'Barlow';
     font-weight: 500;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS9);
     align-self: center;
 }

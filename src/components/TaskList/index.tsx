@@ -25,7 +25,7 @@ const TaskList = (props: any) => {
   const { auth } = useAuth()
 
   const { userDetail, loaduserDetail } = useuserDetails()
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [unique_title, setunique_title] = useState([])
 
@@ -477,7 +477,7 @@ const TaskList = (props: any) => {
 
               <Card
                 card_body={
-                  <div className='internal_table'>
+                  <div className='internal_table' style={{ color: colourObj.color_1 }}>
                     <table id='internal_table'>
                       <thead>
                         <tr>{renderHeader1()}</tr>

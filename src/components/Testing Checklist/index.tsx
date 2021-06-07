@@ -23,7 +23,7 @@ const TestingChecklist = (props: any) => {
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
   const [unique_title, setunique_title] = useState([])
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [users, setusers] = useState('all')
 
@@ -257,7 +257,7 @@ const TestingChecklist = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader1()}</tr>
@@ -275,7 +275,7 @@ const TestingChecklist = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader2()}</tr>

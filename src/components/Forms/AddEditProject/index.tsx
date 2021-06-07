@@ -7,10 +7,13 @@ import Popup from 'components/Common/Popup'
 import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditProject = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
@@ -35,6 +38,12 @@ const AddEditProject = ({ setPopup }) => {
     "assignee": "",
     "updated_by": "",
   }])
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const { register, handleSubmit, errors, reset } = useForm();
 

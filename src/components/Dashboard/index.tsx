@@ -183,7 +183,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               className={
                 data.path === screen_name ? 'menu_title active' : 'menu_title'
               }
-              style={{ backgroundColor: colourObj.color_5 }}
+              // style={{ backgroundColor: colourObj.color_5 }}
               onClick={() => {
                 history.replace(data.path)
               }}
@@ -265,7 +265,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       >
         <div className='header' style={{ backgroundColor: colourObj.color_6 }}>
           <div className='header_left'>
-            <div className='header_page_title'>{header_options}</div>
+            <div className='header_page_title' style={{ color: colourObj.color_1 }}>{header_options}</div>
           </div>
 
           <div className='header_center'>
@@ -376,7 +376,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           </div>
 
           {user_notification && (
-            <div className='user_notification_menu'>
+            <div className='user_notification_menu' style={{ color: colourObj.color_12 }}>
               <div className='user_notification_header_container'>
                 <div className='user_notification_header' style={{ color: colourObj.color_1 }}>NOTIFICATIONS</div>
                 <img className='header_icon' src={settings} />
@@ -385,7 +385,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               <div className='user_notification_title_container'>
                 <div className='user_notification_title_subcontainer1' style={{ backgroundColor: colourObj.color_5 }}>
                   <img className='header_icon' src={settings} />
-                  <div className='user_notification_title'>Media Cannibal</div>
+                  <div className='user_notification_title' style={{ color: colourObj.color_1 }}>Media Cannibal</div>
                 </div>
 
                 <div className='user_notification_title_subcontainer2'>
@@ -414,27 +414,27 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               </div>
 
               <div className='user_notification_title_container'>
-                <div className='user_notification_title_subcontainer1'>
+                <div className='user_notification_title_subcontainer1' style={{ backgroundColor: colourObj.color_5 }}>
                   <div>***</div>
-                  <div className='user_notification_title'>Media Cannibal</div>
+                  <div className='user_notification_title' style={{ color: colourObj.color_1 }}>Media Cannibal</div>
                 </div>
 
                 <div className='user_notification_title_subcontainer2'>
                   <div className='user_notification_notify'>
                     <div>...</div>
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         Call Them
                       </div>
                       <div>miss call</div>
                     </div>
                     <div>2 hours ago</div>
                   </div>
-                  <div className='user_band'></div>
+                  <div className='user_band' style={{ backgroundColor: colourObj.color_10 }}></div>
                   <div className='user_notification_notify'>
                     <div>!!!</div>
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         What's up
                       </div>
                       <div>hello</div>
@@ -447,6 +447,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               <div>
                 <div
                   className='user_notification_footer'
+                  style={{
+                    color: colourObj.color_1,
+                    backgroundColor: colourObj.color_10
+                  }}
                   onClick={() => {
                     history.replace('/Notifications')
                   }}
@@ -458,7 +462,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           )}
 
           {user_menu_open ? (
-            <div className='user_menu'>
+            <div className='user_menu'
+              style={{
+                backgroundColor: colourObj.color_12
+              }}>
               <div
                 className='user_menu_item'
                 onClick={() => {
@@ -466,11 +473,11 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 }}
               >
                 <img className='header_icon' src={profile_picture} />
-                <div className='header_title'>Profile</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>Profile</div>
               </div>
               <div className='user_menu_item'>
                 <img className='header_icon' src={back} />
-                <div className='header_title'>misc</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>misc</div>
               </div>
               <div className='user_menu_item'>
                 <div
@@ -480,7 +487,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   }}
                 >
                   <img className='header_icon' src={settings} />
-                  <div className='header_title'>Settings</div>
+                  <div className='header_title' style={{ color: colourObj.color_1 }}>Settings</div>
                 </div>
               </div>
               <div
@@ -492,7 +499,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 }}
               >
                 <img className='header_icon' src={back} />
-                <div className='header_title'>Logout</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>Logout</div>
               </div>
             </div>
           ) : null}

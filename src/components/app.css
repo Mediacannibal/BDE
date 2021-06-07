@@ -75,6 +75,7 @@
     --color_23: #acfc91c2;
     --color_24: #e0e0e0;
     --color_25: #757588;
+    --color_26: #999;
     --BR1: calc(0.1vw + 0.3vh + 0.1vmin);
 }
 
@@ -292,7 +293,7 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--color_21);
+    /* background-color: var(--color_21); */
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;
@@ -309,7 +310,7 @@ tr:nth-child(even) {
 
 .popup {
     position: relative;
-    background-color: var(--color_15);
+    /* background-color: var(--color_15); */
     z-index: 200;
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border-color: var(--color_7);
@@ -550,13 +551,13 @@ tr:nth-child(even) {
     align-self: center;
     align-items: center;
     margin: calc(0.3vw + 0.9vh + 0.3vmin);
-    color: var(--color_1);
+    /* color: var(--color_1); */
 }
 
 /* band */
 
 .user_band {
-    background-color: var(--color_10);
+    /* background-color: var(--color_10); */
     width: 100%;
     height: 0.2vh;
 }
@@ -601,7 +602,7 @@ tr:nth-child(even) {
 }
 
 .loginDescription_Text {
-    color: var(--color_5);
+    /* color: var(--color_5); */
     font-size: var(--TS9);
     text-align: center;
     font-weight: 400;
@@ -656,10 +657,10 @@ tr:nth-child(even) {
 .login_validatebutton {
     padding: calc(0.15vw + 0.45vh + 0.15vmin) calc(0.5vw + 1.5vh + 0.5vmin);
     justify-self: center;
-    background-color: var(--color_7);
+    /* background-color: var(--color_7); */
     border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
     border-color: transparent;
-    color: var(--color_5);
+    /* color: var(--color_5); */
 }
 
 .login_buttontext {
