@@ -12,6 +12,11 @@ import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
 import * as serviceWorker from './serviceWorker';
+import { registerServiceWorker } from "./src/register-sw";
+
+
+
+registerServiceWorker();
 
 ReactGA.initialize('UA-157352486-1');
 
@@ -33,6 +38,7 @@ const analytics = Analytics({
   ]
 })
 analytics.page()
+
 
 ReactDOM.render(
   <React.StrictMode>

@@ -19,7 +19,7 @@
     <meta name="description" content="Square Dashboard: React Single Page Application" />
     <script src="https://apis.google.com/js/client:platform.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
-<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 </head>
 <style>
     body {
@@ -39,5 +39,69 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+
+<script>
+    function showToken(a) {
+        console.log(a);
+    }
+    var firebaseConfig = {
+        apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
+        authDomain: "mc-bde.firebaseapp.com",
+        projectId: "mc-bde",
+        storageBucket: "mc-bde.appspot.com",
+        messagingSenderId: "181659839939",
+        appId: "1:181659839939:web:bd1bd39cb9b2232add6176",
+        measurementId: "G-R7GER30TG2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(
+        "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M"
+    );
+    messaging.requestPermission().then(() => {
+        console.log("granted");
+    });
+    messaging
+        .getToken()
+        .then((currentToken) => {
+            if (currentToken) {
+                console.log(currentToken);
+            } else {
+                // Show permission request.
+                console.log(
+                    "No Instance ID token available. Request permission to generate one."
+                );
+                // Show permission UI.
+                updateUIForPushPermissionRequired();
+                setTokenSentToServer(false);
+            }
+        })
+        .catch((err) => {
+            console.log("An error occurred while retrieving token. ", err);
+            showToken("Error retrieving Instance ID token. ", err);
+            //setTokenSentToServer(false);
+        });
+    messaging.onMessage((payload) => {
+        console.log("oooooo", payload)
+        var obj = JSON.parse(payload.data.notification);
+        var notification = new Notification(obj.title, {
+            icon: obj.icon,
+            body: obj.body,
+        });
+    });
+</script>
+<script>
+    // Your web app's Firebase configuration
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("./firebase-messaging-sw.js")
+                .then((reg) => console.log("Success: ", reg.scope))
+                .catch((err) => console.log(err));
+        });
+    }
+</script>
+
 
 </html>
