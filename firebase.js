@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/messaging';
-
+import "firebase/auth";
 
 
 var firebaseConfig = {
@@ -14,30 +14,64 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// const messaging = firebase.messaging();
-const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null
-export const getToken= () =>{
-  
-  
-return new Promise((resolve, reject) => {
-   messaging?.requestPermission().then(() => {
-    //  console.log("permission granted");
-     return messaging?.getToken()}
-     ).then((firebaseToken) => {
-            resolve(firebaseToken);
-            console.log(firebaseToken);})
-        .catch((err) => {
-          console.log(err);
-            reject(err);
-        });
-});
-}
 
+const messaging = firebase.messaging();
+
+messaging.getToken({ vapidKey: "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M" });
+
+
+// const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null
+
+// export const getToken = () => {
+
+
+//   return new Promise((resolve, reject) => {
+//     messaging?.requestPermission().then(() => {
+//       //  console.log("permission granted");
+//       return messaging?.getToken()
+//     }
+//     ).then((firebaseToken) => {
+//       resolve(firebaseToken);
+//       console.log(">>>>>", firebaseToken);
+//     })
+//       .catch((err) => {
+//         console.log(err);
+//         reject(err);
+//       });
+//   });
+// }
+
+
+export const getToken = (setTokenFound) => {
+  return messaging.getToken({ vapidKey: 'BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M' }).then((currentToken) => {
+    if (currentToken) {
+      console.log('current token for client: ', currentToken);
+      setTokenFound(true);
+      // Track the token -> client mapping, by sending to backend server
+      // show on the UI that permission is secured
+    } else {
+      console.log('No registration token available. Request permission to generate one.');
+      setTokenFound(false);
+      // shows on the UI that permission is required 
+    }
+  }).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+    // catch error while creating client token
+  });
+}
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging?.onMessage((payload) => {
+    // alert("11Foreground message fired!")
+    messaging.onMessage((payload) => {
+      alert('Notification received!');
       console.log(payload);
       resolve(payload);
     });
   });
+
+messaging.onMessage(function (payload) {
+  console.log("Message received. ", payload);
+});
+
+export default firebase;
