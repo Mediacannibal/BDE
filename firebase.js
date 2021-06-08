@@ -62,11 +62,8 @@ export const getToken = (setTokenFound) => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    // alert("11Foreground message fired!")
-    messaging.onMessage((payload) => {
-      alert('Notification received!');
-      console.log(payload);
-      resolve(payload);
+    firebase.messaging().onMessage(notification => {
+      alert('Notification received!', notification);
     });
   });
 
