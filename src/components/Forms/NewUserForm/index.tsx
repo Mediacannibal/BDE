@@ -3,7 +3,7 @@ import SimpleEditor from 'react-simple-image-editor';
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import { generateOTP, getBranchDetails, getCompanyDetails, newUserSignup, Sociallogin } from 'utils/api';
+import { CommonAPi, generateOTP, getBranchDetails, getCompanyDetails, newUserSignup, Sociallogin } from 'utils/api';
 import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import Popup from 'components/Common/Popup';
@@ -67,12 +67,6 @@ const NewUserForm = ({ setPopup }, props: any) => {
   };
   // console.log(errors);
 
-  useEffect(() => {
-    if (!Colour) {
-      loadColour();
-    }
-  }, [])
-
   const Validate = () => {
     // console.log(companynamevalid, branchvalid, usernamevalid,
     //   firstnamevalid, lastnamevalid, emailvalid,
@@ -97,37 +91,46 @@ const NewUserForm = ({ setPopup }, props: any) => {
   }
 
   useEffect(() => {
-    CompanyDetails()
-    BranchDetails()
+    CommonAPi(
+      {
+        path: `company/add/?user=all`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks: ", data.data.results)
+          setlistItems1(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
+
+    CommonAPi(
+      {
+        path: `company/branch/?user=all`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          // console.log("Project Tasks: ", data.data.results)
+          setlistItems2(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
+
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
-
-  const CompanyDetails = () => {
-    getCompanyDetails(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("Company Details: ", data.data.results)
-        setlistItems1(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth)
-  }
-
-  const BranchDetails = () => {
-    getBranchDetails(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log("Branch Details: ", data.data.results)
-        setlistItems2(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth)
-  }
 
   const Company_name = () => {
     let a: any = [];
@@ -186,7 +189,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
       auth_provider: ispassword ? "mc" : "otp",
       password: password_otp.value,
       username: username_email_or_phone.value,
-      link_account:"1"
+      link_account: "1"
     }
     Sociallogin(loginCallback, data)
   };
@@ -436,7 +439,8 @@ const NewUserForm = ({ setPopup }, props: any) => {
                       sendcheck={preSendValidator}
                       value={company_name}
                       onchange={setcompany_name}
-                      options={Company_name()} />
+                      options={Company_name()}
+                    />
                   </div>
                 </div>
 

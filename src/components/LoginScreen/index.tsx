@@ -15,12 +15,14 @@ import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import firebase from "../../../firebase";
 import { setuid } from 'process';
+import { useAuth } from 'store/authStore';
 
 declare global {
   interface Window { recaptchaVerifier: any; confirmationResult: any }
 }
 
 const LoginScreen = () => {
+  const { setAuth } = useAuth();
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
@@ -83,6 +85,7 @@ const LoginScreen = () => {
       // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      setAuth(String(data.data.result.token))
 
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
       // console.log("dataaa==>", UserDetails);
@@ -260,7 +263,7 @@ const LoginScreen = () => {
                 <div className="login_button_container">
                   <button onClick={() => {
                     if (timeLeft / 1000 === 0) {
-                      
+
                       let reg = '^[0-9]*[1-9]+$|^[1-9]+[0-9]*$'
                       if (username_email_or_phone.value.match(reg)) {
                         onSignInSubmit()
