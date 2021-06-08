@@ -154,8 +154,6 @@ const LoginScreen = () => {
   };
 
   const onSubmitOtp = () => {
-
-
     console.log(">>>>>>>>>>", phoneauth_uid)
     // e.preventDefault();
     let otpInput = otp;
@@ -179,7 +177,6 @@ const LoginScreen = () => {
         console.log(error);
         alert("Incorrect OTP");
       });
-
   };
 
   return (
@@ -260,12 +257,15 @@ const LoginScreen = () => {
                   </button>
                 </div> */}
 
-                <div className="login_button_container" >
+                <div className="login_button_container">
                   <button onClick={() => {
                     if (timeLeft / 1000 === 0) {
-                      let reg = '^[0-9]$';
-                      if (!reg === false) {
+                      
+                      let reg = '^[0-9]*[1-9]+$|^[1-9]+[0-9]*$'
+                      if (username_email_or_phone.value.match(reg)) {
                         onSignInSubmit()
+                        settimerglow(true)
+                        start()
                       } else {
                         _onSignUpPressed()
                         settimerglow(true)
@@ -278,7 +278,8 @@ const LoginScreen = () => {
                     {timerglow ?
                       <div className="login_resendotp_container">
                         <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
-                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}</div>
+                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}
+                        </div>
                       </div>
                       :
                       <div className="login_buttontext">Get OTP</div>

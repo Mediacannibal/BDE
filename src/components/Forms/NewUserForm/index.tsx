@@ -13,6 +13,7 @@ import { useAuth } from 'store/authStore';
 import useCountDown from 'react-countdown-hook';
 import * as google from '../../../assets/google-logo.svg'
 import * as facebook from '../../../assets/facebook.svg'
+import { ColourObject } from 'store/ColourStore';
 
 const NewUserForm = ({ setPopup }, props: any) => {
   const history = useHistory();
