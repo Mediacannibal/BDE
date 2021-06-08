@@ -325,7 +325,7 @@ const LoginScreen = () => {
                 onFailure={(Response: any) => { console.log("============================>>>>>>>>>", Response); }}
                 cookiePolicy={'single_host_origin'} />
 
-              <FacebookProvider appId="976961256166749">
+              <FacebookProvider appId="494516388401593">
                 <Login
                   scope="email"
                   onResponse={(response: any) => {
