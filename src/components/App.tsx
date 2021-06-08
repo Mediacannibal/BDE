@@ -28,14 +28,14 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
-import { getToken, onMessageListener } from '../../firebase';
+// import { getToken, onMessageListener } from '../../firebase';
 
-import { Button, Toast } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Button, Toast } from 'react-bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
-import firebase from 'firebase/app';
-import 'firebase/messaging';
-import "firebase/auth";
+// import firebase from 'firebase/app';
+// import 'firebase/messaging';
+// import "firebase/auth";
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -64,25 +64,25 @@ const fullpage_screen = [
 
 const App = () => {
 
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: '', body: '' });
+  // const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({ title: '', body: '' });
 
-  const [isTokenFound, setTokenFound] = useState(false);
+  // const [isTokenFound, setTokenFound] = useState(false);
 
-  const messaging = firebase.messaging();
+  // const messaging = firebase.messaging();
 
-  getToken(setTokenFound);
+  // getToken(setTokenFound);
 
 
-  onMessageListener().then(payload => {
-    console.log(payload);
-    setShow(true);
-    setNotification({ title: payload.notification.title, body: payload.notification.body })
-  }).catch(err => console.log('failed: ', err));
+  // onMessageListener().then(payload => {
+  //   console.log(payload);
+  //   setShow(true);
+  //   setNotification({ title: payload.notification.title, body: payload.notification.body })
+  // }).catch(err => console.log('failed: ', err));
 
-  useEffect(() => {
-    onMessageListener();
-  }, []);
+  // useEffect(() => {
+  //   onMessageListener();
+  // }, []);
 
   // if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
   //   getToken()
@@ -94,7 +94,7 @@ const App = () => {
   //     console.log(message)
   //   }).catch(err => console.log('failed: ', err));
   // }
-  onMessageListener();
+  // onMessageListener();
 
 
   return (
@@ -120,12 +120,10 @@ const App = () => {
         <header className="App-header">
           {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
           {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          {/* <Button onClick={() => setShow(true)}>Show Toast</Button> */}
-        {/* </header> */}
-
-
-      {/* </div> */} */
+          <img src={logo} className="App-logo" alt="logo" />
+          <Button onClick={() => setShow(true)}>Show Toast</Button>
+        </header>
+      </div> */}
 
       <Router>
         <Switch>
