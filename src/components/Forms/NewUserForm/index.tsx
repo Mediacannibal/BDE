@@ -185,7 +185,8 @@ const NewUserForm = ({ setPopup }, props: any) => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
       password: password_otp.value,
-      username: username_email_or_phone.value
+      username: username_email_or_phone.value,
+      link_account:"1"
     }
     Sociallogin(loginCallback, data)
   };
@@ -332,10 +333,10 @@ const NewUserForm = ({ setPopup }, props: any) => {
                           }
                         }}
                           className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"}
-                          style={{ 
+                          style={{
                             color: colourObj.color_5,
                             backgroundColor: colourObj.color_7,
-                           }}
+                          }}
                         >
                           {timerglow ?
                             <div className="login_resendotp_container">
@@ -376,7 +377,8 @@ const NewUserForm = ({ setPopup }, props: any) => {
                           "photo_url": userInfo.imageUrl,
                           "auth_provider": "google",
                           "email": userInfo.email,
-                          "username": userInfo.googleId
+                          "username": userInfo.googleId,
+                          "link_account": "1",
                         }
                         Sociallogin(loginCallback, data);
                       }}
@@ -402,6 +404,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
                           formData.append('auth_provider', "fb");
                           formData.append('email', userInfo.email);
                           formData.append('username', userInfo.id);
+                          formData.append('link_account', "1");
                           Sociallogin(loginCallback, formData)
                         }}
                         onError={(response: any) => {

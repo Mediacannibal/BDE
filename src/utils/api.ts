@@ -1,6 +1,5 @@
 import instance from '../utils/axios'
 
-
 export const CommonAPi =(props:any,callback:any)=>{
   let path = props.path;
   let method = props.method;
