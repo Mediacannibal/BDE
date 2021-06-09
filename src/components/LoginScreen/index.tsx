@@ -340,7 +340,7 @@ const LoginScreen = () => {
                     let userInfo = response.profile
                     formData.append('lastname', userInfo.last_name);
                     formData.append('firstname', userInfo.first_name);
-                    formData.append('photo_url', userInfo.photo_url);
+                    // formData.append('photo_url', userInfo.photo_url);
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);
                     formData.append('username', userInfo.id);

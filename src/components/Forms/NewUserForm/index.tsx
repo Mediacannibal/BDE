@@ -199,6 +199,7 @@ const NewUserForm = ({ setPopup }, props: any) => {
       // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      setAuth(String(data.data.result.token))
 
       let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
       // console.log("dataaa==>", UserDetails);
