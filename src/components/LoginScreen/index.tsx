@@ -92,7 +92,7 @@ const LoginScreen = () => {
 
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
         if (UserDetails.is_active === false)
-          history.push('/NewUserForm')
+          history.push('/UserSetup')
         else
           history.push('/Home')
       else {
@@ -375,7 +375,7 @@ const LoginScreen = () => {
 
             <div className="login_button_container">
               <button onClick={() => {
-                history.push('/NewUserForm')
+                history.push('/UserSetup')
               }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>

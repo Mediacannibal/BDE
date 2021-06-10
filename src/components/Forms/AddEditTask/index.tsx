@@ -7,6 +7,7 @@ import Popup from 'components/Common/Popup'
 import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { auth } = useAuth();

@@ -21,7 +21,6 @@ import Dashboard from './Dashboard';
 import UserProfile from './UserMenuItems/UserProfile';
 import UserSettings from './UserMenuItems/UserSettings';
 import ChatProject from './ChatProject';
-import NewUserForm from './Forms/NewUserForm';
 import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
 import Notifications from './Notifications';
@@ -49,7 +48,6 @@ const dashboard_screen = [
   { path: '/UserProfile', component: UserProfile },
   { path: '/UserSettings', component: UserSettings },
   { path: '/ChatProject', component: ChatProject },
-  { path: '/NewUserForm', component: NewUserForm },
   { path: '/TestSelectionForm', component: TestSelectionForm },
   { path: '/ApiRecords', component: ApiRecords },
   { path: '/Notifications', component: Notifications },

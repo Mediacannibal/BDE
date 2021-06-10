@@ -9,7 +9,7 @@ import { ProgressBar } from '../Common/Spinner';
 import { CommonAPi } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore'
-import NewUserForm from '../Forms/NewUserForm';
+import NewUserForm from '../Forms/UserSetup';
 import UserSettings from 'components/UserMenuItems/UserSettings';
 
 export const header_options = () => <div>Hello</div>
