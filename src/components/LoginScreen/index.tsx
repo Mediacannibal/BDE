@@ -75,7 +75,7 @@ const LoginScreen = () => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
       password: password_otp.value,
-      email_or_username : username_email_or_phone.value
+      email_or_username: username_email_or_phone.value
     }
     Sociallogin(loginCallback, data)
   };
@@ -91,10 +91,10 @@ const LoginScreen = () => {
       // console.log("dataaa==>", UserDetails);
 
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
-        if (UserDetails.is_active === false)
-          history.push('/UserSetup')
-        else
-          history.push('/Home')
+        // if (UserDetails.is_active === false)
+        //   history.push('/UserSetup')
+        // else
+        history.push('/Home')
       else {
         if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
           history.push('/Home')

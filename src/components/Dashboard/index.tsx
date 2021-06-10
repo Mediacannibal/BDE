@@ -28,6 +28,7 @@ import { getMainTask, getTasktimelog } from 'utils/api'
 import { useAuth } from 'store/authStore'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { ColourObject } from 'store/ColourStore'
+import UserSetup from 'components/Forms/UserSetup'
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
@@ -60,6 +61,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [project, setproject] = useState('1')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
+  const [isuser_active, setisuser_active] = useState(false)
 
   const location = useLocation()
 
@@ -89,6 +91,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     mainTask()
 
     taskTimeLog()
+
+    if (UserDetails.is_active === true) {
+      setisuser_active(false)
+    } else {
+      setisuser_active(true)
+    }
 
   }, [])
 
@@ -148,6 +156,14 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   return (
     <div className='main_wrapper'>
+      {isuser_active ? (
+        <UserSetup
+          setPopup={() => {
+            setsettings_popup(false)
+          }}
+        />
+      ) : null}
+
       {settings_popup ? (
         <UserSettings
           setPopup={() => {

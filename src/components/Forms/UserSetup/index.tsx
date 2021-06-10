@@ -242,6 +242,7 @@ const UserSetup = ({ setPopup }, props: any) => {
       {(newuserorlinkaccount) ?
         <>
           <Popup
+            title={"link or switch account"}
             popup_body={
               <>
                 <div className="login_form_wrapper">
@@ -447,13 +448,15 @@ console.log("OTP not matched")
               popup_body={
                 <>
                   <div>Already created an account please <div onClick={() => {
-                    console.log("><><><><><><><");
+                    // console.log("><><><><><><><");
                     setnewuserorlinkaccount(!newuserorlinkaccount)
                     setispopup(false)
                   }}
                   ><u >click here</u></div> to link/switch accounts</div>
                   {/* New User Form */}
                   <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+
+                    <div>Are you a part of a organisation?</div>
 
                     <div className="input_checkbox">
                       <div className="checkbox_sub_container">
@@ -515,7 +518,7 @@ console.log("OTP not matched")
                         </div>
                       </>
                     }
-                    
+
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput
