@@ -27,7 +27,7 @@ const TaskTimeLog = (props: any) => {
   const [Userid, setUserid] = useState(false)
 
   const [task_Ids, settask_Ids] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
 
 
   useEffect(() => {

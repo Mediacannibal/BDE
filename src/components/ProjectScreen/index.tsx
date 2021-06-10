@@ -35,14 +35,7 @@ const ProjectScreen = (props: any) => {
   const [selected_User, setselected_User] = useState()
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
-  const [task, settask] = useState('')
-  const [user_list, setuser_list] = useState('all')
-  const [parent_child, setparent_child] = useState('')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
-  const [project, setproject] = useState('1')
-
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)

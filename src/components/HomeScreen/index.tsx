@@ -24,12 +24,12 @@ const HomeScreen = (props: any) => {
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
+  const [project, setproject] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
+  const [users, setusers] = useState('')
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const [users, setusers] = useState('all')
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);

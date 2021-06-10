@@ -22,10 +22,8 @@ const TestingChecklist = (props: any) => {
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
-  const [unique_title, setunique_title] = useState([])
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
-  const [users, setusers] = useState('all')
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -57,7 +55,7 @@ const TestingChecklist = (props: any) => {
 
     CommonAPi(
       {
-        path: `tasks/maintask/?task_type=test&user=all`,
+        path: `tasks/maintask/?task_type=test&user=`,
         method: "get",
         auth: auth ? auth : false,
       },

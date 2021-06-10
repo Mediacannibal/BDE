@@ -42,9 +42,9 @@ const TaskList = (props: any) => {
   const [seleted_taskName, setseleted_taskName] = useState('')
 
   const [task, settask] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
+  const [project, setproject] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 

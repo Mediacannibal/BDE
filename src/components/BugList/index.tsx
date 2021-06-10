@@ -49,7 +49,7 @@ const BugList = (props: any) => {
 
     CommonAPi(
       {
-        path: `tasks/maintask/?task_type=bug&user=all`,
+        path: `tasks/maintask/?task_type=bug&user=`,
         method: "get",
         auth: auth ? auth : false,
       },
