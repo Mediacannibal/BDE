@@ -37,6 +37,7 @@ export class ColourObjItem {
   color_24: String
   color_25: String
   color_26: String
+  color_27: String
 
   constructor(o: {
     color_1: String
@@ -65,6 +66,7 @@ export class ColourObjItem {
     color_24: String
     color_25: String
     color_26: String
+    color_27: String
 
   }) {
     this.color_1 = o.color_1
@@ -93,6 +95,7 @@ export class ColourObjItem {
     this.color_24 = o.color_24
     this.color_25 = o.color_25
     this.color_26 = o.color_26
+    this.color_27 = o.color_27
   }
 }
 
@@ -237,7 +240,12 @@ export const ColourObject = () => {
         {
           id: '--color_26',
           selected: true,
-          colour: '#757588',
+          colour: '#999',
+        },
+        {
+          id: '--color_27',
+          selected: true,
+          colour: '#000000a4',
         },
       ])
       setcolourObj({
@@ -267,6 +275,7 @@ export const ColourObject = () => {
         color_24: '#e0e0e0',
         color_25: '#757588',
         color_26: '#999',
+        color_27: '#000000a4',
       })
     },
   }

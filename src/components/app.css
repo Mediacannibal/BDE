@@ -13,7 +13,7 @@
 }
 
 .page_shift_left {
-    margin-left: calc(4.1vw + 12.3vh + 4.1vmin);
+    margin-left: calc(4.5vw + 13.5vh + 4.5vmin);
 }
 
 .bgtransparent {
@@ -76,6 +76,7 @@
     --color_24: #e0e0e0;
     --color_25: #757588;
     --color_26: #999;
+    --color_27: #000000a4;
     --BR1: calc(0.1vw + 0.3vh + 0.1vmin);
 }
 
@@ -293,7 +294,7 @@ tr:nth-child(even) {
     position: fixed;
     top: 0;
     left: 0;
-    /* background-color: var(--color_21); */
+    background-color: var(--color_27);
     z-index: 1000;
     display: -ms-flexbox;
     display: flex;

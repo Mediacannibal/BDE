@@ -20,7 +20,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   }, [])
 
   return (
-    <div className="popup_bg" style={{ backgroundColor: colourObj.color_21 }}>
+    <div className="popup_bg">
       <div className="popup_container">
         <div className="popup" style={{ backgroundColor: colourObj.color_15 }}>
 

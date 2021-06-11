@@ -81,6 +81,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           ? defaultusericon
           : profile_picture
       )
+      setisuser_active(UserDetails.is_active)
       // console.log("someidentifier", profile_picture)
     }
 
@@ -91,12 +92,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     mainTask()
 
     taskTimeLog()
-
-    if (UserDetails.is_active === true) {
-      setisuser_active(false)
-    } else {
-      setisuser_active(true)
-    }
 
   }, [])
 
@@ -156,21 +151,21 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   return (
     <div className='main_wrapper'>
-      {isuser_active ? (
+      {!isuser_active && (
         <UserSetup
           setPopup={() => {
             setsettings_popup(false)
           }}
         />
-      ) : null}
+      )}
 
-      {settings_popup ? (
+      {settings_popup && (
         <UserSettings
           setPopup={() => {
             setsettings_popup(false)
           }}
         />
-      ) : null}
+      )}
 
       {addEditTaskTimeLog_popup && (
         <AddEditTaskTimeLog
@@ -211,47 +206,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               ) : null}
             </div>
           ))}
-
-          {/* {(usertype === "SUPERUSER") ?
-                                <>  <div className='menu_title'
-                                    onClick={() => {
-                                        history.replace('/BidLogOverview')
-                                    }}
-                                >Agent Overview</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/BracketEntry')
-                                        }}
-                                    >Bracket Entry</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/Admin')
-                                        }}
-                                    >Bracket Overview</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/UserManagement')
-                                        }}
-                                    >User Management</div>
-                                </>
-                                :
-                                null
-                            } */}
-          {/* {loggedin ?
-                        <div className='menu_title'
-                            onClick={() => {
-                                localStorage.clear()
-                                window.location.reload()
-                            }}
-                        >Logout</div>
-                        : null
-                    } */}
-          {/* <div
-                        onClick={() => {
-                            console.log("***CANCEL***")
-                            setmenu_popup(false)
-                        }}
-                        className='menu_popup_cancel_button'> x</div> */}
         </div>
 
         <div className='menu_items_wrapper_bottom'>
