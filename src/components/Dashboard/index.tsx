@@ -464,6 +464,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 className='user_menu_item'
                 onClick={() => {
                   localStorage.clear()
+                  sessionStorage.clear()
                   // window.location.reload()
                   history.replace('/')
                 }}
