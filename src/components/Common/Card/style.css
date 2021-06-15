@@ -1,7 +1,7 @@
 /* Card */
 
 .dashboard_card {
-    border-radius: var(--BR1);
+    border-radius:4px;
     margin: calc(0.3vw + 0.9vh + 0.3vmin);
     padding: calc(0.3vw + 0.9vh + 0.3vmin);
     -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;

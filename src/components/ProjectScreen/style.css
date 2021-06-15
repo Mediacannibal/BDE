@@ -134,7 +134,7 @@
     visibility: hidden;
     opacity: 0;
     /* background-color: var(--color_5); */
-    border-radius: var(--BR1);
+    border-radius: 4px;
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     margin: calc(0.2vw + 0.6vh + 0.2vmin);
     -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;

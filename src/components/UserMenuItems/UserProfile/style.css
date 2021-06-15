@@ -1,6 +1,6 @@
 .user_main_container {
     /* background-color: var(--color_6); */
-    border-radius: var(--BR1);
+    border-radius: 4px;
     margin: calc(0.4vw + 1.2vh + 0.4vmin);
     width: 80vw;
     height: 90vh;
@@ -21,7 +21,7 @@
 
 .user_sub_container1 {
     /* color: var(--color_5); */
-    border-radius: var(--BR1);
+    border-radius: 4px;
     padding: calc(0.2vw + 0.6vh + 0.2vmin);
     width: 52vh;
     height: 80vh;
@@ -32,7 +32,7 @@
 
 .user_sub_container2 {
     /* color: var(--color_5); */
-    border-radius: var(--BR1);
+    border-radius: 4px;
     margin: calc(0.6vw + 1.8vh + 0.6vmin);
     padding: calc(0.2vw + 0.6vh + 0.2vmin);
     width: 52vh;
