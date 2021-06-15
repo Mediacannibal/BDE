@@ -100,6 +100,7 @@ const AddEditTest = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Test?"}
           desc1={"The following Test will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

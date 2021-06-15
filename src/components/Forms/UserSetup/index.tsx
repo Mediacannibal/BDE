@@ -89,7 +89,7 @@ const UserSetup = ({ setPopup }, props: any) => {
       && istick === true
     ) {
 
-      setispopup(true)
+      // setispopup(true)
     }
     else {
       setPreSendValidator(true)
@@ -393,7 +393,6 @@ console.log("OTP not matched")
                 <div onClick={() => { setnewuserorlinkaccount(false) }}>Go Back</div>
               </>
             }
-
             actionable={false}
             cancelClick={setPopup}
           />
@@ -402,6 +401,7 @@ console.log("OTP not matched")
         <>
           {ispopup ?
             <Popup
+              popup_type={"confirm"}
               title={"Add / Edit User?"}
               desc1={"The following User will be placed!"}
               desc2={"Please click 'Confirm' to proceed?"}
@@ -627,6 +627,7 @@ console.log("OTP not matched")
               confirmClick={() => {
                 console.log("***SEND***")
                 Validate()
+                setispopup(true)
               }}
               cancelClick={setPopup}
             />

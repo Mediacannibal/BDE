@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ColourObject } from 'store/ColourStore';
 import './style.css'
 
-const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, actionable }) => {
+const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, actionable, popup_type }) => {
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
@@ -21,7 +21,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
 
   return (
     <div className="popup_bg">
-      <div className="popup_container">
+      <div className={popup_type + " " + "popup_container"}>
         <div className="popup" style={{ backgroundColor: colourObj.color_15 }}>
 
           {backendresponse_popup ?
@@ -42,9 +42,12 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
             :
             <>
               {popup_Title_Text ?
-                < div className='popup_title' style={{ color: colourObj.color_1 }}>
-                  {title}
-                </div>
+                <>
+                  <div className='popup_title' style={{ color: colourObj.color_1 }}>
+                    {title}
+                  </div>
+                  <div className="popup_band"></div>
+                </>
                 :
                 null
               }
@@ -70,12 +73,12 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
 
               {actionable !== false &&
                 < div className='popup_button_container'>
-                  <div
+                  <button
                     onClick={confirmClick}
-                    className='popup_submit_button'>Confirm</div>
-                  <div
+                    className='popup_submit_button'>Confirm</button>
+                  <button
                     onClick={cancelClick}
-                    className='popup_cancel_button'>Cancel</div>
+                    className='popup_cancel_button'>Cancel</button>
                 </div>
               }
 

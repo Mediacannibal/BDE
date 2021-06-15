@@ -102,6 +102,7 @@ const AddEditBug = ({ setPopup }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Bug?"}
           desc1={"The following Bug will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

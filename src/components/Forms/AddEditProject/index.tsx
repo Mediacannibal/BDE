@@ -86,7 +86,6 @@ const AddEditProject = ({ setPopup }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   return (
@@ -94,6 +93,7 @@ const AddEditProject = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Project?"}
           desc1={"The following Project will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

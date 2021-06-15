@@ -56,7 +56,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_notification, setuser_notification] = useState(false)
 
   const [task, settask] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
   const [project, setproject] = useState('1')
   const [task_priority, settask_priority] = useState('')

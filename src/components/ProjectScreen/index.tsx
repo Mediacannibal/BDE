@@ -55,7 +55,7 @@ const ProjectScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
+          console.log("Project Tasks: ", data.data)
           setlistItems(data.data.results)
         } else {
           setspinner(false)
@@ -213,7 +213,6 @@ const ProjectScreen = (props: any) => {
                             </div>
                           </div>
 
-
                           <div className="project_right_subcontainer">
                             <div className="project_participants_container">
                               <div className="project_participants_subcontainer">
@@ -231,6 +230,7 @@ const ProjectScreen = (props: any) => {
                                   </div>
                                 </div>
                               </div>
+
                               {
                                 element.Profiles.map((element: any) => (
                                   <div key={element.id} className="visibility_toggle">

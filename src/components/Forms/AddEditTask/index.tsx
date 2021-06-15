@@ -109,7 +109,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   };
 
   const Validate = () => {
-
     if (isproject_namevalid === true
       || istitlevalid === true
       || istask_typevalid === true
@@ -135,7 +134,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   useEffect(() => {
@@ -174,6 +172,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
