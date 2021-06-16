@@ -60,3 +60,12 @@
         opacity: 0;
     }
 }
+
+.tasktype_dropdown{
+    padding: 1vh;
+    cursor: pointer;
+}
+
+.taskfilter_button{
+    height: 3vh;
+}

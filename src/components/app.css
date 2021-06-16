@@ -238,7 +238,27 @@ tr:nth-child(even) {
     overflow: scroll;
 }
 
+.abc {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* background-color: var(--color_27); */
+    z-index: 1000;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
 .popup_container {
+    align-self: center;
+    display: grid;
+}
+
+.xyz {
     align-self: center;
     display: grid;
 }

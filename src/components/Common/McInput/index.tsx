@@ -186,7 +186,6 @@ const McInput = (props: any) => {
                 <div className="input_innerCenter_div">
 
                     {(props.type === "picker") &&
-
                         <div className={((props.valid === false) && (props.required == true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
                             onClick={toggling}>
                             {props.value || props.name}
@@ -240,8 +239,7 @@ const McInput = (props: any) => {
 
 
                     {(props.type === "checkbox") &&
-                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
-
+                        <div className={((props.valid === false) && (props.required == true)) ? "invalid_entry_container" : ""}>
                             {props.options.map((option: any) => (
                                 <div className={"checkbox_option_wrapper"}>
                                     <input {...props}

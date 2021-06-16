@@ -20,6 +20,21 @@
     align-items: center;
 }
 
+.filter.input_box_wrapper>.input_outer_div {
+    display: flex;
+    font-size: var(--TS5);
+    line-height: 1.15;
+    border-radius: 4px;
+    border-color: transparent;
+    background-color: var(--color_5);
+    text-align: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .input_innerLeft_div {
     position: absolute;
     display: flex;
@@ -34,6 +49,12 @@
     justify-content: center;
 }
 
+.filter.input_box_wrapper>.input_outer_div>.input_innerCenter_div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .input_innerRight_div {
     position: absolute;
     display: flex;
@@ -42,6 +63,14 @@
 }
 
 .input_box_wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    font-size: var(--TS5);
+}
+
+.filter.input_box_wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -124,7 +153,8 @@
 }
 
 .checkbox_option_wrapper {
-    display: flex
+    display: flex;
+    padding: 1vh;
 }
 
 .invalid_entry_container {
@@ -165,6 +195,13 @@
 }
 
 .DropDownHeader {
+    padding: calc(0.18vw + 0.54vh + 0.18vmin)  calc(0.9vw + 2.7vh + 0.9vmin);
+    color: var(--color_21);
+    width: 100%;
+    border-radius: 4px;
+}
+
+.filter.input_box_wrapper>.input_outer_div>.input_innerCenter_div>.DropDownHeader {
     padding: calc(0.18vw + 0.54vh + 0.18vmin) 0;
     color: var(--color_21);
     width: 100%;
@@ -190,7 +227,7 @@
     border-color: var(--color_1) !important;
     border-style: solid;
     border-width: 0;
-    border-bottom-width: calc(0.01vw + 0.3vh + 0.01vmin);
+    border-bottom-width: 1px;
     margin: calc(0.1vw + 0.3vh + 0.1vmin) calc(0.3vw + 0.9vh + 0.3vmin);
     padding: calc(0.05vw + 0.15vh + 0.05vmin) 0 calc(0.1vw + 0.3vh + 0.1vmin) 0;
 }
@@ -201,7 +238,6 @@
 
 .dropdown_option:last-child {
     border-style: none;
-    ;
 }
 
 .ListItem {
@@ -232,4 +268,12 @@
     width: 2.4vh;
     margin: 0 0 0 2vw;
     object-fit: contain;
+}
+
+.checkbox{
+    margin: 0.7vh;
+}
+
+.box_tick{
+    display: flex;
 }

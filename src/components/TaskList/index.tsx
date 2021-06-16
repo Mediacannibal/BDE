@@ -19,6 +19,7 @@ import Footer from '../Common/Footer'
 import TimeSpent from 'components/TimeSpent'
 import UpDownArrow from 'components/Common/updownArrow'
 import { ColourObject } from 'store/ColourStore'
+import { useForm } from 'react-hook-form';
 
 const TaskList = (props: any) => {
   const history = useHistory()
@@ -332,6 +333,15 @@ const TaskList = (props: any) => {
     return array
   }
 
+
+  const { register, handleSubmit, errors, reset } = useForm();
+
+  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
+    e.target.reset(); // reset after form submit
+    // console.log(data);
+  };
+  // console.log(errors);
+
   return (
     <>
       <div className='main'>
@@ -379,32 +389,24 @@ const TaskList = (props: any) => {
             </div>
           ) : (
             <>
-              <div className='mc_filter'>
-                <div className='inputfield_sub_container'>
-                  <div className='tasktype_dropdown'>
+              <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+                <div className="mc_filter">
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Project'}
                       id='task_project_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={project}
                       onchange={setproject}
                       options={getoptions(unique_title)}
                     />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='taskdomain_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Domain'}
                       id='task_domain_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={task_domain}
                       onchange={settask_domain}
                       options={[
@@ -412,20 +414,14 @@ const TaskList = (props: any) => {
                         { key: '1', value: 'BACKEND' },
                         { key: '2', value: 'UI' },
                         { key: '3', value: 'DEV_OPS' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='tasktype_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Task Type'}
                       id='task_type_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={task}
                       onchange={settask}
                       options={[
@@ -433,20 +429,14 @@ const TaskList = (props: any) => {
                         { key: '1', value: 'TEST' },
                         { key: '2', value: 'BUG' },
                         { key: '3', value: 'UPDATE' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='taskpriority_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Priority'}
                       id='task_priority_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={task_priority}
                       onchange={settask_priority}
                       options={[
@@ -455,25 +445,21 @@ const TaskList = (props: any) => {
                         { key: '0', value: 'High' },
                         { key: '0', value: 'Urgent' },
                         { key: '0', value: 'Emergency' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <button
-                  className='taskfilter_button'
-                  onClick={() => {
-                    settask('')
-                    settask_domain('')
-                    settask_priority('')
-                  }}
-                >
-                  Clear
-                  <div className='filter_icon_container'>
-                    {/* <img className='filter_icon' src={filter} /> */}
-                  </div>
-                </button>
-              </div>
+                  <button
+                    className='taskfilter_button'
+                    onClick={() => {
+                      settask('')
+                      settask_domain('')
+                      settask_priority('')
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
 
               <Card
                 card_body={
