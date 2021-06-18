@@ -11,7 +11,7 @@
 }
 
 .task_details {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
 }
 
@@ -22,16 +22,22 @@
     display: flex;
 }
 
+.chat_log {
+    display: flex;
+    flex-direction: column;
+}
+
 .chat_container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .chatbox {
     margin: 0;
     width: 100%;
-    /* background: var(--color_5); */
-    height: 60vh;
+    height: 100vh;
+    background: var(--color_12);
     border-radius: 4px;
     display: flex;
     flex-direction: column-reverse;
@@ -39,6 +45,12 @@
     font-weight: 600;
     text-align-last: start;
     overflow-y: scroll;
+}
+
+.chatlog_box {
+    width: 50vh;
+    height: 100%;
+    background: var(--color_12);
 }
 
 .column {
@@ -74,11 +86,11 @@
 
 .icon_container {
     /* background-color: var(--color_12); */
-    border-radius: 4px;
+    border-radius: 4vh;
     border-color: transparent;
     display: flex;
     align-items: center;
-    padding: 1vh 2vw;
+    padding: 1vh 1vw;
     margin: 2vh 0;
     width: 1vw;
     height: 5vh;
@@ -146,6 +158,13 @@
 }
 
 .chat_recievedmessage_time {
+    font-size: var(--TS9);
+    font-weight: 600;
+    margin: 1vh 3vh;
+    align-self: flex-start;
+}
+
+.chat_time {
     font-size: var(--TS9);
     font-weight: 600;
     margin: 1vh 3vh;
@@ -244,10 +263,53 @@
     object-fit: cover !important;
     z-index: 0 !important;
     -webkit-transform: rotateY( 180deg) !important;
-   
 }
 
-.camera_img_preview{
+.camera_img_preview {
     width: 30vw;
     height: 30vh;
+}
+
+.chat_main_container {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog_list {
+    height: 5vh;
+    padding: 2vh;
+    display: flex;
+    background-color: var(--color_8);
+    justify-content: space-between;
+    border-color: var(--color_15) !important;
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+
+.chat_user_wrap {
+    display: flex;
+}
+
+.chat_user_preview {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_message_preview {
+    padding-left: 2vh;
+}
+
+.search_icon {
+    height: 2vh;
+    padding: 1vh;
+    object-fit: contain;
+}
+
+.chat_inputfield {
+    display: flex;
+}
+
+.chat_inputfield {
+    display: flex;
 }

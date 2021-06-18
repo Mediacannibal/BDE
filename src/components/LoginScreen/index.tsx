@@ -86,19 +86,18 @@ const LoginScreen = () => {
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       setAuth(String(data.data.result.token))
+      history.push('/Home')
 
-      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-      // console.log("dataaa==>", UserDetails);
-
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
-        // if (UserDetails.is_active === false)
-        //   history.push('/UserSetup')
-        // else
-        history.push('/Home')
-      else {
-        if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-          history.push('/Home')
-      }
+      // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+      // if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
+      //   if (UserDetails.is_active === false)
+      //     history.push('/UserSetup')
+      //   else
+      //   history.push('/Home')
+      // else {
+      //   if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
+      //     history.push('/Home')
+      // }
       // window.location.reload()
     } else {
       console.log('error ' + JSON.stringify(data));

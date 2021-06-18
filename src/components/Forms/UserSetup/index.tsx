@@ -14,6 +14,8 @@ import useCountDown from 'react-countdown-hook';
 import * as google from '../../../assets/google-logo.svg'
 import * as facebook from '../../../assets/facebook.svg'
 import { ColourObject } from 'store/ColourStore';
+import * as eye from '../../../assets/eye-visibility.svg'
+import * as eye_invisible from '../../../assets/eye-invisible.svg'
 
 const UserSetup = ({ setPopup }, props: any) => {
   const history = useHistory();
@@ -24,6 +26,8 @@ const UserSetup = ({ setPopup }, props: any) => {
   const [backendresponse, setbackendresponse] = useState('');
 
   const [ispopup, setispopup] = useState(false)
+
+  const [passwordShown, setpasswordShown] = useState(false);
 
   const [company_name, setcompany_name] = useState('')
   const [branch_name, setbranch_name] = useState('')
@@ -608,17 +612,25 @@ console.log("OTP not matched")
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput
-                          label={"New Password"}
+                          label={"Password"}
                           id="password_data"
-                          name={`data.password`}
                           inputtype="password"
-                          type="text"
-                          min_length="3"
+                          type={passwordShown ? "text" : "password"}
+                          name={`data.Password`}
+                          min_length="8"
                           required={true}
-                          valid={setpasswordvalid}
                           sendcheck={preSendValidator}
+                          valid={setpasswordvalid}
                           value={password}
-                          onchange={setpassword} />
+                          onchange={setpassword}
+                          input_inner_rightprop={
+                            <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
+                              {passwordShown ? <img className="Password_visibility_icon" src={eye} />
+                                :
+                                <img className="Password_visibility_icon" src={eye_invisible} />}
+                            </div>
+                          }
+                        />
                       </div>
                     </div>
                   </form>

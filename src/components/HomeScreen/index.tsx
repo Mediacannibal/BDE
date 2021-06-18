@@ -12,6 +12,9 @@ import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import { ColourObject } from 'store/ColourStore';
+import McInput from 'components/Common/McInput';
+import * as eye from '../../assets/eye-visibility.svg'
+import * as eye_invisible from '../../assets/eye-invisible.svg'
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -28,6 +31,21 @@ const HomeScreen = (props: any) => {
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
   const [users, setusers] = useState('')
+
+  const [isselectslot, setisselectslot] = useState('')
+  const [title, settitle] = useState('')
+  const [description, setdescription] = useState('')
+  const [password, setpassword] = useState('')
+
+  const [passwordShown, setpasswordShown] = useState(false);
+
+  const [slotvalid, setSlotvalid] = useState(false)
+  const [titlevalid, setTitlevalid] = useState(false)
+  const [descriptionvaild, setDescriptionvaild] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
+
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
@@ -209,6 +227,252 @@ const HomeScreen = (props: any) => {
                 </>
               }
             />
+
+            <Card
+              card_title="Input"
+              card_body={
+                <>
+                  <div style={{ display: 'flex' }}>
+                    <div className="inputfield_sub_container">
+                      <div >
+                        <McInput
+                          type={"picker"}
+                          name={"PROJECT TYPE"}
+                          id="usertype_data"
+                          required={true}
+                          valid={setSlotvalid}
+                          sendcheck={preSendValidator}
+                          value={isselectslot}
+                          onchange={setisselectslot}
+                          options={[
+                            { "key": "0", "value": "DEVELOPMENT" },
+                            { "key": "1", "value": "DESIGN" },
+                            { "key": "1", "value": "MARKETING" }]}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <div className="textinput_box_container">
+                        <McInput
+                          label={"Title"}
+                          id="title_data"
+                          name={`data.Title`}
+                          inputtype="Text"
+                          type="text"
+                          min_length="3"
+                          required={true}
+                          valid={setTitlevalid}
+                          sendcheck={preSendValidator}
+                          value={title}
+                          onchange={settitle}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <div className="textinput_box_container">
+                        <McInput
+                          label={"Description"}
+                          id="description_data"
+                          name={`data.Description`}
+                          inputtype="Text"
+                          type="textarea"
+                          min_length="3"
+                          required={true}
+                          valid={setDescriptionvaild}
+                          sendcheck={preSendValidator}
+                          value={description}
+                          onchange={setdescription}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <div className="textinput_box_container">
+                        <McInput
+                          label={"Password"}
+                          id="password_data"
+                          inputtype="password"
+                          type={passwordShown ? "text" : "password"}
+                          name={`data.Password`}
+                          min_length="8"
+                          required={true}
+                          sendcheck={preSendValidator}
+                          valid={setpasswordvalid}
+                          value={password}
+                          onchange={setpassword}
+                          input_inner_rightprop={
+                            <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
+                              {passwordShown ? <img className="Password_visibility_icon" src={eye} />
+                                :
+                                <img className="Password_visibility_icon" src={eye_invisible} />}
+                            </div>
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <div >
+                        <McInput
+                          type={"checkbox"}
+                          name={"PROJECT TYPE"}
+                          id="usertype_data"
+                          required={true}
+                          valid={setSlotvalid}
+                          sendcheck={preSendValidator}
+                          value={isselectslot}
+                          onchange={setisselectslot}
+                          options={[
+                            { "key": "0", "value": "DEVELOPMENT" },
+                            { "key": "1", "value": "DESIGN" },
+                            { "key": "1", "value": "MARKETING" }]}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <div >
+                        <McInput
+                          type={"radio"}
+                          name={"PROJECT TYPE"}
+                          id="usertype_data"
+                          required={true}
+                          valid={setSlotvalid}
+                          sendcheck={preSendValidator}
+                          value={isselectslot}
+                          onchange={setisselectslot}
+                          options={[
+                            { "key": "0", "value": "FRONTEND" },
+                            { "key": "1", "value": "BACKEND" },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              }
+            />
+
+
+            <div className="inputfield_sub_container">
+              <div >
+                <McInput
+                  type={"picker"}
+                  name={"PROJECT TYPE"}
+                  id="usertype_data"
+                  required={true}
+                  valid={setSlotvalid}
+                  sendcheck={preSendValidator}
+                  value={isselectslot}
+                  onchange={setisselectslot}
+                  options={[
+                    { "key": "0", "value": "DEVELOPMENT" },
+                    { "key": "1", "value": "DESIGN" },
+                    { "key": "1", "value": "MARKETING" }]}
+                />
+              </div>
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <McInput
+                  label={"Title"}
+                  id="title_data"
+                  name={`data.Title`}
+                  inputtype="Text"
+                  type="text"
+                  min_length="3"
+                  required={true}
+                  valid={setTitlevalid}
+                  sendcheck={preSendValidator}
+                  value={title}
+                  onchange={settitle}
+                />
+              </div>
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <McInput
+                  label={"Description"}
+                  id="description_data"
+                  name={`data.Description`}
+                  inputtype="Text"
+                  type="textarea"
+                  min_length="3"
+                  required={true}
+                  valid={setDescriptionvaild}
+                  sendcheck={preSendValidator}
+                  value={description}
+                  onchange={setdescription}
+                />
+              </div>
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div className="textinput_box_container">
+                <McInput
+                  label={"Password"}
+                  id="password_data"
+                  inputtype="password"
+                  type={passwordShown ? "text" : "password"}
+                  name={`data.Password`}
+                  min_length="8"
+                  required={true}
+                  sendcheck={preSendValidator}
+                  valid={setpasswordvalid}
+                  value={password}
+                  onchange={setpassword}
+                  input_inner_rightprop={
+                    <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
+                      {passwordShown ? <img className="Password_visibility_icon" src={eye} />
+                        :
+                        <img className="Password_visibility_icon" src={eye_invisible} />}
+                    </div>
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div >
+                <McInput
+                  type={"checkbox"}
+                  name={"PROJECT TYPE"}
+                  id="usertype_data"
+                  required={true}
+                  valid={setSlotvalid}
+                  sendcheck={preSendValidator}
+                  value={isselectslot}
+                  onchange={setisselectslot}
+                  options={[
+                    { "key": "0", "value": "DEVELOPMENT" },
+                    { "key": "1", "value": "DESIGN" },
+                    { "key": "1", "value": "MARKETING" }]}
+                />
+              </div>
+            </div>
+
+            <div className="inputfield_sub_container">
+              <div >
+                <McInput
+                  type={"radio"}
+                  name={"PROJECT TYPE"}
+                  id="usertype_data"
+                  required={true}
+                  valid={setSlotvalid}
+                  sendcheck={preSendValidator}
+                  value={isselectslot}
+                  onchange={setisselectslot}
+                  options={[
+                    { "key": "0", "value": "FRONTEND" },
+                    { "key": "1", "value": "BACKEND" },
+                  ]}
+                />
+              </div>
+            </div>
           </>
         }
       </div>

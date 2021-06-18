@@ -9,6 +9,7 @@ import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore';
 
+
 const AddEditProject = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
@@ -20,10 +21,12 @@ const AddEditProject = ({ setPopup }) => {
   const [isselectslot, setisselectslot] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
+  const [password, setpassword] = useState('')
 
   const [slotvalid, setSlotvalid] = useState(false)
   const [titlevalid, setTitlevalid] = useState(false)
   const [descriptionvaild, setDescriptionvaild] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -252,6 +255,24 @@ const AddEditProject = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={description}
                     onchange={setdescription}
+                  />
+                </div>
+              </div>
+
+              <div className="inputfield_sub_container">
+                <div className="textinput_box_container">
+                  <McInput
+                    label={"Password"}
+                    id="password_data"
+                    inputtype="password"
+                    type={"password"}
+                    name={`data.Password`}
+                    min_length="8"
+                    required={true}
+                    sendcheck={preSendValidator}
+                    valid={setpasswordvalid}
+                    value={password}
+                    onchange={setpassword}
                   />
                 </div>
               </div>

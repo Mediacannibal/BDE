@@ -10,12 +10,15 @@ import * as gallery from '../../assets/gallery.svg'
 import * as cameraicon from '../../assets/camera.svg'
 import * as download from '../../assets/download.svg'
 import { ColourObject } from 'store/ColourStore'
+import * as defaultusericon from '../../assets/user_icon.svg'
+import * as search from '../../assets/search.png'
 
 import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
 import { fileupload } from 'utils/api';
+import McInput from 'components/Common/McInput';
 
 const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
 
@@ -30,6 +33,12 @@ const TaskDetails = () => {
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
+
+  const [title, settitle] = useState('')
+  const [titlevalid, settitlevalid] = useState(false)
+
+  const [username, setUsername] = useState('')
+  const [profile_picture, setprofile_picture] = useState('')
 
   const [usertype, setusertype] = useState("NORMAL")
   const [userID, setuserID] = useState("")
@@ -80,11 +89,20 @@ const TaskDetails = () => {
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
+      let username = UserDetails.firstname
+      let profile_picture = UserDetails.photo_url
+
       setspinner(false)
       setuserinfo(UserDetails)
       // console.log(screen, user_id, usertype1)
       setusertype(UserDetails.user_type)
       setuserID(UserDetails.user_id)
+      setUsername(username)
+      setprofile_picture(
+        profile_picture === undefined || profile_picture === null
+          ? defaultusericon
+          : profile_picture
+      )
     }
 
     if (!Colour) {
@@ -194,41 +212,227 @@ const TaskDetails = () => {
           </div>
           :
           <>
-            <div className="MAINsomwethin">
+            <div className="chat_main_container">
+              {/* <div className="subtitle">CHAT</div> */}
 
-              <div className="task_details">
+              <div className="chat_log">
 
-                <div className="column">
-                  <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
+                <div className="chatlog_box">
+
+                  <div className="inputfield_sub_container">
+                    <McInput
+                      label={"Search or start new chat"}
+                      id="chat_title_data"
+                      name={`data.Title`}
+                      input_inner_leftprop={<img className="search_icon" src={search} />}
+                      inputtype="Text"
+                      required={false}
+                      type="text"
+                      value={title}
+                      onchange={settitle}
+                    />
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+                  <div className="chatlog_list">
+                    <div className="chat_user_wrap">
+                      <img className='user_icon' src={profile_picture} />
+                      <div className="chat_user_preview">
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {username}
+                        </div>
+                        <div className="chat_message_preview">
+                          You: hii
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="chat_time">
+                      4:40
+                      {/* {object.time} */}
+                    </div>
+                  </div>
+
+
+
                 </div>
-
-                <div className="column">
-                  <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
-                  <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
-                  <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
-
-                </div>
-
-              </div>
-
-              <div className="tasklog">
-                <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
-                <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
               </div>
 
               <div className="chat_container">
-                <div className="subtitle">CHAT</div>
 
-                <div className="chatbox" style={{ background: colourObj.color_5 }}>
+                <div className="chatbox" >
                   {
-                    // [sdf,dsfsdf,dfsdf,sdf,sdf]
-                    // [1,2,34,5,213] 
-                    // [{},{},{}]
-                    //{"name":"sdfasdf"}
-                    //{name:"sdfasdf"}
-
                     chat_log_list.map((object, index) => {
-                      // console.log('chat_log_list', chat_log_list, object);
                       return (
                         (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 
@@ -405,7 +609,31 @@ const TaskDetails = () => {
               /> */}
                 </div>
               </div>
+
+              <div className="task_details">
+
+                <div className="column">
+                  <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
+                </div>
+
+                <div className="column">
+                  <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
+                  <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
+                  <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
+                </div>
+
+                <div className="tasklog">
+                  <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
+                  <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
+                </div>
+
+              </div>
+
             </div>
+
+
+
+
           </>
         }
       </div>
