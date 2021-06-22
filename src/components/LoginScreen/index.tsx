@@ -116,8 +116,6 @@ const LoginScreen = () => {
     Sociallogin(loginCallback, data)
   };
 
-
-
   //PHONE AUTH OTP
 
   const setUpRecaptcha = () => {
@@ -156,7 +154,7 @@ const LoginScreen = () => {
   };
 
   const onSubmitOtp = () => {
-    console.log(">>>>>>>>>>", phoneauth_uid)
+    // console.log(">>>>>>>>>>", phoneauth_uid)
     // e.preventDefault();
     let otpInput = otp;
     let optConfirm = window.confirmationResult;
@@ -165,7 +163,7 @@ const LoginScreen = () => {
       .confirm(otpInput)
       .then(function (result: any) {
         // User signed in successfully.
-        console.log("Result", result, result.user.uid);
+        // console.log("Result", result, result.user.uid);
         // alert("SUCCESSFULL GOOD JOB HEMANTH");
         // let user = result.user;
         let data = {

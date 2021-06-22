@@ -65,6 +65,7 @@ const ProjectScreen = (props: any) => {
       })
   }, [])
 
+
   const getClassname = (key: any) => {
     switch (key) {
       case "Low":
@@ -232,7 +233,7 @@ const ProjectScreen = (props: any) => {
                               </div>
 
                               {
-                                element.Profiles.map((element: any) => (
+                                element.ProjectProfiles.map((element: any) => (
                                   <div key={element.id} className="visibility_toggle">
                                     <div className="project_stats left0" style={{ color: colourObj.color_1 }}>{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
                                     <div className="visibility_container">

@@ -238,37 +238,38 @@ tr:nth-child(even) {
     -ms-flex-pack: center;
     justify-content: center;
     overflow: scroll;
-}
-
-.abc {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    /* background-color: var(--color_27); */
-    z-index: 1000;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
-    overflow: scroll;
+    vertical-align: top;
+    animation: fade-in 0.4s ease forwards;
 }
 
 .popup_container {
     align-self: center;
     display: grid;
+    animation: pop-in 0.4s ease forwards;
 }
 
-.xyz {
-    align-self: center;
-    display: grid;
+@keyframes pop-in {
+    0% {
+        transform: scale(0.3);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .popup {
     position: relative;
     /* background-color: var(--color_15); */
-    z-index: 200;
+    z-index: 20000;
     border-radius: 4px;
     border-color: var(--color_7);
     border-style: solid;

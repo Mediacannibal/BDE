@@ -103,14 +103,14 @@ const UserSetup = ({ setPopup }, props: any) => {
   useEffect(() => {
     CommonAPi(
       {
-        path: `company/add/?user=all`,
+        path: `company/info/`,
         method: "get",
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
+          // console.log("Project Tasks: ", data.data)
           setlistItems1(data.data.results)
         } else {
           setspinner(false)
@@ -476,49 +476,47 @@ console.log("OTP not matched")
                     {tickbox &&
                       <>
                         <div className="inputfield_sub_container">
-                          <div>
-                            <McInput
-                              type={"picker"}
-                              name={"Company Name"}
-                              id="companyname_data"
-                              required={true}
-                              valid={setcompanynamevalid}
-                              sendcheck={preSendValidator}
-                              value={company_name}
-                              onchange={setcompany_name}
-                              options={Company_name()} />
-                          </div>
-                        </div><div className="inputfield_sub_container">
-                          <div>
-                            <McInput
-                              type={"picker"}
-                              name={"Branch Name"}
-                              id="branch_name_data"
-                              required={true}
-                              valid={setbranchvalid}
-                              sendcheck={preSendValidator}
-                              value={branch_name}
-                              onchange={setbranch_name}
-                              options={Branch_name()} />
-                          </div>
-                        </div><div className="inputfield_sub_container">
-                          <div>
-                            <McInput
-                              type={"picker"}
-                              name={"User Type"}
-                              id="usertype_data"
-                              required={true}
-                              valid={setusertypevalid}
-                              sendcheck={preSendValidator}
-                              value={usertype}
-                              onchange={setusertype}
-                              options={[
-                                { "key": "0", "value": "NORMAL" },
-                                { "key": "1", "value": "ADMIN" },
-                                { "key": "2", "value": "PROJECT ADMIN" },
-                                { "key": "3", "value": "SUPER USER" },
-                              ]} />
-                          </div>
+                          <McInput
+                            type={"picker"}
+                            name={"Company Name"}
+                            id="companyname_data"
+                            required={true}
+                            valid={setcompanynamevalid}
+                            sendcheck={preSendValidator}
+                            value={company_name}
+                            onChange={setcompany_name}
+                            options={Company_name()} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            type={"picker"}
+                            name={"Branch Name"}
+                            id="branch_name_data"
+                            required={true}
+                            valid={setbranchvalid}
+                            sendcheck={preSendValidator}
+                            value={branch_name}
+                            onChange={setbranch_name}
+                            options={Branch_name()} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            type={"picker"}
+                            name={"User Type"}
+                            id="usertype_data"
+                            required={true}
+                            valid={setusertypevalid}
+                            sendcheck={preSendValidator}
+                            value={usertype}
+                            onChange={setusertype}
+                            options={[
+                              { "key": "0", "value": "NORMAL" },
+                              { "key": "1", "value": "ADMIN" },
+                              { "key": "2", "value": "PROJECT ADMIN" },
+                              { "key": "3", "value": "SUPER USER" },
+                            ]} />
                         </div>
                       </>
                     }
@@ -536,7 +534,7 @@ console.log("OTP not matched")
                           valid={setusernamevalid}
                           sendcheck={preSendValidator}
                           value={username}
-                          onchange={setusername} />
+                          onChange={setusername} />
                       </div>
                     </div>
 
@@ -553,7 +551,7 @@ console.log("OTP not matched")
                           valid={setfirstnamevalid}
                           sendcheck={preSendValidator}
                           value={firstname}
-                          onchange={setfirstname} />
+                          onChange={setfirstname} />
                       </div>
                     </div>
 
@@ -570,7 +568,7 @@ console.log("OTP not matched")
                           valid={setlastnamevalid}
                           sendcheck={preSendValidator}
                           value={lastname}
-                          onchange={setlastname} />
+                          onChange={setlastname} />
                       </div>
                     </div>
 
@@ -587,7 +585,7 @@ console.log("OTP not matched")
                           valid={setemailvalid}
                           sendcheck={preSendValidator}
                           value={email}
-                          onchange={setemail} />
+                          onChange={setemail} />
                       </div>
                     </div>
 
@@ -605,7 +603,7 @@ console.log("OTP not matched")
                           valid={setphonevalid}
                           sendcheck={preSendValidator}
                           value={phoneno}
-                          onchange={setphoneno} />
+                          onChange={setphoneno} />
                       </div>
                     </div>
 
@@ -622,7 +620,7 @@ console.log("OTP not matched")
                           sendcheck={preSendValidator}
                           valid={setpasswordvalid}
                           value={password}
-                          onchange={setpassword}
+                          onChange={setpassword}
                           input_inner_rightprop={
                             <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
                               {passwordShown ? <img className="Password_visibility_icon" src={eye} />

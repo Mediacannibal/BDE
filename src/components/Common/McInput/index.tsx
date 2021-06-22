@@ -71,8 +71,6 @@ const McInput = (props: any) => {
         if (props.input_inner_leftprop !== undefined) {
             setInputPaddingClassName(" padleft")
         }
-        console.log(props.input_inner_leftprop,"aisdufaiudflk")
-        console.log(props.input_inner_rightprop,"123aisdufaiudflk")
 
         if ((props.input_inner_rightprop !== undefined) || (props.type === "password")) {
             setInputPaddingClassName(" padright")
