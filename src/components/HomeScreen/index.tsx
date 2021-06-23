@@ -15,6 +15,7 @@ import { ColourObject } from 'store/ColourStore';
 import McInput from 'components/Common/McInput';
 import * as eye from '../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../assets/eye-invisible.svg'
+import UpDownArrow from 'components/Common/updownArrow';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -67,7 +68,7 @@ const HomeScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
+          console.log("Project Tasks: ", data.data.results)
           setlistItems1(data.data.results)
         } else {
           setspinner(false)
@@ -128,7 +129,16 @@ const HomeScreen = (props: any) => {
     let headerElement = ['Title']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
@@ -144,7 +154,16 @@ const HomeScreen = (props: any) => {
     let headerElement = ['Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 

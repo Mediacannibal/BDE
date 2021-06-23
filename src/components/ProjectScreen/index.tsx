@@ -15,6 +15,7 @@ import * as add from '../../assets/add.svg'
 import * as team from '../../assets/team.svg'
 import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
+import UpDownArrow from 'components/Common/updownArrow';
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
@@ -110,15 +111,24 @@ const ProjectScreen = (props: any) => {
     }
   }
 
-  const renderHeader2 = () => {
+  const renderHeader = () => {
     let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
-  const renderBody2 = (element: any) => {
+  const renderBody = (element: any) => {
     return (
       <tr key={element.id}
         className={getClassname(element.priority)}
@@ -178,8 +188,6 @@ const ProjectScreen = (props: any) => {
         />
       }
 
-
-
       <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
@@ -197,7 +205,8 @@ const ProjectScreen = (props: any) => {
                         <img className='project_image' src={add} />
                       </div>
                       <div className="project_center_container">
-                        <div className="project_title" style={{ color: colourObj.color_1 }}>
+                        <div className="project_title" style={{ color: colourObj.color_1 }}
+                          onClick={() => { }}>
                           {element.title + ": " + project_Type(element)}
                         </div>
                         <div className="project_description" style={{ color: colourObj.color_1 }}>
@@ -301,11 +310,11 @@ const ProjectScreen = (props: any) => {
 
                         <table id='internal_table' style={{ color: colourObj.color_1 }}>
                           <thead>
-                            <tr>{renderHeader2()}</tr>
+                            <tr>{renderHeader()}</tr>
                           </thead>
                           <tbody>
                             {
-                              element.ProjectTasks.map(renderBody2)
+                              element.ProjectTasks.map(renderBody)
                             }
                           </tbody>
                         </table>

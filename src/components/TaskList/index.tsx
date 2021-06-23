@@ -85,7 +85,7 @@ const TaskList = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Task Results: ", data.data.results)
+          console.log("Task Results: ", data.data.results)
           setlistItems1([])
           setlistItems1(data.data.results)
         } else {
@@ -139,8 +139,12 @@ const TaskList = (props: any) => {
     return headerElement.map((key, index) => {
       return (
         <th key={index}>
-          {key.toUpperCase()}
-          <UpDownArrow onexpand={() => { }} />
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
         </th>
       )
     })

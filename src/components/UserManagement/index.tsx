@@ -11,6 +11,7 @@ import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore'
 import NewUserForm from '../Forms/UserSetup';
 import UserSettings from 'components/UserMenuItems/UserSettings';
+import UpDownArrow from 'components/Common/updownArrow';
 
 export const header_options = () => <div>Hello</div>
 
@@ -69,7 +70,16 @@ const UserManagement = (props: any) => {
     let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 

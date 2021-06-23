@@ -13,7 +13,7 @@ import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import { ColourObject } from 'store/ColourStore';
-
+import UpDownArrow from 'components/Common/updownArrow';
 
 const BugList = (props: any) => {
   const { auth } = useAuth();
@@ -45,7 +45,6 @@ const BugList = (props: any) => {
     if (!Colour) {
       loadColour();
     }
-
 
     CommonAPi(
       {
@@ -98,7 +97,16 @@ const BugList = (props: any) => {
     let headerElement = ['Project', 'Bug Title', 'Task Type', 'priority', 'domain', 'description', 'Date Reported', 'Protrait', 'Landscape', 'Android', 'IOS', 'Browser', 'image_link']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
@@ -131,7 +139,16 @@ const BugList = (props: any) => {
     let headerElement = ['Project', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Api Name', 'Api Method', 'Path']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 

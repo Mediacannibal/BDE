@@ -108,7 +108,16 @@ const TestingChecklist = (props: any) => {
     let headerElement = ['Project name', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Image link', 'Portrait', 'Landscape', 'Interface', 'track']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
@@ -149,7 +158,16 @@ const TestingChecklist = (props: any) => {
     let headerElement = ['Project', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Api Name', 'Api Method', 'Path', 'track']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
