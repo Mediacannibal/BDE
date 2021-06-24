@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Camera } from "react-camera-pro";
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
@@ -22,7 +22,7 @@ import McInput from 'components/Common/McInput';
 
 const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
 
-const TaskDetails = ({ Project }) => {
+const TaskDetails = () => {
   const { auth } = useAuth();
   const history = useHistory();
   const inputFile = useRef(true);
@@ -46,7 +46,12 @@ const TaskDetails = ({ Project }) => {
   const [Attachments, setAttachments] = useState(false)
   const [photoMessagesend, setphotoMessagesend] = useState(false)
 
-  const [projectData, setprojectData] = useState(null)
+  const [tasknameinput, settasknameinput] = useState(false)
+  const [taskpriorityinput, settaskpriorityinput] = useState(false)
+  const [taskDueinput, settaskDueinput] = useState(false)
+  const [taskasigneeinput, settaskasigneeinput] = useState(false)
+  const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
+  const [taskHistoryinput, settaskHistoryinput] = useState(false)
 
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
@@ -62,8 +67,6 @@ const TaskDetails = ({ Project }) => {
       // }
     ])
   const [dataUri, setDataUri] = useState('');
-
-  let location = useLocation();
 
   const addtolist = (message: any) => {
     let a = chat_log_list
@@ -105,11 +108,7 @@ const TaskDetails = ({ Project }) => {
     if (!Colour) {
       loadColour();
     }
-
-    setprojectData(location.state ? location.state : null)
-
   }, [])
-
 
   const messageSend = () => {
     let message = chat_send
@@ -614,20 +613,18 @@ const TaskDetails = ({ Project }) => {
               <div className="task_details">
 
                 <div className="column">
-                  <div className="subtitle">
-                    Project: {" " + projectData?.title}
-                  </div>
-                  {/* <div className="subtitle">Task: { } </div> */}
+                  <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
                 </div>
 
                 <div className="column">
-                  <div className="subtitle">Priority: { } </div>
-                  <div className="subtitle">Assignee: { }</div>
-                  <div className="subtitle">Start-Date: {" " + projectData?.start_date}</div>
+                  <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
+                  <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
+                  <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
                 </div>
 
                 <div className="tasklog">
-                  <div className="subtitle">Description:{" " + projectData?.description}</div>
+                  <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
+                  <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
                 </div>
 
               </div>

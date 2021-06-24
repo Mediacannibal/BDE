@@ -16,6 +16,7 @@ import * as team from '../../assets/team.svg'
 import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
 import UpDownArrow from 'components/Common/updownArrow';
+import TaskDetails from 'components/TaskDetails';
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
@@ -33,7 +34,11 @@ const ProjectScreen = (props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
   const [seleted_projectName, setseleted_projectName] = useState('')
   const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
-  const [selected_User, setselected_User] = useState()
+
+  const [task_details, settask_details] = useState(false)
+
+  const [is_project, setis_project] = useState('')
+  const [is_task, setis_task] = useState()
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
   const [users, setusers] = useState('')
@@ -56,7 +61,7 @@ const ProjectScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Project Tasks: ", data.data)
+          console.log("Project Tasks: ", data.data.results)
           setlistItems(data.data.results)
         } else {
           setspinner(false)
@@ -188,6 +193,7 @@ const ProjectScreen = (props: any) => {
         />
       }
 
+
       <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
@@ -204,9 +210,17 @@ const ProjectScreen = (props: any) => {
                       <div className="project_left_container">
                         <img className='project_image' src={add} />
                       </div>
+
                       <div className="project_center_container">
                         <div className="project_title" style={{ color: colourObj.color_1 }}
-                          onClick={() => { }}>
+                          onClick={() => {
+                            history.push(
+                              {
+                                pathname: '/TaskDetails',
+                                state: element
+                              }
+                            )
+                          }}>
                           {element.title + ": " + project_Type(element)}
                         </div>
                         <div className="project_description" style={{ color: colourObj.color_1 }}>

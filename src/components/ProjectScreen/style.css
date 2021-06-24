@@ -38,6 +38,7 @@
     text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
     text-decoration-color: var(--color_7);
     padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
+    cursor: pointer;
 }
 
 .project_subtitle {
