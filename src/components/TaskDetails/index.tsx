@@ -46,7 +46,7 @@ const TaskDetails = ({ Project }) => {
   const [Attachments, setAttachments] = useState(false)
   const [photoMessagesend, setphotoMessagesend] = useState(false)
 
-  const [projectData, setprojectData] = useState(null)
+  const [project_Task_Data, setproject_Task_Data] = useState(null)
 
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
@@ -615,19 +615,19 @@ const TaskDetails = ({ Project }) => {
 
                 <div className="column">
                   <div className="subtitle">
-                    Project: {" " + projectData?.title}
+                    Title: {" " + project_Task_Data?.title}
                   </div>
                   {/* <div className="subtitle">Task: { } </div> */}
                 </div>
 
                 <div className="column">
-                  <div className="subtitle">Priority: { } </div>
-                  <div className="subtitle">Assignee: { }</div>
-                  <div className="subtitle">Start-Date: {" " + projectData?.start_date}</div>
+                  <div className="subtitle">Priority: {" " + project_Task_Data?.priority} </div>
+                  <div className="subtitle">Task Type: {" " + project_Task_Data?.task_type}</div>
+                  <div className="subtitle">Start-Date: {" " + project_Task_Data?.start_date}</div>
                 </div>
 
                 <div className="tasklog">
-                  <div className="subtitle">Description:{" " + projectData?.description}</div>
+                  <div className="subtitle">Description:{" " + project_Task_Data?.description}</div>
                 </div>
 
               </div>

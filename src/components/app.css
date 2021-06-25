@@ -103,6 +103,7 @@
     display: flex;
     padding-right: calc(0.25vw + 0.75vh + 0.25vmin);
     align-items: center;
+    cursor: pointer;
 }
 
 .title {
@@ -226,7 +227,7 @@ tr:nth-child(even) {
 /* popup */
 
 .popup_wrapper {
-    position:relative;
+    position: relative;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -241,7 +242,7 @@ tr:nth-child(even) {
 }
 
 .popup_bg {
-    position:absolute;
+    position: absolute;
     height: 100%;
     width: 100%;
     top: 0;

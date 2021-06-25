@@ -140,6 +140,13 @@ const ProjectScreen = (props: any) => {
         onClick={() => {
           // setpopup2(true)
           setseleted_taskid(element.id)
+
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
         }}>
         <td>{element.domain}</td>
         <td>{element.task_type}</td>

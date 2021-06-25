@@ -113,7 +113,16 @@ const BugList = (props: any) => {
   const renderBody1 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr key={element.id} className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -155,7 +164,16 @@ const BugList = (props: any) => {
   const renderBody2 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr key={element.id} className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)

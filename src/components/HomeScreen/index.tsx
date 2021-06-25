@@ -68,7 +68,7 @@ const HomeScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Project Tasks: ", data.data.results)
+          // console.log("Project Tasks: ", data.data.results)
           setlistItems1(data.data.results)
         } else {
           setspinner(false)
@@ -86,7 +86,7 @@ const HomeScreen = (props: any) => {
       (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks:", data.data)
+          // console.log("Main Tasks:", data.data.results)
           setlistItems2(data.data.results)
         } else {
           setspinner(false)
@@ -144,7 +144,16 @@ const HomeScreen = (props: any) => {
 
   const renderBody1 = (element: any) => {
     return (
-      <tr key={element.id}>
+      <tr key={element.id}
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.title}</td>
       </tr>
     )
@@ -169,7 +178,16 @@ const HomeScreen = (props: any) => {
 
   const renderBody2 = (element: any) => {
     return (
-      <tr key={element.id} className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.status}</td>

@@ -238,7 +238,16 @@ const TaskList = (props: any) => {
         </tr>
 
         {element.assisted_by === 'true' && (
-          <tr className={getClassname(element.priority)}>
+          <tr className={getClassname(element.priority)}
+            onClick={() => {
+              history.push(
+                {
+                  pathname: '/TaskDetails',
+                  state: element
+                }
+              )
+            }}
+          >
             {element.child?.map((element: any) => {
               return (
                 <>
