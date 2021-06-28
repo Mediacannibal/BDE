@@ -106,7 +106,7 @@ const TaskDetails = ({ Project }) => {
       loadColour();
     }
 
-    setprojectData(location.state ? location.state : null)
+    setproject_Task_Data(location.state ? location.state : null)
 
   }, [])
 
@@ -614,28 +614,77 @@ const TaskDetails = ({ Project }) => {
               <div className="task_details">
 
                 <div className="column">
-                  <div className="subtitle">
-                    Title: {" " + project_Task_Data?.title}
+
+                  <div className="data_wrap">
+                    <div className="card_title">Company ID: </div>
+                    <div className="text_data">{" " + project_Task_Data?.company_ref}</div>
                   </div>
-                  {/* <div className="subtitle">Task: { } </div> */}
-                </div>
 
-                <div className="column">
-                  <div className="subtitle">Priority: {" " + project_Task_Data?.priority} </div>
-                  <div className="subtitle">Task Type: {" " + project_Task_Data?.task_type}</div>
-                  <div className="subtitle">Start-Date: {" " + project_Task_Data?.start_date}</div>
-                </div>
+                  <div className="data_wrap">
+                    <div className="card_title">Branch ID: </div>
+                    <div className="text_data">{" " + project_Task_Data?.branch_ref}</div>
+                  </div>
 
-                <div className="tasklog">
-                  <div className="subtitle">Description:{" " + project_Task_Data?.description}</div>
+                  <div className="data_wrap">
+                    <div className="card_title">Task ID: </div>
+                    <div className="text_data">{" " + project_Task_Data?.id}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Project ID:</div>
+                    <div className="text_data"> {" " + project_Task_Data?.project_ref_id}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Title: </div>
+                    <div className="text_data">{" " + project_Task_Data?.title}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Domain:</div>
+                    <div className="text_data"> {" " + project_Task_Data?.domain} </div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Priority:</div>
+                    <div className="text_data"> {" " + project_Task_Data?.priority} </div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Task Type:</div>
+                    <div className="text_data"> {" " + project_Task_Data?.task_type}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Progress:</div>
+                    <div className="text_data">{" " + project_Task_Data?.progress}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Time Spent:</div>
+                    <div className="text_data">{" " + project_Task_Data?.time_spent}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Start-Date:</div>
+                    <div className="text_data"> {" " + project_Task_Data?.start_date}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">End-Date:</div>
+                    <div className="text_data">{" " + project_Task_Data?.end_date}</div>
+                  </div>
+
+                  <div className="data_wrap">
+                    <div className="card_title">Updated At:</div>
+                    <div className="text_data">{" " + project_Task_Data?.updated_at}</div>
+                  </div>
+
                 </div>
 
               </div>
 
             </div>
-
-
-
 
           </>
         }

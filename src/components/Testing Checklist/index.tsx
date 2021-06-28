@@ -15,6 +15,7 @@ import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
+import UpDownArrow from 'components/Common/updownArrow';
 
 const TestingChecklist = (props: any) => {
   const { auth } = useAuth();

@@ -45,11 +45,14 @@ const TaskList = (props: any) => {
   const [task, settask] = useState('')
   const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('')
+  const [project_ref, setproject_ref] = useState('')
+  const [project_id, setproject_id] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
+  const [filter1, setFilter1] = useState([])
+
+  const [task_picker_typevalid, settask_picker_typevalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -62,7 +65,7 @@ const TaskList = (props: any) => {
       // console.log("NOT THE FIRST RENDER", isFirstRender.current)
       mainTask()
     }
-  }, [task, users, parent_child, task_domain, task_priority, project])
+  }, [task, users, parent_child, task_domain, task_priority, project_ref, project_id])
 
   useEffect(() => {
     isFirstRender.current = false
@@ -77,6 +80,7 @@ const TaskList = (props: any) => {
     if (!Colour) {
       loadColour();
     }
+    console.log("filter1:", filter1)
   }, [])
 
   const mainTask = () => {
@@ -88,6 +92,28 @@ const TaskList = (props: any) => {
           console.log("Task Results: ", data.data.results)
           setlistItems1([])
           setlistItems1(data.data.results)
+
+          let array: any = []
+          array.push({ key: '0', value: 'All' })
+          console.log("Incoming list of option");
+          data.data.results.forEach((element: any) => {
+            array.push({
+              key: element.project_ref_id,
+              value: element.project_ref_id,
+            })
+            filter1.push({
+              key: element.project_ref_id,
+              value: element.project_ref_id,
+            })
+          })
+
+          // var array = [], l = data.data.results.length, i;
+          // for (i = 0; i < l; i++) {
+          //   if (array[data.data.results[i].project_ref_id]) continue;
+          //   array[data.data.results[i].project_ref_id] = true;
+          //   filter1.push(data.data.results[i].project_ref_id);
+          // }
+
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data))
@@ -100,7 +126,8 @@ const TaskList = (props: any) => {
       parent_child,
       task_domain,
       task_priority,
-      project
+      project_ref,
+      project_id
     )
   }
 
@@ -153,7 +180,16 @@ const TaskList = (props: any) => {
   const renderBody1 = (element: any) => {
     return (
       <>
-        <tr key={element.id} className={getClassname(element.priority)}>
+        <tr key={element.id} className={getClassname(element.priority)}
+          onClick={() => {
+            history.push(
+              {
+                pathname: '/TaskDetails',
+                state: element
+              }
+            )
+          }}
+        >
           <td>
             {element.child !== undefined && element.child.length > 0 && (
               <UpDownArrow
@@ -173,7 +209,7 @@ const TaskList = (props: any) => {
               />
             )}
           </td>
-          <td>{element.project_ref}</td>
+          <td>{element.project_ref_id}</td>
           <td>{element.domain}</td>
           <td>{element.task_type}</td>
           <td>{element.priority}</td>
@@ -266,7 +302,7 @@ const TaskList = (props: any) => {
                       />
                     )}
                   </td>
-                  <td>{element.project_ref}</td>
+                  <td>{element.project_ref_id}</td>
                   <td>{element.domain}</td>
                   <td>{element.task_type}</td>
                   <td>{element.priority}</td>
@@ -409,9 +445,9 @@ const TaskList = (props: any) => {
                       type={'picker'}
                       name={'Project'}
                       id='task_project_data'
-                      value={project}
-                      onchange={setproject}
-                      options={getoptions(unique_title)}
+                      value={project_id}
+                      onchange={setproject_id}
+                      options={filter1}
                     />
                   </div>
 
@@ -435,6 +471,7 @@ const TaskList = (props: any) => {
                       type={'picker'}
                       name={'Task Type'}
                       id='task_type_data'
+                      // valid={ settask_picker_typevalid}
                       value={task}
                       onchange={settask}
                       options={[

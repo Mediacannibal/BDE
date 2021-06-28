@@ -15,10 +15,14 @@
     justify-content: space-between;
 }
 
-.subtitle {
+.text_data {
     margin: 1vh 0;
     font-size: var(--TS6);
     font-weight: 600;
+    display: flex;
+}
+
+.data_wrap {
     display: flex;
 }
 
