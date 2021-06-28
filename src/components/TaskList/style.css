@@ -37,18 +37,22 @@
 
 .textcolor_blue {
     color: blue;
+    cursor: pointer;
 }
 
 .textcolor_yellow {
     color: yellow;
+    cursor: pointer;
 }
 
 .textcolor_orange {
     color: orange;
+    cursor: pointer;
 }
 
 .textcolor_red {
     color: red;
+    cursor: pointer;
 }
 
 .textcolor_blinking {
@@ -61,11 +65,11 @@
     }
 }
 
-.tasktype_dropdown{
+.tasktype_dropdown {
     padding: 1vh;
     cursor: pointer;
 }
 
-.taskfilter_button{
+.taskfilter_button {
     height: 3vh;
 }

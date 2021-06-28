@@ -16,7 +16,8 @@ import * as team from '../../assets/team.svg'
 import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
 import UpDownArrow from 'components/Common/updownArrow';
-import TaskDetails from 'components/TaskDetails';
+import { getChatID } from 'utils/GlobalFunctions'
+
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
@@ -143,7 +144,7 @@ const ProjectScreen = (props: any) => {
 
           history.push(
             {
-              pathname: '/TaskDetails',
+              pathname: `/TaskDetails/${getChatID("pro", element.id)}`,
               state: element
             }
           )
@@ -223,7 +224,7 @@ const ProjectScreen = (props: any) => {
                           onClick={() => {
                             history.push(
                               {
-                                pathname: '/TaskDetails',
+                                pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                 state: element
                               }
                             )

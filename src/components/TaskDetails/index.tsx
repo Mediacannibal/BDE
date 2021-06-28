@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Camera } from "react-camera-pro";
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
@@ -19,12 +19,14 @@ import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
 import { fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
+import { getChatID } from 'utils/GlobalFunctions'
 
-const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
 
-const TaskDetails = ({ Project }) => {
+const TaskDetails = () => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { id } = useParams();
+
   const inputFile = useRef(true);
   const camera = useRef(null);
   const [image, setImage] = useState();
@@ -35,9 +37,9 @@ const TaskDetails = ({ Project }) => {
   const [spinner, setspinner] = useState(true)
 
   const [title, settitle] = useState('')
-  const [titlevalid, settitlevalid] = useState(false)
 
-  const [username, setUsername] = useState('')
+  const [firstname, setfirstname] = useState('')
+  const [secondname, setsecondname] = useState('')
   const [profile_picture, setprofile_picture] = useState('')
 
   const [usertype, setusertype] = useState("NORMAL")
@@ -65,6 +67,8 @@ const TaskDetails = ({ Project }) => {
 
   let location = useLocation();
 
+  const chatSocket: WebSocket = new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`);
+
   const addtolist = (message: any) => {
     let a = chat_log_list
     // [1,2,2]
@@ -86,7 +90,8 @@ const TaskDetails = ({ Project }) => {
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
-      let username = UserDetails.firstname
+      let firstname = UserDetails.firstname
+      let secondname = UserDetails.secondname
       let profile_picture = UserDetails.photo_url
 
       setspinner(false)
@@ -94,7 +99,8 @@ const TaskDetails = ({ Project }) => {
       // console.log(screen, user_id, usertype1)
       setusertype(UserDetails.user_type)
       setuserID(UserDetails.user_id)
-      setUsername(username)
+      setfirstname(firstname)
+      setsecondname(secondname)
       setprofile_picture(
         profile_picture === undefined || profile_picture === null
           ? defaultusericon
@@ -239,7 +245,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname} {secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -258,7 +264,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -277,7 +283,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -296,7 +302,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -315,7 +321,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -334,7 +340,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -353,7 +359,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -372,7 +378,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -391,7 +397,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -410,7 +416,7 @@ const TaskDetails = ({ Project }) => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {username}
+                          {firstname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii

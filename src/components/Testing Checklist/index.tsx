@@ -16,6 +16,7 @@ import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions';
 
 const TestingChecklist = (props: any) => {
   const { auth } = useAuth();
@@ -129,7 +130,7 @@ const TestingChecklist = (props: any) => {
         onClick={() => {
           history.push(
             {
-              pathname: '/TaskDetails',
+              pathname: `/TaskDetails/${getChatID("test", element.id)}`,
               state: element
             }
           )

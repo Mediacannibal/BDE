@@ -39,7 +39,7 @@ import AppGantt from './ChatProcess/AppGantt';
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
   { path: '/Project', component: ProjectScreen },
-  { path: '/TaskDetails', component: TaskDetails },
+  { path: '/TaskDetails/:id', component: TaskDetails },
   { path: '/TaskList', component: TaskList },
   { path: '/TaskTimeLog', component: TaskTimeLog },
   { path: '/TestingChecklist', component: TestingChecklist },

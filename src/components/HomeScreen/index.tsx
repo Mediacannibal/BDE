@@ -16,6 +16,7 @@ import McInput from 'components/Common/McInput';
 import * as eye from '../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../assets/eye-invisible.svg'
 import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions';
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -148,7 +149,7 @@ const HomeScreen = (props: any) => {
         onClick={() => {
           history.push(
             {
-              pathname: '/TaskDetails',
+              pathname: `/TaskDetails/${getChatID("project", element.id)}`,
               state: element
             }
           )
@@ -182,7 +183,7 @@ const HomeScreen = (props: any) => {
         onClick={() => {
           history.push(
             {
-              pathname: '/TaskDetails',
+              pathname: `/TaskDetails/${getChatID("task", element.id)}`,
               state: element
             }
           )

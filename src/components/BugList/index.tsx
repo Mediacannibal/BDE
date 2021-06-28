@@ -14,6 +14,7 @@ import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import { ColourObject } from 'store/ColourStore';
 import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions';
 
 const BugList = (props: any) => {
   const { auth } = useAuth();
@@ -117,7 +118,7 @@ const BugList = (props: any) => {
         onClick={() => {
           history.push(
             {
-              pathname: '/TaskDetails',
+              pathname: `/TaskDetails/${getChatID("bug", element.id)}`,
               state: element
             }
           )

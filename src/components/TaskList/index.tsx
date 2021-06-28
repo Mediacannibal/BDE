@@ -20,6 +20,7 @@ import TimeSpent from 'components/TimeSpent'
 import UpDownArrow from 'components/Common/updownArrow'
 import { ColourObject } from 'store/ColourStore'
 import { useForm } from 'react-hook-form';
+import { getChatID } from 'utils/GlobalFunctions'
 
 const TaskList = (props: any) => {
   const history = useHistory()
@@ -127,7 +128,7 @@ const TaskList = (props: any) => {
       task_domain,
       task_priority,
       project_ref,
-      project_id
+      // project_id
     )
   }
 
@@ -184,7 +185,7 @@ const TaskList = (props: any) => {
           onClick={() => {
             history.push(
               {
-                pathname: '/TaskDetails',
+                pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                 state: element
               }
             )
@@ -278,7 +279,7 @@ const TaskList = (props: any) => {
             onClick={() => {
               history.push(
                 {
-                  pathname: '/TaskDetails',
+                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                   state: element
                 }
               )

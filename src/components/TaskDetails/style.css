@@ -109,7 +109,7 @@
 .message {
     display: flex;
     flex-direction: column;
-    width: 25vw;
+    width: 15vw;
     padding: 0.6vh;
     margin: 0 2vh;
     border-radius: 4px;
