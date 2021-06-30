@@ -62,7 +62,7 @@ const ProjectScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Project Tasks: ", data.data.results)
+          // console.log("Project Tasks: ", data.data.results)
           setlistItems(data.data.results)
         } else {
           setspinner(false)
@@ -103,7 +103,6 @@ const ProjectScreen = (props: any) => {
   }
 
   const project_Status = (element: any) => {
-    // console.log("start and End: ", element.start_date, element.end_date);
     if ((element.start_date === null) && (element.end_date === null)) {
       return ("To Be Started")
     }

@@ -19,8 +19,6 @@ import { useAuth } from 'store/authStore';
 import Footer from '../Common/Footer';
 import { fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
-import { getChatID } from 'utils/GlobalFunctions'
-
 
 const TaskDetails = () => {
   const { auth } = useAuth();
@@ -50,19 +48,12 @@ const TaskDetails = () => {
 
   const [project_Task_Data, setproject_Task_Data] = useState(null)
 
+  // const [chat_id, setchat_id] = useState("")
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
   const [photo_send, setphoto_send] = useState('')
-  const [chat_log_list, setchat_log_list] = useState(
-    [
-      // {
-      //   content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
-      //   message_type: "docs",
-      //   name: "KiranRaj",
-      //   time: "5/14/2021, 8:28:05 PM"
-      // }
-    ])
+  const [chat_log_list, setchat_log_list] = useState([])
   const [dataUri, setDataUri] = useState('');
 
   let location = useLocation();
@@ -90,15 +81,16 @@ const TaskDetails = () => {
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
+      let userID = UserDetails.user_id
       let firstname = UserDetails.firstname
       let secondname = UserDetails.secondname
       let profile_picture = UserDetails.photo_url
 
       setspinner(false)
       setuserinfo(UserDetails)
-      // console.log(screen, user_id, usertype1)
+
+      setuserID(userID)
       setusertype(UserDetails.user_type)
-      setuserID(UserDetails.user_id)
       setfirstname(firstname)
       setsecondname(secondname)
       setprofile_picture(
@@ -118,40 +110,48 @@ const TaskDetails = () => {
 
 
   const messageSend = () => {
+    let user_id = userID
     let message = chat_send
     let photo = photo_send
     let time = new Date()
-    chatSocket.send(JSON.stringify({
+    let a = JSON.stringify({
       'message': JSON.stringify({
+        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "text",
         "content": message,
         "photo": photo,
+        "chat_id": id
       })
-    }));
-    console.log(message);
+    })
+    console.log(a);
+    chatSocket.send(a)
     setchat_send("")
   }
+
 
   const photoSend = () => {
     let message = chat_send
     let photo = photo_send
     let time = new Date()
-    chatSocket.send(JSON.stringify({
+    let a = JSON.stringify({
       'message': JSON.stringify({
+        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "image",
         "content": message,
         "photo": photo,
+        "chat_id": id
       })
-    }));
-    console.log(message);
+    })
+    console.log(a);
+    chatSocket.send(a)
     setchat_send("")
   }
 
-  const getfilename = (url) => {
+  const getfilename = (url: any) => {
     let a = "filename";
     let temp = String(url).split('/')
     a = temp[temp.length - 1]
@@ -159,17 +159,19 @@ const TaskDetails = () => {
   }
 
   const docSend = (type: any, url: any) => {
-    let message = chat_send
     let time = new Date()
-    chatSocket.send(JSON.stringify({
+    let a = (JSON.stringify({
       'message': JSON.stringify({
+        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": type,
         "content": url,
+        "chat_id": id
       })
     }));
-    console.log(message);
+    console.log(a);
+    chatSocket.send(a)
     setchat_send("")
   }
 
@@ -440,8 +442,10 @@ const TaskDetails = () => {
                 <div className="chatbox" >
                   {
                     chat_log_list.map((object, index) => {
+                      console.log('>>>', object);
+
                       return (
-                        (String(userinfo.firstname + userinfo.lastname) === object.name) ?
+                        (String(userinfo.firstname + userinfo.secondname) === object.name) ?
 
                           <div className="chat_mymessage_container">
                             <div className="message mymessage">
