@@ -29,6 +29,7 @@ import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
 import { getToken, onMessageListener} from '../../firebase'; 
+import MeetingRoom from './MeetingScreen/MeetingRoom';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -48,11 +49,13 @@ const dashboard_screen = [
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
   { path: '/AppGantt', component: AppGantt },
+  { path: '/Meeting', component: MeetingScreen },
 ]
 
 const fullpage_screen = [
   { path: '/', component: LoginScreen }, 
-  { path: '/Meeting', component: MeetingScreen },
+  { path: "/MeetingRoom/:roomID", component: MeetingRoom },
+   
 ]
 
 const App = () => {
