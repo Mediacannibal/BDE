@@ -51,7 +51,6 @@ const dashboard_screen = [
 const fullpage_screen = [
   { path: '/', component: LoginScreen }, 
   { path: "/MeetingRoom/:roomID", component: MeetingRoom },
-   
 ]
 
 const App = () => {
