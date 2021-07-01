@@ -181,8 +181,8 @@ const DayVisitsReport_realtime = (props) => {
     // console.log("element=====", element);
     return (
       <tr>
-        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
-        {element.metricValues.map((obj) => <td>{obj.value}</td>)}
+        {element.dimensionValues?.map((obj) => <td>{obj.value}</td>)}
+        {element.metricValues?.map((obj) => <td>{obj.value}</td>)}
       </tr >
     )
   }
@@ -192,7 +192,7 @@ const DayVisitsReport_realtime = (props) => {
     // console.log("element=====", element);
     return (
       <tr>
-        {element.dimensionValues.map((obj) => <td>{obj.value}</td>)}
+        {element.dimensionValues?.map((obj) => <td>{obj.value}</td>)}
       </tr >
     )
   }

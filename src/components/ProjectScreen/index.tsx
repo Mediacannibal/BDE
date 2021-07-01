@@ -15,13 +15,16 @@ import * as add from '../../assets/add.svg'
 import * as team from '../../assets/team.svg'
 import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
+import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions'
+
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [listItems, setlistItems] = useState([])
 
@@ -32,17 +35,14 @@ const ProjectScreen = (props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
   const [seleted_projectName, setseleted_projectName] = useState('')
   const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
-  const [selected_User, setselected_User] = useState()
+
+  const [task_details, settask_details] = useState(false)
+
+  const [is_project, setis_project] = useState('')
+  const [is_task, setis_task] = useState()
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
 
-  const [task, settask] = useState('')
-  const [user_list, setuser_list] = useState('all')
-  const [parent_child, setparent_child] = useState('')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
-  const [project, setproject] = useState('1')
-
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
 
   useEffect(() => {
     props.setheader_options(screen_header_elements)
@@ -71,6 +71,7 @@ const ProjectScreen = (props: any) => {
         }
       })
   }, [])
+
 
   const getClassname = (key: any) => {
     switch (key) {
@@ -102,7 +103,6 @@ const ProjectScreen = (props: any) => {
   }
 
   const project_Status = (element: any) => {
-    // console.log("start and End: ", element.start_date, element.end_date);
     if ((element.start_date === null) && (element.end_date === null)) {
       return ("To Be Started")
     }
@@ -116,21 +116,37 @@ const ProjectScreen = (props: any) => {
     }
   }
 
-  const renderHeader2 = () => {
+  const renderHeader = () => {
     let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
-  const renderBody2 = (element: any) => {
+  const renderBody = (element: any) => {
     return (
       <tr key={element.id}
         className={getClassname(element.priority)}
         onClick={() => {
           // setpopup2(true)
           setseleted_taskid(element.id)
+
+          history.push(
+            {
+              pathname: `/TaskDetails/${getChatID("pro", element.id)}`,
+              state: element
+            }
+          )
         }}>
         <td>{element.domain}</td>
         <td>{element.task_type}</td>
@@ -185,7 +201,6 @@ const ProjectScreen = (props: any) => {
       }
 
 
-
       <div className="body" style={{ backgroundColor: Colour.primary }}>
         {spinner ?
           <div className="spinner_fullscreen_div">
@@ -202,25 +217,37 @@ const ProjectScreen = (props: any) => {
                       <div className="project_left_container">
                         <img className='project_image' src={add} />
                       </div>
+
                       <div className="project_center_container">
-                        <div className="project_title">{element.title + ": " + project_Type(element)}</div>
-                        <div className="project_description">{element.description}</div>
+                        <div className="project_title" style={{ color: colourObj.color_1 }}
+                          onClick={() => {
+                            history.push(
+                              {
+                                pathname: `/TaskDetails/${getChatID("project", element.id)}`,
+                                state: element
+                              }
+                            )
+                          }}>
+                          {element.title + ": " + project_Type(element)}
+                        </div>
+                        <div className="project_description" style={{ color: colourObj.color_1 }}>
+                          {element.description}
+                        </div>
                       </div>
 
                       <div className="project_right_container">
                         <div className="project_right_subcontainer">
-                          <div className="project_stats visibility_toggle">Status: {project_Status(element)}
+                          <div className="project_stats visibility_toggle" style={{ color: colourObj.color_1 }}>Status: {project_Status(element)}
                             <div className="visibility_container right0">
-                              {element.start_date !== null && <div className="label right0">Started: {element.start_date}</div>}
-                              {element.end_date !== null && <div className="label right0">Completed: {element.end_date}</div>}
+                              {element.start_date !== null && <div className="label right0" style={{ color: colourObj.color_1 }}>Started: {element.start_date}</div>}
+                              {element.end_date !== null && <div className="label right0" style={{ color: colourObj.color_1 }}>Completed: {element.end_date}</div>}
                             </div>
                           </div>
-
 
                           <div className="project_right_subcontainer">
                             <div className="project_participants_container">
                               <div className="project_participants_subcontainer">
-                                <div className="project_stats">Participants:</div>
+                                <div className="project_stats" style={{ color: colourObj.color_1 }}>Participants:</div>
                                 <div className="project_user_options">
                                   <div className="visibility_toggle" onClick={() => {
                                     setpopup3(true)
@@ -229,17 +256,18 @@ const ProjectScreen = (props: any) => {
                                   }}>
                                     <img className='header_icon' src={team} />
                                     <div className="visibility_container">
-                                      <p className="label">Add User</p>
+                                      <p className="label" style={{ color: colourObj.color_1 }}>Add User</p>
                                     </div>
                                   </div>
                                 </div>
                               </div>
+
                               {
-                                element.Profiles.map((element: any) => (
+                                element.ProjectProfiles.map((element: any) => (
                                   <div key={element.id} className="visibility_toggle">
-                                    <div className="project_stats left0">{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
+                                    <div className="project_stats left0" style={{ color: colourObj.color_1 }}>{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
                                     <div className="visibility_container">
-                                      <div className="label" >
+                                      <div className="label" style={{ color: colourObj.color_1 }}>
                                         {element.company_name + ": " + element.branch_name}
                                       </div>
                                     </div>
@@ -254,16 +282,16 @@ const ProjectScreen = (props: any) => {
                     </div>
 
                     <div className="project_tables">
-                      <div className="internal_table">
+                      <div className="internal_table" style={{ color: colourObj.color_1 }}>
                         <div className="project_table_icons">
-                          <div className="project_subtitle">Active Tasks:</div>
+                          <div className="project_subtitle" style={{ color: colourObj.color_1 }}>Active Tasks:</div>
                           <div className="project_task_options">
                             <div className="visibility_toggle" onClick={() => {
                               history.push('/TaskList')
                             }}>
                               <img className='header_icon' src={tasklist} />
                               <div className="visibility_container">
-                                <p className="label">Task History</p>
+                                <p className="label" style={{ color: colourObj.color_1 }}>Task History</p>
                               </div>
                             </div>
 
@@ -273,7 +301,7 @@ const ProjectScreen = (props: any) => {
                             }}>
                               <img className='header_icon' src={add} />
                               <div className="visibility_container">
-                                <p className="label">Add Tasks</p>
+                                <p className="label" style={{ color: colourObj.color_1 }}>Add Tasks</p>
                               </div>
                             </div>
 
@@ -284,7 +312,7 @@ const ProjectScreen = (props: any) => {
                             }}>
                               <img className='header_icon' src={tested} />
                               <div className="visibility_container">
-                                <p className="label"> Request Feature</p>
+                                <p className="label" style={{ color: colourObj.color_1 }}> Request Feature</p>
                               </div>
                             </div>
 
@@ -295,19 +323,19 @@ const ProjectScreen = (props: any) => {
                             }}>
                               <img className='header_icon' src={bug} />
                               <div className="visibility_container">
-                                <p className="label">Report Bug</p>
+                                <p className="label" style={{ color: colourObj.color_1 }}>Report Bug</p>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <table id='internal_table'>
+                        <table id='internal_table' style={{ color: colourObj.color_1 }}>
                           <thead>
-                            <tr>{renderHeader2()}</tr>
+                            <tr>{renderHeader()}</tr>
                           </thead>
                           <tbody>
                             {
-                              element.ProjectTasks.map(renderBody2)
+                              element.ProjectTasks.map(renderBody)
                             }
                           </tbody>
                         </table>

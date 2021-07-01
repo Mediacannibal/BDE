@@ -7,10 +7,12 @@ import Popup from 'components/Common/Popup'
 import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [project_ref, setproject_ref] = useState(projectName)
   const [title, settitle] = useState('')
@@ -107,7 +109,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   };
 
   const Validate = () => {
-
     if (isproject_namevalid === true
       || istitlevalid === true
       || istask_typevalid === true
@@ -133,12 +134,14 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   useEffect(() => {
     // console.log("Initailized Project Name: ", projectName)
     // console.log("Initailized Feature Task: ", projectTaskType)
+    if (!Colour) {
+      loadColour();
+    }
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
@@ -169,6 +172,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
@@ -512,7 +516,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         </div>
                       </div> */}
 
-                      <div className="user_band">
+                      <div className="user_band" style={{ backgroundColor: colourObj.color_10 }}>
 
                       </div>
 
@@ -739,7 +743,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                               onClick={() => {
                                 setaddremoveios(!addremoveios)
                               }}>
-                              <div className="addremove_text">
+                              <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                                 {addremoveios ? "Remove Device" : "Add Device"}
                               </div>
                             </div>

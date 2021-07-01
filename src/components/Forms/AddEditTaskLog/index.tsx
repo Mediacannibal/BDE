@@ -4,19 +4,29 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { addTasklog, createMainTask, createTestlog, fileupload, getMainTask } from 'utils/api';
+import { addTasklog, fileupload, getMainTask } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTaskLog = ({ setPopup, taskid }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [remarks, setremarks] = useState('')
   const [image_link, setimage_link] = useState('')
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
-  const [users, setusers] = useState('all')
+
+  const [users, setusers] = useState('')
+  const [task, settask] = useState('')
+  const [parent_child, setparent_child] = useState('')
+  const [task_domain, settask_domain] = useState('')
+  const [task_priority, settask_priority] = useState('')
+  const [project, setproject] = useState('')
+
+
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
@@ -31,6 +41,12 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
   const [tasktype, settasktype] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm();
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
     e.target.reset(); // reset after form submit
@@ -71,18 +87,30 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
 
   useEffect(() => {
 
-    getMainTask(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>>>>>>", data.data)
-        setlistItems(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, tasktype, users)
+    mainTask()
   }, [])
+
+  const mainTask = () => {
+    // console.log("SELETED TASKTYPE: ", task);
+    getMainTask(
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          // console.log('Task Results in GC: ', data.data.results)
+          // setunique_project_ref(data.data.results)
+        } else {
+          console.log('error ' + JSON.stringify(data))
+          console.log('error ' + JSON.stringify(errorresponse))
+        }
+      },
+      auth,
+      task,
+      users,
+      parent_child,
+      task_domain,
+      task_priority,
+      project
+    )
+  }
 
   const task_id = () => {
     let a: any = [];
@@ -100,6 +128,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

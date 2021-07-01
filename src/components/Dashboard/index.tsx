@@ -28,10 +28,12 @@ import { getMainTask, getTasktimelog } from 'utils/api'
 import { useAuth } from 'store/authStore'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { ColourObject } from 'store/ColourStore'
+import UserSetup from 'components/Forms/UserSetup'
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState('NORMAL')
@@ -41,7 +43,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [seleted_taskid, setseleted_taskid] = useState('')
   const [projecttaskTitle, setprojecttaskTitle] = useState(false)
   const [current_task, setcurrent_task] = useState(false)
-  const { Colour, setColour, loadColour } = ColourObject()
 
   const [task_Ids, settask_Ids] = useState('')
 
@@ -55,11 +56,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_notification, setuser_notification] = useState(false)
 
   const [task, settask] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
   const [project, setproject] = useState('1')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
+  const [isuser_active, setisuser_active] = useState(false)
 
   const location = useLocation()
 
@@ -79,6 +81,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           ? defaultusericon
           : profile_picture
       )
+      setisuser_active(UserDetails.is_active)
       // console.log("someidentifier", profile_picture)
     }
 
@@ -147,14 +150,22 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   ]
 
   return (
-    <div className='main_wrapper' style={{ backgroundColor: Colour.primary }}>
-      {settings_popup ? (
+    <div className='main_wrapper'>
+      {!isuser_active && (
+        <UserSetup
+          setPopup={() => {
+            setsettings_popup(false)
+          }}
+        />
+      )}
+
+      {settings_popup && (
         <UserSettings
           setPopup={() => {
             setsettings_popup(false)
           }}
         />
-      ) : null}
+      )}
 
       {addEditTaskTimeLog_popup && (
         <AddEditTaskTimeLog
@@ -166,7 +177,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
         />
       )}
 
-      <div className='main_menu_left'>
+      <div className='main_menu_left' style={{ backgroundColor: colourObj.color_6 }}>
         <div className='menu_logo_wrapper'>
           <div
             onClick={() => {
@@ -183,57 +194,18 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               className={
                 data.path === screen_name ? 'menu_title active' : 'menu_title'
               }
+              // style={{ backgroundColor: colourObj.color_5 }}
               onClick={() => {
                 history.replace(data.path)
               }}
             >
               <img className='main_menu_item_icon' src={data.icon} />
               {menu_open ? (
-                <div className='main_menu_item_title'>{data.title}</div>
+                <div className='main_menu_item_title' style={{ color: colourObj.color_1 }}>
+                  {data.title}</div>
               ) : null}
             </div>
           ))}
-
-          {/* {(usertype === "SUPERUSER") ?
-                                <>  <div className='menu_title'
-                                    onClick={() => {
-                                        history.replace('/BidLogOverview')
-                                    }}
-                                >Agent Overview</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/BracketEntry')
-                                        }}
-                                    >Bracket Entry</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/Admin')
-                                        }}
-                                    >Bracket Overview</div>
-                                    <div className='menu_title'
-                                        onClick={() => {
-                                            history.replace('/UserManagement')
-                                        }}
-                                    >User Management</div>
-                                </>
-                                :
-                                null
-                            } */}
-          {/* {loggedin ?
-                        <div className='menu_title'
-                            onClick={() => {
-                                localStorage.clear()
-                                window.location.reload()
-                            }}
-                        >Logout</div>
-                        : null
-                    } */}
-          {/* <div
-                        onClick={() => {
-                            console.log("***CANCEL***")
-                            setmenu_popup(false)
-                        }}
-                        className='menu_popup_cancel_button'> x</div> */}
         </div>
 
         <div className='menu_items_wrapper_bottom'>
@@ -261,15 +233,16 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
             : 'page_wrapper margin_left'
         }
       >
-        <div className='header'>
+        <div className='header' style={{ backgroundColor: colourObj.color_6 }}>
           <div className='header_left'>
-            <div className='header_page_title'>{header_options}</div>
+            <div className='header_page_title' style={{ color: colourObj.color_1 }}>{header_options}</div>
           </div>
 
           <div className='header_center'>
             <div className='header_center_subcontainer'>
               {current_task !== undefined && (
-                <div className='header_title  active_task_wrapper'>
+                <div className='header_title  active_task_wrapper'
+                  style={{ color: colourObj.color_1 }}>
                   {'Active Task: '}
                   <div
                     onClick={() => {
@@ -314,7 +287,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
           {projecttaskTitle && (
             <div className='projecttask_container'>
-              <div className='projecttask_wrapper'>
+              <div className='projecttask_wrapper' style={{ backgroundColor: colourObj.color_12 }}>
                 {taskItems.map((element: any, key: any) => {
                   return (
                     <div
@@ -325,7 +298,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                         setaddEditTaskTimeLog_popup(true)
                       }}
                     >
-                      <div className='header_title'>
+                      <div className='header_title' style={{ color: colourObj.color_1 }}>
                         {element.project_ref + ': ' + element.title}
                       </div>
                     </div>
@@ -359,7 +332,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               }}
             >
               <img className='user_icon' src={profile_picture} />
-              <div className='header_title'>{username}</div>
+              <div className='header_title' style={{ color: colourObj.color_1 }}>
+                {username}</div>
               <img
                 className={
                   user_menu_open
@@ -372,34 +346,34 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           </div>
 
           {user_notification && (
-            <div className='user_notification_menu'>
+            <div className='user_notification_menu' style={{ color: colourObj.color_12 }}>
               <div className='user_notification_header_container'>
-                <div className='user_notification_header'>NOTIFICATIONS</div>
+                <div className='user_notification_header' style={{ color: colourObj.color_1 }}>NOTIFICATIONS</div>
                 <img className='header_icon' src={settings} />
               </div>
 
               <div className='user_notification_title_container'>
-                <div className='user_notification_title_subcontainer1'>
+                <div className='user_notification_title_subcontainer1' style={{ backgroundColor: colourObj.color_5 }}>
                   <img className='header_icon' src={settings} />
-                  <div className='user_notification_title'>Media Cannibal</div>
+                  <div className='user_notification_title' style={{ color: colourObj.color_1 }}>Media Cannibal</div>
                 </div>
 
                 <div className='user_notification_title_subcontainer2'>
-                  <div className='user_notification_notify'>
+                  <div className='user_notification_notify' style={{ backgroundColor: colourObj.color_12 }}>
                     <img className='header_icon' src={settings} />
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         Call Them
                       </div>
                       <div>miss call</div>
                     </div>
                     <div>2 hours ago</div>
                   </div>
-                  <div className='user_band'></div>
-                  <div className='user_notification_notify'>
+                  <div className='user_band' style={{ color: colourObj.color_10 }}></div>
+                  <div className='user_notification_notify' style={{ backgroundColor: colourObj.color_12 }}>
                     <img className='header_icon' src={settings} />
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         What's up
                       </div>
                       <div>hello</div>
@@ -410,27 +384,27 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               </div>
 
               <div className='user_notification_title_container'>
-                <div className='user_notification_title_subcontainer1'>
+                <div className='user_notification_title_subcontainer1' style={{ backgroundColor: colourObj.color_5 }}>
                   <div>***</div>
-                  <div className='user_notification_title'>Media Cannibal</div>
+                  <div className='user_notification_title' style={{ color: colourObj.color_1 }}>Media Cannibal</div>
                 </div>
 
                 <div className='user_notification_title_subcontainer2'>
                   <div className='user_notification_notify'>
                     <div>...</div>
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         Call Them
                       </div>
                       <div>miss call</div>
                     </div>
                     <div>2 hours ago</div>
                   </div>
-                  <div className='user_band'></div>
+                  <div className='user_band' style={{ backgroundColor: colourObj.color_10 }}></div>
                   <div className='user_notification_notify'>
                     <div>!!!</div>
                     <div>
-                      <div className='user_notification_title_text'>
+                      <div className='user_notification_title_text' style={{ color: colourObj.color_1 }}>
                         What's up
                       </div>
                       <div>hello</div>
@@ -443,6 +417,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               <div>
                 <div
                   className='user_notification_footer'
+                  style={{
+                    color: colourObj.color_1,
+                    backgroundColor: colourObj.color_10
+                  }}
                   onClick={() => {
                     history.replace('/Notifications')
                   }}
@@ -454,7 +432,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           )}
 
           {user_menu_open ? (
-            <div className='user_menu'>
+            <div className='user_menu'
+              style={{
+                backgroundColor: colourObj.color_12
+              }}>
               <div
                 className='user_menu_item'
                 onClick={() => {
@@ -462,11 +443,11 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 }}
               >
                 <img className='header_icon' src={profile_picture} />
-                <div className='header_title'>Profile</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>Profile</div>
               </div>
               <div className='user_menu_item'>
                 <img className='header_icon' src={back} />
-                <div className='header_title'>misc</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>misc</div>
               </div>
               <div className='user_menu_item'>
                 <div
@@ -476,19 +457,20 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   }}
                 >
                   <img className='header_icon' src={settings} />
-                  <div className='header_title'>Settings</div>
+                  <div className='header_title' style={{ color: colourObj.color_1 }}>Settings</div>
                 </div>
               </div>
               <div
                 className='user_menu_item'
                 onClick={() => {
                   localStorage.clear()
+                  sessionStorage.clear()
                   // window.location.reload()
                   history.replace('/')
                 }}
               >
                 <img className='header_icon' src={back} />
-                <div className='header_title'>Logout</div>
+                <div className='header_title' style={{ color: colourObj.color_1 }}>Logout</div>
               </div>
             </div>
           ) : null}
@@ -496,7 +478,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
         {screen}
       </div>
-    </div>
+    </div >
   )
 }
 

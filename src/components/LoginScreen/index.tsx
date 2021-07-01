@@ -7,15 +7,22 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookProvider, { Login } from 'react-facebook-sdk';
 import { Sociallogin } from '../../utils/actions'
 
-import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import { generateOTP } from 'utils/api';
 import useCountDown from 'react-countdown-hook';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
+import firebase from "../../../firebase";
+import { setuid } from 'process';
+import { useAuth } from 'store/authStore';
+
+declare global {
+  interface Window { recaptchaVerifier: any; confirmationResult: any }
+}
 
 const LoginScreen = () => {
+  const { setAuth } = useAuth();
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
@@ -24,6 +31,12 @@ const LoginScreen = () => {
 
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(15 * 1000, 1000);
   const [timerglow, settimerglow] = useState(false)
+
+  const [phone, setphone] = useState('');
+  const [otp, setotp] = useState('');
+
+  const [phoneauth_uid, setphoneauth_uid] = useState('');
+
 
   // const [time, settime] = useState(0)
 
@@ -41,7 +54,6 @@ const LoginScreen = () => {
     if (data.status === 200) {
       // console.log('success ', data.data.results);
       // localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
-
     } else {
       errorlog(data, errorresponse)
       console.log('error ' + JSON.stringify(data));
@@ -63,7 +75,7 @@ const LoginScreen = () => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
       password: password_otp.value,
-      username: username_email_or_phone.value
+      email_or_username: username_email_or_phone.value
     }
     Sociallogin(loginCallback, data)
   };
@@ -73,41 +85,24 @@ const LoginScreen = () => {
       // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      setAuth(String(data.data.result.token))
+      history.push('/Home')
 
-      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-      console.log("dataaa==>", UserDetails);
-
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" && "FB" && "OTP")
-        if (UserDetails.is_active === false)
-          history.push('/NewUserForm')
-        else
-          history.push('/Home')
-      else {
-        if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-          history.push('/Home')
-      }
+      // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+      // if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
+      //   if (UserDetails.is_active === false)
+      //     history.push('/UserSetup')
+      //   else
+      //   history.push('/Home')
+      // else {
+      //   if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
+      //     history.push('/Home')
+      // }
       // window.location.reload()
     } else {
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
     };
-  }
-
-  const FBloginCallback = async (data: any, errorresponse: any) => {
-    if (data.status === 200) {
-      localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
-      localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-
-      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-
-      if (UserDetails.is_active === false)
-        history.push('/NewUserForm')
-      else
-        history.push('/Home')
-    } else {
-      console.log('error ' + JSON.stringify(data));
-      console.log('error ' + JSON.stringify(errorresponse));
-    }
   }
 
   const handleLogin = () => {
@@ -119,6 +114,69 @@ const LoginScreen = () => {
     }
     // console.log(a, b);
     Sociallogin(loginCallback, data)
+  };
+
+  //PHONE AUTH OTP
+
+  const setUpRecaptcha = () => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: function (response: any) {
+          console.log("Captcha Resolved", response);
+          onSignInSubmit();
+        },
+        defaultCountry: "IN",
+      }
+    );
+  };
+
+  const onSignInSubmit = () => {
+    // e.preventDefault();
+    setUpRecaptcha();
+    let phoneNumber = "+91" + phone;
+    console.log(phoneNumber);
+    let appVerifier = window.recaptchaVerifier;
+    firebase
+      .auth()
+      .signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then(function (confirmationResult) {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        // console.log(confirmationResult);
+        console.log("OTP is sent");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const onSubmitOtp = () => {
+    // console.log(">>>>>>>>>>", phoneauth_uid)
+    // e.preventDefault();
+    let otpInput = otp;
+    let optConfirm = window.confirmationResult;
+    // console.log(codee);
+    optConfirm
+      .confirm(otpInput)
+      .then(function (result: any) {
+        // User signed in successfully.
+        // console.log("Result", result, result.user.uid);
+        // alert("SUCCESSFULL GOOD JOB HEMANTH");
+        // let user = result.user;
+        let data = {
+          auth_provider: ispassword ? "otp" : "mc",
+          username: result.user.uid,
+          phone: username_email_or_phone.value
+        }
+        Sociallogin(loginCallback, data)
+      })
+      .catch(function (error: any) {
+        console.log(error);
+        alert("Incorrect OTP");
+      });
   };
 
   return (
@@ -154,21 +212,31 @@ const LoginScreen = () => {
               <div className="login_button_container">
                 <input id="username" type="text"
                   value={username_email_or_phone.value}
-                  onChange={(e) => { setusername_email_or_phone({ value: e.target.value, error: '' }) }}
+                  onChange={(e) => {
+                    setusername_email_or_phone({ value: e.target.value, error: '' })
+                    setphone(e.target.value)
+                  }}
                   placeholder="User Name / Email / Phone Number" className="login_input" />
+                <div id="recaptcha-container"></div>
               </div>
 
               <div className="login_button_container">
                 <input id="password" type="password"
                   value={password_otp.value}
-                  onChange={(e) => { setpassword_otp({ value: e.target.value, error: '' }) }}
+                  onChange={(e) => {
+                    setpassword_otp({ value: e.target.value, error: '' })
+                    setotp(e.target.value)
+                  }}
                   placeholder="Password / OTP" className="login_input" onKeyPress={handleKeyPress} />
               </div>
 
               <div className="login_button_sub_container">
 
                 <div className="login_button_container">
-                  <button onClick={OTPvalidate} className="login_validatebutton">
+                  <button onClick={() => {
+                    OTPvalidate()
+                    onSubmitOtp()
+                  }} className="login_validatebutton">
                     <div className="login_buttontext">Continue</div>
                   </button>
                 </div>
@@ -189,12 +257,20 @@ const LoginScreen = () => {
                   </button>
                 </div> */}
 
-                <div className="login_button_container" >
+                <div className="login_button_container">
                   <button onClick={() => {
                     if (timeLeft / 1000 === 0) {
-                      _onSignUpPressed()
-                      settimerglow(true)
-                      start()
+
+                      let reg = '^[0-9]*[1-9]+$|^[1-9]+[0-9]*$'
+                      if (username_email_or_phone.value.match(reg)) {
+                        onSignInSubmit()
+                        settimerglow(true)
+                        start()
+                      } else {
+                        _onSignUpPressed()
+                        settimerglow(true)
+                        start()
+                      }
                     }
                   }}
                     className={timeLeft / 1000 === 0 ? "login_validatebutton" : "login_validatebutton disabled_button"} >
@@ -202,7 +278,8 @@ const LoginScreen = () => {
                     {timerglow ?
                       <div className="login_resendotp_container">
                         <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
-                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}</div>
+                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}
+                        </div>
                       </div>
                       :
                       <div className="login_buttontext">Get OTP</div>
@@ -245,7 +322,7 @@ const LoginScreen = () => {
                 onFailure={(Response: any) => { console.log("============================>>>>>>>>>", Response); }}
                 cookiePolicy={'single_host_origin'} />
 
-              <FacebookProvider appId="976961256166749">
+              <FacebookProvider appId="494516388401593">
                 <Login
                   scope="email"
                   onResponse={(response: any) => {
@@ -260,11 +337,11 @@ const LoginScreen = () => {
                     let userInfo = response.profile
                     formData.append('lastname', userInfo.last_name);
                     formData.append('firstname', userInfo.first_name);
-                    formData.append('photo_url', userInfo.photo_url);
+                    // formData.append('photo_url', userInfo.photo_url);
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);
                     formData.append('username', userInfo.id);
-                    Sociallogin(FBloginCallback, formData)
+                    Sociallogin(loginCallback, formData)
                   }}
                   onError={(response: any) => {
                     console.log(response);
@@ -295,7 +372,7 @@ const LoginScreen = () => {
 
             <div className="login_button_container">
               <button onClick={() => {
-                history.push('/NewUserForm')
+                history.push('/UserSetup')
               }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Camera } from "react-camera-pro";
 import '../../components/app.css'
 import * as sendIcon from '../../assets/send.svg'
@@ -20,11 +20,11 @@ import Footer from '../Common/Footer';
 import { fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
+const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
+
 const TaskDetails = () => {
   const { auth } = useAuth();
   const history = useHistory();
-  const { id } = useParams();
-
   const inputFile = useRef(true);
   const camera = useRef(null);
   const [image, setImage] = useState();
@@ -35,9 +35,9 @@ const TaskDetails = () => {
   const [spinner, setspinner] = useState(true)
 
   const [title, settitle] = useState('')
+  const [titlevalid, settitlevalid] = useState(false)
 
-  const [firstname, setfirstname] = useState('')
-  const [secondname, setsecondname] = useState('')
+  const [username, setUsername] = useState('')
   const [profile_picture, setprofile_picture] = useState('')
 
   const [usertype, setusertype] = useState("NORMAL")
@@ -46,19 +46,27 @@ const TaskDetails = () => {
   const [Attachments, setAttachments] = useState(false)
   const [photoMessagesend, setphotoMessagesend] = useState(false)
 
-  const [project_Task_Data, setproject_Task_Data] = useState(null)
+  const [tasknameinput, settasknameinput] = useState(false)
+  const [taskpriorityinput, settaskpriorityinput] = useState(false)
+  const [taskDueinput, settaskDueinput] = useState(false)
+  const [taskasigneeinput, settaskasigneeinput] = useState(false)
+  const [taskDescriptioninput, settaskDescriptioninput] = useState(false)
+  const [taskHistoryinput, settaskHistoryinput] = useState(false)
 
-  // const [chat_id, setchat_id] = useState("")
   const [chat_send, setchat_send] = useState('')
   const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
   const [photo_send, setphoto_send] = useState('')
-  const [chat_log_list, setchat_log_list] = useState([])
+  const [chat_log_list, setchat_log_list] = useState(
+    [
+      // {
+      //   content: "https://trtappfiles.s3.amazonaws.com/file/files/Screenshot_2.png",
+      //   message_type: "docs",
+      //   name: "KiranRaj",
+      //   time: "5/14/2021, 8:28:05 PM"
+      // }
+    ])
   const [dataUri, setDataUri] = useState('');
-
-  let location = useLocation();
-
-  const chatSocket: WebSocket = new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`);
 
   const addtolist = (message: any) => {
     let a = chat_log_list
@@ -81,18 +89,15 @@ const TaskDetails = () => {
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
     if (UserDetails !== null) {
-      let userID = UserDetails.user_id
-      let firstname = UserDetails.firstname
-      let secondname = UserDetails.secondname
+      let username = UserDetails.firstname
       let profile_picture = UserDetails.photo_url
 
       setspinner(false)
       setuserinfo(UserDetails)
-
-      setuserID(userID)
+      // console.log(screen, user_id, usertype1)
       setusertype(UserDetails.user_type)
-      setfirstname(firstname)
-      setsecondname(secondname)
+      setuserID(UserDetails.user_id)
+      setUsername(username)
       setprofile_picture(
         profile_picture === undefined || profile_picture === null
           ? defaultusericon
@@ -103,55 +108,43 @@ const TaskDetails = () => {
     if (!Colour) {
       loadColour();
     }
-
-    setproject_Task_Data(location.state ? location.state : null)
-
   }, [])
 
-
   const messageSend = () => {
-    let user_id = userID
     let message = chat_send
     let photo = photo_send
     let time = new Date()
-    let a = JSON.stringify({
+    chatSocket.send(JSON.stringify({
       'message': JSON.stringify({
-        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "text",
         "content": message,
         "photo": photo,
-        "chat_id": id
       })
-    })
-    console.log(a);
-    chatSocket.send(a)
+    }));
+    console.log(message);
     setchat_send("")
   }
-
 
   const photoSend = () => {
     let message = chat_send
     let photo = photo_send
     let time = new Date()
-    let a = JSON.stringify({
+    chatSocket.send(JSON.stringify({
       'message': JSON.stringify({
-        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "image",
         "content": message,
         "photo": photo,
-        "chat_id": id
       })
-    })
-    console.log(a);
-    chatSocket.send(a)
+    }));
+    console.log(message);
     setchat_send("")
   }
 
-  const getfilename = (url: any) => {
+  const getfilename = (url) => {
     let a = "filename";
     let temp = String(url).split('/')
     a = temp[temp.length - 1]
@@ -159,19 +152,17 @@ const TaskDetails = () => {
   }
 
   const docSend = (type: any, url: any) => {
+    let message = chat_send
     let time = new Date()
-    let a = (JSON.stringify({
+    chatSocket.send(JSON.stringify({
       'message': JSON.stringify({
-        "user_id": user_id,
         "name": userinfo.firstname + userinfo.lastname,
         "time": String(time.toLocaleString()),
         "message_type": type,
         "content": url,
-        "chat_id": id
       })
     }));
-    console.log(a);
-    chatSocket.send(a)
+    console.log(message);
     setchat_send("")
   }
 
@@ -247,7 +238,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname} {secondname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -266,7 +257,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -285,7 +276,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -304,7 +295,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -323,7 +314,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -342,7 +333,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -361,7 +352,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -380,7 +371,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -399,7 +390,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -418,7 +409,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {username}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -442,10 +433,8 @@ const TaskDetails = () => {
                 <div className="chatbox" >
                   {
                     chat_log_list.map((object, index) => {
-                      console.log('>>>', object);
-
                       return (
-                        (String(userinfo.firstname + userinfo.secondname) === object.name) ?
+                        (String(userinfo.firstname + userinfo.lastname) === object.name) ?
 
                           <div className="chat_mymessage_container">
                             <div className="message mymessage">
@@ -624,77 +613,26 @@ const TaskDetails = () => {
               <div className="task_details">
 
                 <div className="column">
+                  <div className="subtitle">Task:{tasknameinput ? <input></input> : <div>Add image</div>} </div>
+                </div>
 
-                  <div className="data_wrap">
-                    <div className="card_title">Company ID: </div>
-                    <div className="text_data">{" " + project_Task_Data?.company_ref}</div>
-                  </div>
+                <div className="column">
+                  <div className="subtitle">Priority: {taskpriorityinput ? <input></input> : <div>Add Table</div>} </div>
+                  <div className="subtitle">Due Date:{taskDueinput ? <input></input> : <div>15-03-2021</div>}</div>
+                  <div className="subtitle">Assignee:{taskasigneeinput ? <input></input> : <div>Kiran</div>}</div>
+                </div>
 
-                  <div className="data_wrap">
-                    <div className="card_title">Branch ID: </div>
-                    <div className="text_data">{" " + project_Task_Data?.branch_ref}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Task ID: </div>
-                    <div className="text_data">{" " + project_Task_Data?.id}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Project ID:</div>
-                    <div className="text_data"> {" " + project_Task_Data?.project_ref_id}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Title: </div>
-                    <div className="text_data">{" " + project_Task_Data?.title}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Domain:</div>
-                    <div className="text_data"> {" " + project_Task_Data?.domain} </div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Priority:</div>
-                    <div className="text_data"> {" " + project_Task_Data?.priority} </div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Task Type:</div>
-                    <div className="text_data"> {" " + project_Task_Data?.task_type}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Progress:</div>
-                    <div className="text_data">{" " + project_Task_Data?.progress}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Time Spent:</div>
-                    <div className="text_data">{" " + project_Task_Data?.time_spent}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Start-Date:</div>
-                    <div className="text_data"> {" " + project_Task_Data?.start_date}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">End-Date:</div>
-                    <div className="text_data">{" " + project_Task_Data?.end_date}</div>
-                  </div>
-
-                  <div className="data_wrap">
-                    <div className="card_title">Updated At:</div>
-                    <div className="text_data">{" " + project_Task_Data?.updated_at}</div>
-                  </div>
-
+                <div className="tasklog">
+                  <div className="subtitle">Descrition:{taskDescriptioninput ? <input></input> : <div>Some description</div>}</div>
+                  <div className="subtitle">History:{taskHistoryinput ? <input></input> : <div>Some history</div>}</div>
                 </div>
 
               </div>
 
             </div>
+
+
+
 
           </>
         }

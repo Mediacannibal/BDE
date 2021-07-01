@@ -19,13 +19,15 @@ import Footer from '../Common/Footer'
 import TimeSpent from 'components/TimeSpent'
 import UpDownArrow from 'components/Common/updownArrow'
 import { ColourObject } from 'store/ColourStore'
+import { useForm } from 'react-hook-form';
+import { getChatID } from 'utils/GlobalFunctions'
 
 const TaskList = (props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
 
   const { userDetail, loaduserDetail } = useuserDetails()
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [unique_title, setunique_title] = useState([])
 
@@ -42,13 +44,16 @@ const TaskList = (props: any) => {
   const [seleted_taskName, setseleted_taskName] = useState('')
 
   const [task, settask] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
+  const [project_ref, setproject_ref] = useState('')
+  const [project_id, setproject_id] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const [settask_picker_typevalid, setsettask_picker_typevalid] = useState(false)
+  const [filter1, setFilter1] = useState([])
+
+  const [task_picker_typevalid, settask_picker_typevalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -61,7 +66,7 @@ const TaskList = (props: any) => {
       // console.log("NOT THE FIRST RENDER", isFirstRender.current)
       mainTask()
     }
-  }, [task, users, parent_child, task_domain, task_priority, project])
+  }, [task, users, parent_child, task_domain, task_priority, project_ref, project_id])
 
   useEffect(() => {
     isFirstRender.current = false
@@ -76,6 +81,7 @@ const TaskList = (props: any) => {
     if (!Colour) {
       loadColour();
     }
+    console.log("filter1:", filter1)
   }, [])
 
   const mainTask = () => {
@@ -84,9 +90,31 @@ const TaskList = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Task Results: ", data.data.results)
+          console.log("Task Results: ", data.data.results)
           setlistItems1([])
           setlistItems1(data.data.results)
+
+          let array: any = []
+          array.push({ key: '0', value: 'All' })
+          console.log("Incoming list of option");
+          data.data.results.forEach((element: any) => {
+            array.push({
+              key: element.project_ref_id,
+              value: element.project_ref_id,
+            })
+            filter1.push({
+              key: element.project_ref_id,
+              value: element.project_ref_id,
+            })
+          })
+
+          // var array = [], l = data.data.results.length, i;
+          // for (i = 0; i < l; i++) {
+          //   if (array[data.data.results[i].project_ref_id]) continue;
+          //   array[data.data.results[i].project_ref_id] = true;
+          //   filter1.push(data.data.results[i].project_ref_id);
+          // }
+
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data))
@@ -99,7 +127,8 @@ const TaskList = (props: any) => {
       parent_child,
       task_domain,
       task_priority,
-      project
+      project_ref,
+      // project_id
     )
   }
 
@@ -138,8 +167,12 @@ const TaskList = (props: any) => {
     return headerElement.map((key, index) => {
       return (
         <th key={index}>
-          {key.toUpperCase()}
-          <UpDownArrow onexpand={() => { }} />
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
         </th>
       )
     })
@@ -148,7 +181,16 @@ const TaskList = (props: any) => {
   const renderBody1 = (element: any) => {
     return (
       <>
-        <tr key={element.id} className={getClassname(element.priority)}>
+        <tr key={element.id} className={getClassname(element.priority)}
+          onClick={() => {
+            history.push(
+              {
+                pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+                state: element
+              }
+            )
+          }}
+        >
           <td>
             {element.child !== undefined && element.child.length > 0 && (
               <UpDownArrow
@@ -168,7 +210,7 @@ const TaskList = (props: any) => {
               />
             )}
           </td>
-          <td>{element.project_ref}</td>
+          <td>{element.project_ref_id}</td>
           <td>{element.domain}</td>
           <td>{element.task_type}</td>
           <td>{element.priority}</td>
@@ -233,7 +275,16 @@ const TaskList = (props: any) => {
         </tr>
 
         {element.assisted_by === 'true' && (
-          <tr className={getClassname(element.priority)}>
+          <tr className={getClassname(element.priority)}
+            onClick={() => {
+              history.push(
+                {
+                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+                  state: element
+                }
+              )
+            }}
+          >
             {element.child?.map((element: any) => {
               return (
                 <>
@@ -252,7 +303,7 @@ const TaskList = (props: any) => {
                       />
                     )}
                   </td>
-                  <td>{element.project_ref}</td>
+                  <td>{element.project_ref_id}</td>
                   <td>{element.domain}</td>
                   <td>{element.task_type}</td>
                   <td>{element.priority}</td>
@@ -332,6 +383,15 @@ const TaskList = (props: any) => {
     return array
   }
 
+
+  const { register, handleSubmit, errors, reset } = useForm();
+
+  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
+    e.target.reset(); // reset after form submit
+    // console.log(data);
+  };
+  // console.log(errors);
+
   return (
     <>
       <div className='main'>
@@ -379,32 +439,24 @@ const TaskList = (props: any) => {
             </div>
           ) : (
             <>
-              <div className='mc_filter'>
-                <div className='inputfield_sub_container'>
-                  <div className='tasktype_dropdown'>
+              <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+                <div className="mc_filter">
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Project'}
                       id='task_project_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
-                      value={project}
-                      onchange={setproject}
-                      options={getoptions(unique_title)}
+                      value={project_id}
+                      onchange={setproject_id}
+                      options={filter1}
                     />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='taskdomain_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Domain'}
                       id='task_domain_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={task_domain}
                       onchange={settask_domain}
                       options={[
@@ -412,20 +464,15 @@ const TaskList = (props: any) => {
                         { key: '1', value: 'BACKEND' },
                         { key: '2', value: 'UI' },
                         { key: '3', value: 'DEV_OPS' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='tasktype_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Task Type'}
                       id='task_type_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
+                      // valid={ settask_picker_typevalid}
                       value={task}
                       onchange={settask}
                       options={[
@@ -433,20 +480,14 @@ const TaskList = (props: any) => {
                         { key: '1', value: 'TEST' },
                         { key: '2', value: 'BUG' },
                         { key: '3', value: 'UPDATE' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <div className='inputfield_sub_container'>
-                  <div className='taskpriority_dropdown'>
+                  <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Priority'}
                       id='task_priority_data'
-                      required={true}
-                      valid={settask_picker_typevalid}
-                      sendcheck={preSendValidator}
                       value={task_priority}
                       onchange={settask_priority}
                       options={[
@@ -455,29 +496,25 @@ const TaskList = (props: any) => {
                         { key: '0', value: 'High' },
                         { key: '0', value: 'Urgent' },
                         { key: '0', value: 'Emergency' },
-                      ]}
-                    />
+                      ]} />
                   </div>
-                </div>
 
-                <button
-                  className='taskfilter_button'
-                  onClick={() => {
-                    settask('')
-                    settask_domain('')
-                    settask_priority('')
-                  }}
-                >
-                  Clear
-                  <div className='filter_icon_container'>
-                    {/* <img className='filter_icon' src={filter} /> */}
-                  </div>
-                </button>
-              </div>
+                  <button
+                    className='taskfilter_button'
+                    onClick={() => {
+                      settask('')
+                      settask_domain('')
+                      settask_priority('')
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
 
               <Card
                 card_body={
-                  <div className='internal_table'>
+                  <div className='internal_table' style={{ color: colourObj.color_1 }}>
                     <table id='internal_table'>
                       <thead>
                         <tr>{renderHeader1()}</tr>

@@ -89,6 +89,7 @@ const AddEditUserList = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit User List?"}
           desc1={"The following User will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

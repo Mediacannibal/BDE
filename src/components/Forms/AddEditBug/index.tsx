@@ -11,6 +11,7 @@ import { useAuth } from 'store/authStore';
 const AddEditBug = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [bug_title, setbug_title] = useState('')
   const [orientation, setorientation] = useState('')
@@ -61,6 +62,12 @@ const AddEditBug = ({ setPopup }) => {
     "image_link": image_link,
   }])
 
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
+
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
@@ -78,8 +85,6 @@ const AddEditBug = ({ setPopup }) => {
   }
 
   const Validate = () => {
-
-
     if (bugtitlevalid === true
       && devicevalid === true
       && remarksvalid === true
@@ -97,6 +102,7 @@ const AddEditBug = ({ setPopup }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Bug?"}
           desc1={"The following Bug will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
@@ -158,7 +164,7 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
-              <div className="user_band">
+              <div className="user_band" style={{ backgroundColor: colourObj.color_10 }}>
 
               </div>
 
@@ -178,7 +184,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremoveandroid(!addremoveandroid)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremoveandroid ? "Remove Device" : "Add Device"}
                       </div>
                     </div>
@@ -222,7 +228,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremoveios(!addremoveios)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremoveios ? "Remove Device" : "Add Device"}
                       </div>
                     </div>
@@ -264,7 +270,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremovebrowser(!addremovebrowser)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremovebrowser ? "Remove Device" : "Add Device"}
                       </div>
                     </div>

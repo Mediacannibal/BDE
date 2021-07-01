@@ -15,14 +15,10 @@
     justify-content: space-between;
 }
 
-.text_data {
+.subtitle {
     margin: 1vh 0;
     font-size: var(--TS6);
     font-weight: 600;
-    display: flex;
-}
-
-.data_wrap {
     display: flex;
 }
 
@@ -109,7 +105,7 @@
 .message {
     display: flex;
     flex-direction: column;
-    width: 15vw;
+    width: 25vw;
     padding: 0.6vh;
     margin: 0 2vh;
     border-radius: 4px;

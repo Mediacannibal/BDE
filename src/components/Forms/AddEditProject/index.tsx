@@ -7,20 +7,26 @@ import Popup from 'components/Common/Popup'
 import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
+
 
 const AddEditProject = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   const [isselectslot, setisselectslot] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
+  const [password, setpassword] = useState('')
 
   const [slotvalid, setSlotvalid] = useState(false)
   const [titlevalid, setTitlevalid] = useState(false)
   const [descriptionvaild, setDescriptionvaild] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -35,6 +41,12 @@ const AddEditProject = ({ setPopup }) => {
     "assignee": "",
     "updated_by": "",
   }])
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -77,7 +89,6 @@ const AddEditProject = ({ setPopup }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   return (
@@ -85,6 +96,7 @@ const AddEditProject = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Project?"}
           desc1={"The following Project will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}

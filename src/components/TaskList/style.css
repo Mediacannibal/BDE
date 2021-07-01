@@ -19,7 +19,7 @@
     border-color: var(--color_1);
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     border-style: solid;
-    border-radius: 2vw;
+    border-radius: 4px;
 }
 
 .main_selector_div {
@@ -37,18 +37,22 @@
 
 .textcolor_blue {
     color: blue;
+    cursor: pointer;
 }
 
 .textcolor_yellow {
     color: yellow;
+    cursor: pointer;
 }
 
 .textcolor_orange {
     color: orange;
+    cursor: pointer;
 }
 
 .textcolor_red {
     color: red;
+    cursor: pointer;
 }
 
 .textcolor_blinking {
@@ -59,4 +63,13 @@
     50% {
         opacity: 0;
     }
+}
+
+.tasktype_dropdown {
+    padding: 1vh;
+    cursor: pointer;
+}
+
+.taskfilter_button {
+    height: 3vh;
 }

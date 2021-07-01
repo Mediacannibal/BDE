@@ -101,145 +101,145 @@ const TrafficAnalysisReport = (props: any) => {
 
     useEffect(() => {
 
-        const request = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:users" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request)
-                    .then((resp: any) => displayResults(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:users" },
+        //         { expression: "ga:newUsers" },
+        //         { expression: "ga:sessions" },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request)
+        //             .then((resp: any) => displayResults(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
 
-        const request2 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:sessionsPerUser" },
-                { expression: "ga:pageviews" },
-                { expression: "ga:pageviewsPerSession" },
-                { expression: "ga:uniquePageviews" },
-                { expression: "ga:avgSessionDuration" },
-                { expression: "ga:bounceRate" },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request2)
-                    .then((resp: any) => displayResults2(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request2 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:sessionsPerUser" },
+        //         { expression: "ga:pageviews" },
+        //         { expression: "ga:pageviewsPerSession" },
+        //         { expression: "ga:uniquePageviews" },
+        //         { expression: "ga:avgSessionDuration" },
+        //         { expression: "ga:bounceRate" },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request2)
+        //             .then((resp: any) => displayResults2(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
-        const request3 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:sessions" },
-                { expression: "ga:newUsers" },
-                { expression: "ga:percentNewSessions" }
-            ],
-            dimensions: ["ga:campaign", "ga:source", "ga:medium", "ga:sourceMedium"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request3)
-                    .then((resp: any) => displayResults3(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request3 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:sessions" },
+        //         { expression: "ga:newUsers" },
+        //         { expression: "ga:percentNewSessions" }
+        //     ],
+        //     dimensions: ["ga:campaign", "ga:source", "ga:medium", "ga:sourceMedium"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request3)
+        //             .then((resp: any) => displayResults3(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
-        const request4 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:newUsers" },
-                { expression: "ga:sessions" },
-            ],
-            dimensions: ["ga:hostname", "ga:pagePath", "ga:landingPagePath", "ga:pageTitle"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request4)
-                    .then((resp: any) => displayResults4(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request4 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:newUsers" },
+        //         { expression: "ga:sessions" },
+        //     ],
+        //     dimensions: ["ga:hostname", "ga:pagePath", "ga:landingPagePath", "ga:pageTitle"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request4)
+        //             .then((resp: any) => displayResults4(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
-        const request5 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:sessions" },
-                { expression: "ga:sessionDuration" },
-                { expression: "ga:avgSessionDuration" },
-            ],
-            dimensions: ["ga:userType"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request5)
-                    .then((resp: any) => displayResults5(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request5 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:sessions" },
+        //         { expression: "ga:sessionDuration" },
+        //         { expression: "ga:avgSessionDuration" },
+        //     ],
+        //     dimensions: ["ga:userType"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request5)
+        //             .then((resp: any) => displayResults5(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
-        const request6 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:pageviews" },
-                { expression: "ga:uniquePageviews" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:bounceRate" },
-                { expression: "ga:exitRate" },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request6)
-                    .then((resp: any) => displayResults6(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request6 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:pageviews" },
+        //         { expression: "ga:uniquePageviews" },
+        //         { expression: "ga:avgTimeOnPage" },
+        //         { expression: "ga:bounceRate" },
+        //         { expression: "ga:exitRate" },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request6)
+        //             .then((resp: any) => displayResults6(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
-        const request7 = {
-            viewID: props.viewID,
-            startDate,
-            endDate,
-            metrics: [
-                { expression: "ga:pageviews" },
-                { expression: "ga:entranceRate" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:avgTimeOnPage" },
-                { expression: "ga:exitRate" },
-            ],
-            dimensions: ["ga:date"]
-        };
-        setTimeout(
-            () =>
-                queryReport(request7)
-                    .then((resp: any) => displayResults7(resp))
-                    .catch((error: any) => console.error(error)),
-            3500
-        );
+        // const request7 = {
+        //     viewID: props.viewID,
+        //     startDate,
+        //     endDate,
+        //     metrics: [
+        //         { expression: "ga:pageviews" },
+        //         { expression: "ga:entranceRate" },
+        //         { expression: "ga:avgTimeOnPage" },
+        //         { expression: "ga:avgTimeOnPage" },
+        //         { expression: "ga:exitRate" },
+        //     ],
+        //     dimensions: ["ga:date"]
+        // };
+        // setTimeout(
+        //     () =>
+        //         queryReport(request7)
+        //             .then((resp: any) => displayResults7(resp))
+        //             .catch((error: any) => console.error(error)),
+        //     3500
+        // );
 
 
     }, [startDate, endDate]);
