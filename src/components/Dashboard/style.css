@@ -39,6 +39,7 @@
 .menu_title {
     display: flex;
     padding: calc(0.2vw + 0.6vh + 0.2vmin);
+    cursor: pointer;
 }
 
 .menu_title.active {
@@ -134,6 +135,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .user_icon {

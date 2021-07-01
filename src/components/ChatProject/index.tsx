@@ -16,8 +16,6 @@ const ChatProject = () => {
 
   }, [])
 
-
-
   const componentDidMount = () => {
     const roomName = location.pathname.substr(1);
 
@@ -27,6 +25,8 @@ const ChatProject = () => {
       + roomName;
 
     const chatSocket = new WebSocket(socketPath);
+    // chatSocket.onmessage = function (e) { console.log(e.data); };
+    // chatSocket.onopen = () => chatSocket.send('hello');
 
     chatSocket.onmessage = (e) => {
       var data = JSON.parse(e.data);
