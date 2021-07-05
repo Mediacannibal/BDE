@@ -171,6 +171,7 @@
 .user_menu_item {
     display: flex;
     padding: calc(0.15vw + 0.45vh + 0.15vmin) 0;
+    cursor: pointer;
 }
 
 .header_subcontainer {

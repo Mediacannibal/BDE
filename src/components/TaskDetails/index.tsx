@@ -16,14 +16,18 @@ import * as search from '../../assets/search.png'
 import { ProgressBar } from 'components/Common/Spinner';
 import SimpleEditor from 'react-simple-image-editor';
 import { useAuth } from 'store/authStore';
+import { useUserChatList } from 'store/activeChatThread'
 import Footer from '../Common/Footer';
-import { fileupload } from 'utils/api';
+import { CommonAPi, fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
+import { useuserDetails } from 'store/userDetailsStore';
 
 const TaskDetails = () => {
   const { auth } = useAuth();
+  const { loaduserChatDetail, userChat } = useUserChatList();
   const history = useHistory();
   const { id } = useParams();
+  const { userDetail, loaduserDetail } = useuserDetails();
 
   const inputFile = useRef(true);
   const camera = useRef(null);
@@ -50,33 +54,20 @@ const TaskDetails = () => {
 
   // const [chat_id, setchat_id] = useState("")
   const [chat_send, setchat_send] = useState('')
-  const [chat_receive, setchat_receive] = useState('')
   const [userinfo, setuserinfo] = useState('')
   const [photo_send, setphoto_send] = useState('')
-  const [chat_log_list, setchat_log_list] = useState([])
   const [dataUri, setDataUri] = useState('');
 
   let location = useLocation();
 
-  const chatSocket: WebSocket = new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`);
-
-  const addtolist = (message: any) => {
-    let a = chat_log_list
-    // [1,2,2]
-    a.push(JSON.parse(String(message)));
-    // [1,2,2,8]
-    setchat_log_list(a.sort(function (a, b) {
-      return new Date(b.time) - new Date(a.time);
-    }))
-  }
+  const [chatSocket] = useState(new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`))
 
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
-      // console.log(">>>>>>>>>>>>>>", e.data);
-      var data = JSON.parse(e.data);
-      var message = data['message'];
-      await addtolist(message)
-      setchat_receive(message)
+      // var data = JSON.parse(e.data);
+      // var message = data['message'];
+      // await addtolist(message)
+      loaduserChatDetail(auth, id);
     };
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -104,7 +95,12 @@ const TaskDetails = () => {
       loadColour();
     }
 
+    if (!userDetail) {
+      loaduserDetail();
+    }
+    // getchathistorybyid(id)  
     setproject_Task_Data(location.state ? location.state : null)
+    loaduserChatDetail(auth, id)
 
   }, [])
 
@@ -125,7 +121,6 @@ const TaskDetails = () => {
         "chat_id": id
       })
     })
-    console.log(a);
     chatSocket.send(a)
     setchat_send("")
   }
@@ -146,7 +141,6 @@ const TaskDetails = () => {
         "chat_id": id
       })
     })
-    console.log(a);
     chatSocket.send(a)
     setchat_send("")
   }
@@ -156,6 +150,89 @@ const TaskDetails = () => {
     let temp = String(url).split('/')
     a = temp[temp.length - 1]
     return a
+  }
+  const renderchat = (object, index) => {
+
+    return (
+      ((userDetail) && String(userDetail.user_id) === String(object.user_id)) ?
+
+        <div className="chat_mymessage_container">
+          <div className="message mymessage">
+            <div className="chat_user_name">{object.name}</div>
+            {object.message_type === "text" ?
+              <>
+                <div className="chat_text_message">
+                  {object.content}
+                </div>
+              </>
+              :
+              <>
+                {
+                  object.message_type === "image" ?
+                    <>
+                      <img className='activity_selectedimage' src={object.content} />
+                      <img className='activity_selectedimage' src={object.photo} />
+                      <div className="chat_doc_container">
+                        <div className='chat_file_name'>{getfilename(object.content)}</div>
+                        <img className='chat_doc_icon' src={download} onClick={() => {
+                          window.open(object.content)
+                        }} />
+                      </div>
+                    </>
+                    :
+                    <div className="chat_doc_upload recievedmessage">
+                      <div className="chat_doc_container">
+                        <img className='chat_doc_icon' src={document} />
+                        <div className='chat_file_name'>{getfilename(object.content)}</div>
+                      </div>
+                      <img className='chat_doc_icon' src={download} onClick={() => {
+                        window.open(object.content)
+                      }} />
+                    </div>
+                }
+              </>
+            }
+          </div>
+          <div className="chat_mymessage_time">{object.time}</div>
+        </div >
+        :
+        <div className="chat_recievedmessage_container">
+          <div className="message recievedmessage">
+            <div className="chat_user_name">{object.name}</div>
+            {object.message_type === "text" ?
+              <div className="chat_text_message">
+                {object.content}
+              </div>
+              :
+              <>
+                {
+                  object.message_type === "image" ?
+                    <>
+                      <img className='activity_selectedimage' src={object.content} />
+                      <div className="chat_doc_container">
+                        <div className='chat_file_name'>{getfilename(object.content)}</div>
+                        <img className='chat_doc_icon' src={download} onClick={() => {
+                          window.open(object.content);
+                        }} />
+                      </div>
+                    </>
+                    :
+                    <div className="chat_doc_upload" >
+                      <div className="chat_doc_container">
+                        <img className='chat_doc_icon' src={document} />
+                        <div className='chat_file_name'>{getfilename(object.content)}</div>
+                      </div>
+                      <img className='chat_doc_icon' src={download} onClick={() => {
+                        window.open(object.content)
+                      }} />
+                    </div>
+                }
+              </>
+            }
+          </div>
+          <div className="chat_recievedmessage_time">{object.time}</div>
+        </div >
+    )
   }
 
   const docSend = (type: any, url: any) => {
@@ -170,7 +247,6 @@ const TaskDetails = () => {
         "chat_id": id
       })
     }));
-    console.log(a);
     chatSocket.send(a)
     setchat_send("")
   }
@@ -187,10 +263,8 @@ const TaskDetails = () => {
   };
 
   const _onChangeHandler = (data: any) => {
-    // console.log(data.target.files[0])
     let formdata = new FormData()
     let filedata = data.target.files[0]
-    // console.log(data.target.files[0].type);
 
     formdata.append("file", filedata)
     fileupload(Callback, auth, formdata, data.target.files[0])
@@ -438,93 +512,9 @@ const TaskDetails = () => {
               </div>
 
               <div className="chat_container">
-
                 <div className="chatbox" >
                   {
-                    chat_log_list.map((object, index) => {
-                      console.log('>>>', object);
-
-                      return (
-                        (String(userinfo.firstname + userinfo.secondname) === object.name) ?
-
-                          <div className="chat_mymessage_container">
-                            <div className="message mymessage">
-                              <div className="chat_user_name">{object.name}</div>
-                              {object.message_type == "text" ?
-                                <>
-                                  <div className="chat_text_message">
-                                    {object.content}
-                                  </div>
-                                </>
-                                :
-                                <>
-                                  {
-                                    object.message_type == "image" ?
-                                      <>
-                                        <img className='activity_selectedimage' src={object.content} />
-                                        <img className='activity_selectedimage' src={object.photo} />
-                                        <div className="chat_doc_container">
-                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
-                                          <img className='chat_doc_icon' src={download} onClick={() => {
-                                            window.open(object.content)
-                                          }} />
-                                        </div>
-                                      </>
-                                      :
-                                      <div className="chat_doc_upload recievedmessage">
-                                        <div className="chat_doc_container">
-                                          <img className='chat_doc_icon' src={document} />
-                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
-                                        </div>
-                                        <img className='chat_doc_icon' src={download} onClick={() => {
-                                          window.open(object.content)
-                                        }} />
-                                      </div>
-                                  }
-                                </>
-                              }
-                            </div>
-                            <div className="chat_mymessage_time">{object.time}</div>
-                          </div >
-                          :
-                          <div className="chat_recievedmessage_container">
-                            <div className="message recievedmessage">
-                              <div className="chat_user_name">{object.name}</div>
-                              {object.message_type == "text" ?
-                                <div className="chat_text_message">
-                                  {object.content}
-                                </div>
-                                :
-                                <>
-                                  {
-                                    object.message_type == "image" ?
-                                      <>
-                                        <img className='activity_selectedimage' src={object.content} />
-                                        <div className="chat_doc_container">
-                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
-                                          <img className='chat_doc_icon' src={download} onClick={() => {
-                                            window.open(object.content);
-                                          }} />
-                                        </div>
-                                      </>
-                                      :
-                                      <div className="chat_doc_upload" >
-                                        <div className="chat_doc_container">
-                                          <img className='chat_doc_icon' src={document} />
-                                          <div className='chat_file_name'>{getfilename(object.content)}</div>
-                                        </div>
-                                        <img className='chat_doc_icon' src={download} onClick={() => {
-                                          window.open(object.content)
-                                        }} />
-                                      </div>
-                                  }
-                                </>
-                              }
-                            </div>
-                            <div className="chat_recievedmessage_time">{object.time}</div>
-                          </div >
-                      )
-                    })
+                    (userChat) && userChat.map(renderchat)
                   }
                 </div>
 
@@ -585,7 +575,6 @@ const TaskDetails = () => {
                     <Camera ref={camera} />
                     <button onClick={(e) => {
 
-                      console.log(camera.current.takePhoto());
                       setImage(camera.current.takePhoto())
                       setphoto_send(camera.current.takePhoto())
                       setiscamera(false);
