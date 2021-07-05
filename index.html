@@ -41,9 +41,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
 
 <script>
-    function showToken(a) {
-        console.log(a);
-    }
     firebase.initializeApp({
         apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
         authDomain: "mc-bde.firebaseapp.com",
@@ -54,73 +51,12 @@
         measurementId: "G-R7GER30TG2"
     });
 
+    const messaging = firebase.messaging();
 
-    messaging.usePublicVapidKey()
-
-    function subscribe(messaging) {
-        messaging.requestPermission()
-            .then(function () {
-                messaging.getToken()
-                    .then(function (currentToken) {
-                        console.log(currentToken);
-
-                        if (currentToken) {
-                            sendTokenToServer(currentToken);
-                        }
-                    })
-                    .catch(function (err) {
-                        setTokenSentToServer(false);
-                    });
-            })
-            .catch(function (err) {
-                console.warn('not granted', err);
-            });
-    }
-
-    function sendTokenToServer(currentToken) {
-        if (!isTokenSentToServer(currentToken)) {
-            console.log('Отправка токена на сервер...');
-
-            var url = '';
-            $.post(url, {
-                token: currentToken
-            });
-
-            setTokenSentToServer(currentToken);
-        }
-    }
-
-    function isTokenSentToServer(currentToken) {
-        return window.localStorage.getItem('sentFirebaseMessagingToken') == currentToken;
-    }
-
-    function setTokenSentToServer(currentToken) {
-        window.localStorage.setItem(
-            'sentFirebaseMessagingToken',
-            currentToken ? currentToken : ''
-        );
-    }
-
-
-    if ('Notification' in window) {
-        navigator.serviceWorker.register("./firebase-messaging-sw.js")
-            .then((registration) => {
-                var messaging = firebase.messaging();
-                messaging.useServiceWorker(registration);
-                console.log(messaging);
-                if (Notification.permission === 'granted') {
-                    subscribe(messaging);
-                    messaging.onMessage(function (payload) {
-                        console.log('Message received. ', payload);
-                    });
-                }
-
-                $('#subscribe').on('click', function () {
-                    subscribe(messaging);
-                });
-            });
-
-    }
+    messaging.onMessage(notification => {
+        console.log('Notification received!', notification);
+        message.info(notification?.data?.title + ':' + notification?.data?.body)
+    });
 
 </script>
 

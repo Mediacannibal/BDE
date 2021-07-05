@@ -17,8 +17,11 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.getToken({ vapidKey: "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M" });
+messaging.usePublicVapidKey(
+  "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M"
+);
 
+messaging.getToken({ vapidKey: "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M" });
 
 // const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null
 
@@ -41,7 +44,6 @@ messaging.getToken({ vapidKey: "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZ
 //   });
 // }
 
-
 export const getToken = (setTokenFound) => {
   return messaging.getToken({ vapidKey: 'BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M' }).then((currentToken) => {
     if (currentToken) {
@@ -60,15 +62,44 @@ export const getToken = (setTokenFound) => {
   });
 }
 
-export const onMessageListener = () =>
-  new Promise((resolve) => {
+export const onMessageListener = async (registration) => {
+  try {
+
+    const messaging = firebase.messaging();
+
     firebase.messaging().onMessage(notification => {
       alert('Notification received!', notification);
     });
-  });
 
-messaging.onMessage(function (payload) {
-  console.log("Message received. ", payload);
-});
+    await messaging.onMessage(notification => {
+      console.log('Notification received!', notification);
+      message.info(notification?.data?.title + ':' + notification?.data?.body)
+    });
+
+    const registration = await navigator.serviceWorker
+      .register("./firebase-messaging-sw.js")
+      .then(function (registration) {
+        console.log("Registration successful, scope is:", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("Service worker registration failed, error:", err);
+      });
+    await Notification.requestPermission().then((callBack) => {
+      console.log(callBack)
+    }).catch(e => {
+    });
+
+    const token = await messaging.getToken({
+      vapidKey: 'BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M',
+      serviceWorkerRegistration: registration
+    });
+    // await //send token
+    //   console.log('token :', token);
+    // return token;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default firebase;

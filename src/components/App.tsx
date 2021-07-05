@@ -28,14 +28,14 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
-// import { getToken, onMessageListener } from '../../firebase';
+import { getToken, onMessageListener } from '../../firebase';
 
-// import { Button, Toast } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Toast } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// import firebase from 'firebase/app';
-// import 'firebase/messaging';
-// import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/messaging';
+import "firebase/auth";
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -64,14 +64,14 @@ const fullpage_screen = [
 
 const App = () => {
 
-  // const [show, setShow] = useState(false);
-  // const [notification, setNotification] = useState({ title: '', body: '' });
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: '', body: '' });
 
-  // const [isTokenFound, setTokenFound] = useState(false);
+  const [isTokenFound, setTokenFound] = useState(false);
 
-  // const messaging = firebase.messaging();
+  const messaging = firebase.messaging();
 
-  // getToken(setTokenFound);
+  getToken(setTokenFound);
 
 
   // onMessageListener().then(payload => {
@@ -80,9 +80,57 @@ const App = () => {
   //   setNotification({ title: payload.notification.title, body: payload.notification.body })
   // }).catch(err => console.log('failed: ', err));
 
-  // useEffect(() => {
-  //   onMessageListener();
-  // }, []);
+  useEffect(() => {
+    onMessageListener();
+  }, []);
+
+  Notification.requestPermission(function (status) {
+    console.log('Notification permission status:', status);
+  });
+
+  if ('Notification' in window) {
+    if (window.Notification.permission === 'granted') {
+      new window.Notification('Time is over!');
+    }
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function (reg) {
+      console.log('Service Worker Registered!', reg);
+
+      reg.pushManager.getSubscription().then(function (sub) {
+        if (sub === null) {
+          // Update UI to ask user to register for Push
+          console.log('Not subscribed to push service!');
+        } else {
+          // We have a subscription, update the database
+          console.log('Subscription object: ', sub);
+        }
+      });
+    })
+      .catch(function (err) {
+        console.log('Service Worker registration failed: ', err);
+      });
+  }
+
+  function subscribeUser() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function (reg) {
+
+        reg.pushManager.subscribe({
+          userVisibleOnly: true
+        }).then(function (sub) {
+          console.log('Endpoint URL: ', sub.endpoint);
+        }).catch(function (e) {
+          if (Notification.permission === 'denied') {
+            console.warn('Permission for notifications was denied');
+          } else {
+            console.error('Unable to subscribe to push', e);
+          }
+        });
+      })
+    }
+  }
 
   // if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
   //   getToken()
@@ -94,12 +142,12 @@ const App = () => {
   //     console.log(message)
   //   }).catch(err => console.log('failed: ', err));
   // }
-  // onMessageListener();
+  onMessageListener();
 
 
   return (
     <>
-      {/* <div className="App">
+      <div className="App">
         <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
           position: 'absolute',
           top: 20,
@@ -120,12 +168,12 @@ const App = () => {
         <header className="App-header">
           {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
           {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img  className="App-logo" alt="logo" /> */}
           <Button onClick={() => setShow(true)}>Show Toast</Button>
         </header>
-      </div> */}
+      </div>
 
-      <Router>
+      {/* <Router>
         <Switch>
           {fullpage_screen.map((Data: any) =>
             <Route exact path={Data.path}>
@@ -143,7 +191,7 @@ const App = () => {
           }
           )}
         </Switch>
-      </Router>
+      </Router> */}
     </>
   )
 }
