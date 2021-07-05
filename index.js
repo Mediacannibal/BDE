@@ -43,7 +43,7 @@ analytics.page()
 ReactDOM.render(
   <React.StrictMode>
     <AnalyticsProvider instance={analytics}>
-      <BrowserRouter forceRefresh={true} >
+      <BrowserRouter >
         <Normalize />
         <App />
       </BrowserRouter>
