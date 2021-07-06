@@ -24,7 +24,8 @@ import { useuserDetails } from 'store/userDetailsStore';
 
 const TaskDetails = () => {
   const { auth } = useAuth();
-  const { loaduserChatDetail, userChat } = useUserChatList();
+  // const { loaduserChatDetail, userChat, addtolist } = useUserChatList();
+  const [userChat, setuserChat] = useState([])
   const history = useHistory();
   const { id } = useParams();
   const { userDetail, loaduserDetail } = useuserDetails();
@@ -61,13 +62,34 @@ const TaskDetails = () => {
   let location = useLocation();
 
   const [chatSocket] = useState(new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`))
+  const loaduserChatDetail = (auth: any, id: any) => {
+    CommonAPi(
+      {
+        path: `chat/list/?chat_id=${id}`,
+        method: 'get',
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          // console.log('data: ', data.data.results)
+          let a = data.data.results
+          let x = a.sort(function (a: any, b: any) {
+            return new Date(b.time) - new Date(a.time)
+          })
 
+          setuserChat(x)
+        } else {
+          console.log('error ' + JSON.stringify(data))
+          console.log('error ' + JSON.stringify(errorresponse))
+        }
+      }
+    )
+  }
   useEffect(() => {
     chatSocket.onmessage = async (e) => {
-      // var data = JSON.parse(e.data);
-      // var message = data['message'];
-      // await addtolist(message)
-      loaduserChatDetail(auth, id);
+      var data = JSON.parse(e.data);
+      var message = data['message'];
+      await addtolist(message)
     };
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -100,10 +122,19 @@ const TaskDetails = () => {
     }
     // getchathistorybyid(id)  
     setproject_Task_Data(location.state ? location.state : null)
+
     loaduserChatDetail(auth, id)
 
   }, [])
 
+  const addtolist = (message: any) => {
+    setuserChat((oldarr: any) => {
+      return [JSON.parse(message), ...oldarr]
+      // .sort(function (a: any, b: any) {
+      //   return new Date(b.time) - new Date(a.time)
+      // })
+    })
+  }
 
   const messageSend = () => {
     let user_id = userID
@@ -151,8 +182,8 @@ const TaskDetails = () => {
     a = temp[temp.length - 1]
     return a
   }
-  const renderchat = (object, index) => {
 
+  const renderchat = (object: any, index: any) => {
     return (
       ((userDetail) && String(userDetail.user_id) === String(object.user_id)) ?
 
