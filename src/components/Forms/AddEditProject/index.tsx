@@ -111,7 +111,7 @@ const AddEditProject = ({ setPopup }) => {
             data.push(object)
             // console.log("***SUBMIT***", data)
             createProject(async (data: any, errorresponse: any) => {
-              if (data.status === 201) {
+              if (data.status === 201 || 200) {
                 setispopup(false)
                 // console.log('Sucess ========>>>' + JSON.stringify(data));
                 window.location.reload()

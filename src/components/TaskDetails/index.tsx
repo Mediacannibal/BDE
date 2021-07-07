@@ -90,6 +90,7 @@ const TaskDetails = () => {
       var data = JSON.parse(e.data);
       var message = data['message'];
       await addtolist(message)
+      // loaduserChatDetail(auth, id);
     };
 
     let UserDetails = JSON.parse(String(localStorage.getItem("UserDetails")))
@@ -137,14 +138,14 @@ const TaskDetails = () => {
   }
 
   const messageSend = () => {
-    let user_id = userID
+    let user_id = userDetail.user_id
     let message = chat_send
     let photo = photo_send
     let time = new Date()
     let a = JSON.stringify({
       'message': JSON.stringify({
         "user_id": user_id,
-        "name": userinfo.firstname + userinfo.lastname,
+        "name": userDetail.firstname + userDetail.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "text",
         "content": message,
@@ -164,7 +165,7 @@ const TaskDetails = () => {
     let a = JSON.stringify({
       'message': JSON.stringify({
         "user_id": user_id,
-        "name": userinfo.firstname + userinfo.lastname,
+        "name": userDetail.firstname + userDetail.lastname,
         "time": String(time.toLocaleString()),
         "message_type": "image",
         "content": message,
@@ -271,7 +272,7 @@ const TaskDetails = () => {
     let a = (JSON.stringify({
       'message': JSON.stringify({
         "user_id": user_id,
-        "name": userinfo.firstname + userinfo.lastname,
+        "name": userDetail.firstname + userDetail.lastname,
         "time": String(time.toLocaleString()),
         "message_type": type,
         "content": url,
@@ -349,10 +350,10 @@ const TaskDetails = () => {
 
                   <div className="chatlog_list">
                     <div className="chat_user_wrap">
-                      <img className='user_icon' src={profile_picture} />
+                      <img className='user_icon' src={(userDetail) &&  userDetail.photo_url} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname} {secondname}
+                          {(userDetail) && userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -371,7 +372,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -390,7 +391,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -409,7 +410,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -428,7 +429,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -447,7 +448,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -466,7 +467,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -485,7 +486,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -504,7 +505,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii
@@ -523,7 +524,7 @@ const TaskDetails = () => {
                       <img className='user_icon' src={profile_picture} />
                       <div className="chat_user_preview">
                         <div className='header_title' style={{ color: colourObj.color_1 }}>
-                          {firstname}
+                          {userDetail.firstname} {userDetail.secondname}
                         </div>
                         <div className="chat_message_preview">
                           You: hii

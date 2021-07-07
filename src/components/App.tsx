@@ -1,8 +1,8 @@
 import 'core-js/stable'
-import React, {  useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
- 
+
 import ReactGA from 'react-ga';
 
 import "./app.css";
@@ -28,7 +28,7 @@ import Notifications from './Notifications';
 import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
-import { getToken, onMessageListener} from '../../firebase'; 
+import { getToken, onMessageListener } from '../../firebase';
 import MeetingRoom from './MeetingScreen/MeetingRoom';
 
 const dashboard_screen = [
@@ -53,28 +53,26 @@ const dashboard_screen = [
 ]
 
 const fullpage_screen = [
-  { path: '/', component: LoginScreen }, 
+  { path: '/', component: LoginScreen },
   { path: "/MeetingRoom/:roomID", component: MeetingRoom },
-   
+  { path: '/AnalyticsFullScreen', component: Report },
 ]
 
 const App = () => {
 
   useEffect(() => {
-   if(navigator.userAgent.toLowerCase().indexOf('safari/') > -1)
-    {
+    if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
       getToken()
     }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-if(navigator.userAgent.toLowerCase().indexOf('safari/') > -1)
-{  
-  onMessageListener().then((message:any) => {
-    console.log(message)
-  }).catch(err => console.log('failed: ', err));
-   
-}
+  if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
+    onMessageListener().then((message: any) => {
+      console.log(message)
+    }).catch(err => console.log('failed: ', err));
+
+  }
 
   return (
 

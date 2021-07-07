@@ -264,6 +264,13 @@ tr:nth-child(even) {
     animation: pop-in 0.4s ease forwards;
 }
 
+.popup_container_cancel {
+    align-self: center;
+    display: grid;
+    z-index: 999999;
+    animation: pop-out 0.4s ease;
+}
+
 .orderby_arrow>.open_close_arrow_icon {
     padding-left: calc(0.1vw + 0.3vh + 0.1vmin);
     width: 0;
@@ -296,6 +303,12 @@ tr:nth-child(even) {
     }
 }
 
+@keyframes pop-out {
+    100% {
+        transform: scale(0.2);
+    }
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -304,6 +317,15 @@ tr:nth-child(even) {
         opacity: 1;
     }
 }
+
+/* .popup_cancel_button .popup:active {
+    animation: pop-out 0.4s ease forwards;
+} */
+
+/* 
+#popup_id .popup_cancel_button:active {
+    animation: pop-out 0.4s ease forwards;
+} */
 
 .popup {
     position: relative;

@@ -12,6 +12,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   const [popup_Title_Text, setpopup_Title_Text] = useState(true);
   const [popup_description_Text, setPopup_description_Text] = useState(true);
   const [popus_body_container, setPopus_body_container] = useState(true);
+  const [popout, setpopout] = useState(true);
 
   useEffect(() => {
     if (!Colour) {
@@ -22,8 +23,8 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   return (
     <div className="popup_wrapper">
       <div className="popup_bg" onClick={cancelClick}></div>
-      <div className={popup_type + " " + "popup_container"}>
-        <div className="popup" style={{ backgroundColor: colourObj.color_15 }}>
+      <div className={popout ? popup_type + " " + "popup_container" : "popup_container_cancel"} >
+        <div className="popup" id="popup_id" style={{ backgroundColor: colourObj.color_15 }} >
 
           {backendresponse_popup ?
             <>
@@ -78,7 +79,10 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                     onClick={confirmClick}
                     className='popup_submit_button'>Confirm</button>
                   <button
-                    onClick={cancelClick}
+                    onClick={() => {
+                      cancelClick()
+                      setpopout(false);
+                    }}
                     className='popup_cancel_button'>Cancel</button>
                 </div>
               }

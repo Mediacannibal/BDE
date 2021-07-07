@@ -29,11 +29,13 @@ import { useAuth } from 'store/authStore'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { ColourObject } from 'store/ColourStore'
 import UserSetup from 'components/Forms/UserSetup'
+import { useuserDetails } from 'store/userDetailsStore'
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { userDetail, loaduserDetail } = useuserDetails();
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState('NORMAL')
