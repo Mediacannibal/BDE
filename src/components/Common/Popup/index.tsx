@@ -22,9 +22,9 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
 
   return (
     <div className="popup_wrapper">
-      <div className="popup_bg" onClick={cancelClick}></div>
+      <div className={popout ? "popup_bg" : "popup_bg_cancel"} onClick={cancelClick}></div>
       <div className={popout ? popup_type + " " + "popup_container" : "popup_container_cancel"} >
-        <div className="popup" id="popup_id" style={{ backgroundColor: colourObj.color_15 }} >
+        <div className="popup" style={{ backgroundColor: colourObj.color_15 }} >
 
           {backendresponse_popup ?
             <>
@@ -80,8 +80,10 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                     className='popup_submit_button'>Confirm</button>
                   <button
                     onClick={() => {
-                      cancelClick()
                       setpopout(false);
+                      setTimeout(() => {
+                        cancelClick()
+                      }, 390);
                     }}
                     className='popup_cancel_button'>Cancel</button>
                 </div>

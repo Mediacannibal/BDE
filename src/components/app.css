@@ -257,6 +257,22 @@ tr:nth-child(even) {
     animation: fade-in 0.4s ease forwards;
 }
 
+.popup_bg_cancel {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--color_27);
+    z-index: 1000;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    vertical-align: top;
+    animation: fade-out 0.4s ease forwards;
+}
+
 .popup_container {
     align-self: center;
     display: grid;
@@ -304,8 +320,11 @@ tr:nth-child(even) {
 }
 
 @keyframes pop-out {
+    0% {
+        transform: scale(1.0);
+    }
     100% {
-        transform: scale(0.2);
+        transform: scale(0.3);
     }
 }
 
@@ -315,6 +334,21 @@ tr:nth-child(even) {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    70%{
+        opacity: 0.99;
+    }
+    80%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
