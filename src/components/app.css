@@ -292,9 +292,9 @@ tr:nth-child(even) {
     width: 0;
 }
 
-#internal_table>thead>tr>th:hover>.title_wrapper>.orderby_arrow>.open_close_arrow_icon {
+#internal_table>thead>tr>th>.title_wrapper>.orderby_arrow>.open_close_arrow_icon {
     width: calc(0.3vw + 0.9vh + 0.3vmin);
-    transition: width 0.1s;
+    /* transition: width 0.1s; */
 }
 
 #internal_table>thead>tr>th>.title_wrapper {
@@ -305,9 +305,9 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-#internal_table>thead>tr>th:hover>.title_wrapper {
+#internal_table>thead>tr>th>.title_wrapper {
     padding: 0 calc(0.1vw + 0.3vh + 0.1vmin);
-    transition: padding 0.1s;
+    /* transition: padding 0.1s; */
 }
 
 @keyframes pop-in {
@@ -341,10 +341,10 @@ tr:nth-child(even) {
     0% {
         opacity: 1;
     }
-    70%{
+    70% {
         opacity: 0.99;
     }
-    80%{
+    80% {
         opacity: 0;
     }
     100% {
@@ -457,6 +457,12 @@ tr:nth-child(even) {
     background-color: var(--color_15);
     width: 100%;
     height: 1px;
+}
+
+.popup_assignee_text {
+    color: var(--color_11);
+    font-weight: 600;
+    font-size: var(--TS6);
 }
 
 /* mic */

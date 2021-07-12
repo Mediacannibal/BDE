@@ -5,7 +5,7 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { createMainTask } from 'utils/api';
+import { createMainTask, getProject } from 'utils/api';
 import { useAuth } from 'store/authStore';
 
 const AddEditBug = ({ setPopup }) => {
@@ -51,8 +51,14 @@ const AddEditBug = ({ setPopup }) => {
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
   const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
 
+  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
+  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
 
   const [ispopup, setispopup] = useState(false)
+  const [users, setusers] = useState('all')
+  const [listItems, setlistItems] = useState([])
+
   const [list, setlist] = useState([{
     "bug_title": bug_title,
     "orientation": orientation,
@@ -66,7 +72,29 @@ const AddEditBug = ({ setPopup }) => {
     if (!Colour) {
       loadColour();
     }
+
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems(data.data.results)
+      } else {
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, auth, users)
   }, [])
+
+  const Project_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.title
+      }
+      a.push(data);
+    });
+    return a
+  }
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -106,6 +134,60 @@ const AddEditBug = ({ setPopup }) => {
           title={"Add / Edit Bug?"}
           desc1={"The following Bug will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
+          popup_body={
+            <>
+              {assignee.length === 0 &&
+                <>
+                  <div className='popup_assignee_text'>You have not assigned to any user!!!</div>
+
+                  <div className="assignee_wrapper">
+
+                    <div className='popup_description'>Open Task to: </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"COMPANY"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={company_assignee_ref}
+                        onchange={setcompany_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"BRANCH"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={branch_assignee_ref}
+                        onchange={setbranch_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={project_assignee_ref}
+                        onchange={setproject_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                  </div>
+                </>
+              }
+            </>
+          }
           confirmClick={() => {
             let data = [];
             let object = {
@@ -352,6 +434,8 @@ const AddEditBug = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SEND***")
             Validate()
+            let a = String(document.getElementById("assignee_data").value)
+            setassignee(a)
           }}
           cancelClick={setPopup}
         />

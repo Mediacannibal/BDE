@@ -39,6 +39,8 @@ const TaskList = (props: any) => {
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
 
   const [listItems1, setlistItems1] = useState([])
+  const [listItems2, setlistItems2] = useState([])
+
 
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
@@ -90,14 +92,17 @@ const TaskList = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Task Results: ", data.data.results)
+          console.log("Task Assigned: ", data.data.results.Assigned)
+          console.log("Task Open: ", data.data.results.Open)
+
           setlistItems1([])
-          setlistItems1(data.data.results)
+          setlistItems1(data.data.results.Assigned)
+          setlistItems2(data.data.results.Open)
 
           let array: any = []
           array.push({ key: '0', value: 'All' })
           console.log("Incoming list of option");
-          data.data.results.forEach((element: any) => {
+          data.data.results.Assigned.forEach((element: any) => {
             array.push({
               key: element.project_ref_id,
               value: element.project_ref_id,
@@ -122,12 +127,12 @@ const TaskList = (props: any) => {
         }
       },
       auth,
-      task,
-      users,
-      parent_child,
-      task_domain,
-      task_priority,
-      project_ref,
+      // task,
+      // users,
+      // parent_child,
+      // task_domain,
+      // task_priority,
+      // project_ref,
       // project_id
     )
   }
@@ -181,16 +186,7 @@ const TaskList = (props: any) => {
   const renderBody1 = (element: any) => {
     return (
       <>
-        <tr key={element.id} className={getClassname(element.priority)}
-          onClick={() => {
-            history.push(
-              {
-                pathname: `/TaskDetails/${getChatID("task", element.id)}`,
-                state: element
-              }
-            )
-          }}
-        >
+        <tr key={element.id} className={getClassname(element.priority)}>
           <td>
             {element.child !== undefined && element.child.length > 0 && (
               <UpDownArrow
@@ -232,6 +228,16 @@ const TaskList = (props: any) => {
               // setlistItems1({...listItems1, abc:"new value"});
               //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
               // console.log("TESTEST!!: ", listItems1);
+
+
+
+              history.push(
+                {
+                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+                  state: element
+                }
+              )
+
             }}
           >
             {element.title}
@@ -520,6 +526,19 @@ const TaskList = (props: any) => {
                         <tr>{renderHeader1()}</tr>
                       </thead>
                       <tbody>{listItems1.map(renderBody1)}</tbody>
+                    </table>
+                  </div>
+                }
+              />
+
+              <Card
+                card_body={
+                  <div className='internal_table' style={{ color: colourObj.color_1 }}>
+                    <table id='internal_table'>
+                      <thead>
+                        <tr>{renderHeader1()}</tr>
+                      </thead>
+                      <tbody>{listItems2.map(renderBody1)}</tbody>
                     </table>
                   </div>
                 }
