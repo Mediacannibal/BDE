@@ -288,9 +288,18 @@ export const createMainTask = (callback: (arg0: any, arg1: string) => void, toke
     .catch(err => callback(err, err.response))
 }
 
+// export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any, parent_child: any, domain: any, prioriry: any, project_ref: any) => {
+//   instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${domain}&priority=${prioriry}&project_ref=${project_ref}&project_id=`, {
+//     headers: {
+//       'Authorization': token ? `Token ${token}` : '',
+//       'Content-Type': 'application/json'
+//     }
+//   }).then((res) => { callback(res, 'sucess') })
+//     .catch(err => callback(err, err.response))
+// }
 
-export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any, task: any, user_list: any, parent_child: any, domain: any, prioriry: any, project_ref: any) => {
-  instance.get(`tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${domain}&priority=${prioriry}&project_ref=${project_ref}&project_id=`, {
+export const getMainTask = (callback: (arg0: any, arg1: string) => void, token: any) => {
+  instance.get(`company/task/list/`, {
     headers: {
       'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'

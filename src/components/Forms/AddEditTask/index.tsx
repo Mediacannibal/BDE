@@ -27,6 +27,10 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
+  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
+  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
+
   const [development, setdevelopment] = useState('')
   const [test_title, settest_title] = useState('');
 
@@ -78,6 +82,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
 
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
+
 
   const [users, setusers] = useState('all')
 
@@ -145,7 +150,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data.results)
       } else {
@@ -176,6 +180,64 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
+          popup_body={
+            <>
+              {assignee.length === 0 &&
+                <>
+                  <div className='popup_assignee_text'>You have not assigned to any user!!!</div>
+
+                  <div className="assignee_wrapper">
+
+                    <div className='popup_description'>Open Task to: </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"COMPANY"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={company_assignee_ref}
+                        onchange={setcompany_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"BRANCH"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={branch_assignee_ref}
+                        onchange={setbranch_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={project_assignee_ref}
+                        onchange={setproject_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                  </div>
+                </>
+              }
+            </>
+          }
+
           confirmClick={() => {
             let data = [];
             let object = {
@@ -185,7 +247,11 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "priority": priority,
               "domain": domain,
               "description": description,
-              "assignee": assignee,
+              "assigned_to": assignee,
+              "milestone": false,
+              "isDisabled": true,
+              "portrait": false,
+              "landscape": true,
             }
             data.push(object)
             // console.log("***SUBMIT***", data)
@@ -367,6 +433,14 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                     </div>
                   </div>
 
+                  {/* {assignee.length === 0 &&
+                    <Popup 
+                    
+                    />
+                  } */}
+
+
+
                   <div className="inputfield_sub_container">
                     <div className="fileupload_with_preview">
                       <div className="upload-wrap">
@@ -449,6 +523,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                 </div>
 
                 <div className="addedit_task_container1">
+
                   {(task_type === "TEST") ?
                     <>
                       <div className="inputfield_sub_container">
@@ -925,6 +1000,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
           confirmClick={() => {
             console.log("***SEND***")
             Validate()
+            let a = String(document.getElementById("assignee_data").value)
+            setassignee(a)
           }}
           cancelClick={setPopup}
         />

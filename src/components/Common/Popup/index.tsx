@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ColourObject } from 'store/ColourStore';
 import './style.css'
 
-const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, actionable, popup_type }) => {
+const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, actionable, popup_type, assignee }) => {
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
@@ -11,6 +11,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   const [backendresponse, setbackendresponse] = useState('');
   const [popup_Title_Text, setpopup_Title_Text] = useState(true);
   const [popup_description_Text, setPopup_description_Text] = useState(true);
+  const [popup_assignee, setpopup_assignee] = useState(true);
   const [popus_body_container, setPopus_body_container] = useState(true);
   const [popout, setpopout] = useState(true);
 
@@ -67,6 +68,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                 null
               }
 
+      
               {popus_body_container
 
                 ? popup_body
@@ -88,6 +90,8 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                     className='popup_cancel_button'>Cancel</button>
                 </div>
               }
+
+
 
             </>
           }

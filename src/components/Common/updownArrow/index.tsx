@@ -1,6 +1,7 @@
 import './style.css'
 import React, { useState } from 'react'
-import * as up_down_arrow from '../../../assets/up_down.svg'
+import * as up_down_arrow from '../../../assets/updownarrows.svg'
+
 
 const UpDownArrow = ({ classname, onexpand }) => {
     const [up_arrow, setup_arrow] = useState(true)
