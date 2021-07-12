@@ -29,8 +29,6 @@ const TaskList = (props: any) => {
   const { userDetail, loaduserDetail } = useuserDetails()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
-  const [unique_title, setunique_title] = useState([])
-
   const [spinner, setspinner] = useState(true)
 
   const [popup1, setpopup1] = useState(false)
@@ -44,6 +42,7 @@ const TaskList = (props: any) => {
 
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
+  const [seleted_timeSpent, setseleted_timeSpent] = useState('')
 
   const [task, settask] = useState('')
   const [users, setusers] = useState('')
@@ -54,10 +53,6 @@ const TaskList = (props: any) => {
   const [task_domain, settask_domain] = useState('')
 
   const [filter1, setFilter1] = useState([])
-
-  const [task_picker_typevalid, settask_picker_typevalid] = useState(false)
-
-  const [preSendValidator, setPreSendValidator] = useState(false)
 
   const [up_arrow, setup_arrow] = useState(true)
 
@@ -262,6 +257,7 @@ const TaskList = (props: any) => {
                 settimeSpent_popup(true)
                 setseleted_taskName(element.title)
                 setseleted_taskId(element.id)
+                setseleted_timeSpent(element.time_spent)
               }}
             >
               Time
@@ -435,6 +431,7 @@ const TaskList = (props: any) => {
             }}
             taskName={seleted_taskName}
             taskId={seleted_taskId}
+            timeSpent={seleted_timeSpent}
           />
         )}
 
