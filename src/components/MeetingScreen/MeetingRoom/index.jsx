@@ -47,7 +47,7 @@ const MeetingRoom = (props) => {
     const roomID = params.roomID;
 
     useEffect(() => {
-        socketRef.current = io.connect("http://13.235.32.10:8000/");
+        socketRef.current = io.connect("https://apimeet.mediacannibal.com");
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
             socketRef.current.emit("join_room", roomID);
