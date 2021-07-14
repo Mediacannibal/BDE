@@ -80,15 +80,15 @@ const HomeScreen = (props: any) => {
 
     CommonAPi(
       {
-        path: `tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${task_domain}&priority=${task_priority}&project_ref=${project}`,
+        path: `company/task/list/`,
         method: "get",
         auth: auth ? auth : false,
       },
       (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Main Tasks:", data.data.results)
-          setlistItems2(data.data.results)
+          console.log("Main Tasks:", data.data.results.Assigned)
+          setlistItems2(data.data.results.Assigned)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));

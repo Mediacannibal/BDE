@@ -286,3 +286,14 @@
     width: 100%;
     justify-content: center;
 }
+
+.taskName_wrapper {
+    display: flex;
+}
+
+.taskName {
+    font-size: var(--TS7);
+    color: var(--color_1);
+    align-self: center;
+    justify-content: center;
+}

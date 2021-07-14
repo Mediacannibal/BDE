@@ -237,7 +237,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               }
             </>
           }
-
           confirmClick={() => {
             let data = [];
             let object = {
@@ -254,13 +253,10 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "landscape": true,
             }
             data.push(object)
-            // console.log("***SUBMIT***", data)
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
-                // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
               } else {

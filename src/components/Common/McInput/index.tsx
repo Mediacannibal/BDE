@@ -304,7 +304,6 @@ const McInput = (props: any) => {
                                     <div className="checkbox_text">{option.value}</div>
                                 </div>
                             ))}
-
                         </div>
                     }
 
@@ -315,6 +314,33 @@ const McInput = (props: any) => {
                                 <div className={"checkbox_option_wrapper"}>
                                     <input {...props}
                                         type="radio"
+                                        id={props.id + option.value}
+                                        className="checkbox"
+                                        name={props.id}
+                                        value={option.value}
+                                        checked={checkedOptionValue === option.value}
+                                        onChange={(e) => {
+                                            // console.log(e);
+                                            handleRadioChange(e)
+                                            seterror_message("")
+                                            props.valid(true)
+                                            setinput_data(option.value)
+                                        }}
+                                    />
+                                    <div className="checkbox_text">{option.value}</div>
+                                </div>
+                            ))}
+
+                        </div>
+                    }
+
+                    {(props.type === "user_picker") &&
+                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
+
+                            {props.options.map((option: any) => (
+                                <div className={"checkbox_option_wrapper"}>
+                                    <input {...props}
+                                        type="text"
                                         id={props.id + option.value}
                                         className="checkbox"
                                         name={props.id}
