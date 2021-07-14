@@ -47,18 +47,11 @@ const MeetingRoom = (props) => {
     const roomID = params.roomID;
 
     useEffect(() => {
-        socketRef.current = io.connect("http://localhost:8000/");
-        // socketRef.current = io.connect("/");
+        socketRef.current = io.connect("http://13.235.32.10:8000/");
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
- 
-            userVideo.current.srcObject = stream; 
-             
-            socketRef.current.emit("join room", roomID);
-
-
-
-            socketRef.current.on("all users", users => {
-                console.log("=====>",users);
+            userVideo.current.srcObject = stream;
+            socketRef.current.emit("join_room", roomID);
+            socketRef.current.on("all_users", users => {
                 const peers = [];
                 users.forEach(userID => {
                     const peer = createPeer(userID, socketRef.current.id, stream);
@@ -71,7 +64,7 @@ const MeetingRoom = (props) => {
                 setPeers(peers);
             })
 
-            socketRef.current.on("user joined", payload => {
+            socketRef.current.on("user_joined", payload => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
                 peersRef.current.push({
                     peerID: payload.callerID,
@@ -81,14 +74,14 @@ const MeetingRoom = (props) => {
                 setPeers(users => [...users, peer]);
             });
 
-            socketRef.current.on("receiving returned signal", payload => {
+            socketRef.current.on("receiving_returned_signal", payload => {
                 const item = peersRef.current.find(p => p.peerID === payload.id);
                 item.peer.signal(payload.signal);
             });
         })
     }, []);
 
-    const createPeer = (userToSignal, callerID, stream) => {
+    function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
             trickle: false,
@@ -102,7 +95,7 @@ const MeetingRoom = (props) => {
         return peer;
     }
 
-    const addPeer = (incomingSignal, callerID, stream) => {
+    function addPeer(incomingSignal, callerID, stream) {
         const peer = new Peer({
             initiator: false,
             trickle: false,
