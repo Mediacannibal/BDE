@@ -155,7 +155,7 @@ const TaskList = (props: any) => {
           //   setlistUsers(element)
           //   console.log("User List: ", element)
           // })
-          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", data.data.results);
+          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", data.data.results);
           setlistUsers(data.data.results)
 
         } else {
@@ -283,7 +283,7 @@ const TaskList = (props: any) => {
           <td>{element.image_link}</td>
           <td>
             {element.assigned_by !== (undefined || null) &&
-              <img className='user_icon' src={listUsers_image} />
+              <img className='user_icon' src={element.assigned_by.photo_url} />
             }
           </td>
 
