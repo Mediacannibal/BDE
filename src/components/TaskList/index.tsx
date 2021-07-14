@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom'
 import 'components/app.css'
-import { getMainTask } from 'utils/api'
+import { CommonAPi, getMainTask } from 'utils/api'
 import { ProgressBar } from 'components/Common/Spinner'
 
 import AddEditTask from 'components/Forms/AddEditTask'
@@ -21,6 +21,7 @@ import UpDownArrow from 'components/Common/updownArrow'
 import { ColourObject } from 'store/ColourStore'
 import { useForm } from 'react-hook-form';
 import { getChatID } from 'utils/GlobalFunctions'
+import AddEditUserList from 'components/Forms/UserListForm'
 
 const TaskList = (props: any) => {
   const history = useHistory()
@@ -31,14 +32,19 @@ const TaskList = (props: any) => {
 
   const [spinner, setspinner] = useState(true)
 
-  const [popup1, setpopup1] = useState(false)
+  const [addeditTask_popup, setaddeditTask_popup] = useState(false)
   const [addEditTaskLog_popup, setaddEditTaskLog_popup] = useState(false)
   const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
+  const [userlistForm_popup, setuserlistForm_popup] = useState(false)
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
 
+  const [listUsers, setlistUsers] = useState([])
+
+  const [listUsers_image, setlistUsers_image] = useState('')
+  const [assigned_by, setassigned_by] = useState('')
 
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
@@ -73,12 +79,15 @@ const TaskList = (props: any) => {
       loaduserDetail()
     }
     setspinner(true)
+
     mainTask()
+
+    listUser()
 
     if (!Colour) {
       loadColour();
     }
-    console.log("filter1:", filter1)
+
   }, [])
 
   const mainTask = () => {
@@ -97,7 +106,7 @@ const TaskList = (props: any) => {
           let array: any = []
           array.push({ key: '0', value: 'All' })
           console.log("Incoming list of option");
-          data.data.results.Assigned.forEach((element: any) => {
+          data.data.results.Open.forEach((element: any) => {
             array.push({
               key: element.project_ref_id,
               value: element.project_ref_id,
@@ -132,6 +141,30 @@ const TaskList = (props: any) => {
     )
   }
 
+  const listUser = () => {
+    CommonAPi(
+      {
+        path: `api/user/list/`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          let a: []
+          // data.data.results.forEach((element: any) => {
+          //   setlistUsers(element)
+          //   console.log("User List: ", element)
+          // })
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", data.data.results);
+          setlistUsers(data.data.results)
+
+        } else {
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
+  }
+
   const getClassname = (key: any) => {
     switch (key) {
       case 'Low':
@@ -160,7 +193,9 @@ const TaskList = (props: any) => {
       'Title',
       'description',
       'image_link',
-      'assignee',
+      'assignee by',
+      'assignee to',
+      'assisted by',
       'Time Spent',
       'track',
     ]
@@ -178,7 +213,16 @@ const TaskList = (props: any) => {
     })
   }
 
+  // const image = (object: any) => {
+  //   listUsers.forEach((obj: any) => {
+  //     obj.username.username === object && setlistUsers_image(obj.image)
+  //   })
+  // }
+
   const renderBody1 = (element: any) => {
+
+    // /simage(element.assigned_by)
+
     return (
       <>
         <tr key={element.id} className={getClassname(element.priority)}>
@@ -224,8 +268,6 @@ const TaskList = (props: any) => {
               //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
               // console.log("TESTEST!!: ", listItems1);
 
-
-
               history.push(
                 {
                   pathname: `/TaskDetails/${getChatID("task", element.id)}`,
@@ -240,29 +282,37 @@ const TaskList = (props: any) => {
           <td>{element.description}</td>
           <td>{element.image_link}</td>
           <td>
-            {element.assigned_to}
+            {element.assigned_by !== (undefined || null) &&
+              <img className='user_icon' src={listUsers_image} />
+            }
+          </td>
+
+          <td>
             <img
               onClick={() => {
-                setaddEditTaskLog_popup(true)
+                setuserlistForm_popup(true)
                 setseleted_taskId(element.id)
               }}
               className='header_icon'
               src={add}
             />
+            {element.assigned_to}
           </td>
-          <td>
-            {element.time_spent}
-            <button
-              onClick={() => {
-                settimeSpent_popup(true)
-                setseleted_taskName(element.title)
-                setseleted_taskId(element.id)
-                setseleted_timeSpent(element.time_spent)
-              }}
-            >
-              Time
-            </button>
-          </td>
+
+          <td>{element.assisted_by}</td>
+
+          {element.time_spent !== undefined || null ?
+            <td onClick={() => {
+              settimeSpent_popup(true)
+              setseleted_taskName(element.title)
+              setseleted_taskId(element.id)
+              setseleted_timeSpent(element.time_spent)
+            }}>
+              {element.time_spent}
+            </td>
+            :
+            <td>-</td>
+          }
           <td>
             <div
               className='screen_header_element'
@@ -314,15 +364,16 @@ const TaskList = (props: any) => {
                   <td>{element.description}</td>
                   <td>{element.image_link}</td>
                   <td>
-                    {element.assigned_to}
                     <img
                       onClick={() => {
-                        setaddEditTaskLog_popup(true)
+                        setuserlistForm_popup(true)
                         setseleted_taskId(element.id)
                       }}
                       className='header_icon'
                       src={add}
                     />
+                    {element.assigned_to}
+
                   </td>
                   <td>
                     {element.time_spent}
@@ -362,7 +413,7 @@ const TaskList = (props: any) => {
         <div
           className='screen_header_element'
           onClick={() => {
-            setpopup1(true)
+            setaddeditTask_popup(true)
           }}
         >
           <img className='header_icon' src={add} />
@@ -397,10 +448,10 @@ const TaskList = (props: any) => {
   return (
     <>
       <div className='main'>
-        {popup1 && (
+        {addeditTask_popup && (
           <AddEditTask
             setPopup={() => {
-              setpopup1(false)
+              setaddeditTask_popup(false)
             }}
           />
         )}
@@ -432,6 +483,15 @@ const TaskList = (props: any) => {
             taskName={seleted_taskName}
             taskId={seleted_taskId}
             timeSpent={seleted_timeSpent}
+          />
+        )}
+
+        {userlistForm_popup && (
+          <AddEditUserList
+            setPopup={() => {
+              setuserlistForm_popup(false)
+            }}
+            taskid={seleted_taskId}
           />
         )}
 

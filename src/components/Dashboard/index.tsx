@@ -102,20 +102,19 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     getMainTask(
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
-          // console.log('Task Results in GC: ', data.data.results)
-          // setunique_project_ref(data.data.results)
+          settaskItems(data.data.results.Assigned)
         } else {
           console.log('error ' + JSON.stringify(data))
           console.log('error ' + JSON.stringify(errorresponse))
         }
       },
       auth,
-      task,
-      users,
-      parent_child,
-      task_domain,
-      task_priority,
-      project
+      // task,
+      // users,
+      // parent_child,
+      // task_domain,
+      // task_priority,
+      // project
     )
   }
 
@@ -242,25 +241,30 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
           <div className='header_center'>
             <div className='header_center_subcontainer'>
+              <div className='header_title  active_task_wrapper'
+                style={{ color: colourObj.color_1 }}>
+                {'Active Task: '}
+                <div
+                  onClick={() => {
+                    setprojecttaskTitle(!projecttaskTitle)
+                  }}
+                >
+                  <img
+                    className={
+                      projecttaskTitle
+                        ? 'open_close_arrow_icon'
+                        : 'open_close_arrow_icon rotate180'
+                    }
+                    src={up_down_arrow}
+                  />
+                </div>
+              </div>
               {current_task !== undefined && (
-                <div className='header_title  active_task_wrapper'
-                  style={{ color: colourObj.color_1 }}>
-                  {'Active Task: '}
-                  <div
-                    onClick={() => {
-                      setprojecttaskTitle(!projecttaskTitle)
-                    }}
-                  >
-                    <img
-                      className={
-                        projecttaskTitle
-                          ? 'open_close_arrow_icon'
-                          : 'open_close_arrow_icon rotate180'
-                      }
-                      src={up_down_arrow}
-                    />
+                <div className="taskName_wrapper">
+
+                  <div className="taskName">
+                    {current_task.task_name}
                   </div>
-                  {current_task.task_name}
 
                   {startorpausetask ? (
                     <img
@@ -282,8 +286,11 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                     />
                   )}
                   <img className='header_icon' src={stop} />
+
                 </div>
               )}
+
+
             </div>
           </div>
 
@@ -297,7 +304,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                       onClick={() => {
                         setstartorpausetaskid(element.id)
                         setstartorpausetask(true)
-                        setaddEditTaskTimeLog_popup(true)
+                        // setaddEditTaskTimeLog_popup(true)
                       }}
                     >
                       <div className='header_title' style={{ color: colourObj.color_1 }}>
