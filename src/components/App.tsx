@@ -58,19 +58,23 @@ const fullpage_screen = [
   { path: '/AnalyticsFullScreen', component: Report },
 ]
 
+
 const App = () => {
 
   useEffect(() => {
     if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
       getToken()
+
     }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
   if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
+
     onMessageListener().then((message: any) => {
-      console.log(message)
-    }).catch(err => console.log('failed: ', err));
+      console.log(message);
+
+    }).catch((err: any) => console.log('failed: ', err));
 
   }
 
