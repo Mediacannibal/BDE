@@ -178,3 +178,10 @@
     justify-content: flex-start;
     text-align-last: left;
 }
+
+.chart_button {
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+}

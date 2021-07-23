@@ -178,6 +178,8 @@ const HomeScreen = (props: any) => {
   }
 
   const renderBody2 = (element: any) => {
+    let assigned_to = element?.assigned_to;
+
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
@@ -193,9 +195,22 @@ const HomeScreen = (props: any) => {
         <td>{element.priority}</td>
         <td>{element.status}</td>
         <td>{element.title}</td>
-        <td>{element.assigned_to}</td>
+        <td>{getphotoimage(assigned_to)}</td>
       </tr>
     )
+  }
+
+  const getphotoimage = (obj: any) => {
+    if (obj === null || obj.length === 0)
+      return null
+    else
+      return (
+        <>
+          <div className="assign_wrap">
+            <img className='user_icon' src={(obj[0].photo_url === null) ? defaultusericon : obj[0].photo_url} />
+          </div>
+        </>
+      )
   }
 
   return (

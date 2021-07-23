@@ -127,6 +127,9 @@
     height: calc(0.45vw + 1.35vh + 0.45vmin);
     vertical-align: middle;
     margin: 0 calc(0.15vw + 0.45vh + 0.15vmin);
+    display: flex;
+    align-self: center;
+    cursor: pointer;
 }
 
 .header_user_wrapper {
@@ -296,4 +299,32 @@
     color: var(--color_1);
     align-self: center;
     justify-content: center;
+}
+
+.add_new_items {
+    display: flex;
+    height: 7vh;
+    object-fit: contain;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1vh;
+    margin-bottom: 1vh;
+}
+
+.floating_button {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+    transform: rotate(360deg);
+}
+
+.floating_button:active {
+    transform: rotate(-45deg);
 }

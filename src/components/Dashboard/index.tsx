@@ -22,6 +22,7 @@ import * as settings from '../../assets/settings.svg'
 import * as pause from '../../assets/pause.svg'
 import * as stop from '../../assets/stop.svg'
 import * as play from '../../assets/play.svg'
+import * as add from '../../assets/add.svg'
 
 import UserSettings from 'components/UserMenuItems/UserSettings'
 import { getMainTask, getTasktimelog } from 'utils/api'
@@ -207,9 +208,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               ) : null}
             </div>
           ))}
+
         </div>
 
         <div className='menu_items_wrapper_bottom'>
+
+
           <div
             onClick={() => {
               setMenu_open(!menu_open)
@@ -259,6 +263,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   />
                 </div>
               </div>
+
               {current_task !== undefined && (
                 <div className="taskName_wrapper">
 
@@ -289,7 +294,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
                 </div>
               )}
-
 
             </div>
           </div>
@@ -487,6 +491,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
         {screen}
       </div>
+
+
+      <div className="floating_button">
+        <img className="add_new_items" src={add} />
+      </div>
+      
     </div >
   )
 }

@@ -15,16 +15,6 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
 }) => {
   const { auth } = useAuth()
 
-  const [unique_project_ref, setunique_project_ref] = useState([])
-  const [all_project_ref, setall_project_ref] = useState('')
-
-  const [task, settask] = useState('')
-  const [users, setusers] = useState('all')
-  const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
-
   useEffect(() => {
     mainTask()
   }, [])
@@ -42,12 +32,6 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
         }
       },
       auth,
-      task,
-      users,
-      parent_child,
-      task_domain,
-      task_priority,
-      project
     )
   }
 
@@ -98,7 +82,7 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
         </div>
       </div>
 
-      <div className='main_selector_div'>
+      {/* <div className='main_selector_div'>
         <select
           className='projectname_dropdown'
           id='noformat_dropdown'
@@ -119,7 +103,7 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
             )
           })}
         </select>
-      </div>
+      </div> */}
     </>
   )
 }
