@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
 import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
-import { CommonAPi } from 'utils/api';
+import { CommonAPi, getMainTask } from 'utils/api';
 
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
@@ -17,6 +17,7 @@ import * as eye from '../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../assets/eye-invisible.svg'
 import UpDownArrow from 'components/Common/updownArrow';
 import { getChatID } from 'utils/GlobalFunctions';
+import * as defaultusericon from '../../assets/user_icon.svg'
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -78,24 +79,30 @@ const HomeScreen = (props: any) => {
         }
       })
 
-    CommonAPi(
-      {
-        path: `company/task/list/`,
-        method: "get",
-        auth: auth ? auth : false,
-      },
-      (data: any, errorresponse: any) => {
+    getMainTask(
+      async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Main Tasks:", data.data.results.Assigned)
+          // console.log("Task Assigned: ", data.data.results.Assigned)
+          // console.log("Task Open: ", data.data.results.Open)
+
           setlistItems2(data.data.results.Assigned)
+
         } else {
           setspinner(false)
-          console.log('error ' + JSON.stringify(data));
-          console.log('error ' + JSON.stringify(errorresponse));
+          console.log('error ' + JSON.stringify(data))
+          console.log('error ' + JSON.stringify(errorresponse))
         }
-      })
-
+      },
+      auth,
+      // task,
+      // users,
+      // parent_child,
+      // task_domain,
+      // task_priority,
+      // project_ref,
+      // project_id
+    )
   }, [])
 
   const getClassname = (key: any) => {

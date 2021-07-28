@@ -11,7 +11,11 @@ export const VerticalScroll: React.FC<{
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("2");
+
     if (scrollRef.current) {
+      console.log("2.1");
+
       scrollRef.current.scrollTop = scroll;
     }
   }, [scroll]);

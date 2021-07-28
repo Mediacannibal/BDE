@@ -17,8 +17,8 @@ import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
 import UpDownArrow from 'components/Common/updownArrow';
 import { getChatID } from 'utils/GlobalFunctions'
-import { Gantt } from 'components/ganttchart/components/gantt/gantt';
 import AppGantt from 'components/ChatProcess/AppGantt';
+import { ganttChartDetails } from 'store/isGanttChart';
 
 
 const ProjectScreen = (props: any) => {
@@ -27,6 +27,7 @@ const ProjectScreen = (props: any) => {
 
   const [spinner, setspinner] = useState(true)
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { isGantt, loadGanttDetail } = ganttChartDetails()
 
   const [listItems, setlistItems] = useState([])
 
@@ -53,6 +54,10 @@ const ProjectScreen = (props: any) => {
 
     if (!Colour) {
       loadColour();
+    }
+
+    if (!isGantt) {
+      loadGanttDetail()
     }
 
     CommonAPi(
@@ -275,7 +280,8 @@ const ProjectScreen = (props: any) => {
             <Card
               classname="fullwidth"
               card_title="Branch: "
-              card_body={listItems.map((element: any, key: any) => {
+              card_body={(isGantt) && isGantt.map((element: any, key: any) => {
+                // console.log("isGantt:::::::::", element);
                 return (
                   <div className="project_wrapper">
                     <div className="project_details">
@@ -356,7 +362,8 @@ const ProjectScreen = (props: any) => {
                       onClick={() => {
                         setganttChart(!ganttChart)
                         setproject_taskTables(!project_taskTables)
-                      }}>{project_taskTables === true ? 'Chart' : 'Table'}</button>
+                      }}>{project_taskTables === true ? 'Chart' : 'Table'}
+                    </button>
                   </div>
                 );
               })}

@@ -5,14 +5,19 @@ import { getStartEndDateForProject } from "./helper";
 import { Gantt } from "../ganttchart/components/gantt/gantt";
 import { ViewMode } from "../ganttchart/types/public-types";
 import type { Task } from "../ganttchart/types/public-types";
-import { getMainTask, getProject } from "utils/api";
+import { getProject } from "utils/api";
 import { useAuth } from "store/authStore";
+import { ganttChartDetails } from "store/isGanttChart";
+import { useParams } from "react-router-dom";
 
 const AppGantt = ({ project_data }) => {
   const [view, setView] = React.useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
   const [listItems, setlistItems] = useState([])
+  // const { isGantt, loadGanttDetail } = ganttChartDetails()
+  const { id } = useParams();
+  const [loadingdata, setloadingdata] = useState(true)
 
   let columnWidth = 60;
   if (view === ViewMode.Month) {
@@ -35,15 +40,19 @@ const AppGantt = ({ project_data }) => {
 
   useEffect(() => {
     isFirstRender.current = false
+
     if (project_data !== undefined) {
       // console.log("Task Results: ", project_data.ProjectTasks)
       setlistItems(project_data.ProjectTasks)
+      setloadingdata(false)
     }
+
     else {
       getProject(async (data: any, errorresponse: any) => {
         if (data.status === 200) {
-          // console.log("Task Results: ", data.data.results)
-          setlistItems(data.data.results)
+          // console.log("Task Results: ", data.data.results[0].ProjectTasks)
+          setlistItems(data.data.results[0].ProjectTasks)
+          setloadingdata(false)
         }
         else {
           console.log('error ' + JSON.stringify(data));
@@ -51,51 +60,27 @@ const AppGantt = ({ project_data }) => {
         }
       }, auth, users);
     }
-  }, [tasks])
+  }, [])
 
   useEffect(() => {
     if (!isFirstRender.current) {
-      if (project_data !== undefined) {
-        let task: any = []
-        listItems.map((obj: any) => {
-          // console.log("Object tasks", obj);
-          task.push(
-            {
-              start: new Date(obj.start_date),
-              end: new Date(obj.end_date),
-              name: obj.title,
-              id: String(obj.id),
-              progress: obj.progress,
-              dependencies: obj.dependencies,
-              type: "task",
-              project: obj.project_ref,
-            }
-          )
-        });
-        setTasks(task)
-      }
-      else {
-        listItems.map((element: any, key: any) => {
-          // console.log("P tasks", listItems);
-          let task: any = []
-          element.ProjectTasks.map((obj: any) => {
-            // console.log("Object tasks", obj);
-            task.push(
-              {
-                start: new Date(obj.start_date),
-                end: new Date(obj.end_date),
-                name: obj.title,
-                id: String(obj.id),
-                progress: obj.progress,
-                dependencies: obj.dependencies,
-                type: "task",
-                project: obj.project_ref,
-              }
-            )
-          });
-          setTasks(task)
-        })
-      }
+      let task: any = []
+      listItems.map((obj: any) => {
+        // console.log("Object tasks", obj);
+        task.push(
+          {
+            start: new Date(obj.start_date),
+            end: new Date(obj.end_date),
+            name: obj.title,
+            id: String(obj.id),
+            progress: obj.progress,
+            dependencies: obj.dependencies,
+            type: "task",
+            project: obj.project_ref,
+          }
+        )
+      });
+      setTasks(task)
     }
   }, [listItems])
 
@@ -249,21 +234,25 @@ const AppGantt = ({ project_data }) => {
   };
 
   return (
-    <div>
-      <ViewSwitcher
-        onViewModeChange={viewMode => setView(viewMode)}
-        onViewListChange={setIsChecked}
-        isChecked={isChecked}
-      />
-      <Gantt
-        tasks={tasks}
-        viewMode={view}
-        onDateChange={onTaskChange}
-        // onProgressChange={onProgressChange}
-        listCellWidth={isChecked ? "155px" : ""}
-        columnWidth={columnWidth}
-      />
-    </div>
+    loadingdata ?
+      <div>Loading.....</div>
+      :
+      <div>
+        <ViewSwitcher
+          onViewModeChange={viewMode => setView(viewMode)}
+          onViewListChange={setIsChecked}
+          isChecked={isChecked}
+          project_data={project_data}
+        />
+        <Gantt
+          tasks={tasks}
+          viewMode={view}
+          onDateChange={onTaskChange}
+          // onProgressChange={onProgressChange}
+          listCellWidth={isChecked ? "155px" : ""}
+          columnWidth={columnWidth}
+        />
+      </div>
   );
 };
 

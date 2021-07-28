@@ -7,16 +7,20 @@ type ViewSwitcherProps = {
   isChecked: boolean
   onViewListChange: (isChecked: boolean) => void
   onViewModeChange: (viewMode: ViewMode) => void
+  project_data: any
 }
 export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
   onViewModeChange,
   onViewListChange,
   isChecked,
+  project_data,
 }) => {
   const { auth } = useAuth()
 
   useEffect(() => {
+    if (project_data === undefined) {
     mainTask()
+    }
   }, [])
 
   const mainTask = () => {
