@@ -82,6 +82,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
 
   // task change events
   useEffect(() => {
+
     const [startDate, endDate] = ganttDateRange(tasks, viewMode);
     const newDates = seedDates(startDate, endDate, viewMode);
     setDateSetup({ dates: newDates, viewMode });
@@ -106,6 +107,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         milestoneBackgroundSelectedColor
       )
     );
+
   }, [
     tasks,
     viewMode,
@@ -127,9 +129,12 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   ]);
 
   useEffect(() => {
+
     const { changedTask, action } = ganttEvent;
     if (changedTask) {
+
       if (action === "delete") {
+
         setGanttEvent({ action: "" });
         setBarTasks(barTasks.filter(t => t.id !== changedTask.id));
       } else if (
@@ -138,6 +143,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         action === "start" ||
         action === "progress"
       ) {
+
         const prevStateTask = barTasks.find(t => t.id === changedTask.id);
         if (
           prevStateTask &&
@@ -145,6 +151,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
             prevStateTask.end.getTime() !== changedTask.end.getTime() ||
             prevStateTask.progress !== changedTask.progress)
         ) {
+
           // actions for change
           const newTaskList = barTasks.map(t =>
             t.id === changedTask.id ? changedTask : t
@@ -156,32 +163,41 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   }, [ganttEvent, barTasks]);
 
   useEffect(() => {
+
     if (failedTask) {
+
       setBarTasks(barTasks.map(t => (t.id !== failedTask.id ? t : failedTask)));
       setFailedTask(null);
     }
   }, [failedTask, barTasks]);
 
   useEffect(() => {
+
     const newTaskHeight = (rowHeight * barFill) / 100;
     if (newTaskHeight !== taskHeight) {
+
       setTaskHeight(newTaskHeight);
     }
   }, [rowHeight, barFill, taskHeight]);
 
   useEffect(() => {
+
     if (taskListRef.current) {
+
       setTaskListWidth(taskListRef.current.offsetWidth);
     }
   }, [taskListRef]);
 
   // scroll events
   useEffect(() => {
+
     const handleWheel = (event: WheelEvent) => {
       if (event.shiftKey || event.deltaX) {
+
         const scrollMove = event.deltaX ? event.deltaX : event.deltaY;
         let newScrollX = scrollX + scrollMove;
         if (newScrollX < 0) {
+
           newScrollX = 0;
         } else if (newScrollX > svgWidth) {
           newScrollX = svgWidth;
@@ -196,6 +212,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
           newScrollY = ganttFullHeight - ganttHeight;
         }
         if (newScrollY !== scrollY) {
+
           setScrollY(newScrollY);
           event.preventDefault();
         }

@@ -1,0 +1,31 @@
+/* Card */
+
+.mc_dashboard_card {
+    border-radius: 4px;
+    margin: calc(0.3vw + 0.9vh + 0.3vmin);
+    padding: calc(0.3vw + 0.9vh + 0.3vmin);
+    -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    -moz-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-sizing: border-box;
+    width: 100vh;
+    height: 30vh;
+}
+
+.card_taskTitle {
+    display: flex;
+    text-decoration: none !important;
+}
+
+.card_details {
+    font-family: 'Barlow';
+    font-weight: 500;
+    /* color: var(--color_1); */
+    font-size: var(--TS9);
+    align-self: center;
+}
+
+.card_details_wrapper {
+    padding: var(--TS9) 0 0 0;
+}
+

@@ -53,6 +53,7 @@ export const TaskList: React.FC<TaskListProps> = ({
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+   
     if (horizontalContainerRef.current) {
       horizontalContainerRef.current.scrollTop = scrollY;
     }

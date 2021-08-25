@@ -253,9 +253,9 @@ const taskXCoordinate = (
   const x = Math.round(
     (index +
       (xDate.getTime() -
-        dates[index].getTime() -
+        dates[index]?.getTime() -
         xDate.getTimezoneOffset() * 60 * 1000 +
-        dates[index].getTimezoneOffset() * 60 * 1000) /
+        dates[index]?.getTimezoneOffset() * 60 * 1000) /
       dateDelta) *
     columnWidth
   );

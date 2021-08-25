@@ -17,6 +17,8 @@ import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
 import UpDownArrow from 'components/Common/updownArrow';
 import { getChatID } from 'utils/GlobalFunctions'
+import AppGantt from 'components/ChatProcess/AppGantt';
+import { ganttChartDetails } from 'store/isGanttChart';
 
 
 const ProjectScreen = (props: any) => {
@@ -25,6 +27,7 @@ const ProjectScreen = (props: any) => {
 
   const [spinner, setspinner] = useState(true)
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { isGantt, loadGanttDetail } = ganttChartDetails()
 
   const [listItems, setlistItems] = useState([])
 
@@ -36,11 +39,11 @@ const ProjectScreen = (props: any) => {
   const [seleted_projectName, setseleted_projectName] = useState('')
   const [seleted_projectTaskType, setseleted_projectTaskType] = useState('')
 
-  const [task_details, settask_details] = useState(false)
+  const [ganttChart, setganttChart] = useState(false)
+  const [pro_Tasks, setpro_Tasks] = useState([])
 
-  const [is_project, setis_project] = useState('')
-  const [is_task, setis_task] = useState()
-  const [companybranchTitle, setcompanybranchTitle] = useState(false)
+
+  const [project_taskTables, setproject_taskTables] = useState(true)
 
   const [users, setusers] = useState('')
 
@@ -51,6 +54,10 @@ const ProjectScreen = (props: any) => {
 
     if (!Colour) {
       loadColour();
+    }
+
+    if (!isGantt) {
+      loadGanttDetail()
     }
 
     CommonAPi(
@@ -71,7 +78,6 @@ const ProjectScreen = (props: any) => {
         }
       })
   }, [])
-
 
   const getClassname = (key: any) => {
     switch (key) {
@@ -143,7 +149,7 @@ const ProjectScreen = (props: any) => {
 
           history.push(
             {
-              pathname: `/TaskDetails/${getChatID("pro", element.id)}`,
+              pathname: `/TaskDetails/${getChatID("project", element.id)}`,
               state: element
             }
           )
@@ -155,6 +161,70 @@ const ProjectScreen = (props: any) => {
         <td>{element.title}</td>
         <td>{element.assigned_to}</td>
       </tr >
+    )
+  }
+
+  const Project_taskTable = (project_data: any) => {
+    // console.log("project_data: ", project_data.project_data.ProjectTasks);
+    return (
+      <div className="project_tables">
+        <div className="internal_table" style={{ color: colourObj.color_1 }}>
+          <div className="project_table_icons">
+            <div className="project_subtitle" style={{ color: colourObj.color_1 }}>Active Tasks:</div>
+            <div className="project_task_options">
+              <div className="visibility_toggle" onClick={() => {
+                history.push('/TaskList');
+              }}>
+                <img className='header_icon' src={tasklist} />
+                <div className="visibility_container">
+                  <p className="label" style={{ color: colourObj.color_1 }}>Task History</p>
+                </div>
+              </div>
+
+              <div className="visibility_toggle" onClick={() => {
+                setpopup2(true);
+                setseleted_projectName(project_data.project_data.title);
+              }}>
+                <img className='header_icon' src={add} />
+                <div className="visibility_container">
+                  <p className="label" style={{ color: colourObj.color_1 }}>Add Tasks</p>
+                </div>
+              </div>
+
+              <div className="visibility_toggle" onClick={() => {
+                setpopup2(true);
+                setseleted_projectName(project_data.project_data.title);
+                setseleted_projectTaskType("FEATURE");
+              }}>
+                <img className='header_icon' src={tested} />
+                <div className="visibility_container">
+                  <p className="label" style={{ color: colourObj.color_1 }}> Request Feature</p>
+                </div>
+              </div>
+
+              <div className="visibility_toggle" onClick={() => {
+                setpopup2(true);
+                setseleted_projectName(project_data.project_data.title);
+                setseleted_projectTaskType("BUG");
+              }}>
+                <img className='header_icon' src={bug} />
+                <div className="visibility_container">
+                  <p className="label" style={{ color: colourObj.color_1 }}>Report Bug</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table id='internal_table' style={{ color: colourObj.color_1 }}>
+            <thead>
+              <tr>{renderHeader()}</tr>
+            </thead>
+            <tbody>
+              {project_data.project_data.ProjectTasks.map(renderBody)}
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 
@@ -206,11 +276,12 @@ const ProjectScreen = (props: any) => {
           <div className="spinner_fullscreen_div">
             <ProgressBar />
           </div> :
-          <Card
-            classname="fullwidth"
-            card_title="Branch: "
-            card_body={
-              listItems.map((element: any, key: any) => {
+          <>
+            <Card
+              classname="fullwidth"
+              card_title="Branch: "
+              card_body={(isGantt) && isGantt.map((element: any, key: any) => {
+                // console.log("isGantt:::::::::", element);
                 return (
                   <div className="project_wrapper">
                     <div className="project_details">
@@ -226,7 +297,7 @@ const ProjectScreen = (props: any) => {
                                 pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                 state: element
                               }
-                            )
+                            );
                           }}>
                           {element.title + ": " + project_Type(element)}
                         </div>
@@ -250,9 +321,9 @@ const ProjectScreen = (props: any) => {
                                 <div className="project_stats" style={{ color: colourObj.color_1 }}>Participants:</div>
                                 <div className="project_user_options">
                                   <div className="visibility_toggle" onClick={() => {
-                                    setpopup3(true)
-                                    setseleted_projectName(element.title)
-                                    setseleted_projectTaskType("FEATURE")
+                                    setpopup3(true);
+                                    setseleted_projectName(element.title);
+                                    setseleted_projectTaskType("FEATURE");
                                   }}>
                                     <img className='header_icon' src={team} />
                                     <div className="visibility_container">
@@ -262,18 +333,16 @@ const ProjectScreen = (props: any) => {
                                 </div>
                               </div>
 
-                              {
-                                element.ProjectProfiles.map((element: any) => (
-                                  <div key={element.id} className="visibility_toggle">
-                                    <div className="project_stats left0" style={{ color: colourObj.color_1 }}>{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
-                                    <div className="visibility_container">
-                                      <div className="label" style={{ color: colourObj.color_1 }}>
-                                        {element.company_name + ": " + element.branch_name}
-                                      </div>
+                              {element.ProjectProfiles.map((element: any) => (
+                                <div key={element.id} className="visibility_toggle">
+                                  <div className="project_stats left0" style={{ color: colourObj.color_1 }}>{element.user_type + ": " + element.firstname + " " + element.lastname}</div>
+                                  <div className="visibility_container">
+                                    <div className="label" style={{ color: colourObj.color_1 }}>
+                                      {element.company_name + ": " + element.branch_name}
                                     </div>
                                   </div>
-                                ))
-                              }
+                                </div>
+                              ))}
                             </div>
                           </div>
 
@@ -281,71 +350,25 @@ const ProjectScreen = (props: any) => {
                       </div>
                     </div>
 
-                    <div className="project_tables">
-                      <div className="internal_table" style={{ color: colourObj.color_1 }}>
-                        <div className="project_table_icons">
-                          <div className="project_subtitle" style={{ color: colourObj.color_1 }}>Active Tasks:</div>
-                          <div className="project_task_options">
-                            <div className="visibility_toggle" onClick={() => {
-                              history.push('/TaskList')
-                            }}>
-                              <img className='header_icon' src={tasklist} />
-                              <div className="visibility_container">
-                                <p className="label" style={{ color: colourObj.color_1 }}>Task History</p>
-                              </div>
-                            </div>
+                    {ganttChart &&
+                      <AppGantt project_data={element} />
+                    }
 
-                            <div className="visibility_toggle" onClick={() => {
-                              setpopup2(true)
-                              setseleted_projectName(element.title)
-                            }}>
-                              <img className='header_icon' src={add} />
-                              <div className="visibility_container">
-                                <p className="label" style={{ color: colourObj.color_1 }}>Add Tasks</p>
-                              </div>
-                            </div>
+                    {project_taskTables &&
+                      <Project_taskTable project_data={element} />
+                    }
 
-                            <div className="visibility_toggle" onClick={() => {
-                              setpopup2(true)
-                              setseleted_projectName(element.title)
-                              setseleted_projectTaskType("FEATURE")
-                            }}>
-                              <img className='header_icon' src={tested} />
-                              <div className="visibility_container">
-                                <p className="label" style={{ color: colourObj.color_1 }}> Request Feature</p>
-                              </div>
-                            </div>
-
-                            <div className="visibility_toggle" onClick={() => {
-                              setpopup2(true)
-                              setseleted_projectName(element.title)
-                              setseleted_projectTaskType("BUG")
-                            }}>
-                              <img className='header_icon' src={bug} />
-                              <div className="visibility_container">
-                                <p className="label" style={{ color: colourObj.color_1 }}>Report Bug</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <table id='internal_table' style={{ color: colourObj.color_1 }}>
-                          <thead>
-                            <tr>{renderHeader()}</tr>
-                          </thead>
-                          <tbody>
-                            {
-                              element.ProjectTasks.map(renderBody)
-                            }
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                    <button className="chart_button"
+                      onClick={() => {
+                        setganttChart(!ganttChart)
+                        setproject_taskTables(!project_taskTables)
+                      }}>{project_taskTables === true ? 'Chart' : 'Table'}
+                    </button>
                   </div>
-                )
-              })
-            }
-          />
+                );
+              })}
+            />
+          </>
         }
       </div>
       <Footer />
