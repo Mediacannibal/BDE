@@ -1,7 +1,7 @@
 const registerServiceWorker = () => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("./firebase-messaging-sw.js")
+        .register("firebase-messaging-sw.js")
         .then(function(registration) {
           console.log("Registration successful, scope is:", registration.scope);
         })
@@ -12,3 +12,5 @@ const registerServiceWorker = () => {
   };
   
   export { registerServiceWorker };
+
+    // Error during service worker registration: TypeError: Failed to register a ServiceWorker for scope ('https://app.mediacannibal.com/undefined/') with script ('https://app.mediacannibal.com/undefined/service-worker.js')
