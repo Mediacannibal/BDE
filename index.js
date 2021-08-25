@@ -12,7 +12,7 @@ import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
 import * as serviceWorker from './serviceWorker';
-import { registerServiceWorker } from "./src/register-sw";
+import { registerServiceWorker } from "./register-sw";
 
 
 
