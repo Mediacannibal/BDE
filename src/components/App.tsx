@@ -65,18 +65,16 @@ const App = () => {
     if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
       getToken()
 
-
-      // onMessageListener().then((message: any) => {
-      //   console.log(message);
-  
-      // }).catch((err: any) => console.log('failed: ', err));
-   
     }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-   
-   
+  if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
+
+    onMessageListener().then(message => {
+      // setShow(true);
+    }).catch(err => console.log('failed: ', err));
+  }
 
   return (
 
