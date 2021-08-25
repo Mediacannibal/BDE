@@ -11,7 +11,7 @@ import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './service-worker';
 import { registerServiceWorker } from "./register-sw";
 
 
