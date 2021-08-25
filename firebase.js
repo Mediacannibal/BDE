@@ -25,9 +25,6 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.getToken({ vapidKey: "BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M" });
-
-
 export const getToken = (setTokenFound) => {
   const a = messaging.getToken({ vapidKey: 'BHRovRsRVsGuEcsg3HaJ1fI4e_aBl9QYbkBSS7OHp7HzryXZm2nXQ2RvZrns1MNxZdVWGKACKMwAEGANZKqUR_M' }).then((currentToken) => {
     if (currentToken) {

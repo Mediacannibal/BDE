@@ -1,29 +1,32 @@
-// Scripts for firebase and firebase messaging
-importScripts('https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.6.2/firebase-messaging.js'); 
+ 
+import { getMessaging } from "firebase/messaging";
+import { onBackgroundMessage } from "firebase/messaging/sw";
 
-// Initialize the Firebase app in the service worker by passing the generated config
-var firebaseConfig = {
-    apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
-    authDomain: "mc-bde.firebaseapp.com",
-    projectId: "mc-bde",
-    storageBucket: "mc-bde.appspot.com",
-    messagingSenderId: "181659839939",
-    appId: "1:181659839939:web:bd1bd39cb9b2232add6176",
-    measurementId: "G-R7GER30TG2"
-};
+import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp({
+  apiKey: "AIzaSyBROSFdFQWbp8K2xMMjKaqazC4HP4grI5A",
+  authDomain: "mc-bde.firebaseapp.com",
+  projectId: "mc-bde",
+  storageBucket: "mc-bde.appspot.com",
+  messagingSenderId: "181659839939",
+  appId: "1:181659839939:web:bd1bd39cb9b2232add6176",
+  measurementId: "G-R7GER30TG2",
+  databaseURL: 'https://mc-bde.firebaseio.com',
+});
 
-// Retrieve firebase messaging
-const messaging = firebase.messaging();
-
-messaging.onBackgroundMessage(function(payload) {
-  console.log('serviceworker captured message', payload);
-
-  const notificationTitle = payload.notification.title;
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = getMessaging(firebaseApp);
+ 
+onBackgroundMessage(messaging, (payload) => {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  const notificationTitle = 'Background Message Title';
   const notificationOptions = {
-    body: payload.notification.body,
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png'
   };
 
   self.registration.showNotification(notificationTitle,
