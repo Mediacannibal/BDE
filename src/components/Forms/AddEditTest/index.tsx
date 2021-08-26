@@ -142,7 +142,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setdevelopmentvalid}
                     sendcheck={preSendValidator}
                     value={development}
-                    onchange={setdevelopment}
+                    onChange={setdevelopment}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" }]}
                   />
@@ -159,7 +159,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setaskemptyerror}
                     sendcheck={preSendValidator}
                     value={tasktype}
-                    onchange={settasktype}
+                    onChange={settasktype}
                     options={[
                       { "key": "0", "value": "FEATURE" },
                       { "key": "1", "value": "TEST" },
@@ -181,7 +181,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={settitlevalid}
                     sendcheck={preSendValidator}
                     value={test_title}
-                    onchange={settest_title}
+                    onChange={settest_title}
                   />
                 </div>
               </div>
@@ -199,7 +199,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setdescriptionvalid}
                     sendcheck={preSendValidator}
                     value={test_description}
-                    onchange={settest_description}
+                    onChange={settest_description}
                   />
                 </div>
               </div>
@@ -226,7 +226,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "Portrait" },
                       { "key": "1", "value": "Landscape" },
@@ -245,7 +245,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "yes" },
                       { "key": "1", "value": "no" },
@@ -281,7 +281,7 @@ const AddEditTest = ({ setPopup }) => {
                         valid={setpotraitcheckboxvalid}
                         sendcheck={preSendValidator}
                         value={potraitcheckbox}
-                        onchange={setpotraitcheckbox}
+                        onChange={setpotraitcheckbox}
                         options={[
                           { "key": "0", "value": "Android" },
                           { "key": "1", "value": "IOS" },

@@ -152,7 +152,7 @@ const AddEditBug = ({ setPopup }) => {
                         required={true}
                         sendcheck={preSendValidator}
                         value={company_assignee_ref}
-                        onchange={setcompany_assignee_ref}
+                        onChange={setcompany_assignee_ref}
                         options={Project_name()}
                       />
                     </div>
@@ -165,7 +165,7 @@ const AddEditBug = ({ setPopup }) => {
                         required={true}
                         sendcheck={preSendValidator}
                         value={branch_assignee_ref}
-                        onchange={setbranch_assignee_ref}
+                        onChange={setbranch_assignee_ref}
                         options={Project_name()}
                       />
                     </div>
@@ -178,7 +178,7 @@ const AddEditBug = ({ setPopup }) => {
                         required={true}
                         sendcheck={preSendValidator}
                         value={project_assignee_ref}
-                        onchange={setproject_assignee_ref}
+                        onChange={setproject_assignee_ref}
                         options={Project_name()}
                       />
                     </div>
@@ -237,7 +237,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "Portrait" },
                       { "key": "1", "value": "Landscape" },
@@ -394,7 +394,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setbugtitlevalid}
                     sendcheck={preSendValidator}
                     value={bug_title}
-                    onchange={setbug_title}
+                    onChange={setbug_title}
                   />
                 </div>
               </div>
@@ -412,7 +412,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setdescriptionvalid}
                     sendcheck={preSendValidator}
                     value={description}
-                    onchange={setdescription}
+                    onChange={setdescription}
                   />
                 </div>
               </div>

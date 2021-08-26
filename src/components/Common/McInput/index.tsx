@@ -16,7 +16,7 @@ const McInput = (props: any) => {
     const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
-        props.onchange(value)
+        props.onChange(value)
         setDropdownOpen(false)
         // console.log("select option value :", props.value)
     }
@@ -224,7 +224,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -233,7 +233,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -246,7 +246,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -255,7 +255,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -268,7 +268,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -277,7 +277,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 

@@ -57,7 +57,7 @@ const TestSelection = ({ setTest }) => {
                   valid={setdomainvalid}
                   sendcheck={preSendValidator}
                   value={domain}
-                  onchange={setdomain}
+                  onChange={setdomain}
                   options={[
                     { "key": "0", "value": "FRONT END" },
                     { "key": "1", "value": "BACK END" },
@@ -76,7 +76,7 @@ const TestSelection = ({ setTest }) => {
                   valid={setdomainvalid}
                   sendcheck={preSendValidator}
                   value={isselectslot}
-                  onchange={setisselectslot}
+                  onChange={setisselectslot}
                   options={[
                     { "key": "0", "value": "DAY" }]}
                 />

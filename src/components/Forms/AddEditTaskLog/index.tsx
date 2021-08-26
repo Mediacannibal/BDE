@@ -185,7 +185,7 @@ const AddEditTaskLog = ({ setPopup, taskid }) => {
                         valid={setremarksvalid}
                         sendcheck={preSendValidator}
                         value={remarks}
-                        onchange={setremarks}
+                        onChange={setremarks}
                       />
                     </div>
                   </div>

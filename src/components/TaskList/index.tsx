@@ -512,7 +512,7 @@ const TaskList = (props: any) => {
                       name={'Project'}
                       id='task_project_data'
                       value={project_id}
-                      onchange={setproject_id}
+                      onChange={setproject_id}
                       options={filter1}
                     />
                   </div>
@@ -523,7 +523,7 @@ const TaskList = (props: any) => {
                       name={'Domain'}
                       id='task_domain_data'
                       value={task_domain}
-                      onchange={settask_domain}
+                      onChange={settask_domain}
                       options={[
                         { key: '0', value: 'FRONTEND' },
                         { key: '1', value: 'BACKEND' },
@@ -539,7 +539,7 @@ const TaskList = (props: any) => {
                       id='task_type_data'
                       // valid={ settask_picker_typevalid}
                       value={task}
-                      onchange={settask}
+                      onChange={settask}
                       options={[
                         { key: '0', value: 'FEATURE' },
                         { key: '1', value: 'TEST' },
@@ -554,7 +554,7 @@ const TaskList = (props: any) => {
                       name={'Priority'}
                       id='task_priority_data'
                       value={task_priority}
-                      onchange={settask_priority}
+                      onChange={settask_priority}
                       options={[
                         { key: '0', value: 'Low' },
                         { key: '1', value: 'Normal' },
