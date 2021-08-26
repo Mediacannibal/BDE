@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react'
-
-import * as logofull from '../../assets/MC_logo_with_title.svg'
-import * as google from '../../assets/google-logo.svg'
-import * as facebook from '../../assets/facebook.svg'
-import { GoogleLogin } from 'react-google-login';
-import FacebookProvider, { Login } from 'react-facebook-sdk';
-import { Sociallogin } from '../../utils/actions'
-
-import '../../components/app.css'
+import Popup from '../Popup'
+import './style.css'
+import * as logofull from '../../../assets/MC_logo_with_title.svg'
+import {Sociallogin } from 'utils/actions';
 import { useHistory } from 'react-router-dom';
-import { generateOTP } from 'utils/api';
 import useCountDown from 'react-countdown-hook';
-import Footer from '../Common/Footer';
-import ReactGA from 'react-ga';
-import firebase from "../../../firebase";
-import { setuid } from 'process';
 import { useAuth } from 'store/authStore';
-import Cookie from 'components/Common/Cookies'
+import ReactGA from 'react-ga';
+import firebase from "../../../../firebase";
 
 declare global {
   interface Window { recaptchaVerifier: any; confirmationResult: any }
 }
 
-const LoginScreen = () => {
+const Cookie = (props: any) => {
   const { setAuth } = useAuth();
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
@@ -39,7 +30,21 @@ const LoginScreen = () => {
   const [phoneauth_uid, setphoneauth_uid] = useState('');
 
 
-  // const [time, settime] = useState(0)
+  const [cookie_popup, setcookie_popup] = useState(navigator.cookieEnabled)
+  const [EmailLoginPopup, setEmailLoginPopup] = useState(false);
+  const [aniout, setaniout] = useState(false);
+
+  const [otp_popup, setotp_popup] = useState(true);
+
+  const [email, setemail] = useState('');
+
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
+    console.log('Cookies Enabled ?', cookie_popup, props.localstorage);
+    lsTest()
+  }, [])
 
   const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter') {
@@ -47,11 +52,22 @@ const LoginScreen = () => {
     }
   }
 
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+  const lsTest = () => {
+    // var test = 'test';
+    // try {
+    //   localStorage.setItem(test, test);
+    //   localStorage.removeItem(test);
 
-  }, [])
+    //   console.log('PERMISSION : :', true);
+    // } catch (e) {
+    //   console.log('PERMISSION : :', false);
+    // }
+  }
 
+  const fade_in = (props: any) => {
+    let result = (aniout ? (props + " " + "fade_out") : (props + " " + "fade_in"))
+    return result
+  }
 
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
@@ -59,7 +75,7 @@ const LoginScreen = () => {
       // console.log('success ', data.data.results);
       // localStorage.setItem("otpResponse", JSON.stringify(data.data.results))
     } else {
-      errorlog(data, errorresponse)
+      // errorlog(data, errorresponse)
       console.log('error ' + JSON.stringify(data));
       console.log('error ' + JSON.stringify(errorresponse));
     }
@@ -145,14 +161,14 @@ const LoginScreen = () => {
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then(function (confirmationResult) {
+      .then(function (confirmationResult: any) {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
         // console.log(confirmationResult);
         console.log("OTP is sent");
       })
-      .catch(function (error) {
+      .catch(function (error: any) {
         console.log(error);
       });
   };
@@ -183,34 +199,74 @@ const LoginScreen = () => {
       });
   };
 
+
+
   return (
-    <div className="login_page">
+    <div style={{ zIndex: 999999 }}>
 
-      <div className='loginBG'></div>
+      {(props.localstorage_permission) === "disable" &&
+        < Popup
+          classname={"cookie"}
+          title={"ENABLE BROWSER COOKIES"}
+          actionable={false}
+          popup_body={
+            <div >
+              <div className='cookie_top_container'>
+                <img className='cookie_menu_logo' src={logofull} />
+              </div>
+              <div className="desc">
+                <div>Oops, look's like your cookies are Not Enabled..</div><br />
+                <div>We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.</div><br />
+                <div><u>Please Enable cookies in your browser settings.</u></div><br />
+                {"Settings > Privacy & Security > Cookies and other site data > Allow all cookies"}<br />
+                And then Refresh the page.
+              </div>
+            </div>
+          }
+        />
+      }
 
-      <div className="login_wrapper">
+      {!cookie_popup || props.googlecookies === "idpiframe_initialization_failed" &&
+        <Popup
+          classname={"cookie"}
+          title={"ENABLE BROWSER COOKIES"}
+          actionable={false}
+          popup_body={
+            <div >
+              <div className='cookie_top_container'>
+                <img className='cookie_menu_logo' src={logofull} />
+              </div>
 
-        <div className='login_top_container'>
-          <img className='login_menu_logo' src={logofull} />
+              <div className="desc">
+                <div>Oops, look's like your cookies are Not Enabled..</div><br />
+                <div>We serve cookies on this site to analyze traffic, remember your preferences, and optimize your experience.</div><br />
+                <div><u>Please Enable cookies in your browser settings.</u></div><br />
+                {"Settings > Privacy & Security > Cookies and other site data > Allow all cookies"}<br />
+                And then Refresh the page.
+              </div>
 
-          <div className='login_title_wrapper'>
-            <div className='login_title text_blue'>DESIGN</div>
-            <div className='login_title text_spacer'>|</div>
-            <div className='login_title text_blue'>DEVELOPMENT</div>
-            <div className='login_title text_spacer'>|</div>
-            <div className='login_title text_blue'>MARKETTING</div>
-          </div>
-        </div>
+              {props.googlecookies === "idpiframe_initialization_failed" &&
+                <div className="cookie_email_login_button_container">
+                  <div className="desc">OR</div><br />
+                  <div className="desc"><u>Login with your Email ID</u></div><br />
+                  <button className="cookie_email_login_button shadow"
+                    onClick={() => {
+                      setEmailLoginPopup(true)
+                      setcookie_popup(false)
+                    }}>LOGIN</button>
+                </div>
+              }
 
-        {/* {isotpsent ? */}
-        <div className="login_form_wrapper">
+            </div>
+          }
+        />
+      }
 
-          <div className="login_form_bg"></div>
+      {EmailLoginPopup &&
 
-          <div className='loginDescription_Text'>Login or Sign Up with any of the following:</div>
-
-          <div className=" login_popupformcontainer">
-
+        <Popup
+          actionable={false}
+          popup_body={
             <div className="login_container">
 
               <div className="login_button_container">
@@ -293,127 +349,15 @@ const LoginScreen = () => {
               </div>
             </div>
 
-            <div className='loginDescription_Text'>OR</div>
+          }
+        />
 
-            <div className="SMlogin_button_container">
-
-              <GoogleLogin
-                clientId="143329247794-2t842j36j0184ndelf6fqoqp3abk0g4i.apps.googleusercontent.com"
-                render={(renderProps: { onClick: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; disabled: boolean | undefined; }) => (
-                  <button className="login_SMbutton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    <img src={google} className="login_SMicon" />
-                    <div className="login_buttontext">Continue with Google</div>
-                  </button>
-                )}
-                buttonText="Login"
-                accessType="offline"
-                approvalPrompt="force"
-                prompt='consent'
-                onSuccess={(Response: { profileObj: any; }) => {
-                  console.log(Response);
-                  localStorage.setItem("Bearer", JSON.stringify(Response.accessToken))
-                  let userInfo = Response.profileObj;
-                  let data = {
-                    "lastname": userInfo.familyName,
-                    "firstname": userInfo.givenName,
-                    "photo_url": userInfo.imageUrl,
-                    "auth_provider": "google",
-                    "email": userInfo.email,
-                    "username": userInfo.googleId
-                  }
-                  Sociallogin(loginCallback, data);
-                }}
-                onFailure={(Response: any) => {
-                  setgoogle_cookies(Response.error)
-                  console.log(Response)
-                }}
-                cookiePolicy={'single_host_origin'}
-              />
-
-              <FacebookProvider appId="494516388401593">
-                <Login
-                  scope="email"
-                  onResponse={(response: any) => {
-                    console.log(response.profile);
-                    //  email: "medi.cann6@gmail.com"
-                    // first_name: "Medi"
-                    // id: "213891626989372"
-                    // last_name: "Cann"
-                    // name: "Medi Cann"
-                    console.log(Response)
-                    var formData = new FormData()
-                    let userInfo = response.profile
-                    formData.append('lastname', userInfo.last_name);
-                    formData.append('firstname', userInfo.first_name);
-                    // formData.append('photo_url', userInfo.photo_url);
-                    formData.append('auth_provider', "fb");
-                    formData.append('email', userInfo.email);
-                    formData.append('username', userInfo.id);
-                    Sociallogin(loginCallback, formData)
-                  }}
-                  onError={(response: any) => {
-                    console.log(response);
-                  }}
-                >
-                  <button className="login_SMbutton">
-                    <img src={facebook} className="login_SMicon" />
-                    <div className="login_buttontext">Continue with Facebook</div>
-                  </button>
-                </Login>
-              </FacebookProvider>
-            </div>
-
-          </div>
-          <div className='loginToS_Text'>By continuing, you accept the Terms of Service and the Privacy Policy.</div>
-        </div>
-
-        {/* :
-        <div className="login_form_wrapper">
-
-          <div className='login_title'>Enter OTP</div>
-          <div className='loginDescription_Text'>Please check SMS or E-mail for OTP.</div>
-
-          <div className=" login_popupformcontainer">
-            <div className="login_button_container">
-              <input id="password" type="password" placeholder="Enter OTP" className="login_input" onKeyPress={handleKeyPress} />
-            </div>
-
-            <div className="login_button_container">
-              <button onClick={() => {
-                history.push('/UserSetup')
-              }} className="login_validatebutton">
-                <div className="login_buttontext">Submit</div>
-              </button>
-            </div>
-
-            <div className="login_button_container">
-              <button onClick={() => { }} className="login_validatebutton">
-                <div className="login_buttontext">Resend OTP</div>
-              </button>
-            </div>
-
-            <div className="login_button_container">
-              <button onClick={() => {
-                setisotpsent(!isotpsent)
-              }} className="login_validatebutton">
-                <div className="login_buttontext">Change Email</div>
-              </button>
-            </div>
-          </div>
-        </div>
-      } */}
-
-      </div>
-      <Cookie googlecookies={google_cookies} />
-
-      <Footer bgColor={'bgtransparent'} />
-
+      }
     </div>
-
-  );
+  )
 }
 
-export default LoginScreen;
+export default Cookie;
 function Referrerid(Referrerid: any): string | Blob {
   throw new Error('Function not implemented.');
 }
