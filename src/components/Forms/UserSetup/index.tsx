@@ -110,7 +110,7 @@ const UserSetup = ({ setPopup }, props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data)
+          console.log("Company Names: ", data.data)
           setlistItems1(data.data.results)
         } else {
           setspinner(false)
@@ -142,7 +142,7 @@ const UserSetup = ({ setPopup }, props: any) => {
     }
   }, [])
 
-  const Company_name = () => {
+  const CompanyName = () => {
     let a: any = [];
     listItems1.forEach(element => {
       let data = {
@@ -465,8 +465,7 @@ console.log("OTP not matched")
                     <div className="input_checkbox">
                       <div className="checkbox_sub_container">
                         <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
-                          onChange={(e) => {
-                            // console.log(e);
+                          onChange={() => {
                             settickbox(!tickbox)
                           }} />
                         <div className="checkbox_text">Tick Me</div>
@@ -485,7 +484,8 @@ console.log("OTP not matched")
                             sendcheck={preSendValidator}
                             value={company_name}
                             onChange={setcompany_name}
-                            options={Company_name()} />
+                            options={CompanyName()}
+                          />
                         </div>
 
                         <div className="inputfield_sub_container">
@@ -498,7 +498,8 @@ console.log("OTP not matched")
                             sendcheck={preSendValidator}
                             value={branch_name}
                             onChange={setbranch_name}
-                            options={Branch_name()} />
+                            options={Branch_name()}
+                          />
                         </div>
 
                         <div className="inputfield_sub_container">
@@ -516,7 +517,8 @@ console.log("OTP not matched")
                               { "key": "1", "value": "ADMIN" },
                               { "key": "2", "value": "PROJECT ADMIN" },
                               { "key": "3", "value": "SUPER USER" },
-                            ]} />
+                            ]}
+                          />
                         </div>
                       </>
                     }
@@ -534,7 +536,8 @@ console.log("OTP not matched")
                           valid={setusernamevalid}
                           sendcheck={preSendValidator}
                           value={username}
-                          onChange={setusername} />
+                          onChange={setusername}
+                        />
                       </div>
                     </div>
 
@@ -551,7 +554,8 @@ console.log("OTP not matched")
                           valid={setfirstnamevalid}
                           sendcheck={preSendValidator}
                           value={firstname}
-                          onChange={setfirstname} />
+                          onChange={setfirstname}
+                        />
                       </div>
                     </div>
 
@@ -568,7 +572,8 @@ console.log("OTP not matched")
                           valid={setlastnamevalid}
                           sendcheck={preSendValidator}
                           value={lastname}
-                          onChange={setlastname} />
+                          onChange={setlastname}
+                        />
                       </div>
                     </div>
 
@@ -585,7 +590,8 @@ console.log("OTP not matched")
                           valid={setemailvalid}
                           sendcheck={preSendValidator}
                           value={email}
-                          onChange={setemail} />
+                          onChange={setemail}
+                        />
                       </div>
                     </div>
 
@@ -603,7 +609,8 @@ console.log("OTP not matched")
                           valid={setphonevalid}
                           sendcheck={preSendValidator}
                           value={phoneno}
-                          onChange={setphoneno} />
+                          onChange={setphoneno}
+                        />
                       </div>
                     </div>
 
@@ -625,7 +632,9 @@ console.log("OTP not matched")
                             <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
                               {passwordShown ? <img className="Password_visibility_icon" src={eye} />
                                 :
-                                <img className="Password_visibility_icon" src={eye_invisible} />}
+                                <img className="Password_visibility_icon" src={eye_invisible}
+                                />
+                              }
                             </div>
                           }
                         />
