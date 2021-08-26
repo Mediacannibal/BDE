@@ -48,6 +48,8 @@ const UserManagement = (props: any) => {
       "address": "",
       "dial_code": "",
       "phone": "",
+      "company_name": "",
+      "branch_name": "",
       "user_type": "",
       "auth_type": "",
     }
@@ -66,6 +68,8 @@ const UserManagement = (props: any) => {
   const [address, setaddress] = useState('');
   const [dial_code, setdial_code] = useState('');
   const [phone, setphone] = useState('');
+  const [company_name, setcompany_name] = useState('');
+  const [branch_name, setbranch_name] = useState('');
   const [user_type, setuser_type] = useState({ });
   const [auth_type, setauth_type] = useState({ });
 
@@ -134,6 +138,8 @@ const UserManagement = (props: any) => {
         setaddress(obj.address)
         setdial_code(obj.dial_code)
         setphone(obj.phone)
+        setcompany_name(obj.company_name)
+        setbranch_name(obj.branch_name)
         setuser_type({ "value": obj.user_type })
         setauth_type({ "value": obj.auth_type })
       }
@@ -141,7 +147,7 @@ const UserManagement = (props: any) => {
   }
 
   const renderHeader = () => {
-    let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
+    let headerElement = ['first name', 'last name', 'email', 'image', 'photo url', 'dob', 'gender', 'address', 'dial code', 'phone', 'Company Name', 'Branch Name', 'user type', 'Login Method']
 
     return headerElement.map((key, index) => {
       return (
@@ -162,15 +168,20 @@ const UserManagement = (props: any) => {
     return (
       <>
         <tr key={element.id} >
-          <td>{element.company_name}</td>
-          <td>{element.branch_name}</td>
-          <td>{element.username.username}</td>
           <td>{element.firstname}</td>
-          <td>{element.lastname}</td>
-          <td>{element.email}</td>
-          <td>{element.phone}</td>
-          <td>{element.user_type}</td>
-          <td>{"*************"}</td>
+          <td >{element.lastname}</td>
+          <td >{element.email}</td>
+          <td >{element.image}</td>
+          <td > <img className="dashboard_list_logo" src={element.photo_url} /></td>
+          <td >{element.dob}</td>
+          <td >{element.gender}</td>
+          <td >{element.address}</td>
+          <td >{element.dial_code}</td>
+          <td >{element.phone}</td>
+          <td >{element.company_name}</td>
+          <td >{element.branch_name}</td>
+          <td >{element.user_type}</td>
+          <td >{element.auth_type}</td>
           <td >
             <div className="table_edit_delete_main">
               <div className='table_edit_delete'>
@@ -308,9 +319,7 @@ const UserManagement = (props: any) => {
                   />
                 </div>
 
-              </div>
 
-              <div className="div_column_wrap">
 
                 <div className="inputfield_sub_container">
                   <McInput
@@ -328,6 +337,10 @@ const UserManagement = (props: any) => {
                     description={"Enter user Gender"}
                   />
                 </div>
+
+              </div>
+
+              <div className="div_column_wrap">
 
                 <div className="inputfield_sub_container">
                   <McInput
@@ -370,6 +383,36 @@ const UserManagement = (props: any) => {
                     required={true}
                     value={phone}
                     onchange={setphone}
+                    description={"Enter user Phone Number"}
+                  />
+                </div>
+
+                <div className="inputfield_sub_container">
+                  <McInput
+                    label={"COMPANY NAME"}
+                    id="input_company_nametextbox"
+                    name={`data.company_name`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    value={company_name}
+                    onchange={setcompany_name}
+                    description={"Enter user Phone Number"}
+                  />
+                </div>
+
+                <div className="inputfield_sub_container">
+                  <McInput
+                    label={"BRANCH NAME"}
+                    id="input_branch_nametextbox"
+                    name={`data.phone`}
+                    inputtype="Text"
+                    type="text"
+                    min_length="3"
+                    required={true}
+                    value={branch_name}
+                    onchange={setbranch_name}
                     description={"Enter user Phone Number"}
                   />
                 </div>
@@ -434,6 +477,8 @@ const UserManagement = (props: any) => {
                 a.address = String(document.getElementById("input_addresstextbox").value);
                 a.dial_code = String(document.getElementById("input_dial_codetextbox").value);
                 a.phone = String(document.getElementById("input_phonetextbox").value);
+                a.company_name = String(document.getElementById("input_company_nametextbox").value);
+                a.branch_name = String(document.getElementById("input_branch_nametextbox").value);
                 a.user_type = user_type?.value;
                 a.auth_type = auth_type?.value;
                 return a;
@@ -452,6 +497,8 @@ const UserManagement = (props: any) => {
               address: String(document.getElementById("input_addresstextbox").value),
               dial_code: String(document.getElementById("input_dial_codetextbox").value),
               phone: String(document.getElementById("input_phonetextbox").value),
+              company_name: String(document.getElementById("input_company_nametextbox").value),
+              branch_name: String(document.getElementById("input_branch_nametextbox").value),
               user_type: user_type?.value,
               auth_type: auth_type?.value,
             }

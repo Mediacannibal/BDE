@@ -26,3 +26,8 @@
 .inputfield_sub_container {
     padding: calc(0.3vw + 0.9vh + 0.3vmin);
 }
+
+.dashboard_list_logo {
+    height: 40px;
+    margin: 12px;
+}
