@@ -151,7 +151,7 @@ const McInput = (props: any) => {
         let a = data.target.value.replace((input_replace_regex[0]), (input_replace_regex[1]))
 
         setinput_data(a)
-        props.onchange(a)
+        props.onChange(a)
 
         let b = input_format_validation_regex.test(a)
 
