@@ -229,7 +229,7 @@ const TaskDetails = () => {
                       required={false}
                       type="text"
                       value={title}
-                      onchange={settitle}
+                      onChange={settitle}
                     />
                   </div>
 

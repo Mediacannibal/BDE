@@ -139,7 +139,7 @@ const AddEditUserList = ({ setPopup, taskid }) => {
                     valid={setuservalid}
                     sendcheck={preSendValidator}
                     value={user}
-                    onchange={setuser}
+                    onChange={setuser}
                     options={User_name()}
                   />
                 </div>
@@ -156,7 +156,7 @@ const AddEditUserList = ({ setPopup, taskid }) => {
                     valid={setrolevalid}
                     sendcheck={preSendValidator}
                     value={role}
-                    onchange={setrole}
+                    onChange={setrole}
                     options={[
                       { "key": "0", "value": "Super Admin" },
                       { "key": "1", "value": "Admin" },

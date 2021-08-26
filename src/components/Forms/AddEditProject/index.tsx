@@ -146,7 +146,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setSlotvalid}
                     sendcheck={preSendValidator}
                     value={isselectslot}
-                    onchange={setisselectslot}
+                    onChange={setisselectslot}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" },
                       { "key": "1", "value": "DESIGN" },
@@ -168,7 +168,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setTitlevalid}
                     sendcheck={preSendValidator}
                     value={title}
-                    onchange={settitle}
+                    onChange={settitle}
                   />
                 </div>
               </div>
@@ -186,7 +186,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setDescriptionvaild}
                     sendcheck={preSendValidator}
                     value={description}
-                    onchange={setdescription}
+                    onChange={setdescription}
                   />
                 </div>
               </div>
