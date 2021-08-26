@@ -76,6 +76,8 @@ const UserSetup = ({ setPopup }, props: any) => {
   };
   // console.log(errors);
 
+
+
   const Validate = () => {
     // console.log(companynamevalid, branchvalid, usernamevalid,
     //   firstnamevalid, lastnamevalid, emailvalid,
@@ -103,15 +105,15 @@ const UserSetup = ({ setPopup }, props: any) => {
   useEffect(() => {
     CommonAPi(
       {
-        path: `company/info/`,
+        path: `company/list/dropdown/`,
         method: "get",
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Company Names: ", data.data)
-          setlistItems1(data.data.results)
+          // console.log("Company Names: ", data.data)
+          setlistItems1(data.data)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));
@@ -121,15 +123,15 @@ const UserSetup = ({ setPopup }, props: any) => {
 
     CommonAPi(
       {
-        path: `company/branch/?user=all`,
+        path: `company/branch/list/dropdown/`,
         method: "get",
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
-          setlistItems2(data.data.results)
+          // console.log("Project Tasks: ", data.data)
+          setlistItems2(data.data)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));
@@ -154,7 +156,7 @@ const UserSetup = ({ setPopup }, props: any) => {
     return a
   }
 
-  const Branch_name = () => {
+  const BranchName = () => {
     let a: any = [];
     listItems2.forEach(element => {
       let data = {
@@ -498,7 +500,7 @@ console.log("OTP not matched")
                             sendcheck={preSendValidator}
                             value={branch_name}
                             onChange={setbranch_name}
-                            options={Branch_name()}
+                            options={BranchName()}
                           />
                         </div>
 
