@@ -20,9 +20,8 @@ const AddEditUserList = ({ setPopup, taskid }) => {
 
   const [ispopup, setispopup] = useState(false)
 
-  const [user, setuser] = useState('')
-  const [user_list_type, setuser_list_type] = useState('')
-  const [role, setrole] = useState('')
+  const [user, setuser] = useState({})
+  const [role, setrole] = useState({})
 
   const [uservalid, setuservalid] = useState(false)
   const [usertypevalid, setusertypevalid] = useState(false)
@@ -138,7 +137,7 @@ const AddEditUserList = ({ setPopup, taskid }) => {
                     required={true}
                     valid={setuservalid}
                     sendcheck={preSendValidator}
-                    value={user}
+                    value={user?.value}
                     onChange={setuser}
                     options={User_name()}
                   />
@@ -155,7 +154,7 @@ const AddEditUserList = ({ setPopup, taskid }) => {
                     required={true}
                     valid={setrolevalid}
                     sendcheck={preSendValidator}
-                    value={role}
+                    value={role?.value}
                     onChange={setrole}
                     options={[
                       { "key": "0", "value": "Super Admin" },

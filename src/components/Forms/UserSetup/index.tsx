@@ -29,15 +29,15 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   const [passwordShown, setpasswordShown] = useState(false);
 
-  const [company_name, setcompany_name] = useState('')
-  const [branch_name, setbranch_name] = useState('')
-  const [firstname, setfirstname] = useState('')
-  const [username, setusername] = useState('')
-  const [lastname, setlastname] = useState('')
-  const [email, setemail] = useState('')
-  const [phoneno, setphoneno] = useState('')
-  const [usertype, setusertype] = useState('')
-  const [password, setpassword] = useState('')
+  const [company_name, setcompany_name] = useState({})
+  const [branch_name, setbranch_name] = useState({})
+  const [firstname, setfirstname] = useState({})
+  const [username, setusername] = useState({})
+  const [lastname, setlastname] = useState({})
+  const [email, setemail] = useState({})
+  const [phoneno, setphoneno] = useState({})
+  const [usertype, setusertype] = useState({})
+  const [password, setpassword] = useState({})
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
   const [branchvalid, setbranchvalid] = useState(false)
@@ -414,7 +414,7 @@ console.log("OTP not matched")
               confirmClick={() => {
                 let data = [];
                 let object = {
-                  "company_name": company_name,
+                  "company_name": company_name?.value,
                   "branch_name": branch_name,
                   "username": username,
                   "firstname": firstname,
@@ -484,7 +484,7 @@ console.log("OTP not matched")
                             required={true}
                             valid={setcompanynamevalid}
                             sendcheck={preSendValidator}
-                            value={company_name}
+                            value={company_name?.value}
                             onChange={setcompany_name}
                             options={CompanyName()}
                           />
@@ -498,7 +498,7 @@ console.log("OTP not matched")
                             required={true}
                             valid={setbranchvalid}
                             sendcheck={preSendValidator}
-                            value={branch_name}
+                            value={branch_name?.value}
                             onChange={setbranch_name}
                             options={BranchName()}
                           />
@@ -512,7 +512,7 @@ console.log("OTP not matched")
                             required={true}
                             valid={setusertypevalid}
                             sendcheck={preSendValidator}
-                            value={usertype}
+                            value={usertype?.value}
                             onChange={setusertype}
                             options={[
                               { "key": "0", "value": "NORMAL" },

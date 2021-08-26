@@ -21,7 +21,7 @@ const McInput = (props: any) => {
     const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
-        props.onchange(value)
+        props.onChange(value)
         setDropdownOpen(false)
         // console.log("select option value :", props.value)
     }

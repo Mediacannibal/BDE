@@ -20,8 +20,8 @@ const AddEditTest = ({ setPopup }) => {
   const [backendresponse, setbackendresponse] = useState('');
 
 
-  const [development, setdevelopment] = useState('')
-  const [tasktype, settasktype] = useState('')
+  const [development, setdevelopment] = useState([])
+  const [tasktype, settasktype] = useState({})
   const [test_title, settest_title] = useState('');
   const [test_description, settest_description] = useState('');
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
@@ -141,7 +141,7 @@ const AddEditTest = ({ setPopup }) => {
                     required={true}
                     valid={setdevelopmentvalid}
                     sendcheck={preSendValidator}
-                    value={development}
+                    value={development?.value}
                     onChange={setdevelopment}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" }]}
@@ -158,7 +158,7 @@ const AddEditTest = ({ setPopup }) => {
                     required={true}
                     valid={setaskemptyerror}
                     sendcheck={preSendValidator}
-                    value={tasktype}
+                    value={tasktype?.value}
                     onChange={settasktype}
                     options={[
                       { "key": "0", "value": "FEATURE" },
