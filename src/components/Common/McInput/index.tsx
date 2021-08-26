@@ -5,8 +5,13 @@ import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
+import { file_upload } from '../../../utils/actions';
+import { useAuth } from '../../../store/authStore';
+
 
 const McInput = (props: any) => {
+
+    const { auth } = useAuth();
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -16,7 +21,7 @@ const McInput = (props: any) => {
     const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
-        props.onChange(value)
+        props.onchange(value)
         setDropdownOpen(false)
         // console.log("select option value :", props.value)
     }
@@ -42,6 +47,7 @@ const McInput = (props: any) => {
 
     const [error_message, seterror_message] = useState("")
 
+    const [filedata, setfiledata] = useState("")
 
     const [inputpaddingclassname, setInputPaddingClassName] = useState("")
 
@@ -151,7 +157,7 @@ const McInput = (props: any) => {
         let a = data.target.value.replace((input_replace_regex[0]), (input_replace_regex[1]))
 
         setinput_data(a)
-        props.onChange(a)
+        props.onchange(a)
 
         let b = input_format_validation_regex.test(a)
 
@@ -195,12 +201,37 @@ const McInput = (props: any) => {
 
     }
 
+
+    const onChangeHandler = (data: any) => {
+        console.log(data.target.files[0])
+        let file = data.target.files[0]
+        console.log(file);
+
+        let formdata = new FormData()
+        formdata.append("file", file)
+        file_upload(Callback, auth, formdata)
+    }
+
+    const Callback = async (data: any, errorresponse: any) => {
+        if (data.status === 201) {
+            console.log("respnse :", data, props)
+            // props.valid(data.data.file)
+            props.onchange(data.data.file)
+            // Reformat_and_Validate(data.data.file)
+        }
+        else {
+            console.log('error ' + JSON.stringify(data));
+            console.log('error ' + JSON.stringify(errorresponse));
+        }
+    };
+
+
     return (
         <div className="input_box_wrapper">
 
             <div className="input_outer_div">
 
-                <div className={((input_data !== "") || (isActive === true)) ? "top Label" : "Empty Label"}>{props.label}</div>
+                <div className={((input_data !== "") || (isActive === true)) ? "top Label" : "Empty Label"} >{props.label}</div>
 
                 <div className="input_innerLeft_div">
                     {props.input_inner_leftprop}
@@ -215,6 +246,30 @@ const McInput = (props: any) => {
                         </div>
                     }
 
+                    {(props.type === "file") &&
+                        <>
+                            <input type="text" id={props.id} value={props.value}
+                                onChange={(data: any) => {
+                                    props.onchange(data.target.value)
+                                }} />
+                            <input type="file" name="file" className="upload-btn" onChange={onChangeHandler} />
+                        </>
+                    }
+
+                    {(props.type === "color_picker") &&
+                        <>
+                            <input type="text" id={props.id} value={props.value}
+                                onChange={(data: any) => {
+                                    props.onchange(data.target.value)
+                                }} />
+                            <input type="color" className="color_picker"
+                                value={props.value}
+                                onChange={(data: any) => {
+                                    props.onchange(data.target.value)
+                                }} />
+                        </>
+                    }
+
                     {(props.type === "text") &&
                         <input {...props}
                             className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
@@ -224,7 +279,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -233,7 +288,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -246,7 +301,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -255,20 +310,21 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
                     {(props.type === "textarea") &&
                         <textarea {...props}
                             className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+
                             value={props.value}
                             onChange={(data: any) => {
                                 Reformat_and_Validate(data)
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -277,15 +333,14 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
-
-
                     {(props.type === "checkbox") &&
-                        <div className={((props.valid === false) && (props.required == true)) ? "invalid_entry_container" : ""}>
-                            {props.options.map((option: any) => (
+                        <div className={((props.valid === false) && (props.required == true)) ? "invalid_entry_container" : ""}
+                        >
+                            {props?.options?.map((option: any) => (
                                 <div className={"checkbox_option_wrapper"}>
                                     <input {...props}
                                         type="checkbox"
@@ -304,13 +359,15 @@ const McInput = (props: any) => {
                                     <div className="checkbox_text">{option.value}</div>
                                 </div>
                             ))}
+
                         </div>
                     }
 
                     {(props.type === "radio") &&
-                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
+                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}
+                        >
 
-                            {props.options.map((option: any) => (
+                            {props.options?.map((option: any) => (
                                 <div className={"checkbox_option_wrapper"}>
                                     <input {...props}
                                         type="radio"
@@ -320,34 +377,7 @@ const McInput = (props: any) => {
                                         value={option.value}
                                         checked={checkedOptionValue === option.value}
                                         onChange={(e) => {
-                                            // console.log(e);
-                                            handleRadioChange(e)
-                                            seterror_message("")
-                                            props.valid(true)
-                                            setinput_data(option.value)
-                                        }}
-                                    />
-                                    <div className="checkbox_text">{option.value}</div>
-                                </div>
-                            ))}
-
-                        </div>
-                    }
-
-                    {(props.type === "user_picker") &&
-                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
-
-                            {props.options.map((option: any) => (
-                                <div className={"checkbox_option_wrapper"}>
-                                    <input {...props}
-                                        type="text"
-                                        id={props.id + option.value}
-                                        className="checkbox"
-                                        name={props.id}
-                                        value={option.value}
-                                        checked={checkedOptionValue === option.value}
-                                        onChange={(e) => {
-                                            // console.log(e);
+                                            console.log(e);
                                             handleRadioChange(e)
                                             seterror_message("")
                                             props.valid(true)
@@ -385,11 +415,12 @@ const McInput = (props: any) => {
 
             {dropdownOpen && (
                 <div className="DropDownListContainer">
-                    <div className={((props.valid === false) && (props.required == true)) ? "DropDownList invalid_entry_container" : "DropDownList"}>
-                        {props.options.map((option: any) => (
+                    <div className={((props.valid === false) && (props.required == true)) ? "DropDownList invalid_entry_container" : "DropDownList"}
+                    >
+                        {props.options?.map((option: any) => (
                             <div className="dropdown_option"
                                 onClick={(data: any) => {
-                                    onOptionClicked(option.value)
+                                    onOptionClicked(option)
                                     seterror_message("")
                                     props.valid(true)
                                     setinput_data(option.value)
@@ -403,12 +434,20 @@ const McInput = (props: any) => {
                 </div>
             )}
 
-            <div className="invalid_entry">{
+            <div className="invalid_entry" >{
                 ((String(input_data).length === 0) && (props.required === true) && (props.sendcheck === true)) ?
                     "Field is required."
                     :
                     error_message
             }
+            </div>
+
+            <div className="field_description">
+
+                <div className='description_text' >
+                    {props.description}
+                </div>
+
             </div>
 
         </div>
