@@ -7,10 +7,13 @@ import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
 import { createMainTask, fileupload } from 'utils/api';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTest = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+
   const [number, setnumber] = useState(0)
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -42,6 +45,12 @@ const AddEditTest = ({ setPopup }) => {
     "remarks": "",
     "image_link": ""
   }])
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -91,6 +100,7 @@ const AddEditTest = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Test?"}
           desc1={"The following Test will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
@@ -132,7 +142,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setdevelopmentvalid}
                     sendcheck={preSendValidator}
                     value={development}
-                    onchange={setdevelopment}
+                    onChange={setdevelopment}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" }]}
                   />
@@ -149,7 +159,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setaskemptyerror}
                     sendcheck={preSendValidator}
                     value={tasktype}
-                    onchange={settasktype}
+                    onChange={settasktype}
                     options={[
                       { "key": "0", "value": "FEATURE" },
                       { "key": "1", "value": "TEST" },
@@ -171,7 +181,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={settitlevalid}
                     sendcheck={preSendValidator}
                     value={test_title}
-                    onchange={settest_title}
+                    onChange={settest_title}
                   />
                 </div>
               </div>
@@ -189,7 +199,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setdescriptionvalid}
                     sendcheck={preSendValidator}
                     value={test_description}
-                    onchange={settest_description}
+                    onChange={settest_description}
                   />
                 </div>
               </div>
@@ -216,7 +226,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "Portrait" },
                       { "key": "1", "value": "Landscape" },
@@ -235,7 +245,7 @@ const AddEditTest = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "yes" },
                       { "key": "1", "value": "no" },
@@ -245,7 +255,7 @@ const AddEditTest = ({ setPopup }) => {
                 </div>
               </div> */}
 
-              <div className="user_band">
+              <div className="user_band" style={{ color: colourObj.color_10 }}>
 
               </div>
 
@@ -271,7 +281,7 @@ const AddEditTest = ({ setPopup }) => {
                         valid={setpotraitcheckboxvalid}
                         sendcheck={preSendValidator}
                         value={potraitcheckbox}
-                        onchange={setpotraitcheckbox}
+                        onChange={setpotraitcheckbox}
                         options={[
                           { "key": "0", "value": "Android" },
                           { "key": "1", "value": "IOS" },

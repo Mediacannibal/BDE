@@ -1,0 +1,30 @@
+assigned_by_id: 140
+assigned_to_id: 3
+assisted_by_id: null
+created_at: "2021-07-09T14:27:38.023753Z"
+created_by_id: 140
+deleted_at: null
+deleted_by_id: null
+dependencies: null
+description: "It is dummy task data"
+domain: "UI"
+end_date: null
+id: 44
+image_link: null
+isDisabled: true
+linked_logs: ""
+milestone: false
+open_id: null
+open_type: null
+parent_child: null
+priority: "Normal"
+progress: null
+project_ref_id: 1
+remarks: null
+start_date: null
+status: null
+task_type: "UPDATE"
+time_spent: "4 days, 01:12:17.000"
+title: "Dummy Task"
+updated_at: "2021-07-19T17:04:06.854079Z"
+updated_by_id: 140

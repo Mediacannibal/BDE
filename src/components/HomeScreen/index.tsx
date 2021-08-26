@@ -5,13 +5,19 @@ import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
 import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
-import { CommonAPi } from 'utils/api';
+import { CommonAPi, getMainTask } from 'utils/api';
 
 import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import { ColourObject } from 'store/ColourStore';
+import McInput from 'components/Common/McInput';
+import * as eye from '../../assets/eye-visibility.svg'
+import * as eye_invisible from '../../assets/eye-invisible.svg'
+import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions';
+import * as defaultusericon from '../../assets/user_icon.svg'
 
 const HomeScreen = (props: any) => {
   const { auth } = useAuth();
@@ -24,12 +30,27 @@ const HomeScreen = (props: any) => {
   const [task, settask] = useState('')
   const [user_list, setuser_list] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
+  const [project, setproject] = useState('')
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
+  const [users, setusers] = useState('')
 
-  const { Colour, setColour, loadColour } = ColourObject()
-  const [users, setusers] = useState('all')
+  const [isselectslot, setisselectslot] = useState('')
+  const [title, settitle] = useState('')
+  const [description, setdescription] = useState('')
+  const [password, setpassword] = useState('')
+
+  const [passwordShown, setpasswordShown] = useState(false);
+
+  const [slotvalid, setSlotvalid] = useState(false)
+  const [titlevalid, setTitlevalid] = useState(false)
+  const [descriptionvaild, setDescriptionvaild] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
+
+  const [preSendValidator, setPreSendValidator] = useState(false)
+
+
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -49,7 +70,7 @@ const HomeScreen = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
+          console.log("Project Tasks: ", data.data.results)
           setlistItems1(data.data.results)
         } else {
           setspinner(false)
@@ -58,24 +79,30 @@ const HomeScreen = (props: any) => {
         }
       })
 
-    CommonAPi(
-      {
-        path: `tasks/maintask/?task_type=${task}&user=${user_list}&parent_child=${parent_child}&domain=${task_domain}&priority=${task_priority}&project_ref=${project}`,
-        method: "get",
-        auth: auth ? auth : false,
-      },
-      (data: any, errorresponse: any) => {
+    getMainTask(
+      async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks:", data.data)
-          setlistItems2(data.data.results)
+          // console.log("Task Assigned: ", data.data.results.Assigned)
+          // console.log("Task Open: ", data.data.results.Open)
+
+          setlistItems2(data.data.results.Assigned)
+
         } else {
           setspinner(false)
-          console.log('error ' + JSON.stringify(data));
-          console.log('error ' + JSON.stringify(errorresponse));
+          console.log('error ' + JSON.stringify(data))
+          console.log('error ' + JSON.stringify(errorresponse))
         }
-      })
-
+      },
+      auth,
+      // task,
+      // users,
+      // parent_child,
+      // task_domain,
+      // task_priority,
+      // project_ref,
+      // project_id
+    )
   }, [])
 
   const getClassname = (key: any) => {
@@ -110,13 +137,31 @@ const HomeScreen = (props: any) => {
     let headerElement = ['Title']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
   const renderBody1 = (element: any) => {
     return (
-      <tr key={element.id}>
+      <tr key={element.id}
+        onClick={() => {
+          history.push(
+            {
+              pathname: `/TaskDetails/${getChatID("project", element.id)}`,
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.title}</td>
       </tr>
     )
@@ -126,20 +171,53 @@ const HomeScreen = (props: any) => {
     let headerElement = ['Task Type', 'priority', 'status', 'title', 'assignee']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
   const renderBody2 = (element: any) => {
+    let assigned_to = element?.assigned_to;
+
     return (
-      <tr key={element.id} className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.task_type}</td>
         <td>{element.priority}</td>
         <td>{element.status}</td>
         <td>{element.title}</td>
-        <td>{element.assigned_to}</td>
+        <td>{getphotoimage(assigned_to)}</td>
       </tr>
     )
+  }
+
+  const getphotoimage = (obj: any) => {
+    if (obj === null || obj.length === 0)
+      return null
+    else
+      return (
+        <>
+          <div className="assign_wrap">
+            <img className='user_icon' src={(obj[0].photo_url === null) ? defaultusericon : obj[0].photo_url} />
+          </div>
+        </>
+      )
   }
 
   return (
@@ -151,7 +229,7 @@ const HomeScreen = (props: any) => {
           }}
         />
       }
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
+      <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
@@ -160,7 +238,7 @@ const HomeScreen = (props: any) => {
             <Card
               card_title="Active Projects"
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader1()}</tr>
@@ -177,7 +255,7 @@ const HomeScreen = (props: any) => {
             <Card
               card_title="Pending Tasks"
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader2()}</tr>
@@ -193,9 +271,9 @@ const HomeScreen = (props: any) => {
               card_title="Stats"
               card_body={
                 <>
-                  <div className="card_details">1,000 Tasks Completed</div>
-                  <div className="card_details">500 Features Added</div>
-                  <div className="card_details">50,000 Bugs Squashed</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>1,000 Tasks Completed</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>500 Features Added</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>50,000 Bugs Squashed</div>
                 </>
               }
             />
@@ -203,9 +281,9 @@ const HomeScreen = (props: any) => {
               card_title="Analystics"
               card_body={
                 <>
-                  <div className="card_details">Visitors 10,000</div>
-                  <div className="card_details">Countries</div>
-                  <div className="card_details">Devices</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Visitors 10,000</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Countries</div>
+                  <div className="card_details" style={{ color: colourObj.color_1 }}>Devices</div>
                 </>
               }
             />

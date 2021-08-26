@@ -107,5 +107,14 @@ plugins: [
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }
   ),
+  new SWPrecacheWebpackPlugin(
+    {
+      cacheId: 'mc-bde1',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'serviceWorker.js',
+      minify: true,
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }
+  ),
 ]
 }

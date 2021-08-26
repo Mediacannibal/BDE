@@ -1,0 +1,17 @@
+.total_time_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.total_time_title {
+    font-size: var(--TS6);
+    font-weight: 600;
+    display: flex;
+    padding: 1vh;
+}
+
+.total_timeSpent {
+    display: flex;
+    padding: 1vh;
+}

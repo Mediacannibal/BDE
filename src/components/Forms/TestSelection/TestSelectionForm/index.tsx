@@ -96,7 +96,7 @@ const TestSelectionForm = () => {
                   valid={setdescriptionvalid}
                   sendcheck={preSendValidator}
                   value={description}
-                  onchange={setdescription}
+                  onChange={setdescription}
                 />
               </div >
             </div >
@@ -154,7 +154,7 @@ const TestSelectionForm = () => {
                       valid={setandroidvalid}
                       sendcheck={preSendValidator}
                       value={android}
-                      onchange={setandroid}
+                      onChange={setandroid}
                     />
                   </div >
                 </div >
@@ -182,7 +182,7 @@ const TestSelectionForm = () => {
                       valid={setiosvalid}
                       sendcheck={preSendValidator}
                       value={ios}
-                      onchange={setios}
+                      onChange={setios}
                     />
                   </div >
                 </div >
@@ -210,7 +210,7 @@ const TestSelectionForm = () => {
                       valid={setbrowservalid}
                       sendcheck={preSendValidator}
                       value={browser}
-                      onchange={setbrowser}
+                      onChange={setbrowser}
                     />
                   </div >
                 </div >
@@ -241,7 +241,7 @@ const TestSelectionForm = () => {
                     valid={setfeedbackvalid}
                     sendcheck={preSendValidator}
                     value={feedback}
-                    onchange={setfeedback}
+                    onChange={setfeedback}
                   />
                 </div >
               </div >

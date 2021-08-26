@@ -19,14 +19,14 @@
                     "value": "application/json",
                     "type": "text"
                 }, {
-                    "key": "",
-                    "value": "",
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
                     "type": "text",
                     "disabled": true
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\"auth_provider\": \"otp\",\r\n\"email_otp\": \"3280\",\r\n\"username\": \"kiranraj1@gmail.com\"\r\n}"
+                    "raw": "{\r\n\"lastname\": \"Raj11r1\",\r\n\"firstname\": \"Kiran11r\",\r\n\"photo_url\": \"https://lh3.googleusercontent.com/a-/AOh14GiTcY1rZiU49zG0ptwZwZR3USNE3ds5O0QSPVAs8w=s96-c\",\r\n\"auth_provider\": \"google\",\r\n\"phone\": 8147244931,\r\n\"email\": \"kiranrajwrrwwfb323@gmail.com\",\r\n\"username\": \"1027980856860143094314\",\r\n\"link_account\": 0\r\n}"
                 },
                 "url": "{{url}}api/user/social/signup/"
             },
@@ -202,7 +202,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n\"company_name\": \"kiran company_name\",\r\n\"branch_name\": \"kiran branch_name1\",\r\n\"username\" :\"kiran wwlname\",\r\n\"email\": \"kiranraj1234@gmail.com\",\r\n\"firstname\": \"kiran_firstname\",\r\n\"lastname\": \"kiran lastname\",\r\n\"password\": \"password@123\",\r\n\"phone\": \"9086997447\",\r\n\"user_type\": \"ADMIN\"\r\n }"
+                    "raw": "{\r\n\"company_name\": \"email_company\",\r\n\"branch_name\": \"email_name\",\r\n\"username\" :\"email_otp_admin\",\r\n\"email\": \"adiakash3@gmail.com\",\r\n\"firstname\": \"animdal\",\r\n\"lastname\": \"testdj_user\",\r\n\"password\": \"password@123\",\r\n\"is_active\" : true,\r\n\"phone\": \"8147244934\",\r\n\"user_type\": \"ADMIN\"\r\n }"
                 },
                 "url": "{{url}}api/user/social/signup/normal/"
             },
@@ -599,7 +599,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": " {\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swddfffdfv\",\r\n        \"domain\": \"UI\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwbnhjh,.k,mghfdssef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wddghjkyl;ilkjhgfdsdgrthukef\",\r\n        \"time_spent\": null,\r\n        \"parent_child\": null,\r\n        \"assigned_by\": null,\r\n        \"assigned_to\": null,\r\n        \"assisted_by\": null,\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 5,\r\n        \"created_by\": null,\r\n        \"updated_by\": null,\r\n        \"deleted_by\": null\r\n    }"
+                    "raw": " {\r\n        \"priority\": \"Low\",\r\n        \"task_type\": \"FEATURE\",\r\n        \"status\": \"Pending\",\r\n        \"title\": \"swddfffdfv\",\r\n        \"domain\": \"UI\",\r\n        \"description\": \"wdqefw\",\r\n        \"remarks\": \"dwbnhjh,.k,mghfdssef\",\r\n        \"image_link\": \"http://127.0.0.1:8000/admin/tasks/maintasklist/add/\",\r\n        \"linked_logs\": \"wddghjkyl;ilkjhgfdsdgrthukef\",\r\n        \"time_spent\": null,\r\n        \"created_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"updated_at\": \"2021-04-19T08:26:52.325595Z\",\r\n        \"project_ref\": 3\r\n    }"
                 },
                 "url": "{{url}}tasks/maintask/"
             },
@@ -631,7 +631,7 @@
                     }]
                 },
                 "url": {
-                    "raw": "{{url}}tasks/maintask/?task_type=&user=akash,kiran&parent_child=&domain=&priority=",
+                    "raw": "{{url}}tasks/maintask/?task_type=&user=all&parent_child=&domain=&priority=&project_ref=",
                     "host": ["{{url}}tasks"],
                     "path": ["maintask", ""],
                     "query": [{
@@ -639,7 +639,7 @@
                         "value": ""
                     }, {
                         "key": "user",
-                        "value": "akash,kiran"
+                        "value": "all"
                     }, {
                         "key": "parent_child",
                         "value": ""
@@ -648,6 +648,9 @@
                         "value": ""
                     }, {
                         "key": "priority",
+                        "value": ""
+                    }, {
+                        "key": "project_ref",
                         "value": ""
                     }]
                 }
@@ -848,10 +851,15 @@
                 }],
                 "body": {
                     "mode": "formdata",
-                    "formdata": []
+                    "formdata": [{
+                        "key": "uuuuuy",
+                        "value": "",
+                        "type": "text",
+                        "disabled": true
+                    }]
                 },
                 "url": {
-                    "raw": "{{url}}tasks/tasktimelog/?task_ids=&users=",
+                    "raw": "{{url}}tasks/tasktimelog/?task_ids=&users=all",
                     "host": ["{{url}}tasks"],
                     "path": ["tasktimelog", ""],
                     "query": [{
@@ -859,7 +867,7 @@
                         "value": ""
                     }, {
                         "key": "users",
-                        "value": ""
+                        "value": "all"
                     }]
                 }
             },
@@ -1262,7 +1270,7 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n            \"notification_type\": \"2\",\r\n            \"ref\": \"2\",\r\n            \"title\": \"wdefgdssfghrthyjuk\",\r\n            \"description\": \"dwedsgjkfgrthjy\",\r\n            \"link\": \"dfegdgfhjkldfghhjyk\",\r\n            \"is_read\": true,\r\n            \"is_clicked\": true,\r\n            \"remind_at\": \"2021-04-22T00:00:00Z\",\r\n            \"deleted_at\": null,\r\n            \"created_at\": \"2021-04-22T16:34:45.460303Z\",\r\n            \"updated_at\": \"2021-04-22T16:34:45.460303Z\",\r\n            \"user\": 6,\r\n            \"created_by\": 6,\r\n            \"updated_by\": 8,\r\n            \"deleted_by\": 8\r\n        }"
+                    "raw": "{\r\n        \"id\": 2,\r\n        \"notification_type\": \"2\",\r\n        \"ref\": \"wqee\",\r\n        \"title\": \"wqeqwe\",\r\n        \"description\": \"eqqew\",\r\n        \"link\": \"qweqe\",\r\n        \"is_read\": false,\r\n        \"is_clicked\": false,\r\n        \"remind_at\": \"2021-05-21T12:00:00Z\",\r\n        \"deleted_at\": null,\r\n        \"created_at\": \"2021-05-19T06:56:20Z\",\r\n        \"updated_at\": \"2021-05-21T18:29:56.282259Z\",\r\n        \"user\": 6,\r\n        \"created_by\": 2,\r\n        \"updated_by\": 2,\r\n        \"deleted_by\": null\r\n    }"
                 },
                 "url": "{{url}}communication/notification/"
             },
@@ -1290,5 +1298,133 @@
             "response": []
         }],
         "id": "580f36eb-1d1f-4755-95b9-e25ed2e1b4d4"
+    }, {
+        "name": "{{url}}data/report/",
+        "id": "ee91ad22-1cd4-433a-8af4-e4aa15b5d147",
+        "request": {
+            "method": "GET",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+            }, {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "type": "text"
+            }],
+            "url": "{{url}}data/report/"
+        },
+        "response": [{
+            "id": "e1aa06b4-b9b4-441f-b338-43f14b70ca67",
+            "name": "{{url}}data/report/",
+            "originalRequest": {
+                "method": "GET",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }, {
+                    "key": "Authorization",
+                    "value": "Token {{token}}",
+                    "type": "text"
+                }],
+                "url": "{{url}}data/report/"
+            },
+            "status": "OK",
+            "code": 200,
+            "_postman_previewlanguage": "plain",
+            "header": [{
+                "key": "Content-Type",
+                "value": "text/csv"
+            }, {
+                "key": "Content-Disposition",
+                "value": "attachment; filename=\"file.csv\""
+            }, {
+                "key": "Vary",
+                "value": "Accept, Origin"
+            }, {
+                "key": "Allow",
+                "value": "OPTIONS, GET"
+            }, {
+                "key": "X-Frame-Options",
+                "value": "ALLOW-FROM HTTPS://APIMCBDE.MEDIACANNIBAL.COM/DOC/,HTTP://LOCALHOST:8080/#/APIRECORDS,HTTP://LOCALHOST:8080/"
+            }, {
+                "key": "Content-Length",
+                "value": "97"
+            }],
+            "cookie": [],
+            "body": "akash,Task,1,Author\r\nkiran wwlnddeameddd,Task,2,Manager\r\nkiran,Task,3,User\r\nhemanth,Task,1,User\r\n"
+        }]
+    }, {
+        "name": "{{url}}data/upload/",
+        "id": "7321d2bc-a451-497a-a951-ee50f0b8a917",
+        "request": {
+            "method": "POST",
+            "header": [{
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+            }, {
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "type": "text"
+            }],
+            "body": {
+                "mode": "formdata",
+                "formdata": [{
+                    "key": "file_obj",
+                    "type": "file",
+                    "src": "/C:/Users/user/Desktop/sample/userlist.csv"
+                }]
+            },
+            "url": "{{url}}data/upload-csv/"
+        },
+        "response": []
+    }, {
+        "name": "http://127.0.0.1:8000/v1/fcm/",
+        "id": "d4e2e9d3-c783-4d1b-8cc0-9546071d8e81",
+        "request": {
+            "method": "POST",
+            "header": [{
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "type": "text"
+            }],
+            "body": {
+                "mode": "formdata",
+                "formdata": [{
+                    "key": "token",
+                    "value": "dSNW8PfjAto8EgTm868tcg:APA91bG8qjdhj0FI1qnC9XudAoOb0VU4fCdjfJ32-07vdzlMHh22jyceywvKxC-DN_YmtcmsCBD04yqaAE-Q_SdSVbjy4dBNbgZK2yq_mR1SkQiWJvmB9y2VDDXRc7h1E_6t45Wg4AvY",
+                    "type": "text"
+                }]
+            },
+            "url": "http://127.0.0.1:8000/v1/fcm/"
+        },
+        "response": []
+    }, {
+        "name": "http://127.0.0.1:8000/v1/send/notification/",
+        "id": "8df7420a-2662-48c1-81cd-eb846b3d1c13",
+        "protocolProfileBehavior": {
+            "disableBodyPruning": true
+        },
+        "request": {
+            "method": "GET",
+            "header": [{
+                "key": "Authorization",
+                "value": "Token {{token}}",
+                "type": "text"
+            }],
+            "body": {
+                "mode": "formdata",
+                "formdata": [{
+                    "key": "token",
+                    "value": "dSNW8PfjAto8EgTm868tcg:APA91bHkJ0rWCX5CtS17IDYIsyluaygxZ-dQwWIfhshEqfozzNPB8-MKMvNCopa0-YHlmxF7Sf_DrED9R3Rrypqu-1KtM3MVYnmU1yUXtLDochUOhx9sn1XOjnndnJ3eNvTErocKknKj",
+                    "type": "text",
+                    "disabled": true
+                }]
+            },
+            "url": "http://127.0.0.1:8000/v1/send/notification/"
+        },
+        "response": []
     }]
 }

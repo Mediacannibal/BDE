@@ -7,20 +7,26 @@ import Popup from 'components/Common/Popup'
 import { createProject, fileupload, taskAdd } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
+
 
 const AddEditProject = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   const [isselectslot, setisselectslot] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
+  const [password, setpassword] = useState('')
 
   const [slotvalid, setSlotvalid] = useState(false)
   const [titlevalid, setTitlevalid] = useState(false)
   const [descriptionvaild, setDescriptionvaild] = useState(false)
+  const [passwordvalid, setpasswordvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
@@ -35,6 +41,12 @@ const AddEditProject = ({ setPopup }) => {
     "assignee": "",
     "updated_by": "",
   }])
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+  }, [])
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -77,7 +89,6 @@ const AddEditProject = ({ setPopup }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   return (
@@ -85,6 +96,7 @@ const AddEditProject = ({ setPopup }) => {
       {ispopup ?
 
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Project?"}
           desc1={"The following Project will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
@@ -99,7 +111,7 @@ const AddEditProject = ({ setPopup }) => {
             data.push(object)
             // console.log("***SUBMIT***", data)
             createProject(async (data: any, errorresponse: any) => {
-              if (data.status === 201) {
+              if (data.status === 201 || 200) {
                 setispopup(false)
                 // console.log('Sucess ========>>>' + JSON.stringify(data));
                 window.location.reload()
@@ -134,7 +146,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setSlotvalid}
                     sendcheck={preSendValidator}
                     value={isselectslot}
-                    onchange={setisselectslot}
+                    onChange={setisselectslot}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" },
                       { "key": "1", "value": "DESIGN" },
@@ -156,7 +168,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setTitlevalid}
                     sendcheck={preSendValidator}
                     value={title}
-                    onchange={settitle}
+                    onChange={settitle}
                   />
                 </div>
               </div>
@@ -174,7 +186,7 @@ const AddEditProject = ({ setPopup }) => {
                     valid={setDescriptionvaild}
                     sendcheck={preSendValidator}
                     value={description}
-                    onchange={setdescription}
+                    onChange={setdescription}
                   />
                 </div>
               </div>

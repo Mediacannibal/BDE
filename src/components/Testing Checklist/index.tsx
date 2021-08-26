@@ -15,6 +15,8 @@ import TestSelection from 'components/Forms/TestSelection';
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
+import UpDownArrow from 'components/Common/updownArrow';
+import { getChatID } from 'utils/GlobalFunctions';
 
 const TestingChecklist = (props: any) => {
   const { auth } = useAuth();
@@ -22,10 +24,8 @@ const TestingChecklist = (props: any) => {
 
   const [listItems1, setlistItems1] = useState([])
   const [listItems2, setlistItems2] = useState([])
-  const [unique_title, setunique_title] = useState([])
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
-  const [users, setusers] = useState('all')
 
   const [filterindicator, setfilterindicator] = useState(false)
 
@@ -57,7 +57,7 @@ const TestingChecklist = (props: any) => {
 
     CommonAPi(
       {
-        path: `tasks/maintask/?task_type=test&user=all`,
+        path: `tasks/maintask/?task_type=test&user=`,
         method: "get",
         auth: auth ? auth : false,
       },
@@ -110,14 +110,32 @@ const TestingChecklist = (props: any) => {
     let headerElement = ['Project name', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Image link', 'Portrait', 'Landscape', 'Interface', 'track']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
   const renderBody1 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr key={element.id} className={getClassname(element.priority)}>
+      <tr key={element.id} className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: `/TaskDetails/${getChatID("test", element.id)}`,
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -151,14 +169,32 @@ const TestingChecklist = (props: any) => {
     let headerElement = ['Project', 'Title', 'Task Type', 'priority', 'domain', 'Description', 'Api Name', 'Api Method', 'Path', 'track']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
   const renderBody2 = (element: any) => {
     // const [task_active, settask_active] = useState(false)
     return (
-      <tr className={getClassname(element.priority)}>
+      <tr className={getClassname(element.priority)}
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/TaskDetails',
+              state: element
+            }
+          )
+        }}
+      >
         <td>{element.project_ref}</td>
         <td onClick={() => {
           setpopup2(true)
@@ -257,7 +293,7 @@ const TestingChecklist = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader1()}</tr>
@@ -275,7 +311,7 @@ const TestingChecklist = (props: any) => {
             <Card
               card_title={Projecttitle}
               card_body={
-                <div className="internal_table">
+                <div className="internal_table" style={{ color: colourObj.color_1 }}>
                   <table id='internal_table'>
                     <thead>
                       <tr>{renderHeader2()}</tr>

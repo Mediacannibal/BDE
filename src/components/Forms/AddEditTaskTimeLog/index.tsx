@@ -19,6 +19,7 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
 
   return (
     <Popup
+      popup_type={"confirm"}
       title={"Start Task?"}
       desc1={(startorpausetask === true) ? "The following Task will be started!" : "The following Task will be paused!"}
       desc2={"Please click 'Yes' to proceed?"}

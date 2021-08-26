@@ -6,10 +6,12 @@ import Popup from 'components/Common/Popup'
 import { CommonAPi, getTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ProgressBar } from 'components/Common/Spinner';
+import { ColourObject } from 'store/ColourStore';
 
-const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
+const TimeSpent = ({ setPopup, taskName, taskId, users, timeSpent }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(true)
@@ -55,6 +57,10 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
           console.log('error ' + JSON.stringify(errorresponse));
         }
       })
+
+    if (!Colour) {
+      loadColour();
+    }
   }, [])
 
   const renderHeader = () => {
@@ -80,11 +86,18 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
             {element.first_name + ' ' + element.last_name}
           </td>
         }
-        <td>{element.created_at}</td>
-        <td>{element.updated_at}</td>
-        <td>{element.time_spent}</td>
+        <td>{timeSplit(element.created_at)}</td>
+        <td>{timeSplit(element.updated_at)}</td>
+        <td>{timeSplit(element.time_spent)}</td>
       </tr >
     )
+  }
+
+  const timeSplit = (time: any) => {
+    let a = time
+    let temp = String(a).split('.')[0]
+
+    return temp
   }
 
   return (
@@ -117,7 +130,7 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
             </div>
             :
             <>
-              <div className="internal_table">
+              <div className="internal_table" style={{ color: colourObj.color_1 }}>
                 <table id='internal_table'>
                   <thead>
                     <tr>{renderHeader()}</tr>
@@ -128,6 +141,14 @@ const TimeSpent = ({ setPopup, taskName, taskId, users }) => {
                     }
                   </tbody>
                 </table>
+
+                <div className="total_time_wrap">
+                  <div className="total_time_title">Total:</div>
+                  <div className="total_timeSpent">{
+                    timeSplit(timeSpent)
+                  }
+                  </div>
+                </div>
               </div>
             </>
           }

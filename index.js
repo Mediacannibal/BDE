@@ -11,7 +11,8 @@ import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
 import { AnalyticsProvider } from 'use-analytics'
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './service-worker';
+import { registerServiceWorker } from "./register-sw";
 
 // if ("serviceWorker" in navigator) {
 //   navigator.serviceWorker
@@ -123,7 +124,7 @@ function displayNotification() {
 ReactDOM.render(
   <React.StrictMode>
     <AnalyticsProvider instance={analytics}>
-      <BrowserRouter forceRefresh={true} >
+      <BrowserRouter >
         <Normalize />
         <App />
       </BrowserRouter>
@@ -132,4 +133,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-// serviceWorker.unregister();
+serviceWorker.register();

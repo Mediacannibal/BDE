@@ -14,6 +14,8 @@ export const useAuth = () => {
             setAuth(AuthToken);
         },
         logout() {
+            localStorage.clear()
+            sessionStorage.clear()
             setAuth(null);
         },
     }

@@ -3,14 +3,16 @@ import SimpleEditor from 'react-simple-image-editor';
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useForm } from 'react-hook-form';
-import { getBranchDetails, getCompanyDetails } from 'utils/api';
-import Popup from 'components/Common/Popup';
+import { CommonAPi, getBranchDetails, getCompanyDetails } from 'utils/api';
 import { useHistory } from 'react-router-dom';
 import './style.css'
 import { userlist } from 'utils/api';
+import { useAuth } from 'store/authStore';
+import Popup from 'components/Common/Popup';
 
 
-const AddEditUserList = ({ setPopup }) => {
+const AddEditUserList = ({ setPopup, taskid }) => {
+  const { auth } = useAuth();
   const history = useHistory();
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -21,8 +23,6 @@ const AddEditUserList = ({ setPopup }) => {
   const [user, setuser] = useState('')
   const [user_list_type, setuser_list_type] = useState('')
   const [role, setrole] = useState('')
-  const [ref, setref] = useState('')
-
 
   const [uservalid, setuservalid] = useState(false)
   const [usertypevalid, setusertypevalid] = useState(false)
@@ -49,7 +49,7 @@ const AddEditUserList = ({ setPopup }) => {
       && refvalid === true
     ) {
 
-      setispopup(true)
+
     }
     else {
       setPreSendValidator(true)
@@ -57,69 +57,67 @@ const AddEditUserList = ({ setPopup }) => {
   }
 
   useEffect(() => {
-    let token = JSON.parse(String(localStorage.getItem("AuthToken")))
 
-    getCompanyDetails(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>777>>>>>", data.data.results)
-        setlistItems(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, token)
-
-    getBranchDetails(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        setspinner(false)
-        // console.log(">>>>>>777>>>>>", data.data.results)
-        setlistItems(data.data.results)
-      } else {
-        setspinner(false)
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, token)
+    CommonAPi(
+      {
+        path: `api/user/list/`,
+        method: "get",
+        auth: auth ? auth : false,
+      },
+      async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          setspinner(false)
+          console.log("User List: ", data.data.results)
+          setlistItems(data.data.results)
+        } else {
+          setspinner(false)
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      })
   }, [])
+
+  const User_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.username.username
+      }
+      a.push(data);
+    });
+    return a
+  }
 
   return (
     <>
       {ispopup ?
-
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit User List?"}
           desc1={"The following User will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
             let data = [];
             let object = {
-              "user": user,
-              "user_list_type": user_list_type,
-              "ref": ref,
+              "user_name": user,
+              "user_list_type": 'TASK',
+              "ref": taskid,
               "role": role,
             }
             data.push(object)
-            // console.log("***SUBMIT***", data)
-            let token = JSON.parse(String(localStorage.getItem("AuthToken")))
             userlist(async (data: any, errorresponse: any) => {
-              if (data.status === 200) {
+              if (data.status === 200 || 201) {
                 setispopup(false)
-                // console.log('Sucess!!!!!!!!' + JSON.stringify(data));
-                localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
-                localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
-                history.push('/Home')
-                // alert("successfully added")
-                setbackendresponse("Successfully Added!")
-                setbackendresponse_popup(true)
+                window.location.reload()
+                history.push('/TaskList')
               } else {
                 setispopup(false)
                 setbackendresponse("Failed, Please Try Again!")
                 console.log('error ' + JSON.stringify(data));
                 console.log('error ' + JSON.stringify(errorresponse));
               }
-            }, token, data[0])
+            }, auth, data[0])
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -134,63 +132,19 @@ const AddEditUserList = ({ setPopup }) => {
               <div className="inputfield_sub_container">
                 <div className="textinput_box_container">
                   <McInput
-                    label={"User"}
+                    type={"picker"}
                     id="user_data"
-                    name={`data.user`}
-                    inputtype="text"
-                    type="text"
-                    min_length="1"
+                    name={"User Name"}
                     required={true}
                     valid={setuservalid}
                     sendcheck={preSendValidator}
                     value={user}
-                    onchange={setuser}
+                    onChange={setuser}
+                    options={User_name()}
                   />
                 </div>
               </div>
 
-              <div className="inputfield_sub_container">
-                <div >
-                  <McInput
-                    type={"picker"}
-                    name={"User List Type"}
-                    id="user_list_type_data"
-                    required={true}
-                    valid={setusertypevalid}
-                    sendcheck={preSendValidator}
-                    value={user_list_type}
-                    onchange={setuser_list_type}
-                    options={[
-                      { "key": "0", "value": "PROJECTS" },
-                      { "key": "1", "value": "BRANCH" },
-                      { "key": "2", "value": "TASK" },
-                      { "key": "3", "value": "COMPANY" },
-                    ]}
-                  />
-                </div>
-              </div>
-
-
-              <div className="inputfield_sub_container">
-                <div >
-                  <McInput
-                    type={"picker"}
-                    name={"Ref"}
-                    id="ref_data"
-                    required={true}
-                    valid={setrefvalid}
-                    sendcheck={preSendValidator}
-                    value={ref}
-                    onchange={setref}
-                    options={[
-                      { "key": "0", "value": "1" },
-                      { "key": "1", "value": "2" },
-                      { "key": "2", "value": "3" },
-                      { "key": "3", "value": "4" },
-                    ]}
-                  />
-                </div>
-              </div>
 
               <div className="inputfield_sub_container">
                 <div >
@@ -202,7 +156,7 @@ const AddEditUserList = ({ setPopup }) => {
                     valid={setrolevalid}
                     sendcheck={preSendValidator}
                     value={role}
-                    onchange={setrole}
+                    onChange={setrole}
                     options={[
                       { "key": "0", "value": "Super Admin" },
                       { "key": "1", "value": "Admin" },
@@ -221,6 +175,7 @@ const AddEditUserList = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SEND***")
             Validate()
+            setispopup(true)
           }}
           cancelClick={setPopup}
         />

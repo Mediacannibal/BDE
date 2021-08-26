@@ -1,7 +1,7 @@
 /* Card */
 
 .dashboard_card {
-    border-radius: var(--BR1);
+    border-radius:4px;
     margin: calc(0.3vw + 0.9vh + 0.3vmin);
     padding: calc(0.3vw + 0.9vh + 0.3vmin);
     -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS7);
     align-self: center;
     text-decoration: underline;
@@ -25,7 +25,7 @@
 .card_details {
     font-family: 'Barlow';
     font-weight: 500;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS9);
     align-self: center;
 }

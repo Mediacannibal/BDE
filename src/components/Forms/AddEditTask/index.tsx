@@ -7,10 +7,12 @@ import Popup from 'components/Common/Popup'
 import { createMainTask, fileupload, getProject } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
+import { ColourObject } from 'store/ColourStore';
 
 const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [project_ref, setproject_ref] = useState(projectName)
   const [title, settitle] = useState('')
@@ -24,6 +26,10 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [path, setpath] = useState('')
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
+
+  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
+  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
 
   const [development, setdevelopment] = useState('')
   const [test_title, settest_title] = useState('');
@@ -77,6 +83,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [listItems, setlistItems] = useState([])
   const [spinner, setspinner] = useState(false)
 
+
   const [users, setusers] = useState('all')
 
   const { register, handleSubmit, errors, reset } = useForm();
@@ -107,7 +114,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   };
 
   const Validate = () => {
-
     if (isproject_namevalid === true
       || istitlevalid === true
       || istask_typevalid === true
@@ -133,16 +139,17 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     else {
       setPreSendValidator(true)
     }
-
   }
 
   useEffect(() => {
     // console.log("Initailized Project Name: ", projectName)
     // console.log("Initailized Feature Task: ", projectTaskType)
+    if (!Colour) {
+      loadColour();
+    }
 
     getProject(async (data: any, errorresponse: any) => {
       if (data.status === 200) {
-        setspinner(false)
         // console.log(">>>>>>>>>>>", data.data)
         setlistItems(data.data.results)
       } else {
@@ -169,9 +176,67 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Task?"}
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
+          popup_body={
+            <>
+              {assignee.length === 0 &&
+                <>
+                  <div className='popup_assignee_text'>You have not assigned to any user!!!</div>
+
+                  <div className="assignee_wrapper">
+
+                    <div className='popup_description'>Open Task to: </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"COMPANY"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={company_assignee_ref}
+                        onChange={setcompany_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"BRANCH"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={branch_assignee_ref}
+                        onChange={setbranch_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref"
+                        required={true}
+                        valid={setproject_namevalid}
+                        sendcheck={preSendValidator}
+                        value={project_assignee_ref}
+                        onChange={setproject_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                  </div>
+                </>
+              }
+            </>
+          }
           confirmClick={() => {
             let data = [];
             let object = {
@@ -181,16 +246,17 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "priority": priority,
               "domain": domain,
               "description": description,
-              "assignee": assignee,
+              "assigned_to": assignee,
+              "milestone": false,
+              "isDisabled": true,
+              "portrait": false,
+              "landscape": true,
             }
             data.push(object)
-            // console.log("***SUBMIT***", data)
             createMainTask(async (data: any, errorresponse: any) => {
               if (data.status === 200) {
                 setispopup(false)
-                // console.log('Sucess========= ' + JSON.stringify(data));
                 window.location.reload()
-                // alert("successfully added")
                 setbackendresponse("Successfully Added!")
                 setbackendresponse_popup(true)
               } else {
@@ -227,7 +293,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           valid={setproject_namevalid}
                           sendcheck={preSendValidator}
                           value={project_ref}
-                          onchange={setproject_ref}
+                          onChange={setproject_ref}
                           options={
                             Project_name()
                           }
@@ -249,7 +315,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           valid={settask_typevalid}
                           sendcheck={preSendValidator}
                           value={task_type}
-                          onchange={settask_type}
+                          onChange={settask_type}
                           options={[
                             { "key": "0", "value": "PROJECT" },
                             { "key": "1", "value": "FEATURE" },
@@ -276,7 +342,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         valid={setpriorityvalid}
                         sendcheck={preSendValidator}
                         value={priority}
-                        onchange={setpriority}
+                        onChange={setpriority}
                         options={[
                           { "key": "0", "value": "LOW" },
                           { "key": "1", "value": "NORMAL" },
@@ -298,7 +364,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         valid={setdomainvalid}
                         sendcheck={preSendValidator}
                         value={domain}
-                        onchange={setdomain}
+                        onChange={setdomain}
                         options={[
                           { "key": "0", "value": "FRONT END" },
                           { "key": "1", "value": "BACK END" },
@@ -322,7 +388,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         valid={settitlevalid}
                         sendcheck={preSendValidator}
                         value={title}
-                        onchange={settitle}
+                        onChange={settitle}
                       />
                     </div>
                   </div>
@@ -340,7 +406,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         valid={setdescriptionvalid}
                         sendcheck={preSendValidator}
                         value={description}
-                        onchange={setdescription}
+                        onChange={setdescription}
                       />
                     </div>
                   </div>
@@ -358,10 +424,18 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         valid={setassigneevalid}
                         sendcheck={preSendValidator}
                         value={assignee}
-                        onchange={setassignee}
+                        onChange={setassignee}
                       />
                     </div>
                   </div>
+
+                  {/* {assignee.length === 0 &&
+                    <Popup 
+                    
+                    />
+                  } */}
+
+
 
                   <div className="inputfield_sub_container">
                     <div className="fileupload_with_preview">
@@ -393,7 +467,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setproject_typevalid}
                             sendcheck={preSendValidator}
                             value={project_type}
-                            onchange={setproject_type}
+                            onChange={setproject_type}
                             options={[
                               { "key": "0", "value": "DEVELOPMENT" },
                               { "key": "1", "value": "DESIGN" },
@@ -415,7 +489,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setTitlevalid}
                             sendcheck={preSendValidator}
                             value={project_title}
-                            onchange={setproject_title}
+                            onChange={setproject_title}
                           />
                         </div>
                       </div>
@@ -433,7 +507,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setDescriptionvaild}
                             sendcheck={preSendValidator}
                             value={project_description}
-                            onchange={setproject_description}
+                            onChange={setproject_description}
                           />
                         </div>
                       </div>
@@ -445,6 +519,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                 </div>
 
                 <div className="addedit_task_container1">
+
                   {(task_type === "TEST") ?
                     <>
                       <div className="inputfield_sub_container">
@@ -457,7 +532,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setdevelopmentvalid}
                             sendcheck={preSendValidator}
                             value={development}
-                            onchange={setdevelopment}
+                            onChange={setdevelopment}
                             options={[
                               { "key": "0", "value": "DEVELOPMENT" }
                             ]} />
@@ -477,7 +552,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={settesttitlevalid}
                             sendcheck={preSendValidator}
                             value={test_title}
-                            onchange={settest_title} />
+                            onChange={settest_title} />
                         </div>
                       </div>
 
@@ -491,7 +566,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setpotraitcheckboxvalid}
                             sendcheck={preSendValidator}
                             value={potraitcheckbox}
-                            onchange={setpotraitcheckbox}
+                            onChange={setpotraitcheckbox}
                             options={[
                               { "key": "0", "value": "Portrait" },
                               { "key": "1", "value": "Landscape" },
@@ -512,7 +587,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         </div>
                       </div> */}
 
-                      <div className="user_band">
+                      <div className="user_band" style={{ backgroundColor: colourObj.color_10 }}>
 
                       </div>
 
@@ -666,7 +741,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setpotraitcheckboxvalid}
                             sendcheck={preSendValidator}
                             value={potraitcheckbox}
-                            onchange={setpotraitcheckbox}
+                            onChange={setpotraitcheckbox}
                             options={[
                               { "key": "0", "value": "Portrait" },
                               { "key": "1", "value": "Landscape" },
@@ -739,7 +814,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                               onClick={() => {
                                 setaddremoveios(!addremoveios)
                               }}>
-                              <div className="addremove_text">
+                              <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                                 {addremoveios ? "Remove Device" : "Add Device"}
                               </div>
                             </div>
@@ -834,7 +909,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setapi_namevalid}
                             sendcheck={preSendValidator}
                             value={api_name}
-                            onchange={setapi_name} />
+                            onChange={setapi_name} />
                         </div>
                       </div>
 
@@ -848,7 +923,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setapiselectvalid}
                             sendcheck={preSendValidator}
                             value={apiselect}
-                            onchange={setapiselect}
+                            onChange={setapiselect}
                             options={[
                               { "key": "0", "value": "GET" },
                               { "key": "1", "value": "POST" },
@@ -871,7 +946,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setpathvalid}
                             sendcheck={preSendValidator}
                             value={path}
-                            onchange={setpath} />
+                            onChange={setpath} />
                         </div>
                       </div>
 
@@ -888,7 +963,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setrequestvalid}
                             sendcheck={preSendValidator}
                             value={request}
-                            onchange={setrequest} />
+                            onChange={setrequest} />
                         </div>
                       </div>
 
@@ -905,7 +980,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             valid={setresponsevalid}
                             sendcheck={preSendValidator}
                             value={response}
-                            onchange={setresponse} />
+                            onChange={setresponse} />
                         </div>
                       </div>
                     </>
@@ -921,6 +996,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
           confirmClick={() => {
             console.log("***SEND***")
             Validate()
+            let a = String(document.getElementById("assignee_data").value)
+            setassignee(a)
           }}
           cancelClick={setPopup}
         />

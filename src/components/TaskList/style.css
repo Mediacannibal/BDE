@@ -19,7 +19,7 @@
     border-color: var(--color_1);
     border-width: calc(0.05vw + 0.15vh + 0.05vmin);
     border-style: solid;
-    border-radius: 2vw;
+    border-radius: 4px;
 }
 
 .main_selector_div {
@@ -37,18 +37,22 @@
 
 .textcolor_blue {
     color: blue;
+    cursor: pointer;
 }
 
 .textcolor_yellow {
     color: yellow;
+    cursor: pointer;
 }
 
 .textcolor_orange {
     color: orange;
+    cursor: pointer;
 }
 
 .textcolor_red {
     color: red;
+    cursor: pointer;
 }
 
 .textcolor_blinking {
@@ -59,4 +63,133 @@
     50% {
         opacity: 0;
     }
+}
+
+.tasktype_dropdown {
+    padding: 1vh;
+    cursor: pointer;
+}
+
+.taskfilter_button {
+    height: 3vh;
+}
+
+/* .assign_wrap {
+    display: flex;
+} */
+
+.isassigned_to {
+    display: flex;
+    justify-content: center;
+}
+
+.my_tasksTitle {
+    display: flex;
+    font-size: var(--TS2);
+    font-weight: 600;
+    align-self: start;
+    padding: 5vh;
+}
+
+.task_description {
+    font-size: var(--TS7);
+    color: var(--color_1);
+    display: flex;
+    padding: 2vh 0vh 0vh 2vh;
+    text-align-last: left;
+}
+
+.task_assignee {
+    display: flex;
+    padding: 2vh 0vh 0vh 2vh;
+    justify-content: flex-end;
+}
+
+.task_type {
+    display: flex;
+    font-size: var(--TS7);
+    font-weight: 600;
+    color: var(--color_1);
+    padding: 0vh 1vh 0vh 1vh;
+    font-weight: 600;
+    font-size: var(--TS7);
+}
+
+/* .task_type {
+    display: flex;
+    font-weight: 500;
+    font-size: var(--TS7);
+    align-self: center;
+    text-decoration: overline;
+    text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
+    text-decoration-color: var(--color_7);
+    justify-content: flex-end;
+} */
+
+.task_time_spent {
+    display: flex;
+    font-size: var(--TS6);
+    color: var(--color_1);
+    justify-content: flex-end;
+}
+
+.task_domain {
+    display: flex;
+    padding-left: 1vh;
+}
+
+.arrow_img {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task_type_project {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task_project {
+    display: flex;
+    text-decoration: underline;
+    text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
+    text-decoration-color: var(--color_7);
+    cursor: pointer;
+}
+
+.task_start {
+    display: flex;
+}
+
+.task_title_domain {
+    display: flex;
+}
+
+.task_assignees_wrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 3vh 0vh 1vh 1vh;
+}
+
+.task_description_assignee {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3vh;
+}
+
+.task_time_project {
+    display: flex;
+}
+
+.task_timeSpent {
+    display: flex;
+    padding: 1vh 4vh;
+}
+
+.task_description_timeSpent {
+    display: flex;
+    flex-direction: column;
+}
+
+.task_typeProject_wrap {
+    display: flex;
 }

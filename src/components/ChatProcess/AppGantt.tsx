@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ViewSwitcher } from "./components/view-switcher";
 import { getStartEndDateForProject } from "./helper";
 // import "gantt-task-react/dist/index.css";
 import { Gantt } from "../ganttchart/components/gantt/gantt";
 import { ViewMode } from "../ganttchart/types/public-types";
 import type { Task } from "../ganttchart/types/public-types";
-import { getMainTask } from "utils/api";
+import { getProject } from "utils/api";
 import { useAuth } from "store/authStore";
+import { ganttChartDetails } from "store/isGanttChart";
+import { useParams } from "react-router-dom";
 
-const AppGantt = () => {
+const AppGantt = ({ project_data }) => {
   const [view, setView] = React.useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
+  const [listItems, setlistItems] = useState([])
+  // const { isGantt, loadGanttDetail } = ganttChartDetails()
+  const { id } = useParams();
+  const [loadingdata, setloadingdata] = useState(true)
+
   let columnWidth = 60;
   if (view === ViewMode.Month) {
     columnWidth = 300;
@@ -23,42 +30,61 @@ const AppGantt = () => {
 
   const { auth } = useAuth();
   const task = ''
-  const users = 'all'
+  const users = ''
   const parent_child = ''
   const project = '1'
   const task_priority = ''
   const task_domain = ''
 
+  const isFirstRender = useRef(true)
+
   useEffect(() => {
+    isFirstRender.current = false
 
-    getMainTask(async (data: any, errorresponse: any) => {
-      if (data.status === 200) {
-        // console.log("Task Results: ", data.data.results)
-        let task: any = []
-        data.data.results.forEach((obj: any) => {
-          task.push(
-            {
-              start: new Date(obj.start_date),
-              end: new Date(obj.end_date),
-              name: obj.title,
-              id: String(obj.id),
-              progress: obj.progress,
-              dependencies: obj.dependencies,
-              type: "task",
-              project: obj.project_ref,
-            }
-          )
-        });
-        setTasks(task)
-      }
-      else {
-        console.log('error ' + JSON.stringify(data));
-        console.log('error ' + JSON.stringify(errorresponse));
-      }
-    }, auth, task, users, parent_child, task_domain, task_priority, project)
-  }, []);
+    if (project_data !== undefined) {
+      // console.log("Task Results: ", project_data.ProjectTasks)
+      setlistItems(project_data.ProjectTasks)
+      setloadingdata(false)
+    }
 
-  const findchild = (id, list, id_list) => {
+    else {
+      getProject(async (data: any, errorresponse: any) => {
+        if (data.status === 200) {
+          // console.log("Task Results: ", data.data.results[0].ProjectTasks)
+          setlistItems(data.data.results[0].ProjectTasks)
+          setloadingdata(false)
+        }
+        else {
+          console.log('error ' + JSON.stringify(data));
+          console.log('error ' + JSON.stringify(errorresponse));
+        }
+      }, auth, users);
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      let task: any = []
+      listItems.map((obj: any) => {
+        // console.log("Object tasks", obj);
+        task.push(
+          {
+            start: new Date(obj.start_date),
+            end: new Date(obj.end_date),
+            name: obj.title,
+            id: String(obj.id),
+            progress: obj.progress,
+            dependencies: obj.dependencies,
+            type: "task",
+            project: obj.project_ref,
+          }
+        )
+      });
+      setTasks(task)
+    }
+  }, [listItems])
+
+  const findchild = (id: any, list: any, id_list: any) => {
     let newidlist = id_list
     let newTasks = list.map(
       (t: any) => {
@@ -148,6 +174,8 @@ const AppGantt = () => {
     )
     setTimeout(() => {
       id_list.forEach((element: any) => {
+        console.log("id_list: ", id_list);
+
         let child_tree = findchild(element, newTasks, [])
         child_tree.forEach(ele => {
           newTasks = newTasks.map((t: any) => {
@@ -206,22 +234,27 @@ const AppGantt = () => {
   };
 
   return (
-    <div>
-      <ViewSwitcher
-        onViewModeChange={viewMode => setView(viewMode)}
-        onViewListChange={setIsChecked}
-        isChecked={isChecked}
-      />
-      <Gantt
-        tasks={tasks}
-        viewMode={view}
-        onDateChange={onTaskChange}
-        // onProgressChange={onProgressChange}
-        listCellWidth={isChecked ? "155px" : ""}
-        columnWidth={columnWidth}
-      />
-    </div>
+    loadingdata ?
+      <div>Loading.....</div>
+      :
+      <div>
+        <ViewSwitcher
+          onViewModeChange={viewMode => setView(viewMode)}
+          onViewListChange={setIsChecked}
+          isChecked={isChecked}
+          project_data={project_data}
+        />
+        <Gantt
+          tasks={tasks}
+          viewMode={view}
+          onDateChange={onTaskChange}
+          // onProgressChange={onProgressChange}
+          listCellWidth={isChecked ? "155px" : ""}
+          columnWidth={columnWidth}
+        />
+      </div>
   );
 };
+
 
 export default AppGantt;

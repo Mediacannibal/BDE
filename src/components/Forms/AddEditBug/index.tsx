@@ -5,12 +5,13 @@ import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
 import McInput from 'components/Common/McInput';
-import { createMainTask } from 'utils/api';
+import { createMainTask, getProject } from 'utils/api';
 import { useAuth } from 'store/authStore';
 
 const AddEditBug = ({ setPopup }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [bug_title, setbug_title] = useState('')
   const [orientation, setorientation] = useState('')
@@ -50,8 +51,14 @@ const AddEditBug = ({ setPopup }) => {
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
   const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
 
+  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
+  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
 
   const [ispopup, setispopup] = useState(false)
+  const [users, setusers] = useState('all')
+  const [listItems, setlistItems] = useState([])
+
   const [list, setlist] = useState([{
     "bug_title": bug_title,
     "orientation": orientation,
@@ -60,6 +67,34 @@ const AddEditBug = ({ setPopup }) => {
     "assignee": assignee,
     "image_link": image_link,
   }])
+
+  useEffect(() => {
+    if (!Colour) {
+      loadColour();
+    }
+
+    getProject(async (data: any, errorresponse: any) => {
+      if (data.status === 200) {
+        // console.log(">>>>>>>>>>>", data.data)
+        setlistItems(data.data.results)
+      } else {
+        console.log('error ' + JSON.stringify(data));
+        console.log('error ' + JSON.stringify(errorresponse));
+      }
+    }, auth, users)
+  }, [])
+
+  const Project_name = () => {
+    let a: any = [];
+    listItems.forEach(element => {
+      let data = {
+        "key": element.id,
+        "value": element.title
+      }
+      a.push(data);
+    });
+    return a
+  }
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -78,8 +113,6 @@ const AddEditBug = ({ setPopup }) => {
   }
 
   const Validate = () => {
-
-
     if (bugtitlevalid === true
       && devicevalid === true
       && remarksvalid === true
@@ -97,9 +130,64 @@ const AddEditBug = ({ setPopup }) => {
     <>
       {ispopup ?
         <Popup
+          popup_type={"confirm"}
           title={"Add / Edit Bug?"}
           desc1={"The following Bug will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
+          popup_body={
+            <>
+              {assignee.length === 0 &&
+                <>
+                  <div className='popup_assignee_text'>You have not assigned to any user!!!</div>
+
+                  <div className="assignee_wrapper">
+
+                    <div className='popup_description'>Open Task to: </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"COMPANY"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={company_assignee_ref}
+                        onChange={setcompany_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"BRANCH"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={branch_assignee_ref}
+                        onChange={setbranch_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref"
+                        required={true}
+                        sendcheck={preSendValidator}
+                        value={project_assignee_ref}
+                        onChange={setproject_assignee_ref}
+                        options={Project_name()}
+                      />
+                    </div>
+
+                  </div>
+                </>
+              }
+            </>
+          }
           confirmClick={() => {
             let data = [];
             let object = {
@@ -149,7 +237,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setpotraitcheckboxvalid}
                     sendcheck={preSendValidator}
                     value={potraitcheckbox}
-                    onchange={setpotraitcheckbox}
+                    onChange={setpotraitcheckbox}
                     options={[
                       { "key": "0", "value": "Portrait" },
                       { "key": "1", "value": "Landscape" },
@@ -158,7 +246,7 @@ const AddEditBug = ({ setPopup }) => {
                 </div>
               </div>
 
-              <div className="user_band">
+              <div className="user_band" style={{ backgroundColor: colourObj.color_10 }}>
 
               </div>
 
@@ -178,7 +266,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremoveandroid(!addremoveandroid)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremoveandroid ? "Remove Device" : "Add Device"}
                       </div>
                     </div>
@@ -222,7 +310,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremoveios(!addremoveios)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremoveios ? "Remove Device" : "Add Device"}
                       </div>
                     </div>
@@ -264,7 +352,7 @@ const AddEditBug = ({ setPopup }) => {
                       onClick={() => {
                         setaddremovebrowser(!addremovebrowser)
                       }}>
-                      <div className="addremove_text">
+                      <div className="addremove_text" style={{ color: colourObj.color_1 }}>
                         {addremovebrowser ? "Remove Device" : "Add Device"}
                       </div>
                     </div>
@@ -306,7 +394,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setbugtitlevalid}
                     sendcheck={preSendValidator}
                     value={bug_title}
-                    onchange={setbug_title}
+                    onChange={setbug_title}
                   />
                 </div>
               </div>
@@ -324,7 +412,7 @@ const AddEditBug = ({ setPopup }) => {
                     valid={setdescriptionvalid}
                     sendcheck={preSendValidator}
                     value={description}
-                    onchange={setdescription}
+                    onChange={setdescription}
                   />
                 </div>
               </div>
@@ -346,6 +434,8 @@ const AddEditBug = ({ setPopup }) => {
           confirmClick={() => {
             console.log("***SEND***")
             Validate()
+            let a = String(document.getElementById("assignee_data").value)
+            setassignee(a)
           }}
           cancelClick={setPopup}
         />

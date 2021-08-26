@@ -11,6 +11,7 @@ import { ColourObject } from 'store/ColourStore'
 import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
+import UpDownArrow from 'components/Common/updownArrow';
 
 const TaskTimeLog = (props: any) => {
   const { auth } = useAuth();
@@ -27,7 +28,7 @@ const TaskTimeLog = (props: any) => {
   const [Userid, setUserid] = useState(false)
 
   const [task_Ids, settask_Ids] = useState('')
-  const [users, setusers] = useState('all')
+  const [users, setusers] = useState('')
 
 
   useEffect(() => {
@@ -78,7 +79,16 @@ const TaskTimeLog = (props: any) => {
     let headerElement = ['Task', 'Assignee', 'Started At', 'Paused At', 'Time Spent']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 

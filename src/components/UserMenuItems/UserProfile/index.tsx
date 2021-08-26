@@ -8,14 +8,14 @@ import { ColourObject } from 'store/ColourStore'
 const UserProfile = () => {
 
   const history = useHistory();
-  const { Colour, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [usertype, setusertype] = useState("NORMAL")
   const [profile_picture, setprofile_picture] = useState("")
   const [firstname, setfirstname] = useState("")
   const [lastname, setlastname] = useState("")
   const [email, setemail] = useState("")
-  
+
   useEffect(() => {
 
     // console.log("screenlocation: ", location.pathname);
@@ -44,79 +44,79 @@ const UserProfile = () => {
   return (
     <>
       <div className="main">
-        <div className="body" style={{ backgroundColor: Colour.primary }}>
-          <div className="user_main_container">
+        <div className="body">
+          <div className="user_main_container" style={{ backgroundColor: colourObj.color_6 }}>
             <div className="user_container">
 
               <div className="user_warp">
-                <div className="user_sub_container1">
+                <div className="user_sub_container1" style={{ color: colourObj.color_5 }}>
                   <img className='user_profile_picture' src={profile_picture} />
 
-                  <div className='user_sub_details'>
-                    <div className="user_profile_text">My Profile</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_profile_text" style={{ color: colourObj.color_21 }}>My Profile</div>
                   </div>
 
-                  <div className="user_band">
+                  <div className="user_band" style={{ backgroundColor: colourObj.color_1 }}>
 
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">User Type:</div>
-                    <div className="user_data">{usertype}</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>User Type:</div>
+                    <div className="user_data" style={{ color: colourObj.color_1 }}>{usertype}</div>
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Name:</div>
-                    <div className="user_data">{firstname} {lastname}</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Name:</div>
+                    <div className="user_data" style={{ color: colourObj.color_1 }}>{firstname} {lastname}</div>
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">E-mail:</div>
-                    <div className="user_data">{email}</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>E-mail:</div>
+                    <div className="user_data" style={{ color: colourObj.color_1 }}>{email}</div>
                   </div>
                 </div>
               </div>
 
               <div className="user_warp">
 
-                <div className="user_sub_container2">
-                  <div className='user_sub_details'>
-                    <div className="user_profile_text">Company</div>
+                <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Company</div>
                   </div>
 
-                  <div className="user_band">
+                  <div className="user_band" style={{ color: colourObj.color_21 }}>
 
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Company Name:</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Company Name:</div>
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Branch Name:</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Branch Name:</div>
                   </div>
                 </div>
 
-                <div className="user_sub_container2">
+                <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
 
-                  <div className='user_sub_details'>
-                    <div className="user_profile_text">Project</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Project</div>
                   </div>
 
-                  <div className="user_band">
+                  <div className="user_band" style={{ color: colourObj.color_21 }}>
 
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Active Project:</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Project:</div>
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Active Task:</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Task:</div>
                   </div>
 
-                  <div className='user_sub_details'>
-                    <div className="user_details_text">Project History:</div>
+                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Project History:</div>
                   </div>
                 </div>
 

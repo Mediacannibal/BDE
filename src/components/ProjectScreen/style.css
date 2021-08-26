@@ -32,18 +32,19 @@
 .project_title {
     display: flex;
     font-weight: 600;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS5);
     text-decoration: underline;
     text-underline-offset: calc(0.1vw + 0.3vh + 0.1vmin);
     text-decoration-color: var(--color_7);
     padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
+    cursor: pointer;
 }
 
 .project_subtitle {
     display: flex;
     font-weight: 600;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS6);
     padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
 }
@@ -51,7 +52,7 @@
 .project_description {
     display: flex;
     font-weight: 500;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS8);
     text-align: left;
     padding-bottom: calc(0.15vw + 0.45vh + 0.15vmin);
@@ -65,12 +66,12 @@
 }
 
 .project_right_subcontainer {
-    display: flex;    
+    display: flex;
 }
 
 .project_stats {
     font-weight: 600;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS8);
     white-space: nowrap;
     margin: 0 calc(0.2vw + 0.6vh + 0.2vmin);
@@ -80,7 +81,7 @@
     display: flex;
 }
 
-.project_participants_container{
+.project_participants_container {
     width: 100%;
 }
 
@@ -111,21 +112,6 @@
     object-fit: contain;
 }
 
-.companybranch_wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: calc(0.15vw + 0.45vh + 0.15vmin);
-    border-radius: calc(0.1vw + 0.3vh + 0.1vmin);
-    background-color: var(--color_12);
-    z-index: 1;
-}
-
-.companybranch_container {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-}
-
 .project_table_icons {
     display: flex;
     justify-content: space-between;
@@ -134,7 +120,7 @@
 .label {
     display: flex;
     font-weight: 500;
-    color: var(--color_1);
+    /* color: var(--color_1); */
     font-size: var(--TS8);
     white-space: nowrap;
     margin: 0;
@@ -148,8 +134,8 @@
     position: absolute;
     visibility: hidden;
     opacity: 0;
-    background-color: var(--color_5);
-    border-radius: var(--BR1);
+    /* background-color: var(--color_5); */
+    border-radius: 4px;
     padding: calc(0.15vw + 0.45vh + 0.15vmin);
     margin: calc(0.2vw + 0.6vh + 0.2vmin);
     -webkit-box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
@@ -191,4 +177,11 @@
     text-align: left;
     justify-content: flex-start;
     text-align-last: left;
+}
+
+.chart_button {
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
 }

@@ -15,16 +15,19 @@ import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import firebase from "../../../firebase";
 import { setuid } from 'process';
+import { useAuth } from 'store/authStore';
+import Cookie from 'components/Common/Cookies'
 
 declare global {
   interface Window { recaptchaVerifier: any; confirmationResult: any }
 }
 
 const LoginScreen = () => {
+  const { setAuth } = useAuth();
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
-
+  const [google_cookies, setgoogle_cookies] = useState('')
   const [ispassword, setispassword] = useState(true)
 
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(15 * 1000, 1000);
@@ -46,7 +49,10 @@ const LoginScreen = () => {
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
+
   }, [])
+
+
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
     if (data.status === 200) {
@@ -73,7 +79,7 @@ const LoginScreen = () => {
     let data = {
       auth_provider: ispassword ? "mc" : "otp",
       password: password_otp.value,
-      username: username_email_or_phone.value
+      email_or_username: username_email_or_phone.value
     }
     Sociallogin(loginCallback, data)
   };
@@ -83,19 +89,19 @@ const LoginScreen = () => {
       // console.log('response =================> ' + JSON.stringify(data));
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
+      setAuth(String(data.data.result.token))
+      history.push('/Home')
 
-      let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-      // console.log("dataaa==>", UserDetails);
-
-      if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
-        if (UserDetails.is_active === false)
-          history.push('/NewUserForm')
-        else
-          history.push('/Home')
-      else {
-        if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-          history.push('/Home')
-      }
+      // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
+      // if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
+      //   if (UserDetails.is_active === false)
+      //     history.push('/UserSetup')
+      //   else
+      //   history.push('/Home')
+      // else {
+      //   if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
+      //     history.push('/Home')
+      // }
       // window.location.reload()
     } else {
       console.log('error ' + JSON.stringify(data));
@@ -113,8 +119,6 @@ const LoginScreen = () => {
     // console.log(a, b);
     Sociallogin(loginCallback, data)
   };
-
-
 
   //PHONE AUTH OTP
 
@@ -154,9 +158,7 @@ const LoginScreen = () => {
   };
 
   const onSubmitOtp = () => {
-
-
-    console.log(">>>>>>>>>>", phoneauth_uid)
+    // console.log(">>>>>>>>>>", phoneauth_uid)
     // e.preventDefault();
     let otpInput = otp;
     let optConfirm = window.confirmationResult;
@@ -165,7 +167,7 @@ const LoginScreen = () => {
       .confirm(otpInput)
       .then(function (result: any) {
         // User signed in successfully.
-        console.log("Result", result, result.user.uid);
+        // console.log("Result", result, result.user.uid);
         // alert("SUCCESSFULL GOOD JOB HEMANTH");
         // let user = result.user;
         let data = {
@@ -179,7 +181,6 @@ const LoginScreen = () => {
         console.log(error);
         alert("Incorrect OTP");
       });
-
   };
 
   return (
@@ -260,12 +261,15 @@ const LoginScreen = () => {
                   </button>
                 </div> */}
 
-                <div className="login_button_container" >
+                <div className="login_button_container">
                   <button onClick={() => {
                     if (timeLeft / 1000 === 0) {
-                      let reg = '^[0-9]$';
-                      if (!reg === false) {
+
+                      let reg = '^[0-9]*[1-9]+$|^[1-9]+[0-9]*$'
+                      if (username_email_or_phone.value.match(reg)) {
                         onSignInSubmit()
+                        settimerglow(true)
+                        start()
                       } else {
                         _onSignUpPressed()
                         settimerglow(true)
@@ -278,7 +282,8 @@ const LoginScreen = () => {
                     {timerglow ?
                       <div className="login_resendotp_container">
                         <div className={timeLeft / 1000 === 0 ? 'login_buttontext' : 'login_buttontext disabled_text'} >
-                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}</div>
+                          {timeLeft / 1000 === 0 ? 'Get OTP' : ('Resend in ' + timeLeft / 1000)}
+                        </div>
                       </div>
                       :
                       <div className="login_buttontext">Get OTP</div>
@@ -318,10 +323,14 @@ const LoginScreen = () => {
                   }
                   Sociallogin(loginCallback, data);
                 }}
-                onFailure={(Response: any) => { console.log("============================>>>>>>>>>", Response); }}
-                cookiePolicy={'single_host_origin'} />
+                onFailure={(Response: any) => {
+                  setgoogle_cookies(Response.error)
+                  console.log(Response)
+                }}
+                cookiePolicy={'single_host_origin'}
+              />
 
-              <FacebookProvider appId="976961256166749">
+              <FacebookProvider appId="494516388401593">
                 <Login
                   scope="email"
                   onResponse={(response: any) => {
@@ -336,7 +345,7 @@ const LoginScreen = () => {
                     let userInfo = response.profile
                     formData.append('lastname', userInfo.last_name);
                     formData.append('firstname', userInfo.first_name);
-                    formData.append('photo_url', userInfo.photo_url);
+                    // formData.append('photo_url', userInfo.photo_url);
                     formData.append('auth_provider', "fb");
                     formData.append('email', userInfo.email);
                     formData.append('username', userInfo.id);
@@ -371,7 +380,7 @@ const LoginScreen = () => {
 
             <div className="login_button_container">
               <button onClick={() => {
-                history.push('/NewUserForm')
+                history.push('/UserSetup')
               }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>
@@ -395,6 +404,7 @@ const LoginScreen = () => {
       } */}
 
       </div>
+      <Cookie googlecookies={google_cookies} />
 
       <Footer bgColor={'bgtransparent'} />
 
@@ -411,4 +421,3 @@ function Referrerid(Referrerid: any): string | Blob {
 function errorlog(data: { status: number; data: string; }, errorresponse: any) {
   throw new Error('Function not implemented.');
 }
-

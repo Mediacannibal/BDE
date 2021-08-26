@@ -1,7 +1,8 @@
 import 'core-js/stable'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
+import Cookie from './Common/Cookies'
 
 import ReactGA from 'react-ga';
 
@@ -21,7 +22,7 @@ import Dashboard from './Dashboard';
 import UserProfile from './UserMenuItems/UserProfile';
 import UserSettings from './UserMenuItems/UserSettings';
 import ChatProject from './ChatProject';
-import NewUserForm from './Forms/NewUserForm';
+import NewUserForm from './Forms/UserSetup';
 import TestSelectionForm from './Forms/TestSelection/TestSelectionForm';
 import ApiRecords from './Api Records';
 import Notifications from './Notifications';
@@ -29,18 +30,12 @@ import Report from "../components/AnalyticsReport/index";
 import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
 import { getToken, onMessageListener } from '../../firebase';
-
-import { Button, Toast } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import firebase from 'firebase/app';
-import 'firebase/messaging';
-import "firebase/auth";
+import MeetingRoom from './MeetingScreen/MeetingRoom';
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
   { path: '/Project', component: ProjectScreen },
-  { path: '/TaskDetails', component: TaskDetails },
+  { path: '/TaskDetails/:id', component: TaskDetails },
   { path: '/TaskList', component: TaskList },
   { path: '/TaskTimeLog', component: TaskTimeLog },
   { path: '/TestingChecklist', component: TestingChecklist },
@@ -55,145 +50,87 @@ const dashboard_screen = [
   { path: '/Notifications', component: Notifications },
   { path: '/report', component: Report },
   { path: '/AppGantt', component: AppGantt },
+  { path: '/Meeting', component: MeetingScreen },
 ]
 
 const fullpage_screen = [
   { path: '/', component: LoginScreen },
-  { path: '/Meeting', component: MeetingScreen },
+  { path: "/MeetingRoom/:roomID", component: MeetingRoom },
+  { path: '/AnalyticsFullScreen', component: Report },
 ]
+
 
 const App = () => {
 
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [enable, setenable] = useState(true);
 
-  const [isTokenFound, setTokenFound] = useState(false);
-
-  const messaging = firebase.messaging();
-
-  getToken(setTokenFound);
-
-
-  // onMessageListener().then(payload => {
-  //   console.log(payload);
-  //   setShow(true);
-  //   setNotification({ title: payload.notification.title, body: payload.notification.body })
-  // }).catch(err => console.log('failed: ', err));
 
   useEffect(() => {
-    onMessageListener();
+    if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
+      getToken()
+
+      isEnabled()
+    }
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-  Notification.requestPermission(function (status) {
-    console.log('Notification permission status:', status);
-  });
+  if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
 
-  if ('Notification' in window) {
-    if (window.Notification.permission === 'granted') {
-      new window.Notification('Time is over!');
+    onMessageListener().then(message => {
+      // setShow(true);
+    }).catch(err => console.log('failed: ', err));
+  }
+
+  const isEnabled = () => {
+    var test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      console.log('PERMISSION : :', true);
+      setenable(true)
+      return true
+    } catch (e) {
+      console.log('PERMISSION : :', false);
+      setenable(false)
+
+      return false
+
     }
   }
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function (reg) {
-      console.log('Service Worker Registered!', reg);
-
-      reg.pushManager.getSubscription().then(function (sub) {
-        if (sub === null) {
-          // Update UI to ask user to register for Push
-          console.log('Not subscribed to push service!');
-        } else {
-          // We have a subscription, update the database
-          console.log('Subscription object: ', sub);
-        }
-      });
-    })
-      .catch(function (err) {
-        console.log('Service Worker registration failed: ', err);
-      });
-  }
-
-  function subscribeUser() {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then(function (reg) {
-
-        reg.pushManager.subscribe({
-          userVisibleOnly: true
-        }).then(function (sub) {
-          console.log('Endpoint URL: ', sub.endpoint);
-        }).catch(function (e) {
-          if (Notification.permission === 'denied') {
-            console.warn('Permission for notifications was denied');
-          } else {
-            console.error('Unable to subscribe to push', e);
-          }
-        });
-      })
-    }
-  }
-
-  // if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
-  //   getToken()
-  // }
-  // ReactGA.pageview(window.location.pathname + window.location.search);
-
-  // if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
-  //   onMessageListener(message).then((message: any) => {
-  //     console.log(message)
-  //   }).catch(err => console.log('failed: ', err));
-  // }
-  onMessageListener();
-
 
   return (
     <>
-      <div className="App">
-        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          minWidth: 200
-        }}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded mr-2"
-              alt=""
-            />
-            <strong className="mr-auto">{notification.title}</strong>
-            <small>just now</small>
-          </Toast.Header>
-          <Toast.Body>{notification.body}</Toast.Body>
-        </Toast>
-        <header className="App-header">
-          {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
-          {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
-          {/* <img  className="App-logo" alt="logo" /> */}
-          <Button onClick={() => setShow(true)}>Show Toast</Button>
-        </header>
-      </div>
+      {
+        enable ?
+          <Router>
+            < Switch >
+              {
+                fullpage_screen.map((Data: any) =>
+                  <Route exact path={Data.path}>
+                    <Data.component />
+                  </Route>
+                )
+              }
 
-      {/* <Router>
-        <Switch>
-          {fullpage_screen.map((Data: any) =>
-            <Route exact path={Data.path}>
-              <Data.component />
-            </Route>
-          )}
-
-          {dashboard_screen.map((Data: any) => {
-            const [blabla, setblabla] = useState()
-            return (
-              <Route exact path={Data.path}>
-                <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
-              </Route>
-            )
-          }
-          )}
-        </Switch>
-      </Router> */}
-    </>
-  )
+              {
+                dashboard_screen.map((Data: any) => {
+                  const [blabla, setblabla] = useState()
+                  return (
+                    <Route exact path={Data.path}>
+                      <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
+                    </Route>
+                  )
+                }
+                )
+              }
+            </Switch >
+          </Router >
+          :
+          <>
+            <Cookie localstorage_permission={"disable"} />
+          </>
+      }
+    </>)
 }
 
 export default withRouter(App);

@@ -1,0 +1,14 @@
+.companybranch_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: calc(0.15vw + 0.45vh + 0.15vmin);
+    border-radius: 4px;
+    background-color: var(--color_12);
+    z-index: 1;
+}
+
+.companybranch_container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}

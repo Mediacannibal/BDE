@@ -3,15 +3,20 @@ import './style.css';
 import '../../../components/app.css'
 import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
+import * as eye from '../../../assets/eye-visibility.svg'
+import * as eye_invisible from '../../../assets/eye-invisible.svg'
 
 const McInput = (props: any) => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
+    const [passwordvisible, setPasswordvisible] = useState(false)
+
+
     const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
-        props.onchange(value)
+        props.onChange(value)
         setDropdownOpen(false)
         // console.log("select option value :", props.value)
     }
@@ -37,6 +42,10 @@ const McInput = (props: any) => {
 
     const [error_message, seterror_message] = useState("")
 
+
+    const [inputpaddingclassname, setInputPaddingClassName] = useState("")
+
+
     useEffect(() => {
 
         if (props.value === undefined) {
@@ -57,6 +66,18 @@ const McInput = (props: any) => {
 
         if ((props.valid === undefined) && (props.required !== true)) {
             setIsValid(true)
+        }
+
+        if (props.input_inner_leftprop !== undefined) {
+            setInputPaddingClassName(" padleft")
+        }
+
+        if ((props.input_inner_rightprop !== undefined) || (props.type === "password")) {
+            setInputPaddingClassName(" padright")
+        }
+
+        if ((props.input_inner_leftprop !== undefined) && ((props.input_inner_rightprop !== undefined) || (props.type === "password"))) {
+            setInputPaddingClassName(" padleft padright")
         }
 
         // if (props.presubmit_validation === 'true') {
@@ -130,7 +151,7 @@ const McInput = (props: any) => {
         let a = data.target.value.replace((input_replace_regex[0]), (input_replace_regex[1]))
 
         setinput_data(a)
-        props.onchange(a)
+        props.onChange(a)
 
         let b = input_format_validation_regex.test(a)
 
@@ -181,13 +202,14 @@ const McInput = (props: any) => {
 
                 <div className={((input_data !== "") || (isActive === true)) ? "top Label" : "Empty Label"}>{props.label}</div>
 
-                <div className="input_innerLeft_div">{props.input_inner_leftprop}</div>
+                <div className="input_innerLeft_div">
+                    {props.input_inner_leftprop}
+                </div>
 
-                <div className="input_innerCenter_div">
+                <div className={"input_innerCenter_div" + inputpaddingclassname}>
 
                     {(props.type === "picker") &&
-
-                        <div className={((props.valid === false) && (props.required == true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
+                        <div className={((props.valid === false) && (props.required === true)) ? "DropDownHeader invalid_entry_container" : "DropDownHeader"}
                             onClick={toggling}>
                             {props.value || props.name}
                         </div>
@@ -202,7 +224,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -211,7 +233,29 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }} />
+                    }
+
+                    {(props.type === "password") &&
+                        <input {...props} type={passwordvisible ? "text" : "password"}
+                            className={((props.valid === false) && (props.required === true)) ? "textinput_box invalid_entry_container" : "textinput_box"}
+                            value={props.value}
+                            onChange={(data: any) => {
+                                Reformat_and_Validate(data)
+                            }}
+                            onFocus={() => {
+                                setisActive(true)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                            }}
+                            onBlur={() => {
+                                setisActive(false)
+                                if ((String(input_data).length === 0) && ((props.required === false) || (props.required === undefined))) {
+                                    seterror_message("")
+                                    props.valid(true)
+                                    // props.setinput_valid(valid)
+                                }
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -224,7 +268,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -233,15 +277,14 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
 
 
                     {(props.type === "checkbox") &&
-                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
-
+                        <div className={((props.valid === false) && (props.required == true)) ? "invalid_entry_container" : ""}>
                             {props.options.map((option: any) => (
                                 <div className={"checkbox_option_wrapper"}>
                                     <input {...props}
@@ -261,7 +304,6 @@ const McInput = (props: any) => {
                                     <div className="checkbox_text">{option.value}</div>
                                 </div>
                             ))}
-
                         </div>
                     }
 
@@ -292,14 +334,49 @@ const McInput = (props: any) => {
                         </div>
                     }
 
+                    {(props.type === "user_picker") &&
+                        <div className={((props.valid === false) && (props.required == true)) ? " invalid_entry_container" : ""}>
+
+                            {props.options.map((option: any) => (
+                                <div className={"checkbox_option_wrapper"}>
+                                    <input {...props}
+                                        type="text"
+                                        id={props.id + option.value}
+                                        className="checkbox"
+                                        name={props.id}
+                                        value={option.value}
+                                        checked={checkedOptionValue === option.value}
+                                        onChange={(e) => {
+                                            // console.log(e);
+                                            handleRadioChange(e)
+                                            seterror_message("")
+                                            props.valid(true)
+                                            setinput_data(option.value)
+                                        }}
+                                    />
+                                    <div className="checkbox_text">{option.value}</div>
+                                </div>
+                            ))}
+
+                        </div>
+                    }
+
                 </div>
 
                 <div className="input_innerRight_div">
-                    {(props.type !== "picker") ?
-                        props.input_inner_rightprop
-                        :
-                        <div className={"input_innerRight_icon"} onClick={toggling}>
+                    {((props.type !== "picker") && (props.type !== "password")) &&
+                        <div className={"input_innerRight_icon"}>
+                            {props.input_inner_rightprop}
+                        </div>
+                    }
+                    {(props.type === "picker") &&
+                        <div className={"input_innerRight_icon"} onClick={toggling} onBlur={toggling} onFocus={toggling}>
                             <img className='down_up_arrow_icon' src={dropdownOpen ? up : down} />
+                        </div>
+                    }
+                    {(props.type === "password") &&
+                        <div className={"input_innerRight_icon"} onClick={() => { setPasswordvisible(!passwordvisible) }}>
+                            <img className="Password_visibility_icon" src={passwordvisible ? eye : eye_invisible} />
                         </div>
                     }
                 </div>

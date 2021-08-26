@@ -9,14 +9,15 @@ import { ProgressBar } from '../Common/Spinner';
 import { CommonAPi } from 'utils/api';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore'
-import NewUserForm from '../Forms/NewUserForm';
+import NewUserForm from '../Forms/UserSetup';
 import UserSettings from 'components/UserMenuItems/UserSettings';
+import UpDownArrow from 'components/Common/updownArrow';
 
 export const header_options = () => <div>Hello</div>
 
 const UserManagement = (props: any) => {
   const { auth } = useAuth();
-  const { Colour, colourObj, setColour, loadColour } = ColourObject()
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const history = useHistory();
 
   const [spinner, setspinner] = useState(true)
@@ -30,7 +31,7 @@ const UserManagement = (props: any) => {
     // header
     props.setheader_options(screen_header_elements)
 
-    if (!Colour) {
+    if (!Colour || !colourObj) {
       loadColour();
     }
 
@@ -69,7 +70,16 @@ const UserManagement = (props: any) => {
     let headerElement = ['Company Name', 'Branch Name', 'username', 'First Name', 'Last Name', 'Email', 'Phone', 'UserType', 'Password']
 
     return headerElement.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
+      return (
+        <th key={index}>
+          <div className={"title_wrapper"} >
+            {key.toUpperCase()}
+            <div className={"orderby_arrow"}>
+              <UpDownArrow onexpand={() => { }} />
+            </div>
+          </div>
+        </th>
+      )
     })
   }
 
@@ -112,13 +122,13 @@ const UserManagement = (props: any) => {
         />
       }
 
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
+      <div className="body">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />
           </div>
           :
-          <div className="internal_table" style={{ width: '97%', overflowY: 'hidden' }}>
+          <div className="internal_table" style={{ width: '97%', overflowY: 'hidden', color: colourObj.color_1 }}>
             <table id='internal_table'>
               <thead>{renderHeader()}</thead>
               <tbody>
