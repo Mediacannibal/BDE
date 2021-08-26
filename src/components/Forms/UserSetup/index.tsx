@@ -31,13 +31,13 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   const [company_name, setcompany_name] = useState({})
   const [branch_name, setbranch_name] = useState({})
-  const [firstname, setfirstname] = useState({})
-  const [username, setusername] = useState({})
-  const [lastname, setlastname] = useState({})
-  const [email, setemail] = useState({})
-  const [phoneno, setphoneno] = useState({})
+  const [firstname, setfirstname] = useState('')
+  const [username, setusername] = useState('')
+  const [lastname, setlastname] = useState('')
+  const [email, setemail] = useState('')
+  const [phoneno, setphoneno] = useState('')
   const [usertype, setusertype] = useState({})
-  const [password, setpassword] = useState({})
+  const [password, setpassword] = useState('')
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
   const [branchvalid, setbranchvalid] = useState(false)
@@ -549,7 +549,7 @@ console.log("OTP not matched")
                           label={"First Name"}
                           id="firstname_data"
                           name={`data.FirstName`}
-                          inputtype="firstname"
+                          inputtype="Text"
                           type="text"
                           min_length="3"
                           required={true}

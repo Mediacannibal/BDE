@@ -153,10 +153,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   return (
     <div className='main_wrapper'>
-      {!isuser_active && (
+      {isuser_active && (
         <UserSetup
           setPopup={() => {
-            setsettings_popup(false)
+            setisuser_active(false)
           }}
         />
       )}
@@ -496,7 +496,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       <div className="floating_button">
         <img className="add_new_items" src={add} />
       </div>
-      
+
     </div >
   )
 }
