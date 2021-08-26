@@ -2,6 +2,7 @@ import 'core-js/stable'
 import React, { useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
+import Cookie from './Common/Cookies'
 
 import ReactGA from 'react-ga';
 
@@ -61,10 +62,14 @@ const fullpage_screen = [
 
 const App = () => {
 
+  const [enable, setenable] = useState(true);
+
+
   useEffect(() => {
     if (navigator.userAgent.toLowerCase().indexOf('safari/') > -1) {
       getToken()
 
+      isEnabled()
     }
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
@@ -76,28 +81,56 @@ const App = () => {
     }).catch(err => console.log('failed: ', err));
   }
 
+  const isEnabled = () => {
+    var test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      console.log('PERMISSION : :', true);
+      setenable(true)
+      return true
+    } catch (e) {
+      console.log('PERMISSION : :', false);
+      setenable(false)
+
+      return false
+
+    }
+  }
+
   return (
+    <>
+      {
+        enable ?
+          <Router>
+            < Switch >
+              {
+                fullpage_screen.map((Data: any) =>
+                  <Route exact path={Data.path}>
+                    <Data.component />
+                  </Route>
+                )
+              }
 
-    <Router>
-      <Switch>
-        {fullpage_screen.map((Data: any) =>
-          <Route exact path={Data.path}>
-            <Data.component />
-          </Route>
-        )}
-
-        {dashboard_screen.map((Data: any) => {
-          const [blabla, setblabla] = useState()
-          return (
-            <Route exact path={Data.path}>
-              <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
-            </Route>
-          )
-        }
-        )}
-      </Switch>
-    </Router>
-  )
+              {
+                dashboard_screen.map((Data: any) => {
+                  const [blabla, setblabla] = useState()
+                  return (
+                    <Route exact path={Data.path}>
+                      <Dashboard screen={<Data.component setheader_options={setblabla} />} screen_name={Data.path} header_options={blabla} />
+                    </Route>
+                  )
+                }
+                )
+              }
+            </Switch >
+          </Router >
+          :
+          <>
+            <Cookie localstorage_permission={"disable"} />
+          </>
+      }
+    </>)
 }
 
 export default withRouter(App);
