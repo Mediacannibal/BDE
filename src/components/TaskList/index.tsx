@@ -264,7 +264,7 @@ const TaskList = (props: any) => {
               //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
               // console.log("TESTEST!!: ", listItems1);
 
-              history.push(
+              history.replace(
                 {
                   pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                   state: element
@@ -325,7 +325,7 @@ const TaskList = (props: any) => {
         {element.assisted_by === 'true' && (
           <tr className={getClassname(element.priority)}
             onClick={() => {
-              history.push(
+              history.replace(
                 {
                   pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                   state: element
@@ -639,7 +639,7 @@ const TaskList = (props: any) => {
                                   //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
                                   // console.log("TESTEST!!: ", listItems1);
 
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                                       state: element
@@ -660,7 +660,7 @@ const TaskList = (props: any) => {
 
                               <div className="task_project"
                                 onClick={() => {
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                       state: element
@@ -759,7 +759,7 @@ const TaskList = (props: any) => {
                                   //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
                                   // console.log("TESTEST!!: ", listItems1);
 
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                                       state: element
@@ -780,7 +780,7 @@ const TaskList = (props: any) => {
 
                               <div className="task_project"
                                 onClick={() => {
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                       state: element

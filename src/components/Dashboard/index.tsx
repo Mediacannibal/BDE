@@ -327,7 +327,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 className='header_icon'
                 src={chat}
                 onClick={() => {
-                  history.push('/TaskDetails')
+                  history.replace('/TaskDetails')
                 }}
               />
               <img
@@ -452,7 +452,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               <div
                 className='user_menu_item'
                 onClick={() => {
-                  history.push('/UserProfile')
+                  history.replace('/UserProfile')
                 }}
               >
                 <img className='header_icon' src={profile_picture} />

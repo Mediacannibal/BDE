@@ -147,7 +147,7 @@ const ProjectScreen = (props: any) => {
           // setpopup2(true)
           setseleted_taskid(element.id)
 
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("project", element.id)}`,
               state: element
@@ -173,7 +173,7 @@ const ProjectScreen = (props: any) => {
             <div className="project_subtitle" style={{ color: colourObj.color_1 }}>Active Tasks:</div>
             <div className="project_task_options">
               <div className="visibility_toggle" onClick={() => {
-                history.push('/TaskList');
+                history.replace('/TaskList');
               }}>
                 <img className='header_icon' src={tasklist} />
                 <div className="visibility_container">
@@ -292,7 +292,7 @@ const ProjectScreen = (props: any) => {
                       <div className="project_center_container">
                         <div className="project_title" style={{ color: colourObj.color_1 }}
                           onClick={() => {
-                            history.push(
+                            history.replace(
                               {
                                 pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                 state: element

@@ -154,7 +154,7 @@ const HomeScreen = (props: any) => {
     return (
       <tr key={element.id}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("project", element.id)}`,
               state: element
@@ -190,7 +190,7 @@ const HomeScreen = (props: any) => {
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("task", element.id)}`,
               state: element

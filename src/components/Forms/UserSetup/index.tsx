@@ -76,7 +76,11 @@ const UserSetup = ({ setPopup }, props: any) => {
   };
   // console.log(errors);
 
-
+  const handleKeyPress = (event: { key: string; }) => {
+    if (event.key === 'Enter') {
+      handleLogin()
+    }
+  }
 
   const Validate = () => {
     // console.log(companynamevalid, branchvalid, usernamevalid,
@@ -168,11 +172,7 @@ const UserSetup = ({ setPopup }, props: any) => {
     return a
   }
 
-  const handleKeyPress = (event: { key: string; }) => {
-    if (event.key === 'Enter') {
-      handleLogin()
-    }
-  }
+
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
     if (data.status === 200) {
@@ -218,12 +218,12 @@ const UserSetup = ({ setPopup }, props: any) => {
 
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
         if (UserDetails.is_active === false)
-          history.push('/UserSetup')
+          history.replace('/UserSetup')
         else
-          history.push('/Home')
+          history.replace('/Home')
       else {
         if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-          history.push('/Home')
+          history.replace('/Home')
       }
       // window.location.reload()
     } else {
@@ -432,7 +432,7 @@ console.log("OTP not matched")
                     setispopup(false)
                     localStorage.setItem('AuthToken', JSON.stringify(data.data.token));
                     localStorage.setItem('UserDetails', JSON.stringify(data.data.user_details));
-                    history.push('/Home')
+                    history.replace('/Home')
                     setbackendresponse("Successfully Added!")
                     setbackendresponse_popup(true)
                   } else {
@@ -651,6 +651,8 @@ console.log("OTP not matched")
                 setispopup(true)
               }}
               cancelClick={setPopup}
+
+
             />
           }
         </>

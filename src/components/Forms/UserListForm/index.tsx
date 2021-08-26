@@ -110,7 +110,7 @@ const AddEditUserList = ({ setPopup, taskid }) => {
               if (data.status === 200 || 201) {
                 setispopup(false)
                 window.location.reload()
-                history.push('/TaskList')
+                history.replace('/TaskList')
               } else {
                 setispopup(false)
                 setbackendresponse("Failed, Please Try Again!")
