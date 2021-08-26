@@ -1,0 +1,28 @@
+.table_edit_delete_main {
+    display: flex;
+    text-align-last: center;
+}
+
+.table_edit_delete {
+    width: var(--TS3);
+    height: 100%;
+    cursor: pointer;
+}
+
+.table_icon {
+    object-fit: contain;
+    width: 60%;
+    height: 60%;
+}
+
+.main_input_wrap {
+    display: flex;
+}
+
+.div_column_wrap {
+    padding: calc(0.1vw + 0.3vh + 0.1vmin) calc(0.1vw + 0.3vh + 0.1vmin)
+}
+
+.inputfield_sub_container {
+    padding: calc(0.3vw + 0.9vh + 0.3vmin);
+}

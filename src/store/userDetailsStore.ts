@@ -1,66 +1,75 @@
 import { Store, useStore } from "./Store";
-
+import getuser from '../utils/api/getuser'
+import edituser from '../utils/api/edituser'
 
 export class userDetailsItem {
-
-    address: String;
-    auth_type: String;
-    dial_code: String;
-    dob: String;
-    email: String;
-    firstname: String;
-    gender: String;
-    image: String;
-    is_active: boolean;
-    lastname: String;
-    phone: any;
-    photo_url: String;
-    profile_id: Number;
-    referral_code: String;
-    user: String;
-    user_id: Number;
-    user_type: String;
+    id: String
+    image: String
+    firstname: String
+    lastname: String
+    email: String
+    address: String
+    dob: String
+    user_type: String
+    gender: String
+    auth_type: String
+    photo_url: String
+    dial_code: String
+    phone: String
+    is_deleted: String
+    updated_by: String
+    owned_by: String
+    created_at: String
+    updated_at: String
+    created_by: String
+    TextData: any
 
     constructor(o: {
-        address: String;
-        auth_type: String;
-        dial_code: String;
-        dob: String;
-        email: String;
-        firstname: String;
-        gender: String;
-        image: String;
-        is_active: boolean;
-        lastname: String;
-        phone: any;
-        photo_url: String;
-        profile_id: Number;
-        referral_code: String;
-        user: String;
-        user_id: Number;
-        user_type: String;
+        id: String
+        image: String
+        firstname: String
+        lastname: String
+        email: String
+        address: String
+        dob: String
+        user_type: String
+        gender: String
+        auth_type: String
+        photo_url: String
+        dial_code: String
+        phone: String
+        is_deleted: String
+        updated_by: String
+        owned_by: String
+        created_at: String
+        updated_at: String
+        created_by: String
+        TextData: any
     }) {
-        this.address = o.address;
-        this.auth_type = o.auth_type;
-        this.dial_code = o.dial_code;
-        this.dob = o.dob;
-        this.email = o.email;
-        this.firstname = o.firstname;
-        this.gender = o.gender;
-        this.image = o.image;
-        this.is_active = o.is_active;
-        this.lastname = o.lastname;
-        this.phone = o.phone;
-        this.photo_url = o.photo_url;
-        this.profile_id = o.profile_id;
-        this.referral_code = o.referral_code;
-        this.user = o.user;
-        this.user_id = o.user_id;
-        this.user_type = o.user_type;
+        this.id = o.id
+        this.image = o.image
+        this.firstname = o.firstname
+        this.lastname = o.lastname
+        this.email = o.email
+        this.address = o.address
+        this.dob = o.dob
+        this.user_type = o.user_type
+        this.gender = o.gender
+        this.auth_type = o.auth_type
+        this.photo_url = o.photo_url
+        this.dial_code = o.dial_code
+        this.phone = o.phone
+        this.is_deleted = o.is_deleted
+        this.updated_by = o.updated_by
+        this.owned_by = o.owned_by
+        this.created_at = o.created_at
+        this.updated_at = o.updated_at
+        this.created_by = o.created_by
+        this.TextData = o.TextData
     }
 }
 
-export const userDetailsStore = new Store<userDetailsItem | false>(false);
+export const userDetailsStore = new Store<userDetailsItem[] | false>(false);
 
 export const useuserDetails = () => {
     const [userDetail, setuserDetail] = useStore(userDetailsStore);
@@ -69,7 +78,47 @@ export const useuserDetails = () => {
         userDetail, setuserDetail,
 
         async loaduserDetail() {
-            setuserDetail(JSON.parse(String(localStorage.getItem("UserDetails"))));
+            await getuser()
+                .then(data => {
+                    setuserDetail(data.data.results)
+                    console.log('selfuser selfuser selfuser :', data.data.results)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+
+        async edituserDetail(id: any, data: any) {
+            await edituser(id, data)
+                .then(res => {
+                    setuserDetail(oldarr => {
+                        return (
+                            oldarr &&
+                            oldarr.map((obj: any) => {
+                                const getobj = (o: any) => {
+                                    let x = o
+                                    x.image = data.image
+                                    x.firstname = data.firstname
+                                    x.lastname = data.lastname
+                                    x.email = data.email
+                                    x.address = data.address
+                                    x.dob = data.dob
+                                    x.user_type = data.user_type
+                                    x.gender = data.gender
+                                    x.auth_type = data.auth_type
+                                    x.photo_url = data.photo_url
+                                    x.dial_code = data.dial_code
+                                    x.phone = data.phone
+                                    return x
+                                }
+                                return String(obj.id) === String(id) ? getobj(obj) : obj
+                            })
+                        )
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         },
 
     }
