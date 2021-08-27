@@ -5,8 +5,8 @@ import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
-import { file_upload } from '../../../utils/actions';
 import { useAuth } from '../../../store/authStore';
+import { fileupload } from 'utils/actions';
 
 
 const McInput = (props: any) => {
@@ -209,7 +209,7 @@ const McInput = (props: any) => {
 
         let formdata = new FormData()
         formdata.append("file", file)
-        file_upload(Callback, auth, formdata)
+        fileupload(Callback, auth)
     }
 
     const Callback = async (data: any, errorresponse: any) => {

@@ -81,7 +81,7 @@ export const useuserDetails = () => {
             await getuser()
                 .then(data => {
                     setuserDetail(data.data.results)
-                    console.log('selfuser selfuser selfuser :', data.data.results)
+                    // console.log('selfuser selfuser selfuser :', data.data.results)
                 })
                 .catch(err => {
                     console.log(err)
