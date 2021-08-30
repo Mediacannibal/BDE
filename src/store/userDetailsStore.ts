@@ -71,11 +71,16 @@ export class userDetailsItem {
 
 export const userDetailsStore = new Store<userDetailsItem[] | false>(false);
 
+export const SelfDetailsStore = new Store<userDetailsItem | false>(typeof localStorage === "undefined" ? null : localStorage.getItem('UserDetails') ? JSON.parse(String(localStorage.getItem('UserDetails'))) : null);
+
+
+
 export const useuserDetails = () => {
     const [userDetail, setuserDetail] = useStore(userDetailsStore);
+    const [self, setself] = useStore(SelfDetailsStore);
 
     return {
-        userDetail, setuserDetail,
+        userDetail, setuserDetail,self,
 
         async loaduserDetail() {
             await getuser()
