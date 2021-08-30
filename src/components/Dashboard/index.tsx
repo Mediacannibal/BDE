@@ -156,7 +156,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   return (
     <div className='main_wrapper'>
-      {!isuser_active && (
+      {isuser_active && (
         <UserSetup
           setPopup={() => {
             setisuser_active(false)
