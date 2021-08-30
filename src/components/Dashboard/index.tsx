@@ -39,11 +39,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const { self } = useuserDetails();
 
   const [menu_open, setMenu_open] = useState(true)
-  const [usertype, setusertype] = useState('NORMAL')
-  const [username, setUsername] = useState('')
-  const [profile_picture, setprofile_picture] = useState('')
-  const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
-  const [seleted_taskid, setseleted_taskid] = useState('')
+  const [usertype, setusertype] = useState(self.user_type)
+  const [username, setUsername] = useState(self.firstname)
+  const [profile_picture, setprofile_picture] = useState((self.photo_url === undefined || self.photo_url === null)? defaultusericon: self.photo_url)
+  const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false) 
   const [projecttaskTitle, setprojecttaskTitle] = useState(false)
   const [current_task, setcurrent_task] = useState(false)
 
@@ -57,13 +56,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   const [user_menu_open, setUser_menu_open] = useState(false)
   const [user_notification, setuser_notification] = useState(false)
-
-  const [task, settask] = useState('')
-  const [users, setusers] = useState('')
-  const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
+ 
+  const [users, setusers] = useState('') 
   const [isuser_active, setisuser_active] = useState(false)
 
   const location = useLocation()
@@ -75,18 +69,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     );
 
 
-    if (self) {
-      let usertype = self.user_type
-      let username = self.firstname
-      let profile_picture = self.photo_url
-      // console.log(screen, usertype)
-      setusertype(usertype)
-      setUsername(username)
-      setprofile_picture(
-        profile_picture === undefined || profile_picture === null
-          ? defaultusericon
-          : profile_picture
-      )
+    if (self) {   
+         
+      
       setisuser_active(self?.is_active)
       // console.log("someidentifier", profile_picture)
     }
