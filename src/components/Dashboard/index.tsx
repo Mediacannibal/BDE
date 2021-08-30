@@ -58,24 +58,12 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_notification, setuser_notification] = useState(false)
  
   const [users, setusers] = useState('') 
-  const [isuser_active, setisuser_active] = useState(false)
+  const [isuser_active, setisuser_active] = useState(self?.is_active)
 
   const location = useLocation()
 
   useEffect(() => {
-    // console.log("screenlocation: ", location.pathname);
-    console.log(
-      self
-    );
-
-
-    if (self) {   
-         
-      
-      setisuser_active(self?.is_active)
-      // console.log("someidentifier", profile_picture)
-    }
-
+ 
     if (!Colour) {
       loadColour();
     }
