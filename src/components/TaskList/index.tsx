@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import { useHistory } from 'react-router-dom'
 import 'components/app.css'
-import { CommonAPi, getMainTask } from 'utils/api'
 import { ProgressBar } from 'components/Common/Spinner'
 
 import AddEditTask from 'components/Forms/AddEditTask'
@@ -15,7 +14,6 @@ import { useAuth } from 'store/authStore'
 import { useuserDetails } from 'store/userDetailsStore'
 import McInput from 'components/Common/McInput'
 import * as up_down_arrow from 'assets/up_down.svg'
-import Card from 'components/Common/Card'
 import Footer from '../Common/Footer'
 import TimeSpent from 'components/TimeSpent'
 import UpDownArrow from 'components/Common/updownArrow'
@@ -24,6 +22,7 @@ import { useForm } from 'react-hook-form';
 import { getChatID } from 'utils/GlobalFunctions'
 import AddEditUserList from 'components/Forms/UserListForm'
 import McCard from 'components/Common/McCard'
+import { taskStore } from '../../store/taskStore';
 
 const TaskList = (props: any) => {
   const history = useHistory()
@@ -31,6 +30,7 @@ const TaskList = (props: any) => {
 
   const { userDetail, loaduserDetail } = useuserDetails()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { taskField, settaskField, loadTaskDetail } = taskStore()
 
   const [spinner, setspinner] = useState(true)
 
@@ -39,9 +39,6 @@ const TaskList = (props: any) => {
   const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
   const [userlistForm_popup, setuserlistForm_popup] = useState(false)
-
-  const [listItems1, setlistItems1] = useState([])
-  const [listItems2, setlistItems2] = useState([])
 
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
@@ -55,8 +52,6 @@ const TaskList = (props: any) => {
   const [task_priority, settask_priority] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const [filter1, setFilter1] = useState([])
-
   const [up_arrow, setup_arrow] = useState(true)
 
   const isFirstRender = useRef(true)
@@ -64,7 +59,7 @@ const TaskList = (props: any) => {
   useEffect(() => {
     if (!isFirstRender.current) {
       // console.log("NOT THE FIRST RENDER", isFirstRender.current)
-      mainTask()
+      // mainTask()
     }
   }, [task, users, parent_child, task_domain, task_priority, project_ref, project_id])
 
@@ -77,10 +72,12 @@ const TaskList = (props: any) => {
     }
     setspinner(true)
 
-    mainTask()
-
     if (!Colour) {
       loadColour();
+    }
+
+    if (!taskField) {
+      loadTaskDetail();
     }
 
   }, [])
@@ -92,7 +89,7 @@ const TaskList = (props: any) => {
       return (
         <>
           <div className="assign_wrap">
-            <img className='user_icon' src={(obj[0].photo_url === null) ? defaultusericon : obj[0].photo_url} />
+            <img className='user_icon' src={(obj[0]?.photo_url === null) ? defaultusericon : obj[0]?.photo_url} />
           </div>
         </>
       )
@@ -114,58 +111,6 @@ const TaskList = (props: any) => {
       )
   }
 
-  const mainTask = () => {
-    // console.log("SELETED TASKTYPE: ", task);
-    getMainTask(
-      async (data: any, errorresponse: any) => {
-        if (data.status === 200) {
-          setspinner(false)
-          console.log("Task Assigned: ", data.data.results.Assigned)
-          console.log("Task Open: ", data.data.results.Open)
-
-          setlistItems1([])
-          setlistItems1(data.data.results.Assigned)
-          setlistItems2(data.data.results.Open)
-
-          let array: any = []
-          array.push({ key: '0', value: 'All' })
-          console.log("Incoming list of option");
-          data.data.results.Open.forEach((element: any) => {
-            array.push({
-              key: element.project_ref_id,
-              value: element.project_ref_id,
-            })
-            filter1.push({
-              key: element.project_ref_id,
-              value: element.project_ref_id,
-            })
-          })
-
-          // var array = [], l = data.data.results.length, i;
-          // for (i = 0; i < l; i++) {
-          //   if (array[data.data.results[i].project_ref_id]) continue;
-          //   array[data.data.results[i].project_ref_id] = true;
-          //   filter1.push(data.data.results[i].project_ref_id);
-          // }
-
-        } else {
-          setspinner(false)
-          console.log('error ' + JSON.stringify(data))
-          console.log('error ' + JSON.stringify(errorresponse))
-        }
-      },
-      auth,
-      // task,
-      // users,
-      // parent_child,
-      // task_domain,
-      // task_priority,
-      // project_ref,
-      // project_id
-    )
-  }
-
-
   const getClassname = (key: any) => {
     switch (key) {
       case 'Low':
@@ -183,225 +128,225 @@ const TaskList = (props: any) => {
     }
   }
 
-  const renderHeader1 = () => {
-    let headerElement = [
-      '',
-      'Project',
-      'domain',
-      'Task Type',
-      'priority',
-      'status',
-      'Title',
-      'description',
-      'image_link',
-      'assignee by',
-      'assignee to',
-      'assisted by',
-      'Time Spent',
-      'track',
-    ]
-    return headerElement.map((key, index) => {
-      return (
-        <th key={index}>
-          <div className={"title_wrapper"} >
-            {key.toUpperCase()}
-            <div className={"orderby_arrow"}>
-              <UpDownArrow onexpand={() => { }} />
-            </div>
-          </div>
-        </th>
-      )
-    })
-  }
+  // const renderHeader1 = () => {
+  //   let headerElement = [
+  //     '',
+  //     'Project',
+  //     'domain',
+  //     'Task Type',
+  //     'priority',
+  //     'status',
+  //     'Title',
+  //     'description',
+  //     'image_link',
+  //     'assignee by',
+  //     'assignee to',
+  //     'assisted by',
+  //     'Time Spent',
+  //     'track',
+  //   ]
+  //   return headerElement.map((key, index) => {
+  //     return (
+  //       <th key={index}>
+  //         <div className={"title_wrapper"} >
+  //           {key.toUpperCase()}
+  //           <div className={"orderby_arrow"}>
+  //             <UpDownArrow onexpand={() => { }} />
+  //           </div>
+  //         </div>
+  //       </th>
+  //     )
+  //   })
+  // }
 
-  const renderBody1 = (element: any) => {
-    let assigned_by = element?.assigned_by;
-    let assigned_to = element?.assigned_to;
-    let assisted_by = element?.assisted_by;
+  // const renderBody1 = (element: any) => {
+  //   let assigned_by = element?.assigned_by;
+  //   let assigned_to = element?.assigned_to;
+  //   let assisted_by = element?.assisted_by;
 
-    return (
-      <>
-        <tr key={element.id} className={getClassname(element.priority)}>
-          <td>
-            {element.child !== undefined && element.child.length > 0 && (
-              <UpDownArrow
-                onexpand={() => {
-                  setup_arrow(!up_arrow)
-                  let temp = listItems1
-                  let objIndex = listItems1.findIndex(
-                    obj => obj.id == element.id
-                  )
-                  {
-                    element.assisted_by === 'false'
-                      ? (temp[objIndex].assisted_by = 'true')
-                      : (temp[objIndex].assisted_by = 'false')
-                  }
-                  setlistItems1(temp)
-                }}
-              />
-            )}
-          </td>
-          <td>{element.project_ref_id}</td>
-          <td>{element.domain}</td>
-          <td>{element.task_type}</td>
-          <td>{element.priority}</td>
-          <td>{element.status}</td>
-          <td
-            onClick={() => {
-              let temp = listItems1
-              let objIndex = listItems1.findIndex(obj => obj.id == element.id)
-              temp[objIndex].assisted_by = 'blabla'
-              // let temp = listItems1
-              // temp.forEach((ele :any,index:any) => {
-              //   if(ele.id === element.id){
-              //      let x = ele
-              //      x.title = "skdfgad"
-              //      temp[index] = x
-              //   }
-              // });
-              setlistItems1(temp)
-              // setlistItems1({...listItems1, abc:"new value"});
-              //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
-              // console.log("TESTEST!!: ", listItems1);
+  //   return (
+  //     <>
+  //       <tr key={element.id} className={getClassname(element.priority)}>
+  //         <td>
+  //           {element.child !== undefined && element.child.length > 0 && (
+  //             <UpDownArrow
+  //               onexpand={() => {
+  //                 setup_arrow(!up_arrow)
+  //                 let temp = listItems1
+  //                 let objIndex = listItems1.findIndex(
+  //                   obj => obj.id == element.id
+  //                 )
+  //                 {
+  //                   element.assisted_by === 'false'
+  //                     ? (temp[objIndex].assisted_by = 'true')
+  //                     : (temp[objIndex].assisted_by = 'false')
+  //                 }
+  //                 setlistItems1(temp)
+  //               }}
+  //             />
+  //           )}
+  //         </td>
+  //         <td>{element.project_ref_id}</td>
+  //         <td>{element.domain}</td>
+  //         <td>{element.task_type}</td>
+  //         <td>{element.priority}</td>
+  //         <td>{element.status}</td>
+  //         <td
+  //           onClick={() => {
+  //             let temp = listItems1
+  //             let objIndex = listItems1.findIndex(obj => obj.id == element.id)
+  //             temp[objIndex].assisted_by = 'blabla'
+  //             // let temp = listItems1
+  //             // temp.forEach((ele :any,index:any) => {
+  //             //   if(ele.id === element.id){
+  //             //      let x = ele
+  //             //      x.title = "skdfgad"
+  //             //      temp[index] = x
+  //             //   }
+  //             // });
+  //             setlistItems1(temp)
+  //             // setlistItems1({...listItems1, abc:"new value"});
+  //             //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
+  //             // console.log("TESTEST!!: ", listItems1);
 
-              history.push(
-                {
-                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
-                  state: element
-                }
-              )
+  //             history.replace(
+  //               {
+  //                 pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+  //                 state: element
+  //               }
+  //             )
 
-            }}
-          >
-            {element.title}
-          </td>
-          <td>{element.description}</td>
-          <td>{element.image_link}</td>
-          <td>
-            <div>{getphotoimage(assigned_by)}</div>
-          </td>
+  //           }}
+  //         >
+  //           {element.title}
+  //         </td>
+  //         <td>{element.description}</td>
+  //         <td>{element.image_link}</td>
+  //         <td>
+  //           <div>{getphotoimage(assigned_by)}</div>
+  //         </td>
 
-          <td className="isassigned_to">
-            <img
-              onClick={() => {
-                setuserlistForm_popup(true)
-                setseleted_taskId(element.id)
-              }}
-              className='header_icon'
-              src={add}
-            />
-            <div>{getphotoimage(assigned_to)}</div>
-          </td>
+  //         <td className="isassigned_to">
+  //           <img
+  //             onClick={() => {
+  //               setuserlistForm_popup(true)
+  //               setseleted_taskId(element.id)
+  //             }}
+  //             className='header_icon'
+  //             src={add}
+  //           />
+  //           <div>{getphotoimage(assigned_to)}</div>
+  //         </td>
 
-          <td>
-            <div>{getAssistedby_photo(assisted_by)}</div>
-          </td>
+  //         <td>
+  //           <div>{getAssistedby_photo(assisted_by)}</div>
+  //         </td>
 
-          {element.time_spent !== undefined || null ?
-            <td onClick={() => {
-              settimeSpent_popup(true)
-              setseleted_taskName(element.title)
-              setseleted_taskId(element.id)
-              setseleted_timeSpent(element.time_spent)
-            }}>
-              {element.time_spent}
-            </td>
-            :
-            <td>-</td>
-          }
-          <td>
-            <div
-              className='screen_header_element'
-              onClick={() => {
-                setaddEditTaskTimeLog_popup(true)
-                setseleted_taskId(element.id)
-              }}
-            >
-              <img className='header_icon' src={play} />
-            </div>
-          </td>
-        </tr>
+  //         {element.time_spent !== undefined || null ?
+  //           <td onClick={() => {
+  //             settimeSpent_popup(true)
+  //             setseleted_taskName(element.title)
+  //             setseleted_taskId(element.id)
+  //             setseleted_timeSpent(element.time_spent)
+  //           }}>
+  //             {element.time_spent}
+  //           </td>
+  //           :
+  //           <td>-</td>
+  //         }
+  //         <td>
+  //           <div
+  //             className='screen_header_element'
+  //             onClick={() => {
+  //               setaddEditTaskTimeLog_popup(true)
+  //               setseleted_taskId(element.id)
+  //             }}
+  //           >
+  //             <img className='header_icon' src={play} />
+  //           </div>
+  //         </td>
+  //       </tr>
 
-        {element.assisted_by === 'true' && (
-          <tr className={getClassname(element.priority)}
-            onClick={() => {
-              history.push(
-                {
-                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
-                  state: element
-                }
-              )
-            }}
-          >
-            {element.child?.map((element: any) => {
-              return (
-                <>
-                  <td key={element.id}>
-                    {element.child !== undefined && element.child.length > 0 && (
-                      <img
-                        className={
-                          element.assisted_by === 'true'
-                            ? 'open_close_arrow_icon'
-                            : 'open_close_arrow_icon rotate180'
-                        }
-                        src={up_down_arrow}
-                        onClick={() => {
-                          setup_arrow(!up_arrow)
-                        }}
-                      />
-                    )}
-                  </td>
-                  <td>{element.project_ref_id}</td>
-                  <td>{element.domain}</td>
-                  <td>{element.task_type}</td>
-                  <td>{element.priority}</td>
-                  <td>{element.status}</td>
-                  <td>{element.title}</td>
-                  <td>{element.description}</td>
-                  <td>{element.image_link}</td>
-                  <td>
-                    <img
-                      onClick={() => {
-                        setuserlistForm_popup(true)
-                        setseleted_taskId(element.id)
-                      }}
-                      className='header_icon'
-                      src={add}
-                    />
-                    {element.assigned_to}
+  //       {element.assisted_by === 'true' && (
+  //         <tr className={getClassname(element.priority)}
+  //           onClick={() => {
+  //             history.replace(
+  //               {
+  //                 pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+  //                 state: element
+  //               }
+  //             )
+  //           }}
+  //         >
+  //           {element.child?.map((element: any) => {
+  //             return (
+  //               <>
+  //                 <td key={element.id}>
+  //                   {element.child !== undefined && element.child.length > 0 && (
+  //                     <img
+  //                       className={
+  //                         element.assisted_by === 'true'
+  //                           ? 'open_close_arrow_icon'
+  //                           : 'open_close_arrow_icon rotate180'
+  //                       }
+  //                       src={up_down_arrow}
+  //                       onClick={() => {
+  //                         setup_arrow(!up_arrow)
+  //                       }}
+  //                     />
+  //                   )}
+  //                 </td>
+  //                 <td>{element.project_ref_id}</td>
+  //                 <td>{element.domain}</td>
+  //                 <td>{element.task_type}</td>
+  //                 <td>{element.priority}</td>
+  //                 <td>{element.status}</td>
+  //                 <td>{element.title}</td>
+  //                 <td>{element.description}</td>
+  //                 <td>{element.image_link}</td>
+  //                 <td>
+  //                   <img
+  //                     onClick={() => {
+  //                       setuserlistForm_popup(true)
+  //                       setseleted_taskId(element.id)
+  //                     }}
+  //                     className='header_icon'
+  //                     src={add}
+  //                   />
+  //                   {element.assigned_to}
 
-                  </td>
-                  <td>
-                    {element.time_spent}
-                    <button
-                      onClick={() => {
-                        settimeSpent_popup(true)
-                        setseleted_taskName(element.title)
-                        setseleted_taskId(element.id)
-                      }}
-                    >
-                      Time
-                    </button>
-                  </td>
-                  <td>
-                    <div
-                      className='screen_header_element'
-                      onClick={() => {
-                        setaddEditTaskTimeLog_popup(true)
-                        setseleted_taskId(element.id)
-                      }}
-                    >
-                      <img className='header_icon' src={play} />
-                    </div>
-                  </td>
-                </>
-              )
-            })}
-          </tr>
-        )}
-      </>
-    )
-  }
+  //                 </td>
+  //                 <td>
+  //                   {element.time_spent}
+  //                   <button
+  //                     onClick={() => {
+  //                       settimeSpent_popup(true)
+  //                       setseleted_taskName(element.title)
+  //                       setseleted_taskId(element.id)
+  //                     }}
+  //                   >
+  //                     Time
+  //                   </button>
+  //                 </td>
+  //                 <td>
+  //                   <div
+  //                     className='screen_header_element'
+  //                     onClick={() => {
+  //                       setaddEditTaskTimeLog_popup(true)
+  //                       setseleted_taskId(element.id)
+  //                     }}
+  //                   >
+  //                     <img className='header_icon' src={play} />
+  //                   </div>
+  //                 </td>
+  //               </>
+  //             )
+  //           })}
+  //         </tr>
+  //       )}
+  //     </>
+  //   )
+  // }
 
   const screen_header_elements = () => {
     return (
@@ -419,18 +364,7 @@ const TaskList = (props: any) => {
     )
   }
 
-  const getoptions = (list: any) => {
-    // console.log("Incoming list of options: ", list);
-    let array: any = []
-    array.push({ key: '0', value: 'All' })
-    list.forEach((element: any) => {
-      array.push({
-        key: element,
-        value: element,
-      })
-    })
-    return array
-  }
+
 
 
   const { register, handleSubmit, errors, reset } = useForm();
@@ -496,7 +430,7 @@ const TaskList = (props: any) => {
             My Tasks
           </div>
 
-          {spinner ? (
+          {false ? (
             <>
               <div className='spinner_fullscreen_div'>
                 <ProgressBar />
@@ -513,7 +447,14 @@ const TaskList = (props: any) => {
                       id='task_project_data'
                       value={project_id}
                       onChange={setproject_id}
-                      options={filter1}
+                      options={(taskField) && taskField.forEach((element: any) =>
+                      ({
+                        "key": element.project_ref_id,
+                        "value": element.project_ref_id,
+                      })
+                      )}
+                    // list.map((obj)=>({"key" : obj.prid , "value" : obj.prid}) ) [11,12,13,14] [{"sdfa":"sdfa","prid" : "1"},{"sdfa":"sdfa","prid" : "2"}]
+                    // list 
                     />
                   </div>
 
@@ -603,8 +544,8 @@ const TaskList = (props: any) => {
                 }
               /> */}
 
-              <div>
-                {listItems1.map((element: any) => {
+              <div >
+                {(taskField) && taskField.map((element: any) => {
                   let assigned_by = element?.assigned_by;
                   let assigned_to = element?.assigned_to;
                   let assisted_by = element?.assisted_by;
@@ -623,8 +564,8 @@ const TaskList = (props: any) => {
 
                               <div className={getClassname(element.priority)}
                                 onClick={() => {
-                                  let temp = listItems1
-                                  let objIndex = listItems1.findIndex(obj => obj.id == element.id)
+                                  let temp = (taskField) && taskField
+                                  let objIndex = (taskField) && taskField.findIndex(obj => obj.id == element.id)
                                   temp[objIndex].assisted_by = 'blabla'
                                   // let temp = listItems1
                                   // temp.forEach((ele :any,index:any) => {
@@ -634,12 +575,12 @@ const TaskList = (props: any) => {
                                   //      temp[index] = x
                                   //   }
                                   // });
-                                  setlistItems1(temp)
+                                  settaskField(temp)
                                   // setlistItems1({...listItems1, abc:"new value"});
                                   //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
                                   // console.log("TESTEST!!: ", listItems1);
 
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                                       state: element
@@ -660,7 +601,7 @@ const TaskList = (props: any) => {
 
                               <div className="task_project"
                                 onClick={() => {
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                       state: element
@@ -728,7 +669,8 @@ const TaskList = (props: any) => {
                 })
                 }
 
-                {listItems2.map((element: any) => {
+                {(taskField) && taskField.map((element: any) => {
+
                   return (
                     <McCard
                       card_body={
@@ -743,8 +685,8 @@ const TaskList = (props: any) => {
 
                               <div className={getClassname(element.priority)}
                                 onClick={() => {
-                                  let temp = listItems1
-                                  let objIndex = listItems1.findIndex(obj => obj.id == element.id)
+                                  let temp = (taskField) && taskField
+                                  let objIndex = (taskField) && taskField.findIndex(obj => obj.id == element.id)
                                   temp[objIndex].assisted_by = 'blabla'
                                   // let temp = listItems1
                                   // temp.forEach((ele :any,index:any) => {
@@ -754,12 +696,12 @@ const TaskList = (props: any) => {
                                   //      temp[index] = x
                                   //   }
                                   // });
-                                  setlistItems1(temp)
+                                  settaskField(temp)
                                   // setlistItems1({...listItems1, abc:"new value"});
                                   //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
                                   // console.log("TESTEST!!: ", listItems1);
 
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("task", element.id)}`,
                                       state: element
@@ -780,7 +722,7 @@ const TaskList = (props: any) => {
 
                               <div className="task_project"
                                 onClick={() => {
-                                  history.push(
+                                  history.replace(
                                     {
                                       pathname: `/TaskDetails/${getChatID("project", element.id)}`,
                                       state: element

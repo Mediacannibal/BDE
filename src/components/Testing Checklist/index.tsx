@@ -128,7 +128,7 @@ const TestingChecklist = (props: any) => {
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("test", element.id)}`,
               state: element
@@ -187,7 +187,7 @@ const TestingChecklist = (props: any) => {
     return (
       <tr className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: '/TaskDetails',
               state: element

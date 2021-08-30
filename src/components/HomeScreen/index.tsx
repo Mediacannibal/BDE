@@ -5,52 +5,27 @@ import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
 import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
-import { CommonAPi, getMainTask } from 'utils/api';
-
-import { useAuth } from 'store/authStore';
 import Card from 'components/Common/Card';
 import Footer from '../Common/Footer';
 import ReactGA from 'react-ga';
 import { ColourObject } from 'store/ColourStore';
-import McInput from 'components/Common/McInput';
-import * as eye from '../../assets/eye-visibility.svg'
-import * as eye_invisible from '../../assets/eye-invisible.svg'
 import UpDownArrow from 'components/Common/updownArrow';
 import { getChatID } from 'utils/GlobalFunctions';
 import * as defaultusericon from '../../assets/user_icon.svg'
+import { projectStore } from '../../store/projectStore';
+import { taskStore } from '../../store/taskStore';
 
 const HomeScreen = (props: any) => {
-  const { auth } = useAuth();
+  // STORE
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { projectField, setprojectField, loadProjectDetail } = projectStore()
+  const { taskField, settaskField, loadTaskDetail } = taskStore()
+  // *******
+
   const history = useHistory();
+
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(true)
-  const [listItems1, setlistItems1] = useState([])
-  const [listItems2, setlistItems2] = useState([])
-
-  const [task, settask] = useState('')
-  const [user_list, setuser_list] = useState('')
-  const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
-  const [users, setusers] = useState('')
-
-  const [isselectslot, setisselectslot] = useState('')
-  const [title, settitle] = useState('')
-  const [description, setdescription] = useState('')
-  const [password, setpassword] = useState('')
-
-  const [passwordShown, setpasswordShown] = useState(false);
-
-  const [slotvalid, setSlotvalid] = useState(false)
-  const [titlevalid, setTitlevalid] = useState(false)
-  const [descriptionvaild, setDescriptionvaild] = useState(false)
-  const [passwordvalid, setpasswordvalid] = useState(false)
-
-  const [preSendValidator, setPreSendValidator] = useState(false)
-
-
-  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -61,48 +36,14 @@ const HomeScreen = (props: any) => {
       loadColour();
     }
 
-    CommonAPi(
-      {
-        path: `tasks/project/?user=${users}`,
-        method: "get",
-        auth: auth ? auth : false,
-      },
-      async (data: any, errorresponse: any) => {
-        if (data.status === 200) {
-          setspinner(false)
-          console.log("Project Tasks: ", data.data.results)
-          setlistItems1(data.data.results)
-        } else {
-          setspinner(false)
-          console.log('error ' + JSON.stringify(data));
-          console.log('error ' + JSON.stringify(errorresponse));
-        }
-      })
+    if (!projectField) {
+      loadProjectDetail();
+    }
 
-    getMainTask(
-      async (data: any, errorresponse: any) => {
-        if (data.status === 200) {
-          setspinner(false)
-          // console.log("Task Assigned: ", data.data.results.Assigned)
-          // console.log("Task Open: ", data.data.results.Open)
+    if (!taskField) {
+      loadTaskDetail();
+    }
 
-          setlistItems2(data.data.results.Assigned)
-
-        } else {
-          setspinner(false)
-          console.log('error ' + JSON.stringify(data))
-          console.log('error ' + JSON.stringify(errorresponse))
-        }
-      },
-      auth,
-      // task,
-      // users,
-      // parent_child,
-      // task_domain,
-      // task_priority,
-      // project_ref,
-      // project_id
-    )
   }, [])
 
   const getClassname = (key: any) => {
@@ -154,7 +95,7 @@ const HomeScreen = (props: any) => {
     return (
       <tr key={element.id}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("project", element.id)}`,
               state: element
@@ -190,7 +131,7 @@ const HomeScreen = (props: any) => {
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("task", element.id)}`,
               state: element
@@ -245,7 +186,7 @@ const HomeScreen = (props: any) => {
                     </thead>
                     <tbody>
                       {
-                        listItems1.map(renderBody1)
+                        (projectField) && projectField.map(renderBody1)
                       }
                     </tbody>
                   </table>
@@ -261,7 +202,7 @@ const HomeScreen = (props: any) => {
                       <tr>{renderHeader2()}</tr>
                     </thead>
                     <tbody>
-                      {listItems2.map(renderBody2)}
+                      {(taskField) && taskField.map(renderBody2)}
                     </tbody>
                   </table>
                 </div>

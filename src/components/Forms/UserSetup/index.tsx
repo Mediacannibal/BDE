@@ -29,14 +29,14 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   const [passwordShown, setpasswordShown] = useState(false);
 
-  const [company_name, setcompany_name] = useState('')
-  const [branch_name, setbranch_name] = useState('')
+  const [company_name, setcompany_name] = useState({})
+  const [branch_name, setbranch_name] = useState({})
   const [firstname, setfirstname] = useState('')
   const [username, setusername] = useState('')
   const [lastname, setlastname] = useState('')
   const [email, setemail] = useState('')
   const [phoneno, setphoneno] = useState('')
-  const [usertype, setusertype] = useState('')
+  const [usertype, setusertype] = useState({})
   const [password, setpassword] = useState('')
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
@@ -76,6 +76,12 @@ const UserSetup = ({ setPopup }, props: any) => {
   };
   // console.log(errors);
 
+  const handleKeyPress = (event: { key: string; }) => {
+    if (event.key === 'Enter') {
+      handleLogin()
+    }
+  }
+
   const Validate = () => {
     // console.log(companynamevalid, branchvalid, usernamevalid,
     //   firstnamevalid, lastnamevalid, emailvalid,
@@ -103,15 +109,15 @@ const UserSetup = ({ setPopup }, props: any) => {
   useEffect(() => {
     CommonAPi(
       {
-        path: `company/info/`,
+        path: `company/list/dropdown/`,
         method: "get",
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          console.log("Company Names: ", data.data)
-          setlistItems1(data.data.results)
+          // console.log("Company Names: ", data.data)
+          setlistItems1(data.data)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));
@@ -121,15 +127,15 @@ const UserSetup = ({ setPopup }, props: any) => {
 
     CommonAPi(
       {
-        path: `company/branch/?user=all`,
+        path: `company/branch/list/dropdown/`,
         method: "get",
         auth: auth ? auth : false,
       },
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
-          setlistItems2(data.data.results)
+          // console.log("Project Tasks: ", data.data)
+          setlistItems2(data.data)
         } else {
           setspinner(false)
           console.log('error ' + JSON.stringify(data));
@@ -154,7 +160,7 @@ const UserSetup = ({ setPopup }, props: any) => {
     return a
   }
 
-  const Branch_name = () => {
+  const BranchName = () => {
     let a: any = [];
     listItems2.forEach(element => {
       let data = {
@@ -166,11 +172,7 @@ const UserSetup = ({ setPopup }, props: any) => {
     return a
   }
 
-  const handleKeyPress = (event: { key: string; }) => {
-    if (event.key === 'Enter') {
-      handleLogin()
-    }
-  }
+
 
   const _verifyCallback = (data: { status: number; data: string; }, errorresponse: any) => {
     if (data.status === 200) {
@@ -216,12 +218,12 @@ const UserSetup = ({ setPopup }, props: any) => {
 
       if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
         if (UserDetails.is_active === false)
-          history.push('/UserSetup')
+          history.replace('/UserSetup')
         else
-          history.push('/Home')
+          history.replace('/Home')
       else {
         if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-          history.push('/Home')
+          history.replace('/Home')
       }
       // window.location.reload()
     } else {
@@ -412,7 +414,7 @@ console.log("OTP not matched")
               confirmClick={() => {
                 let data = [];
                 let object = {
-                  "company_name": company_name,
+                  "company_name": company_name?.value,
                   "branch_name": branch_name,
                   "username": username,
                   "firstname": firstname,
@@ -430,7 +432,7 @@ console.log("OTP not matched")
                     setispopup(false)
                     localStorage.setItem('AuthToken', JSON.stringify(data.data.token));
                     localStorage.setItem('UserDetails', JSON.stringify(data.data.user_details));
-                    history.push('/Home')
+                    history.replace('/Home')
                     setbackendresponse("Successfully Added!")
                     setbackendresponse_popup(true)
                   } else {
@@ -482,7 +484,7 @@ console.log("OTP not matched")
                             required={true}
                             valid={setcompanynamevalid}
                             sendcheck={preSendValidator}
-                            value={company_name}
+                            value={company_name?.value}
                             onChange={setcompany_name}
                             options={CompanyName()}
                           />
@@ -496,9 +498,9 @@ console.log("OTP not matched")
                             required={true}
                             valid={setbranchvalid}
                             sendcheck={preSendValidator}
-                            value={branch_name}
+                            value={branch_name?.value}
                             onChange={setbranch_name}
-                            options={Branch_name()}
+                            options={BranchName()}
                           />
                         </div>
 
@@ -510,7 +512,7 @@ console.log("OTP not matched")
                             required={true}
                             valid={setusertypevalid}
                             sendcheck={preSendValidator}
-                            value={usertype}
+                            value={usertype?.value}
                             onChange={setusertype}
                             options={[
                               { "key": "0", "value": "NORMAL" },
@@ -547,7 +549,7 @@ console.log("OTP not matched")
                           label={"First Name"}
                           id="firstname_data"
                           name={`data.FirstName`}
-                          inputtype="firstname"
+                          inputtype="Text"
                           type="text"
                           min_length="3"
                           required={true}
@@ -649,6 +651,8 @@ console.log("OTP not matched")
                 setispopup(true)
               }}
               cancelClick={setPopup}
+
+
             />
           }
         </>

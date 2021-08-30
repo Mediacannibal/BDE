@@ -15,6 +15,12 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
   const [popus_body_container, setPopus_body_container] = useState(true);
   const [popout, setpopout] = useState(true);
 
+  const KeyPressEsc = (event: { key: string; }) => {
+    if (event.key === 'Escape') {
+      setpopout(false)
+    }
+  }
+
   useEffect(() => {
     if (!Colour) {
       loadColour();
@@ -68,7 +74,7 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                 null
               }
 
-      
+
               {popus_body_container
 
                 ? popup_body
@@ -82,16 +88,15 @@ const Popup = ({ title, desc1, desc2, popup_body, confirmClick, cancelClick, act
                     className='popup_submit_button'>Confirm</button>
                   <button
                     onClick={() => {
-                      setpopout(false);
+                      setpopout(false)
                       setTimeout(() => {
                         cancelClick()
                       }, 390);
                     }}
+                    onKeyPress={KeyPressEsc}
                     className='popup_cancel_button'>Cancel</button>
                 </div>
               }
-
-
 
             </>
           }

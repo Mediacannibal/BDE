@@ -18,7 +18,7 @@ const AddEditProject = ({ setPopup }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [isselectslot, setisselectslot] = useState('')
+  const [isselectslot, setisselectslot] = useState({})
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [password, setpassword] = useState('')
@@ -145,7 +145,7 @@ const AddEditProject = ({ setPopup }) => {
                     required={true}
                     valid={setSlotvalid}
                     sendcheck={preSendValidator}
-                    value={isselectslot}
+                    value={isselectslot?.value}
                     onChange={setisselectslot}
                     options={[
                       { "key": "0", "value": "DEVELOPMENT" },

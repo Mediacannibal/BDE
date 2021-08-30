@@ -12,12 +12,12 @@ const ApiRecords = () => {
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
     if (auth)
-    // history.push("/Login")
+    // history.replace("/Login")
     { }
     else {
       let usertype = JSON.parse(String(localStorage.getItem("UserDetails"))).user_type
       if (usertype !== "SUPERUSER") {
-        // history.push("/")
+        // history.replace("/")
       }
     }
   }, [])

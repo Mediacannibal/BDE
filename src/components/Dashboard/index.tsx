@@ -36,7 +36,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { userDetail, loaduserDetail } = useuserDetails();
+  const { self } = useuserDetails();
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState('NORMAL')
@@ -70,12 +70,15 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   useEffect(() => {
     // console.log("screenlocation: ", location.pathname);
+    console.log(
+      self
+    );
 
-    let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
-    if (UserDetails !== null) {
-      let usertype = UserDetails.user_type
-      let username = UserDetails.firstname
-      let profile_picture = UserDetails.photo_url
+
+    if (self) {
+      let usertype = self.user_type
+      let username = self.firstname
+      let profile_picture = self.photo_url
       // console.log(screen, usertype)
       setusertype(usertype)
       setUsername(username)
@@ -84,7 +87,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           ? defaultusericon
           : profile_picture
       )
-      setisuser_active(UserDetails.is_active)
+      setisuser_active(self?.is_active)
       // console.log("someidentifier", profile_picture)
     }
 
@@ -156,7 +159,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       {!isuser_active && (
         <UserSetup
           setPopup={() => {
-            setsettings_popup(false)
+            setisuser_active(false)
           }}
         />
       )}
@@ -327,7 +330,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                 className='header_icon'
                 src={chat}
                 onClick={() => {
-                  history.push('/TaskDetails')
+                  history.replace('/TaskDetails')
                 }}
               />
               <img
@@ -452,7 +455,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               <div
                 className='user_menu_item'
                 onClick={() => {
-                  history.push('/UserProfile')
+                  history.replace('/UserProfile')
                 }}
               >
                 <img className='header_icon' src={profile_picture} />
@@ -496,7 +499,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       <div className="floating_button">
         <img className="add_new_items" src={add} />
       </div>
-      
+
     </div >
   )
 }

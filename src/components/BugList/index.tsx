@@ -116,7 +116,7 @@ const BugList = (props: any) => {
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: `/TaskDetails/${getChatID("bug", element.id)}`,
               state: element
@@ -167,7 +167,7 @@ const BugList = (props: any) => {
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
-          history.push(
+          history.replace(
             {
               pathname: '/TaskDetails',
               state: element

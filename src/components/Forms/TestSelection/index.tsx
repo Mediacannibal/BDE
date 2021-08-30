@@ -11,8 +11,8 @@ const TestSelection = ({ setTest }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const [domain, setdomain] = useState('')
-  const [isselectslot, setisselectslot] = useState('')
+  const [domain, setdomain] = useState({})
+  const [isselectslot, setisselectslot] = useState({})
 
   const [domainvalid, setdomainvalid] = useState(false)
   const [projectvalid, setprojectvalid] = useState(false)
@@ -56,7 +56,7 @@ const TestSelection = ({ setTest }) => {
                   required={true}
                   valid={setdomainvalid}
                   sendcheck={preSendValidator}
-                  value={domain}
+                  value={domain?.value}
                   onChange={setdomain}
                   options={[
                     { "key": "0", "value": "FRONT END" },
@@ -75,7 +75,7 @@ const TestSelection = ({ setTest }) => {
                   required={true}
                   valid={setdomainvalid}
                   sendcheck={preSendValidator}
-                  value={isselectslot}
+                  value={isselectslot?.value}
                   onChange={setisselectslot}
                   options={[
                     { "key": "0", "value": "DAY" }]}

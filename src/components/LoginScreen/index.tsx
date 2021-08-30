@@ -23,7 +23,7 @@ declare global {
 }
 
 const LoginScreen = () => {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const history = useHistory();
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
@@ -50,6 +50,9 @@ const LoginScreen = () => {
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
 
+    if (auth) {
+      history.replace('/Home')
+    }
   }, [])
 
 
@@ -90,17 +93,17 @@ const LoginScreen = () => {
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       setAuth(String(data.data.result.token))
-      history.push('/Home')
+      history.replace('/Home')
 
       // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
       // if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
       //   if (UserDetails.is_active === false)
-      //     history.push('/UserSetup')
+      //     history.replace('/UserSetup')
       //   else
-      //   history.push('/Home')
+      //   history.replace('/Home')
       // else {
       //   if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-      //     history.push('/Home')
+      //     history.replace('/Home')
       // }
       // window.location.reload()
     } else {
@@ -380,7 +383,7 @@ const LoginScreen = () => {
 
             <div className="login_button_container">
               <button onClick={() => {
-                history.push('/UserSetup')
+                history.replace('/UserSetup')
               }} className="login_validatebutton">
                 <div className="login_buttontext">Submit</div>
               </button>

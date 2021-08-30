@@ -14,11 +14,11 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const history = useHistory();
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
-  const [project_ref, setproject_ref] = useState(projectName)
+  const [project_ref, setproject_ref] = useState({ projectName })
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [assignee, setassignee] = useState('')
-  const [task_type, settask_type] = useState(projectTaskType)
+  const [task_type, settask_type] = useState({ projectTaskType })
   const [android, setandroid] = useState('')
   const [ios, setios] = useState('')
   const [browser, setbrowser] = useState('')
@@ -27,14 +27,14 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [request, setrequest] = useState('')
   const [response, setresponse] = useState('')
 
-  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
-  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
-  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
+  const [company_assignee_ref, setcompany_assignee_ref] = useState({})
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState({})
+  const [project_assignee_ref, setproject_assignee_ref] = useState({})
 
-  const [development, setdevelopment] = useState('')
+  const [development, setdevelopment] = useState({})
   const [test_title, settest_title] = useState('');
 
-  const [project_type, setproject_type] = useState('')
+  const [project_type, setproject_type] = useState({})
   const [project_title, setproject_title] = useState('')
   const [project_description, setproject_description] = useState('')
 
@@ -53,9 +53,9 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
-  const [domain, setdomain] = useState('')
-  const [priority, setpriority] = useState('')
-  const [apiselect, setapiselect] = useState('')
+  const [domain, setdomain] = useState({})
+  const [priority, setpriority] = useState({})
+  const [apiselect, setapiselect] = useState({})
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
 
   const [isproject_namevalid, setproject_namevalid] = useState(false)
@@ -198,7 +198,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         required={true}
                         valid={setproject_namevalid}
                         sendcheck={preSendValidator}
-                        value={company_assignee_ref}
+                        value={company_assignee_ref?.value}
                         onChange={setcompany_assignee_ref}
                         options={Project_name()}
                       />
@@ -212,7 +212,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         required={true}
                         valid={setproject_namevalid}
                         sendcheck={preSendValidator}
-                        value={branch_assignee_ref}
+                        value={branch_assignee_ref?.value}
                         onChange={setbranch_assignee_ref}
                         options={Project_name()}
                       />
@@ -226,7 +226,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         required={true}
                         valid={setproject_namevalid}
                         sendcheck={preSendValidator}
-                        value={project_assignee_ref}
+                        value={project_assignee_ref?.value}
                         onChange={setproject_assignee_ref}
                         options={Project_name()}
                       />
@@ -292,7 +292,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           required={true}
                           valid={setproject_namevalid}
                           sendcheck={preSendValidator}
-                          value={project_ref}
+                          value={project_ref?.value}
                           onChange={setproject_ref}
                           options={
                             Project_name()
@@ -314,7 +314,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                           required={true}
                           valid={settask_typevalid}
                           sendcheck={preSendValidator}
-                          value={task_type}
+                          value={task_type?.value}
                           onChange={settask_type}
                           options={[
                             { "key": "0", "value": "PROJECT" },
@@ -341,7 +341,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         required={true}
                         valid={setpriorityvalid}
                         sendcheck={preSendValidator}
-                        value={priority}
+                        value={priority?.value}
                         onChange={setpriority}
                         options={[
                           { "key": "0", "value": "LOW" },
@@ -363,7 +363,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                         required={true}
                         valid={setdomainvalid}
                         sendcheck={preSendValidator}
-                        value={domain}
+                        value={domain?.value}
                         onChange={setdomain}
                         options={[
                           { "key": "0", "value": "FRONT END" },
@@ -466,7 +466,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             required={true}
                             valid={setproject_typevalid}
                             sendcheck={preSendValidator}
-                            value={project_type}
+                            value={project_type?.value}
                             onChange={setproject_type}
                             options={[
                               { "key": "0", "value": "DEVELOPMENT" },
@@ -531,7 +531,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             required={true}
                             valid={setdevelopmentvalid}
                             sendcheck={preSendValidator}
-                            value={development}
+                            value={development?.value}
                             onChange={setdevelopment}
                             options={[
                               { "key": "0", "value": "DEVELOPMENT" }
@@ -922,7 +922,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                             required={true}
                             valid={setapiselectvalid}
                             sendcheck={preSendValidator}
-                            value={apiselect}
+                            value={apiselect?.value}
                             onChange={setapiselect}
                             options={[
                               { "key": "0", "value": "GET" },

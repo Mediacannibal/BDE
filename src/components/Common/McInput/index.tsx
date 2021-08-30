@@ -5,8 +5,8 @@ import * as down from '../../../assets/down.png'
 import * as up from '../../../assets/up.png'
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
-import { file_upload } from '../../../utils/actions';
 import { useAuth } from '../../../store/authStore';
+import { fileupload } from 'utils/actions';
 
 
 const McInput = (props: any) => {
@@ -21,7 +21,7 @@ const McInput = (props: any) => {
     const toggling = () => setDropdownOpen(!dropdownOpen)
 
     const onOptionClicked = (value: any) => {
-        props.onchange(value)
+        props.onChange(value)
         setDropdownOpen(false)
         // console.log("select option value :", props.value)
     }
@@ -157,7 +157,7 @@ const McInput = (props: any) => {
         let a = data.target.value.replace((input_replace_regex[0]), (input_replace_regex[1]))
 
         setinput_data(a)
-        props.onchange(a)
+        props.onChange(a)
 
         let b = input_format_validation_regex.test(a)
 
@@ -209,14 +209,14 @@ const McInput = (props: any) => {
 
         let formdata = new FormData()
         formdata.append("file", file)
-        file_upload(Callback, auth, formdata)
+        fileupload(Callback, auth)
     }
 
     const Callback = async (data: any, errorresponse: any) => {
         if (data.status === 201) {
             console.log("respnse :", data, props)
             // props.valid(data.data.file)
-            props.onchange(data.data.file)
+            props.onChange(data.data.file)
             // Reformat_and_Validate(data.data.file)
         }
         else {
@@ -250,7 +250,7 @@ const McInput = (props: any) => {
                         <>
                             <input type="text" id={props.id} value={props.value}
                                 onChange={(data: any) => {
-                                    props.onchange(data.target.value)
+                                    props.onChange(data.target.value)
                                 }} />
                             <input type="file" name="file" className="upload-btn" onChange={onChangeHandler} />
                         </>
@@ -260,12 +260,12 @@ const McInput = (props: any) => {
                         <>
                             <input type="text" id={props.id} value={props.value}
                                 onChange={(data: any) => {
-                                    props.onchange(data.target.value)
+                                    props.onChange(data.target.value)
                                 }} />
                             <input type="color" className="color_picker"
                                 value={props.value}
                                 onChange={(data: any) => {
-                                    props.onchange(data.target.value)
+                                    props.onChange(data.target.value)
                                 }} />
                         </>
                     }
@@ -279,7 +279,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -288,7 +288,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -301,7 +301,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -310,7 +310,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 
@@ -324,7 +324,7 @@ const McInput = (props: any) => {
                             }}
                             onFocus={() => {
                                 setisActive(true)
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }}
                             onBlur={() => {
                                 setisActive(false)
@@ -333,7 +333,7 @@ const McInput = (props: any) => {
                                     props.valid(true)
                                     // props.setinput_valid(valid)
                                 }
-                                // console.log(props.onchange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
+                                // console.log(props.onChange, input_data, String(input_data).length, props.required, error_message, isActive, props.presubmit_validation)
                             }} />
                     }
 

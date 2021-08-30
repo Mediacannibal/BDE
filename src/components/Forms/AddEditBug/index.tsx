@@ -51,9 +51,9 @@ const AddEditBug = ({ setPopup }) => {
   const [potraitcheckbox, setpotraitcheckbox] = useState('')
   const [potraitcheckboxvalid, setpotraitcheckboxvalid] = useState(false)
 
-  const [company_assignee_ref, setcompany_assignee_ref] = useState(false)
-  const [branch_assignee_ref, setbranch_assignee_ref] = useState(false)
-  const [project_assignee_ref, setproject_assignee_ref] = useState(false)
+  const [company_assignee_ref, setcompany_assignee_ref] = useState({})
+  const [branch_assignee_ref, setbranch_assignee_ref] = useState({})
+  const [project_assignee_ref, setproject_assignee_ref] = useState({})
 
   const [ispopup, setispopup] = useState(false)
   const [users, setusers] = useState('all')
@@ -151,7 +151,7 @@ const AddEditBug = ({ setPopup }) => {
                         id="project_ref"
                         required={true}
                         sendcheck={preSendValidator}
-                        value={company_assignee_ref}
+                        value={company_assignee_ref?.value}
                         onChange={setcompany_assignee_ref}
                         options={Project_name()}
                       />
@@ -164,7 +164,7 @@ const AddEditBug = ({ setPopup }) => {
                         id="project_ref"
                         required={true}
                         sendcheck={preSendValidator}
-                        value={branch_assignee_ref}
+                        value={branch_assignee_ref?.value}
                         onChange={setbranch_assignee_ref}
                         options={Project_name()}
                       />
@@ -177,7 +177,7 @@ const AddEditBug = ({ setPopup }) => {
                         id="project_ref"
                         required={true}
                         sendcheck={preSendValidator}
-                        value={project_assignee_ref}
+                        value={project_assignee_ref?.value}
                         onChange={setproject_assignee_ref}
                         options={Project_name()}
                       />

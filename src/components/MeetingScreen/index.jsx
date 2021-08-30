@@ -10,7 +10,7 @@ const MeetingScreen = (props) => {
 
     function create() {
         const id = uuid();
-        history.push(`/MeetingRoom/${id}`);
+        history.replace(`/MeetingRoom/${id}`);
     }
 
     return (

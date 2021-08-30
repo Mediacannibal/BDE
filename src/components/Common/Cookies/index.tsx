@@ -106,17 +106,17 @@ const Cookie = (props: any) => {
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       setAuth(String(data.data.result.token))
-      history.push('/Home')
+      history.replace('/Home')
 
       // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))
       // if (String(data.data.result.user_details.auth_type).toUpperCase() === "GOOGLE" || "FB" || "OTP")
       //   if (UserDetails.is_active === false)
-      //     history.push('/UserSetup')
+      //     history.replace('/UserSetup')
       //   else
-      //   history.push('/Home')
+      //   history.replace('/Home')
       // else {
       //   if (String(data.data.result.user_details.auth_type).toUpperCase() === "MC")
-      //     history.push('/Home')
+      //     history.replace('/Home')
       // }
       // window.location.reload()
     } else {
