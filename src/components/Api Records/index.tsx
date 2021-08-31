@@ -4,12 +4,21 @@ import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import { useAuth } from 'store/authStore';
+import McInput from 'components/Common/McInput';
+import { projectStore } from 'store/projectStore';
 
-const ApiRecords = () => {
+const ApiRecords = (props: any) => {
   const { auth } = useAuth();
-  const history = useHistory();
+  const { projectField, setprojectField, loadProjectbyUserID, loadProjectsDetail } = projectStore()
+
+  const [project_name, setproject_name] = useState('MCBDE');
 
   useEffect(() => {
+
+    if (!projectField) {
+      loadProjectsDetail();
+    }
+
     ReactGA.pageview(window.location.pathname + window.location.search);
     if (auth)
     // history.replace("/Login")
@@ -22,12 +31,41 @@ const ApiRecords = () => {
     }
   }, [])
 
+  const frame = (object: any) => {
+    (object) && object.map((ele: any) => {
+      let a = ele.title
+      if (a === project_name?.value) {
+        console.log(">>><<<<>>><<< :", ele.frontend_url, project_name?.value);
+        return ele.frontend_url
+      }
+    })
+
+  }
 
   return (
     <div className="main">
       <div className="body">
+        <div>
+          <McInput
+            type="picker"
+            id="input_projecttextbox"
+            name={`PROJECT`}
+            value={project_name?.value}
+            onChange={(data: any) => {
+              setproject_name(data)
+            }}
+            options={
+              (projectField) && projectField.map(
+                (obj: any) => {
+                  return { "key": obj.id, "value": obj.title }
+                })
+            }
+          />
+        </div>
 
-        <iframe src="https://apimcbde.mediacannibal.com/docs/" name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
+        <div>
+          <iframe src={String(frame((projectField) && projectField))} name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
+        </div>
 
       </div>
     </div>

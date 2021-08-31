@@ -18,14 +18,14 @@ import { taskStore } from '../../store/taskStore';
 const HomeScreen = (props: any) => {
   // STORE
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { projectField, setprojectField, loadProjectDetail } = projectStore()
+  const { projectField, setprojectField, loadProjectbyUserID, loadProjectsDetail } = projectStore()
   const { taskField, settaskField, loadTaskDetail } = taskStore()
   // *******
 
   const history = useHistory();
 
   const [popup, setpopup] = useState(false)
-  const [spinner, setspinner] = useState(true)
+  const [spinner, setspinner] = useState(false)
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -37,7 +37,8 @@ const HomeScreen = (props: any) => {
     }
 
     if (!projectField) {
-      loadProjectDetail();
+      // loadProjectbyUserID();
+      loadProjectsDetail();
     }
 
     if (!taskField) {
@@ -155,7 +156,7 @@ const HomeScreen = (props: any) => {
       return (
         <>
           <div className="assign_wrap">
-            <img className='user_icon' src={(obj[0].photo_url === null) ? defaultusericon : obj[0].photo_url} />
+            <img className='user_icon' src={(obj[0]?.photo_url === null) ? defaultusericon : obj[0]?.photo_url} />
           </div>
         </>
       )

@@ -54,6 +54,9 @@ const McInput = (props: any) => {
 
     useEffect(() => {
 
+        console.log("props options :", props.options);
+
+
         if (props.value === undefined) {
             setinput_data("")
         }
