@@ -31,26 +31,29 @@ import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { ColourObject } from 'store/ColourStore'
 import UserSetup from 'components/Forms/UserSetup'
 import { useuserDetails } from 'store/userDetailsStore'
+import { taskTimeLogStore } from 'store/tasktimelogStore'
+import { taskStore } from 'store/taskStore'
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
+  // STORE
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { userDetail, loaduserDetail } = useuserDetails();
-
+  const { userDetail, loaduserDetail, } = useuserDetails();
+  const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
+  const { taskField, settaskField, loadTaskDetail } = taskStore()
+  // ******
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState('NORMAL')
   const [username, setUsername] = useState('')
   const [profile_picture, setprofile_picture] = useState('')
   const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
-  const [seleted_taskid, setseleted_taskid] = useState('')
   const [projecttaskTitle, setprojecttaskTitle] = useState(false)
   const [current_task, setcurrent_task] = useState(false)
 
   const [task_Ids, settask_Ids] = useState('')
 
   const [settings_popup, setsettings_popup] = useState(false)
-  const [taskItems, settaskItems] = useState([])
 
   const [startorpausetask, setstartorpausetask] = useState(false)
   const [startorpausetaskid, setstartorpausetaskid] = useState()
@@ -58,12 +61,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_menu_open, setUser_menu_open] = useState(false)
   const [user_notification, setuser_notification] = useState(false)
 
-  const [task, settask] = useState('')
   const [users, setusers] = useState('')
-  const [parent_child, setparent_child] = useState('')
-  const [project, setproject] = useState('1')
-  const [task_priority, settask_priority] = useState('')
-  const [task_domain, settask_domain] = useState('')
+
   const [isuser_active, setisuser_active] = useState(false)
 
   const location = useLocation()
@@ -92,32 +91,15 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       loadColour();
     }
 
-    mainTask()
+    if (!taskField) {
+      loadTaskDetail();
+    }
 
-    taskTimeLog()
-
+    if (!taskTimeLogField) {
+      loadTaskTimeLogDetail();
+      setstartorpausetask(false)
+    }
   }, [])
-
-  const mainTask = () => {
-    // console.log("SELETED TASKTYPE: ", task);
-    getMainTask(
-      async (data: any, errorresponse: any) => {
-        if (data.status === 200) {
-          settaskItems(data.data.results.Assigned)
-        } else {
-          console.log('error ' + JSON.stringify(data))
-          console.log('error ' + JSON.stringify(errorresponse))
-        }
-      },
-      auth,
-      // task,
-      // users,
-      // parent_child,
-      // task_domain,
-      // task_priority,
-      // project
-    )
-  }
 
   const taskTimeLog = () => {
     getTasktimelog(
@@ -301,7 +283,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           {projecttaskTitle && (
             <div className='projecttask_container'>
               <div className='projecttask_wrapper' style={{ backgroundColor: colourObj.color_12 }}>
-                {taskItems.map((element: any, key: any) => {
+                {taskField.map((element: any, key: any) => {
                   return (
                     <div
                       className='projecttask_subwrapper'
