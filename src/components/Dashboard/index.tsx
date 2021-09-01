@@ -72,10 +72,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       history.push("/")
     }
 
-    if (self) {
-      setisuser_active(self?.is_active)
-      console.log("someidentifier", self.user_type)
-    }
+    // if (self) {
+    //   setisuser_active(self?.is_active)
+    //   console.log("someidentifier", self.user_type)
+    // }
 
     if (!Colour) {
       loadColour();
@@ -134,10 +134,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     { path: '/TestingChecklist', auth: 'NORMAL', icon: tested, title: 'Test Center' },
     { path: '/BugList', auth: 'NORMAL', icon: bug, title: 'Bug Log' },
     { path: '/Meeting', auth: 'NORMAL', icon: meeting, title: 'Meeting' },
-    { path: '/UserManagement', auth: 'admin', icon: team, title: 'Users' },
     { path: '/ApiRecords', auth: 'NORMAL', icon: team, title: 'Api Records' },
-    { path: '/report', auth: 'admin', icon: team, title: 'Analytics Report' },
     { path: '/AppGantt', auth: 'NORMAL', icon: team, title: 'Gantt Chart' },
+    { path: '/UserManagement', auth: 'admin', icon: team, title: 'Users' },
+    { path: '/report', auth: 'admin', icon: team, title: 'Analytics Report' },
   ]
 
   return (
@@ -183,10 +183,9 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           <div className='menu_items_wrapper'>
             {menu_items.map((data: any) => (
               // console.log(">>>>>>>>>>>++++++", self?.user_type, data.auth),
-              <div
-                className={
-                  data.path === screen_name ? 'menu_title active' : 'menu_title'
-                }
+              <div className={
+                data.path === screen_name ? 'menu_title active' : 'menu_title'
+              }
                 // style={{ backgroundColor: colourObj.color_5 }}
                 onClick={() => {
                   history.replace(data.path)

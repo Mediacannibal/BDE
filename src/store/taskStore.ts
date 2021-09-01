@@ -64,8 +64,8 @@ export class taskItems {
     title: String
     updated_at: String
     updated_by: String
-  
-    }) {
+
+  }) {
     this.assigned_by = o.assigned_by
     this.assigned_to = o.assigned_to
     this.assisted_by = o.assisted_by
@@ -109,10 +109,21 @@ export const taskStore = () => {
     settaskField,
 
     async loadTaskDetail() {
-      await gettask()
+      await gettask("", "", "", " ")
         .then(data => {
           settaskField(data.data)
-          console.log('Main Tasks :', data.data)
+          console.log('Main Tasks :', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    async loadTaskDetail_byvalues(Project: any, Domain: any, Task: any, Priority: any) {
+      await gettask(Project, Domain, Task, Priority)
+        .then(data => {
+          settaskField(data.data)
+          console.log('Project, Domain, Task, Priority :', data)
         })
         .catch(err => {
           console.log(err)
