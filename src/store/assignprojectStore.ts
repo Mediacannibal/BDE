@@ -1,15 +1,13 @@
 import { Store, useStore } from './Store'
-import getproject from '../utils/api/getproject'
-import getprojectDetails from '../utils/api/getprojectDetails'
-import postproject from '../utils/api/postproject'
+import getassignprojecttask from '../utils/api/getassignprojecttask'
 
-export class projectItems {
+export class assignprojectItems {
   id: String
   company_ref: String
   branch_ref: String
-  design: String
-  development: String
-  marketting: String
+  design: Boolean
+  development: Boolean
+  marketting: Boolean
   title: String
   description: String
   logo: String
@@ -27,14 +25,15 @@ export class projectItems {
   deleted_at: String
   ProjectTasks: any
   ProjectProfiles: any
+  assign_log: any
 
   constructor(o: {
     id: String
     company_ref: String
     branch_ref: String
-    design: String
-    development: String
-    marketting: String
+    design: Boolean
+    development: Boolean
+    marketting: Boolean
     title: String
     description: String
     logo: String
@@ -52,6 +51,7 @@ export class projectItems {
     deleted_at: String
     ProjectTasks: any
     ProjectProfiles: any
+    assign_log: any
 
   }) {
     this.id = o.id
@@ -77,50 +77,28 @@ export class projectItems {
     this.deleted_at = o.deleted_at
     this.ProjectTasks = o.ProjectTasks
     this.ProjectProfiles = o.ProjectProfiles
+    this.assign_log = o.assign_log
   }
 }
 
-export const projectDetails = new Store<projectItems[] | false>(false)
+export const assignprojectDetails = new Store<assignprojectItems[] | false>(false)
 
-export const projectStore = () => {
-  const [projectField, setprojectField] = useStore(projectDetails)
+export const assignprojectStore = () => {
+  const [assignprojectField, setassignprojectField] = useStore(assignprojectDetails)
 
   return {
-    projectField,
-    setprojectField,
+    assignprojectField,
+    setassignprojectField,
 
-    async loadProjectbyUserID() {
-      await getproject()
+    async loadassignprojectDetail() {
+      await getassignprojecttask("PROJECT")
         .then(data => {
-          setprojectField(data.data)
-          console.log('Project Tasks :', data.data)
+          setassignprojectField(data.data)
+          console.log('assignprojectField assignprojectField :', data)
         })
         .catch(err => {
           console.log(err)
         })
     },
-
-    async loadProjectsDetail() {
-      await getprojectDetails()
-        .then(data => {
-          setprojectField(data.data)
-          console.log('ProjectsDetail ProjectsDetail :', data.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-
-    async postprojectField(data: any) {
-      await postproject(data)
-        .then(res => {
-          console.log("postprojectField postprojectField", res)
-          setprojectField((oldArray: any) => [...oldArray, res.data])
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-
   }
 }

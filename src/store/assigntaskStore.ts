@@ -1,7 +1,7 @@
-import gettask from '../utils/api/gettask'
 import { Store, useStore } from './Store'
+import getassignprojecttask from '../utils/api/getassignprojecttask'
 
-export class taskItems {
+export class assigntaskItems {
   assigned_by: String
   assigned_to: String
   assisted_by: String
@@ -32,6 +32,7 @@ export class taskItems {
   title: String
   updated_at: String
   updated_by: String
+  assign_log: any
 
   constructor(o: {
     assigned_by: String
@@ -64,6 +65,7 @@ export class taskItems {
     title: String
     updated_at: String
     updated_by: String
+    assign_log: any
 
   }) {
     this.assigned_by = o.assigned_by
@@ -96,49 +98,29 @@ export class taskItems {
     this.title = o.title
     this.updated_at = o.updated_at
     this.updated_by = o.updated_by
+    this.assign_log = o.assign_log
   }
 }
 
-export const taskDetails = new Store<taskItems[] | false>(false)
+export const assigntaskDetails = new Store<assigntaskItems[] | false>(false)
 
-export const taskStore = () => {
-  const [taskField, settaskField] = useStore(taskDetails)
+export const assigntaskStore = () => {
+  const [assigntaskField, setassigntaskField] = useStore(assigntaskDetails)
 
   return {
-    taskField,
-    settaskField,
+    assigntaskField,
+    setassigntaskField,
 
-    async loadTaskDetail() {
-      await gettask("", "", "", " ")
+    async loadassigntaskDetail() {
+      await getassignprojecttask("TASK")
         .then(data => {
-          settaskField(data.data)
-          console.log('Main Tasks :', data)
+          setassigntaskField(data.data)
+          console.log('assigntaskField assigntaskField :', data)
         })
         .catch(err => {
           console.log(err)
         })
     },
 
-    async loadTaskDetail_byvalues(Project: any, Domain: any, Task: any, Priority: any) {
-      await gettask(Project, Domain, Task, Priority)
-        .then(data => {
-          settaskField(data.data)
-          console.log('Project, Domain, Task, Priority :', data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    async loadTaskDetail_withcallback(callback: any) {
-      await gettask("", "", "", " ")
-        .then(data => {
-          settaskField(data.data)
-          callback(data.data)
-          console.log('Main Tasks :', data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
   }
 }
