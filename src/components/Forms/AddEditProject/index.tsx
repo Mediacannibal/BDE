@@ -10,12 +10,14 @@ import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore';
 import { projectStore } from 'store/projectStore';
 import { companyStore } from 'store/companyStore';
+import { branchStore } from 'store/branchStore';
 
 
 const AddEditProject = ({ setPopup }) => {
   const { auth } = useAuth();
   const { projectField, setprojectField, loadProjectbyUserID, loadProjectsDetail, postprojectField } = projectStore()
   const { company, setcompany, loadcompany } = companyStore()
+  const { branch, setbranch, loadbranch } = branchStore()
 
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
@@ -66,6 +68,10 @@ const AddEditProject = ({ setPopup }) => {
 
     if (!company) {
       loadcompany();
+    }
+
+    if (!branch) {
+      loadbranch();
     }
 
   }, [])
@@ -122,8 +128,8 @@ const AddEditProject = ({ setPopup }) => {
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
             let data = {
-              "company_ref": "1",
-              "branch_ref": "1",
+              "company_ref": company_ref?.key,
+              "branch_ref": branch_ref?.key,
               "design": true,
               "development": true,
               "marketting": true,
@@ -158,10 +164,11 @@ const AddEditProject = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={company_ref?.value}
                     onChange={setcompany_ref}
-                    options={[
-                      { "key": "0", "value": "DEVELOPMENT" },
-                      { "key": "1", "value": "DESIGN" },
-                      { "key": "1", "value": "MARKETING" }]}
+                    options={
+                      (company) && company.map((obj: any) => {
+                        return { "key": obj.id, "value": obj.company_title }
+                      })
+                    }
                   />
                 </div>
 
@@ -174,27 +181,29 @@ const AddEditProject = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={branch_ref?.value}
                     onChange={setbranch_ref}
-                    options={[
-                      { "key": "0", "value": "DEVELOPMENT" },
-                      { "key": "1", "value": "DESIGN" },
-                      { "key": "1", "value": "MARKETING" }]}
+                    options={
+                      (branch) && branch.map((obj: any) => {
+                        return { "key": obj.id, "value": obj.branch_name }
+                      })
+                    }
                   />
                 </div>
 
-                {/* <div className="inputfield_sub_container">
+                <div className="inputfield_sub_container">
                   <McInput
                     label={"DESIGN"}
                     id="design_data"
-                    name={`data.Title`}
+                    name={`data.design`}
                     inputtype="Text"
-                    type="radio"
+                    type="checkbox"
                     min_length="3"
                     required={true}
                     sendcheck={preSendValidator}
                     value={design}
                     onChange={setdesign}
+                    options={{"key":"1","value":"design"}}
                   />
-                </div> */}
+                </div>
 
                 <div className="inputfield_sub_container">
                   <McInput
