@@ -39,7 +39,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const { auth } = useAuth()
   // STORE
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { userDetail, loaduserDetail,self } = useuserDetails();
+  const { userDetail, loaduserDetail, self } = useuserDetails();
   const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
   const { taskField, settaskField, loadTaskDetail } = taskStore()
 
@@ -60,8 +60,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   const [user_menu_open, setUser_menu_open] = useState(false)
   const [user_notification, setuser_notification] = useState(false)
- 
-  const [users, setusers] = useState('') 
+
+  const [users, setusers] = useState('')
   const [isuser_active, setisuser_active] = useState(self?.is_active)
 
   const location = useLocation()
@@ -275,27 +275,30 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               </div>
             </div>
 
-          {projecttaskTitle && (
-            <div className='projecttask_container'>
-              <div className='projecttask_wrapper' style={{ backgroundColor: colourObj.color_12 }}>
-                {taskField.map((element: any, key: any) => {
-                  return (
-                    <div
-                      className='projecttask_subwrapper'
-                      onClick={() => {
-                        setstartorpausetaskid(element.id)
-                        setstartorpausetask(true)
-                        // setaddEditTaskTimeLog_popup(true)
-                      }}
-                    >
-                      <div className='header_title' style={{ color: colourObj.color_1 }}>
-                        {element.project_ref + ': ' + element.title}
+            {projecttaskTitle &&
+              <div className='projecttask_container'>
+                <div className='projecttask_wrapper' style={{ backgroundColor: colourObj.color_12 }}>
+
+                  {(taskField) && taskField.map((element: any, key: any) => {
+                    return (
+                      <div
+                        className='projecttask_subwrapper'
+                        onClick={() => {
+                          setstartorpausetaskid(element.id)
+                          setstartorpausetask(true)
+                          // setaddEditTaskTimeLog_popup(true)
+                        }}
+                      >
+                        <div className='header_title' style={{ color: colourObj.color_1 }}>
+                          {element.project_ref + ': ' + element.title}
+                        </div>
                       </div>
                     )
                   })}
+
                 </div>
               </div>
-            )}
+            }
 
             <div className='header_right'>
               <div className='header_subcontainer'>

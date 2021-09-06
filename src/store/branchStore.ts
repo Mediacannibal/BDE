@@ -1,5 +1,6 @@
 import { Store, useStore } from './Store'
 import getbranch from '../utils/api/getbranch'
+import postbranch from 'utils/api/postbranch'
 
 export class branchItems {
   id: String
@@ -59,6 +60,15 @@ export const branchStore = () => {
           console.log(err)
         })
     },
-
+    async postbranch(data: any) {
+      await postbranch(data)
+        .then(res => {
+          console.log("posttask posttask", res)
+          setbranch((oldArray: any) => [...oldArray, res.data])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 }
