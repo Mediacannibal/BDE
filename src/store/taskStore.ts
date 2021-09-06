@@ -18,7 +18,7 @@ export class taskItems {
   open_id: String
   open_type: String
   dependencies: String
-  milestone: Boolean
+  milestone: String
   progress: String
   start_date: String
   end_date: String
@@ -29,7 +29,7 @@ export class taskItems {
   created_by: String
   deleted_at: String
   deleted_by: String
-  isDisabled: Boolean
+  isDisabled: String
   updated_at: String
   updated_by: String
 
@@ -50,7 +50,7 @@ export class taskItems {
     open_id: String
     open_type: String
     dependencies: String
-    milestone: Boolean
+    milestone: String
     progress: String
     start_date: String
     end_date: String
@@ -61,7 +61,7 @@ export class taskItems {
     created_by: String
     deleted_at: String
     deleted_by: String
-    isDisabled: Boolean
+    isDisabled: String
     updated_at: String
     updated_by: String
 

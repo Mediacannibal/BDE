@@ -16,6 +16,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const { company, setcompany, loadcompany } = companyStore()
   const { posttask } = taskStore()
+  const history = useHistory();
 
   const [company_assignee_ref, setcompany_assignee_ref] = useState({})
   const [branch_assignee_ref, setbranch_assignee_ref] = useState({})
@@ -87,14 +88,15 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
   const [open_id, setopen_id] = useState('')
   const [open_type, setopen_type] = useState('')
   const [dependencies, setdependencies] = useState('')
-  const [milestone, setmilestone] = useState('')
+  const [milestone, setmilestone] = useState(false)
   const [progress, setprogress] = useState('')
   const [start_date, setstart_date] = useState('')
   const [end_date, setend_date] = useState('')
 
   const [f_domain, setf_domain] = useState('')
-  const [portrait, setportrait] = useState('')
-  const [landscape, setlandscape] = useState('')
+
+  const [portrait, setportrait] = useState(false)
+  const [landscape, setlandscape] = useState(false)
   const [ios, setios] = useState('')
   const [android, setandroid] = useState('')
   const [browser, setbrowser] = useState('')
@@ -195,10 +197,24 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "progress": progress,
               "start_date": start_date,
               "end_date": end_date,
+              "isDisabled": false,
               "f_domain": f_domain?.value,
+
+              "ios": ios,
+              "portrait": portrait,
+              "landscape": landscape,
+              "android": android,
+              "browser": browser,
+
+              "api_name": api_name,
+              "api_method": api_method?.value,
+              "path": path,
+              "request_data": request_data,
+              "response_data": response_data,
             }
 
             posttask(data)
+            history.replace('/TaskList')
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
@@ -443,15 +459,17 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
 
                   <div className="inputfield_sub_container">
                     <McInput
+                      type={"radio"}
                       label={"MILESTONE"}
+                      name={"data.milestone"}
                       id="milestone_data"
-                      name={`data.milestone`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
                       required={true}
                       value={milestone}
                       onChange={setmilestone}
+                      options={[
+                        { "key": "0", "value": "true" },
+                        { "key": "1", "value": "false" },
+                      ]}
                     />
                   </div>
 
@@ -540,28 +558,35 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
 
                       <div className="inputfield_sub_container">
                         <McInput
+                          type={"radio"}
                           label={"POTRAIT"}
+                          name={"data.portrait"}
                           id="portrait_data"
-                          name={`data.portrait`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
                           required={true}
                           value={portrait}
-                          onChange={setportrait} />
+                          onChange={setportrait}
+                          options={[
+                            { "key": "0", "value": "true" },
+                            { "key": "1", "value": "false" },
+                          ]}
+                        />
                       </div>
 
                       <div className="inputfield_sub_container">
                         <McInput
+                          type={"radio"}
                           label={"LANDSCAPE"}
+                          name={"data.landscape"}
                           id="landscape_data"
-                          name={`data.landscape`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
                           required={true}
                           value={landscape}
-                          onChange={setlandscape} />
+                          onChange={setlandscape}
+                          options={[
+                            { "key": "0", "value": "true" },
+                            { "key": "1", "value": "false" },
+                          ]}
+                        />
+
                       </div>
 
                       <div className="inputfield_sub_container">

@@ -105,13 +105,13 @@ const TaskList = (props: any) => {
 
 
   const getphotoimage = (obj: any) => {
-    if (obj === null || obj.length === 0)
+    if (obj === null || obj?.length === 0)
       return null
     else
       return (
         <>
           <div className="assign_wrap">
-            <img className='user_icon' src={(obj[0]?.photo_url === null) ? defaultusericon : obj[0]?.photo_url} />
+            <img className='user_icon' src={(obj?.photo_url === null) ? defaultusericon : obj?.photo_url} />
           </div>
         </>
       )
@@ -595,6 +595,8 @@ const TaskList = (props: any) => {
 
               <div >
                 {(taskField) && taskField.map((element: any) => {
+                  console.log(">>>>>>>>>>>> taskField taskField <<<<<<<<<<<<<<< :",element);
+                  
                   let assigned_by = element?.assigned_by;
                   let assigned_to = element?.assigned_to;
                   let assisted_by = element?.assisted_by;
