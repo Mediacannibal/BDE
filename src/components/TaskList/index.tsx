@@ -25,36 +25,36 @@ import McCard from 'components/Common/McCard'
 import { taskStore } from '../../store/taskStore';
 
 const TaskList = (props: any) => {
-  const history = useHistory()
   const { auth } = useAuth()
-
   const { userDetail, loaduserDetail } = useuserDetails()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { taskField, settaskField, loadTaskDetail } = taskStore()
+  const { taskField, settaskField, loadTaskDetail, loadTaskDetail_byvalues, loadTaskDetail_withcallback } = taskStore()
 
+  const history = useHistory()
   const [spinner, setspinner] = useState(true)
-
   const [addeditTask_popup, setaddeditTask_popup] = useState(false)
   const [addEditTaskLog_popup, setaddEditTaskLog_popup] = useState(false)
   const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
   const [userlistForm_popup, setuserlistForm_popup] = useState(false)
+  const [up_arrow, setup_arrow] = useState(true)
+  const isFirstRender = useRef(true)
 
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
   const [seleted_timeSpent, setseleted_timeSpent] = useState('')
 
-  const [task, settask] = useState('')
   const [users, setusers] = useState('')
   const [parent_child, setparent_child] = useState('')
-  const [project_ref, setproject_ref] = useState('')
+
   const [project_id, setproject_id] = useState('')
+
+  const [project_ref, setproject_ref] = useState('')
   const [task_priority, settask_priority] = useState('')
+  const [task, settask] = useState('')
   const [task_domain, settask_domain] = useState('')
 
-  const [up_arrow, setup_arrow] = useState(true)
-
-  const isFirstRender = useRef(true)
+  const [project_list, setproject_list] = useState([])
 
   useEffect(() => {
     if (!isFirstRender.current) {
@@ -77,10 +77,32 @@ const TaskList = (props: any) => {
     }
 
     if (!taskField) {
-      loadTaskDetail();
+      loadTaskDetail_withcallback((list: any) => {
+        setproject_list(list.map(
+          (element: any) =>
+            ({ "key": element.id, "value": element.project_ref })
+        ).reduce(
+          (unique: any, item: any) => {
+            console.log(unique);
+            const getifunique = (list: any, obj: any) => {
+              let found = false
+              list.map((obj1: any) => {
+                if (obj1.value === obj.value)
+                  found = true;
+              })
+              return found
+            }
+            let check = getifunique(unique, item)
+            return check ? unique : [...unique, item]
+          },
+          [],
+        ))
+      });
     }
 
   }, [])
+
+
 
   const getphotoimage = (obj: any) => {
     if (obj === null || obj.length === 0)
@@ -438,23 +460,24 @@ const TaskList = (props: any) => {
             </>
           ) : (
             <>
-              <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+              <form className="inputfield_main_container">
                 <div className="mc_filter">
                   <div className='inputfield_sub_container'>
                     <McInput
                       type={'picker'}
                       name={'Project'}
                       id='task_project_data'
-                      value={project_id}
-                      onChange={setproject_id}
-                      options={(taskField) && taskField.forEach((element: any) =>
-                      ({
-                        "key": element.project_ref_id,
-                        "value": element.project_ref_id,
-                      })
-                      )}
-                    // list.map((obj)=>({"key" : obj.prid , "value" : obj.prid}) ) [11,12,13,14] [{"sdfa":"sdfa","prid" : "1"},{"sdfa":"sdfa","prid" : "2"}]
-                    // list 
+                      value={project_ref?.value}
+                      onChange={(data: any) => {
+                        setproject_ref(data)
+                        loadTaskDetail_byvalues(
+                          data.value,
+                          task_domain.value ? task_domain.value : '',
+                          task.value ? task.value : '',
+                          task_priority.value ? task_priority.value : ''
+                        )
+                      }}
+                      options={project_list}
                     />
                   </div>
 
@@ -463,8 +486,16 @@ const TaskList = (props: any) => {
                       type={'picker'}
                       name={'Domain'}
                       id='task_domain_data'
-                      value={task_domain}
-                      onChange={settask_domain}
+                      value={task_domain?.value}
+                      onChange={(data: any) => {
+                        settask_domain(data)
+                        loadTaskDetail_byvalues(
+                          project_ref.value ? project_ref.value : '',
+                          data.value,
+                          task.value ? task.value : '',
+                          task_priority.value ? task_priority.value : ''
+                        )
+                      }}
                       options={[
                         { key: '0', value: 'FRONTEND' },
                         { key: '1', value: 'BACKEND' },
@@ -479,8 +510,16 @@ const TaskList = (props: any) => {
                       name={'Task Type'}
                       id='task_type_data'
                       // valid={ settask_picker_typevalid}
-                      value={task}
-                      onChange={settask}
+                      value={task?.value}
+                      onChange={(data: any) => {
+                        settask(data)
+                        loadTaskDetail_byvalues(
+                          project_ref.value ? project_ref.value : '',
+                          task_domain.value ? task_domain.value : '',
+                          data.value,
+                          task_priority.value ? task_priority.value : ''
+                        )
+                      }}
                       options={[
                         { key: '0', value: 'FEATURE' },
                         { key: '1', value: 'TEST' },
@@ -494,8 +533,16 @@ const TaskList = (props: any) => {
                       type={'picker'}
                       name={'Priority'}
                       id='task_priority_data'
-                      value={task_priority}
-                      onChange={settask_priority}
+                      value={task_priority?.value}
+                      onChange={(data: any) => {
+                        settask_priority(data)
+                        loadTaskDetail_byvalues(
+                          project_ref.value ? project_ref.value : '',
+                          task_domain.value ? task_domain.value : '',
+                          task.value ? task.value : '',
+                          data.value
+                        )
+                      }}
                       options={[
                         { key: '0', value: 'Low' },
                         { key: '1', value: 'Normal' },
@@ -511,6 +558,8 @@ const TaskList = (props: any) => {
                       settask('')
                       settask_domain('')
                       settask_priority('')
+                      setproject_ref('')
+                      loadTaskDetail_byvalues("", "", "", "",)
                     }}
                   >
                     Reset
@@ -787,6 +836,7 @@ const TaskList = (props: any) => {
               </div>
             </>
           )}
+
         </div>
         <Footer />
       </div>

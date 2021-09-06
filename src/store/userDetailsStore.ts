@@ -16,6 +16,8 @@ export class userDetailsItem {
     photo_url: String
     dial_code: String
     phone: String
+    company_name: String
+    branch_name: String
     is_deleted: String
     updated_by: String
     owned_by: String
@@ -38,6 +40,8 @@ export class userDetailsItem {
         photo_url: String
         dial_code: String
         phone: String
+        company_name: String
+        branch_name: String
         is_deleted: String
         updated_by: String
         owned_by: String
@@ -59,6 +63,8 @@ export class userDetailsItem {
         this.photo_url = o.photo_url
         this.dial_code = o.dial_code
         this.phone = o.phone
+        this.company_name = o.company_name
+        this.branch_name = o.branch_name
         this.is_deleted = o.is_deleted
         this.updated_by = o.updated_by
         this.owned_by = o.owned_by
@@ -114,6 +120,8 @@ export const useuserDetails = () => {
                                     x.photo_url = data.photo_url
                                     x.dial_code = data.dial_code
                                     x.phone = data.phone
+                                    x.company_name = data.company_name
+                                    x.branch_name = data.branch_name
                                     return x
                                 }
                                 return String(obj.id) === String(id) ? getobj(obj) : obj

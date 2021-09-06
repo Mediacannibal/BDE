@@ -1,7 +1,27 @@
-import gettask from '../utils/api/gettask'
 import { Store, useStore } from './Store'
-
+import gettask from '../utils/api/gettask'
+import posttask from '../utils/api/posttask'
 export class taskItems {
+  id: String
+  project_ref: String
+  priority: String
+  task_type: String
+  status: String
+  domain: String
+  title: String
+  description: String
+  remarks: String
+  image_link: String
+  linked_logs: String
+  time_spent: String
+  parent_child: String
+  open_id: String
+  open_type: String
+  dependencies: String
+  milestone: Boolean
+  progress: String
+  start_date: String
+  end_date: String
   assigned_by: String
   assigned_to: String
   assisted_by: String
@@ -9,31 +29,31 @@ export class taskItems {
   created_by: String
   deleted_at: String
   deleted_by: String
-  dependencies: String
-  description: String
-  domain: String
-  end_date: String
-  id: String
-  image_link: String
   isDisabled: Boolean
-  linked_logs: String
-  milestone: Boolean
-  open_id: String
-  open_type: String
-  parent_child: String
-  priority: String
-  progress: String
-  project_ref: String
-  remarks: String
-  start_date: String
-  status: String
-  task_type: String
-  time_spent: String
-  title: String
   updated_at: String
   updated_by: String
 
   constructor(o: {
+    id: String
+    project_ref: String
+    priority: String
+    task_type: String
+    status: String
+    domain: String
+    title: String
+    description: String
+    remarks: String
+    image_link: String
+    linked_logs: String
+    time_spent: String
+    parent_child: String
+    open_id: String
+    open_type: String
+    dependencies: String
+    milestone: Boolean
+    progress: String
+    start_date: String
+    end_date: String
     assigned_by: String
     assigned_to: String
     assisted_by: String
@@ -41,31 +61,31 @@ export class taskItems {
     created_by: String
     deleted_at: String
     deleted_by: String
-    dependencies: String
-    description: String
-    domain: String
-    end_date: String
-    id: String
-    image_link: String
     isDisabled: Boolean
-    linked_logs: String
-    milestone: Boolean
-    open_id: String
-    open_type: String
-    parent_child: String
-    priority: String
-    progress: String
-    project_ref: String
-    remarks: String
-    start_date: String
-    status: String
-    task_type: String
-    time_spent: String
-    title: String
     updated_at: String
     updated_by: String
-  
-    }) {
+
+  }) {
+    this.id = o.id
+    this.project_ref = o.project_ref
+    this.priority = o.priority
+    this.task_type = o.task_type
+    this.status = o.status
+    this.domain = o.domain
+    this.title = o.title
+    this.description = o.description
+    this.remarks = o.remarks
+    this.image_link = o.image_link
+    this.linked_logs = o.linked_logs
+    this.time_spent = o.time_spent
+    this.parent_child = o.parent_child
+    this.open_id = o.open_id
+    this.open_type = o.open_type
+    this.dependencies = o.dependencies
+    this.milestone = o.milestone
+    this.progress = o.progress
+    this.start_date = o.start_date
+    this.end_date = o.end_date
     this.assigned_by = o.assigned_by
     this.assigned_to = o.assigned_to
     this.assisted_by = o.assisted_by
@@ -73,29 +93,10 @@ export class taskItems {
     this.created_by = o.created_by
     this.deleted_at = o.deleted_at
     this.deleted_by = o.deleted_by
-    this.dependencies = o.dependencies
-    this.description = o.description
-    this.domain = o.domain
-    this.end_date = o.end_date
-    this.id = o.id
-    this.image_link = o.image_link
     this.isDisabled = o.isDisabled
-    this.linked_logs = o.linked_logs
-    this.milestone = o.milestone
-    this.open_id = o.open_id
-    this.open_type = o.open_type
-    this.parent_child = o.parent_child
-    this.priority = o.priority
-    this.progress = o.progress
-    this.project_ref = o.project_ref
-    this.remarks = o.remarks
-    this.start_date = o.start_date
-    this.status = o.status
-    this.task_type = o.task_type
-    this.time_spent = o.time_spent
-    this.title = o.title
     this.updated_at = o.updated_at
     this.updated_by = o.updated_by
+
   }
 }
 
@@ -109,10 +110,42 @@ export const taskStore = () => {
     settaskField,
 
     async loadTaskDetail() {
-      await gettask()
+      await gettask("", "", "", " ")
         .then(data => {
           settaskField(data.data)
-          console.log('Main Tasks :', data.data)
+          console.log('Main Tasks :', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    async loadTaskDetail_byvalues(Project: any, Domain: any, Task: any, Priority: any) {
+      await gettask(Project, Domain, Task, Priority)
+        .then(data => {
+          settaskField(data.data)
+          console.log('Project, Domain, Task, Priority :', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async loadTaskDetail_withcallback(callback: any) {
+      await gettask("", "", "", " ")
+        .then(data => {
+          settaskField(data.data)
+          callback(data.data)
+          console.log('Main Tasks :', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async posttask(data: any) {
+      await posttask(data)
+        .then(res => {
+          console.log("posttask posttask", res)
+          settaskField((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {
           console.log(err)
