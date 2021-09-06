@@ -1,5 +1,6 @@
 import { Store, useStore } from './Store'
 import getcompany from '../utils/api/getcompany'
+import postcompany from 'utils/api/postcompany'
 
 export class companyItems {
   id: String
@@ -30,7 +31,6 @@ export class companyItems {
     updated_at: String
     deleted_by: String
     deleted_at: String
-
   }) {
     this.id = o.id
     this.company_title = o.company_title
@@ -67,6 +67,15 @@ export const companyStore = () => {
           console.log(err)
         })
     },
-
+    async posttask(data: any) {
+      await postcompany(data)
+        .then(res => {
+          console.log('posttask posttask', res)
+          setcompany((oldArray: any) => [...oldArray, res.data])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 }

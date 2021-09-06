@@ -6,7 +6,7 @@ import * as up from '../../../assets/up.png'
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
 import { useAuth } from '../../../store/authStore';
-import { fileupload, file_upload } from 'utils/actions';
+import { file_upload } from 'utils/actions';
 
 
 const McInput = (props: any) => {
@@ -438,12 +438,13 @@ const McInput = (props: any) => {
                 </div>
             )}
 
-            <div className="invalid_entry" >{
-                ((String(input_data).length === 0) && (props.required === true) && (props.sendcheck === true)) ?
-                    "Field is required."
-                    :
-                    error_message
-            }
+            <div className="invalid_entry" >
+                {
+                    ((String(input_data).length === 0) && (props.required === true) && (props.sendcheck === true)) ?
+                        "Field is required."
+                        :
+                        error_message
+                }
             </div>
 
             <div className="field_description">

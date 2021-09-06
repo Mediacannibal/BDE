@@ -31,12 +31,17 @@ import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { ColourObject } from 'store/ColourStore'
 import UserSetup from 'components/Forms/UserSetup'
 import { useuserDetails } from 'store/userDetailsStore'
+import { taskTimeLogStore } from 'store/tasktimelogStore'
+import { taskStore } from 'store/taskStore'
 
 const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const history = useHistory()
   const { auth } = useAuth()
+  // STORE
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-  const { self } = useuserDetails();
+  const { userDetail, loaduserDetail, self } = useuserDetails();
+  const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
+  const { taskField, settaskField, loadTaskDetail } = taskStore()
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState(self?.user_type)
@@ -49,7 +54,6 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [task_Ids, settask_Ids] = useState('')
 
   const [settings_popup, setsettings_popup] = useState(false)
-  const [taskItems, settaskItems] = useState([])
 
   const [startorpausetask, setstartorpausetask] = useState(false)
   const [startorpausetaskid, setstartorpausetaskid] = useState()
@@ -58,7 +62,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_notification, setuser_notification] = useState(false)
 
   const [users, setusers] = useState('')
-  const [isuser_active, setisuser_active] = useState(false)
+  const [isuser_active, setisuser_active] = useState(self?.is_active)
 
   const location = useLocation()
 
@@ -81,32 +85,15 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       loadColour();
     }
 
-    mainTask()
+    if (!taskField) {
+      loadTaskDetail();
+    }
 
-    taskTimeLog()
-
+    if (!taskTimeLogField) {
+      loadTaskTimeLogDetail();
+      setstartorpausetask(false)
+    }
   }, [])
-
-  const mainTask = () => {
-    // console.log("SELETED TASKTYPE: ", task);
-    getMainTask(
-      async (data: any, errorresponse: any) => {
-        if (data.status === 200) {
-          settaskItems(data.data.results.Assigned)
-        } else {
-          console.log('error ' + JSON.stringify(data))
-          console.log('error ' + JSON.stringify(errorresponse))
-        }
-      },
-      auth,
-      // task,
-      // users,
-      // parent_child,
-      // task_domain,
-      // task_priority,
-      // project
-    )
-  }
 
   const taskTimeLog = () => {
     getTasktimelog(
@@ -288,10 +275,11 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
               </div>
             </div>
 
-            {projecttaskTitle && (
+            {projecttaskTitle &&
               <div className='projecttask_container'>
                 <div className='projecttask_wrapper' style={{ backgroundColor: colourObj.color_12 }}>
-                  {taskItems.map((element: any, key: any) => {
+
+                  {(taskField) && taskField.map((element: any, key: any) => {
                     return (
                       <div
                         className='projecttask_subwrapper'
@@ -307,9 +295,10 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                       </div>
                     )
                   })}
+
                 </div>
               </div>
-            )}
+            }
 
             <div className='header_right'>
               <div className='header_subcontainer'>
