@@ -32,14 +32,14 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   const [passwordShown, setpasswordShown] = useState(false);
 
-  const [company_name, setcompany_name] = useState({})
-  const [branch_name, setbranch_name] = useState({})
+  const [company_name, setcompany_name] = useState('')
+  const [branch_name, setbranch_name] = useState('')
   const [firstname, setfirstname] = useState('')
   const [username, setusername] = useState('')
   const [lastname, setlastname] = useState('')
   const [email, setemail] = useState('')
   const [phoneno, setphoneno] = useState('')
-  const [usertype, setusertype] = useState({})
+  const [usertype, setusertype] = useState('')
   const [password, setpassword] = useState('')
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
@@ -421,7 +421,6 @@ console.log("OTP not matched")
                 let id = self ? self?.profile_id : Number(localStorage.getItem('UserDetails')).profile_id
                 let data = {
                   "username": self ? self?.user_id : Number(localStorage.getItem('UserDetails')).user_id,
-                  // "image":"",
                   "firstname": firstname,
                   "lastname": lastname,
                   "email": email,
@@ -523,7 +522,7 @@ console.log("OTP not matched")
                       </>
                     }
 
-                    <div className="inputfield_sub_container">
+                    {/* <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
                         <McInput
                           label={"User Name"}
@@ -539,7 +538,7 @@ console.log("OTP not matched")
                           onChange={setusername}
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="inputfield_sub_container">
                       <div className="textinput_box_container">
