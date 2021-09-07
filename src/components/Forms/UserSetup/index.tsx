@@ -63,6 +63,8 @@ const UserSetup = ({ setPopup }, props: any) => {
   const [tick, settick] = useState(false)
   const [istick, setistick] = useState(false)
 
+  const [company_branch_selector, setcompany_branch_selector] = useState("")
+
   // login const's
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
@@ -111,7 +113,7 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   useEffect(() => {
 
-    console.log(">>>>>>>>>>>=========== : : : ", self, Number(localStorage.getItem('UserDetails')).user_id);
+    
 
     CommonAPi(
       {
@@ -459,9 +461,9 @@ console.log("OTP not matched")
                   {/* New User Form */}
                   <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
 
-                    <div>Are you a part of a organisation?</div>
+                    <div>Are you a part of an organisation?</div>
 
-                    <div className="input_checkbox">
+                    {/* <div className="input_checkbox">
                       <div className="checkbox_sub_container">
                         <input type="checkbox" id="Landscape" className="checkbox" name="landscape" value="Landscape"
                           onChange={() => {
@@ -469,9 +471,25 @@ console.log("OTP not matched")
                           }} />
                         <div className="checkbox_text">Tick Me</div>
                       </div>
+                    </div> */}
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"radio"}
+                        label={"Are you a part of an any organisation?"}
+                        name={"data.company_branch_selector"}
+                        id="company_branch_selector_data"
+                        required={true}
+                        value={company_branch_selector}
+                        onChange={setcompany_branch_selector}
+                        options={[
+                          { "key": "0", "value": "YES" },
+                          { "key": "1", "value": "NO" },
+                        ]}
+                      />
                     </div>
 
-                    {tickbox &&
+                    {company_branch_selector === "YES" &&
                       <>
                         <div className="inputfield_sub_container">
                           <McInput
@@ -519,127 +537,111 @@ console.log("OTP not matched")
                             ]}
                           />
                         </div>
+
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <McInput
+                              label={"First Name"}
+                              id="firstname_data"
+                              name={`data.FirstName`}
+                              inputtype="Text"
+                              type="text"
+                              min_length="3"
+                              required={true}
+                              valid={setfirstnamevalid}
+                              sendcheck={preSendValidator}
+                              value={firstname}
+                              onChange={setfirstname}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <McInput
+                              label={"Last Name"}
+                              id={"lastname_data"}
+                              name={`data.LastName`}
+                              inputtype="lastname"
+                              type="text"
+                              min_length="3"
+                              required={true}
+                              valid={setlastnamevalid}
+                              sendcheck={preSendValidator}
+                              value={lastname}
+                              onChange={setlastname}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <McInput
+                              label={"Email ID"}
+                              id={"email_data"}
+                              inputtype="email"
+                              type="text"
+                              name={`data.EmailID`}
+                              min_length="3"
+                              required={true}
+                              valid={setemailvalid}
+                              sendcheck={preSendValidator}
+                              value={email}
+                              onChange={setemail}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <McInput
+                              label={"Phone Number"}
+                              id={"phoneno_data"}
+                              inputtype="phone"
+                              type="text"
+                              name={`data.Phone`}
+                              maxLength="10"
+                              input_inner_leftprop={<div>+91</div>}
+                              required={true}
+                              valid={setphonevalid}
+                              sendcheck={preSendValidator}
+                              value={phoneno}
+                              onChange={setphoneno}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <div className="textinput_box_container">
+                            <McInput
+                              label={"Password"}
+                              id="password_data"
+                              inputtype="password"
+                              type={passwordShown ? "text" : "password"}
+                              name={`data.Password`}
+                              min_length="8"
+                              required={true}
+                              sendcheck={preSendValidator}
+                              valid={setpasswordvalid}
+                              value={password}
+                              onChange={setpassword}
+                              input_inner_rightprop={
+                                <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
+                                  {passwordShown ? <img className="Password_visibility_icon" src={eye} />
+                                    :
+                                    <img className="Password_visibility_icon" src={eye_invisible}
+                                    />
+                                  }
+                                </div>
+                              }
+                            />
+                          </div>
+                        </div>
                       </>
                     }
 
-                    {/* <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"User Name"}
-                          id="username_data"
-                          name={`data.username`}
-                          inputtype="username"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          valid={setusernamevalid}
-                          sendcheck={preSendValidator}
-                          value={username}
-                          onChange={setusername}
-                        />
-                      </div>
-                    </div> */}
-
-                    <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"First Name"}
-                          id="firstname_data"
-                          name={`data.FirstName`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          valid={setfirstnamevalid}
-                          sendcheck={preSendValidator}
-                          value={firstname}
-                          onChange={setfirstname}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"Last Name"}
-                          id={"lastname_data"}
-                          name={`data.LastName`}
-                          inputtype="lastname"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          valid={setlastnamevalid}
-                          sendcheck={preSendValidator}
-                          value={lastname}
-                          onChange={setlastname}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"Email ID"}
-                          id={"email_data"}
-                          inputtype="email"
-                          type="text"
-                          name={`data.EmailID`}
-                          min_length="3"
-                          required={true}
-                          valid={setemailvalid}
-                          sendcheck={preSendValidator}
-                          value={email}
-                          onChange={setemail}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"Phone Number"}
-                          id={"phoneno_data"}
-                          inputtype="phone"
-                          type="text"
-                          name={`data.Phone`}
-                          maxLength="10"
-                          input_inner_leftprop={<div>+91</div>}
-                          required={true}
-                          valid={setphonevalid}
-                          sendcheck={preSendValidator}
-                          value={phoneno}
-                          onChange={setphoneno}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="inputfield_sub_container">
-                      <div className="textinput_box_container">
-                        <McInput
-                          label={"Password"}
-                          id="password_data"
-                          inputtype="password"
-                          type={passwordShown ? "text" : "password"}
-                          name={`data.Password`}
-                          min_length="8"
-                          required={true}
-                          sendcheck={preSendValidator}
-                          valid={setpasswordvalid}
-                          value={password}
-                          onChange={setpassword}
-                          input_inner_rightprop={
-                            <div onClick={() => { setpasswordShown(!passwordShown) }} id="eye">
-                              {passwordShown ? <img className="Password_visibility_icon" src={eye} />
-                                :
-                                <img className="Password_visibility_icon" src={eye_invisible}
-                                />
-                              }
-                            </div>
-                          }
-                        />
-                      </div>
-                    </div>
                   </form>
+
                 </>
               }
               confirmClick={() => {

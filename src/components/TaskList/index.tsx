@@ -595,7 +595,7 @@ const TaskList = (props: any) => {
 
               <div >
                 {(taskField) && taskField.map((element: any) => {
-                  console.log(">>>>>>>>>>>> taskField taskField <<<<<<<<<<<<<<< :",element);
+                  // console.log(">>>>>>>>>>>> taskField taskField <<<<<<<<<<<<<<< :",element);
                   
                   let assigned_by = element?.assigned_by;
                   let assigned_to = element?.assigned_to;

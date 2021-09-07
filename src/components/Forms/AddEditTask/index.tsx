@@ -199,6 +199,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "path": path,
               "request_data": request_data,
               "response_data": response_data,
+
+              "isDisabled":false,
             }
 
             posttask(data)
