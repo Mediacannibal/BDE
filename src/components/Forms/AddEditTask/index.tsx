@@ -185,21 +185,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "domain": domain?.value,
               "title": title,
               "description": description,
-              "status": status,
               "remarks": remarks,
               "image_link": image_link,
-              "linked_logs": linked_logs,
-              "time_spent": time_spent,
-              "parent_child": parent_child,
-              "open_id": open_id,
-              "open_type": open_type,
-              "dependencies": dependencies,
-              "milestone": milestone,
-              "progress": progress,
-              "start_date": start_date,
-              "end_date": end_date,
-              "isDisabled": false,
-              "f_domain": f_domain?.value,
 
               "ios": ios,
               "portrait": portrait,
@@ -330,20 +317,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
 
                   <div className="inputfield_sub_container">
                     <McInput
-                      label={"STATUS"}
-                      id="status_data"
-                      name={`data.status`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={status}
-                      onChange={setstatus}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
                       label={"REMARKS"}
                       id="remarks_data"
                       name={`data.remarks`}
@@ -370,343 +343,195 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
                     />
                   </div>
 
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"LINKED LOGS"}
-                      id="linked_logs_data"
-                      name={`data.linked_logs`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={linked_logs}
-                      onChange={setlinked_logs}
-                    />
-                  </div>
+                  <div className="inputbox_divider">
 
-                </div>
-
-                <div className="inputbox_divider">
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"TIME SPENT"}
-                      id="time_spent_data"
-                      name={`data.time_spent`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={time_spent}
-                      onChange={settime_spent}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"PARNET CHILD"}
-                      id="parent_child_data"
-                      name={`data.parent_child`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={parent_child}
-                      onChange={setparent_child}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"OPEN ID"}
-                      id="open_id_data"
-                      name={`data.open_id`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={open_id}
-                      onChange={setopen_id}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"OPEN TYPE"}
-                      id="open_type_data"
-                      name={`data.open_id`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={open_type}
-                      onChange={setopen_type}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"DEPENDENCIES"}
-                      id="dependencies_data"
-                      name={`data.dependencies`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={dependencies}
-                      onChange={setdependencies}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      type={"radio"}
-                      label={"MILESTONE"}
-                      name={"data.milestone"}
-                      id="milestone_data"
-                      required={true}
-                      value={milestone}
-                      onChange={setmilestone}
-                      options={[
-                        { "key": "0", "value": "true" },
-                        { "key": "1", "value": "false" },
-                      ]}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"PROGRESS"}
-                      id="progress_data"
-                      name={`data.progress`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={progress}
-                      onChange={setprogress}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"START DATE"}
-                      id="start_date_data"
-                      name={`data.start_date`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={start_date}
-                      onChange={setstart_date}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"END DATE"}
-                      id="end_date_data"
-                      name={`data.end_date`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={end_date}
-                      onChange={setend_date}
-                    />
-                  </div>
-                </div>
-
-
-                <div className="inputbox_divider">
-
-                  {(domain?.value === "UI") &&
-                    <>
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          type={"picker"}
-                          name={"FRONT END DOMAIN"}
-                          id="f_domain_data"
-                          required={true}
-                          value={f_domain?.value}
-                          onChange={setf_domain}
-                          options={[
-                            { "key": "0", "value": "Frontend" },
-                            { "key": "1", "value": "UI" },
-                          ]}
-                        />
-                      </div>
-                    </>
-                  }
-
-                  {(domain?.value === "frontend") &&
-                    <>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          type={"picker"}
-                          name={"FRONT END DOMAIN"}
-                          id="f_domain_data"
-                          required={true}
-                          value={f_domain?.value}
-                          onChange={setf_domain}
-                          options={[
-                            { "key": "0", "value": "Frontend" },
-                            { "key": "1", "value": "UI" },
-                          ]}
-                        />
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          type={"radio"}
-                          label={"POTRAIT"}
-                          name={"data.portrait"}
-                          id="portrait_data"
-                          required={true}
-                          value={portrait}
-                          onChange={setportrait}
-                          options={[
-                            { "key": "0", "value": "true" },
-                            { "key": "1", "value": "false" },
-                          ]}
-                        />
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          type={"radio"}
-                          label={"LANDSCAPE"}
-                          name={"data.landscape"}
-                          id="landscape_data"
-                          required={true}
-                          value={landscape}
-                          onChange={setlandscape}
-                          options={[
-                            { "key": "0", "value": "true" },
-                            { "key": "1", "value": "false" },
-                          ]}
-                        />
-
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"IOS"}
-                          id="ios_data"
-                          name={`data.ios`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={ios}
-                          onChange={setios} />
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"AANDROID"}
-                          id="android_data"
-                          name={`data.android`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={android}
-                          onChange={setandroid} />
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"BROWSER"}
-                          id="browser_data"
-                          name={`data.V`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={browser}
-                          onChange={setbrowser} />
-                      </div>
-                    </>
-                  }
-
-                  {(domain?.value === "backend") &&
-                    <>
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"API Name"}
-                          id="api_name_data"
-                          name={`data.api_name`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={api_name}
-                          onChange={setapi_name} />
-                      </div>
-
-                      <div className="inputfield_sub_container">
-                        <div >
+                    {(domain?.value === "UI") &&
+                      <>
+                        <div className="inputfield_sub_container">
                           <McInput
                             type={"picker"}
-                            name={"API METHOD"}
-                            id="domain"
+                            name={"FRONT END DOMAIN"}
+                            id="f_domain_data"
                             required={true}
-                            value={api_method?.value}
-                            onChange={setapi_method}
+                            value={f_domain?.value}
+                            onChange={setf_domain}
                             options={[
-                              { "key": "0", "value": "GET" },
-                              { "key": "1", "value": "POST" },
-                              { "key": "0", "value": "PUT" },
-                              { "key": "0", "value": "DELETE" }]}
+                              { "key": "0", "value": "Frontend" },
+                              { "key": "1", "value": "UI" },
+                            ]}
                           />
                         </div>
-                      </div>
+                      </>
+                    }
 
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"Path"}
-                          id="path_data"
-                          name={`data.path`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={path}
-                          onChange={setpath} />
-                      </div>
+                    {(domain?.value === "frontend") &&
+                      <>
 
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"REQUEST DATA"}
-                          id="request_data_data"
-                          name={`data.request_data`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={request_data}
-                          onChange={setrequest_data} />
-                      </div>
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            type={"picker"}
+                            name={"FRONT END DOMAIN"}
+                            id="f_domain_data"
+                            required={true}
+                            value={f_domain?.value}
+                            onChange={setf_domain}
+                            options={[
+                              { "key": "0", "value": "Frontend" },
+                              { "key": "1", "value": "UI" },
+                            ]}
+                          />
+                        </div>
 
-                      <div className="inputfield_sub_container">
-                        <McInput
-                          label={"RESPONCE"}
-                          id="response_data"
-                          name={`data.response`}
-                          inputtype="Text"
-                          type="text"
-                          min_length="3"
-                          required={true}
-                          value={response_data}
-                          onChange={setresponse_data} />
-                      </div>
-                    </>
-                  }
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            type={"radio"}
+                            label={"POTRAIT"}
+                            name={"data.portrait"}
+                            id="portrait_data"
+                            required={true}
+                            value={portrait}
+                            onChange={setportrait}
+                            options={[
+                              { "key": "0", "value": "true" },
+                              { "key": "1", "value": "false" },
+                            ]}
+                          />
+                        </div>
 
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            type={"radio"}
+                            label={"LANDSCAPE"}
+                            name={"data.landscape"}
+                            id="landscape_data"
+                            required={true}
+                            value={landscape}
+                            onChange={setlandscape}
+                            options={[
+                              { "key": "0", "value": "true" },
+                              { "key": "1", "value": "false" },
+                            ]}
+                          />
+
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"IOS"}
+                            id="ios_data"
+                            name={`data.ios`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={ios}
+                            onChange={setios} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"AANDROID"}
+                            id="android_data"
+                            name={`data.android`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={android}
+                            onChange={setandroid} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"BROWSER"}
+                            id="browser_data"
+                            name={`data.V`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={browser}
+                            onChange={setbrowser} />
+                        </div>
+                      </>
+                    }
+
+                    {(domain?.value === "backend") &&
+                      <>
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"API Name"}
+                            id="api_name_data"
+                            name={`data.api_name`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={api_name}
+                            onChange={setapi_name} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <div >
+                            <McInput
+                              type={"picker"}
+                              name={"API METHOD"}
+                              id="domain"
+                              required={true}
+                              value={api_method?.value}
+                              onChange={setapi_method}
+                              options={[
+                                { "key": "0", "value": "GET" },
+                                { "key": "1", "value": "POST" },
+                                { "key": "0", "value": "PUT" },
+                                { "key": "0", "value": "DELETE" }]}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"Path"}
+                            id="path_data"
+                            name={`data.path`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={path}
+                            onChange={setpath} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"REQUEST DATA"}
+                            id="request_data_data"
+                            name={`data.request_data`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={request_data}
+                            onChange={setrequest_data} />
+                        </div>
+
+                        <div className="inputfield_sub_container">
+                          <McInput
+                            label={"RESPONCE"}
+                            id="response_data"
+                            name={`data.response`}
+                            inputtype="Text"
+                            type="text"
+                            min_length="3"
+                            required={true}
+                            value={response_data}
+                            onChange={setresponse_data} />
+                        </div>
+                      </>
+                    }
+
+                  </div>
                 </div>
-
               </div>
             </form >
           }
