@@ -68,7 +68,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   useEffect(() => {
     // console.log("screenlocation: ", location.pathname);
-    console.log("self +++++++++++",JSON.parse(String(localStorage.getItem('UserDetails'))).is_active);
+    console.log("self +++++++++++", self, JSON.parse(String(localStorage.getItem('UserDetails'))).user_type);
 
     if (!auth) {
       history.push("/")
@@ -107,17 +107,17 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   }
 
   const menu_items = [
-    { path: '/Home', auth: 'NORMAL', icon: home, title: 'Home' },
-    { path: '/Project', auth: 'NORMAL', icon: menu, title: 'Project' },
-    { path: '/TaskList', auth: 'NORMAL', icon: tasklist, title: 'Tasks' },
-    { path: '/TaskTimeLog', auth: 'NORMAL', icon: tasklist, title: 'Task Time Log' },
-    { path: '/TestingChecklist', auth: 'NORMAL', icon: tested, title: 'Test Center' },
-    { path: '/BugList', auth: 'NORMAL', icon: bug, title: 'Bug Log' },
-    { path: '/Meeting', auth: 'NORMAL', icon: meeting, title: 'Meeting' },
-    { path: '/ApiRecords', auth: 'NORMAL', icon: team, title: 'Api Records' },
-    { path: '/AppGantt', auth: 'NORMAL', icon: team, title: 'Gantt Chart' },
-    { path: '/UserManagement', auth: 'admin', icon: team, title: 'Users' },
-    { path: '/report', auth: 'admin', icon: team, title: 'Analytics Report' },
+    { path: '/Home', auth: 'NORMAL,ADMIN,PROJECTADMIN,SUPERUSER', icon: home, title: 'Home' },
+    { path: '/Project', auth: 'NORMAL,ADMIN,PROJECTADMIN,SUPERUSER', icon: menu, title: 'Project' },
+    { path: '/TaskList', auth: 'NORMAL,ADMIN,PROJECTADMIN,SUPERUSER', icon: tasklist, title: 'Tasks' },
+    { path: '/TaskTimeLog', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: tasklist, title: 'Task Time Log' },
+    { path: '/TestingChecklist', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: tested, title: 'Test Center' },
+    { path: '/BugList', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: bug, title: 'Bug Log' },
+    { path: '/Meeting', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: meeting, title: 'Meeting' },
+    { path: '/ApiRecords', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Api Records' },
+    { path: '/AppGantt', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Gantt Chart' },
+    { path: '/UserManagement', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Users' },
+    { path: '/report', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Analytics Report' },
   ]
 
   return (
@@ -167,20 +167,23 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
           <div className='menu_items_wrapper'>
             {menu_items.map((data: any) => (
               // console.log(">>>>>>>>>>>++++++", self?.user_type, data.auth),
-              <div className={
-                data.path === screen_name ? 'menu_title active' : 'menu_title'
-              }
-                // style={{ backgroundColor: colourObj.color_5 }}
-                onClick={() => {
-                  history.replace(data.path)
-                }}
-              >
-                <img className='main_menu_item_icon' src={data.icon} />
-                {menu_open ? (
-                  <div className='main_menu_item_title' style={{ color: colourObj.color_1 }}>
-                    {data.title}</div>
-                ) : null}
-              </div>
+              data.auth.indexOf(self?.user_type) >= 0 &&
+              <>
+                <div className={
+                  data.path === screen_name ? 'menu_title active' : 'menu_title'
+                }
+                  // style={{ backgroundColor: colourObj.color_5 }}
+                  onClick={() => {
+                    history.replace(data.path)
+                  }}
+                >
+                  <img className='main_menu_item_icon' src={data.icon} />
+                  {menu_open ? (
+                    <div className='main_menu_item_title' style={{ color: colourObj.color_1 }}>
+                      {data.title}</div>
+                  ) : null}
+                </div>
+              </>
             ))}
 
           </div>
