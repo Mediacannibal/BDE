@@ -17,6 +17,7 @@ import firebase from "../../../firebase";
 import { setuid } from 'process';
 import { useAuth } from 'store/authStore';
 import Cookie from 'components/Common/Cookies'
+import { useuserDetails } from 'store/userDetailsStore';
 
 declare global {
   interface Window { recaptchaVerifier: any; confirmationResult: any }
@@ -25,6 +26,8 @@ declare global {
 const LoginScreen = () => {
   const { auth, setAuth } = useAuth();
   const history = useHistory();
+  const { self, setself } = useuserDetails();
+
   const [username_email_or_phone, setusername_email_or_phone] = useState({ value: '', error: '' });
   const [password_otp, setpassword_otp] = useState({ value: '', error: '' });
   const [google_cookies, setgoogle_cookies] = useState('')
@@ -93,6 +96,7 @@ const LoginScreen = () => {
       localStorage.setItem('AuthToken', JSON.stringify(data.data.result.token));
       localStorage.setItem('UserDetails', JSON.stringify(data.data.result.user_details));
       setAuth(String(data.data.result.token))
+      setself(data.data.result.user_details.is_active)
       history.replace('/Home')
 
       // let UserDetails = JSON.parse(String(localStorage.getItem('UserDetails')))

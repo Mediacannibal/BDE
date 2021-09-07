@@ -16,10 +16,13 @@ import * as facebook from '../../../assets/facebook.svg'
 import { ColourObject } from 'store/ColourStore';
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
+import { useuserDetails } from 'store/userDetailsStore';
 
 const UserSetup = ({ setPopup }, props: any) => {
   const history = useHistory();
   const { auth, setAuth } = useAuth()
+  const { self, edituserDetail } = useuserDetails()
+
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
@@ -107,6 +110,9 @@ const UserSetup = ({ setPopup }, props: any) => {
   }
 
   useEffect(() => {
+
+    console.log(">>>>>>>>>>>=========== : : : ", self, Number(localStorage.getItem('UserDetails')).user_id);
+
     CommonAPi(
       {
         path: `company/list/dropdown/`,
@@ -412,36 +418,28 @@ console.log("OTP not matched")
               desc1={"The following User will be placed!"}
               desc2={"Please click 'Confirm' to proceed?"}
               confirmClick={() => {
-                let data = [];
-                let object = {
-                  "company_name": company_name?.value,
-                  "branch_name": branch_name,
-                  "username": username,
+                let id = self ? self?.profile_id : Number(localStorage.getItem('UserDetails')).profile_id
+                let data = {
+                  "username": self ? self?.user_id : Number(localStorage.getItem('UserDetails')).user_id,
+                  // "image":"",
                   "firstname": firstname,
                   "lastname": lastname,
                   "email": email,
+                  // "address":"",
+                  // "dob":"",
+                  "user_type": usertype?.value,
+                  // "gender":"",
+                  // "auth_type":"",
+                  // "photo_url":"",
+                  // "dial_code":"",
                   "phone": phoneno,
-                  "user_type": usertype,
-                  "password": password,
+                  "company_name": company_name?.value,
+                  "branch_name": branch_name?.value,
+                  // "password": password,
                   "is_active": true,
                 }
-                data.push(object)
-                let token = JSON.parse(String(localStorage.getItem("AuthToken")))
-                newUserSignup(async (data: any, errorresponse: any) => {
-                  if (data.status === 200) {
-                    setispopup(false)
-                    localStorage.setItem('AuthToken', JSON.stringify(data.data.token));
-                    localStorage.setItem('UserDetails', JSON.stringify(data.data.user_details));
-                    history.replace('/Home')
-                    setbackendresponse("Successfully Added!")
-                    setbackendresponse_popup(true)
-                  } else {
-                    setispopup(false)
-                    setbackendresponse("Failed, Please Try Again!")
-                    console.log('error ' + JSON.stringify(data));
-                    console.log('error ' + JSON.stringify(errorresponse));
-                  }
-                }, token, data[0])
+                edituserDetail(id, data)
+                setPopup(true)
               }}
               cancelClick={() => {
                 console.log("***CANCEL***")

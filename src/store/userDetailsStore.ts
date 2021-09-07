@@ -5,6 +5,7 @@ import edituser from '../utils/api/edituser'
 export class userDetailsItem {
     id: String
     image: String
+    username: String
     firstname: String
     lastname: String
     email: String
@@ -16,19 +17,23 @@ export class userDetailsItem {
     photo_url: String
     dial_code: String
     phone: String
+    is_active: Boolean
     company_name: String
     branch_name: String
     is_deleted: String
     updated_by: String
     owned_by: String
+    user_identity: String
     created_at: String
     updated_at: String
     created_by: String
+    deleted_at: String
     TextData: any
 
     constructor(o: {
         id: String
         image: String
+        username: String
         firstname: String
         lastname: String
         email: String
@@ -40,18 +45,22 @@ export class userDetailsItem {
         photo_url: String
         dial_code: String
         phone: String
+        is_active: Boolean
         company_name: String
         branch_name: String
         is_deleted: String
         updated_by: String
         owned_by: String
+        user_identity: String
         created_at: String
         updated_at: String
         created_by: String
+        deleted_at: String
         TextData: any
     }) {
         this.id = o.id
         this.image = o.image
+        this.username = o.username
         this.firstname = o.firstname
         this.lastname = o.lastname
         this.email = o.email
@@ -63,14 +72,17 @@ export class userDetailsItem {
         this.photo_url = o.photo_url
         this.dial_code = o.dial_code
         this.phone = o.phone
+        this.is_active = o.is_active
         this.company_name = o.company_name
         this.branch_name = o.branch_name
         this.is_deleted = o.is_deleted
         this.updated_by = o.updated_by
         this.owned_by = o.owned_by
+        this.user_identity = o.user_identity
         this.created_at = o.created_at
         this.updated_at = o.updated_at
         this.created_by = o.created_by
+        this.deleted_at = o.deleted_at
         this.TextData = o.TextData
     }
 }
@@ -86,7 +98,7 @@ export const useuserDetails = () => {
     const [self, setself] = useStore(SelfDetailsStore);
 
     return {
-        userDetail, setuserDetail,self,
+        userDetail, setuserDetail, self, setself,
 
         async loaduserDetail() {
             await getuser()
@@ -102,12 +114,15 @@ export const useuserDetails = () => {
         async edituserDetail(id: any, data: any) {
             await edituser(id, data)
                 .then(res => {
+                    console.log("responce responce responce : >>>> :", res);
+                    localStorage.setItem('UserDetails', JSON.stringify(res.data.result));
                     setuserDetail(oldarr => {
                         return (
                             oldarr &&
                             oldarr.map((obj: any) => {
                                 const getobj = (o: any) => {
                                     let x = o
+                                    x.username = data.username
                                     x.image = data.image
                                     x.firstname = data.firstname
                                     x.lastname = data.lastname
@@ -122,6 +137,7 @@ export const useuserDetails = () => {
                                     x.phone = data.phone
                                     x.company_name = data.company_name
                                     x.branch_name = data.branch_name
+                                    x.is_active = data.is_active
                                     return x
                                 }
                                 return String(obj.id) === String(id) ? getobj(obj) : obj

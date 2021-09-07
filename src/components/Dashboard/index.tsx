@@ -62,24 +62,17 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const [user_notification, setuser_notification] = useState(false)
 
   const [users, setusers] = useState('')
-  const [isuser_active, setisuser_active] = useState(self?.is_active)
+  const [isuser_active, setisuser_active] = useState(JSON.parse(String(localStorage.getItem('UserDetails'))).is_active)
 
   const location = useLocation()
 
   useEffect(() => {
     // console.log("screenlocation: ", location.pathname);
-    console.log(
-      self
-    );
+    console.log("self +++++++++++",JSON.parse(String(localStorage.getItem('UserDetails'))).is_active);
 
     if (!auth) {
       history.push("/")
     }
-
-    // if (self) {
-    //   setisuser_active(self?.is_active)
-    //   console.log("someidentifier", self.user_type)
-    // }
 
     if (!Colour) {
       loadColour();
@@ -130,13 +123,17 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   return (
     <>
       <div className='main_wrapper'>
-        {isuser_active && (
-          <UserSetup
-            setPopup={() => {
-              setisuser_active(false)
-            }}
-          />
-        )}
+        {isuser_active ?
+          null
+          :
+          (
+            <UserSetup
+              setPopup={() => {
+                setisuser_active(true)
+              }}
+            />
+          )
+        }
 
         {settings_popup && (
           <UserSettings
@@ -442,12 +439,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   <div className='header_title' style={{ color: colourObj.color_1 }}>misc</div>
                 </div>
                 <div className='user_menu_item'>
-                  <div
-                    className='header_settings'
-                    onClick={() => {
-                      setsettings_popup(true)
-                    }}
-                  >
+                  <div className='header_settings' onClick={() => { setsettings_popup(true) }} >
                     <img className='header_icon' src={settings} />
                     <div className='header_title' style={{ color: colourObj.color_1 }}>Settings</div>
                   </div>
@@ -457,8 +449,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   onClick={() => {
                     localStorage.clear()
                     sessionStorage.clear()
-                    // window.location.reload()
                     history.replace('/')
+                    window.location.reload()
                   }}
                 >
                   <img className='header_icon' src={back} />

@@ -177,6 +177,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
           desc1={"The following Task will be placed!"}
           desc2={"Please click 'Confirm' to proceed?"}
           confirmClick={() => {
+
             let data = {
               "project_ref": project_ref?.key,
               "priority": priority?.value,
@@ -214,7 +215,7 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
             }
 
             posttask(data)
-            history.replace('/TaskList')
+            setPopup(false)
           }}
           cancelClick={() => {
             console.log("***CANCEL***")
