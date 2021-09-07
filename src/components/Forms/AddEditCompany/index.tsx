@@ -90,10 +90,10 @@ const AddEditCompany = ({ setPopup, taskid }) => {
           confirmClick={() => {
 
             let data = {
-              "company_title": company_title?.value,
-              "locations": locations?.value,
-              "contact_number": contact_number?.value,
-              "company_size": company_size?.value,
+              "company_title": company_title,
+              "locations": locations,
+              "contact_number": contact_number,
+              "company_size": company_size,
             }
 
             // postcompany(data)

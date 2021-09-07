@@ -17,20 +17,30 @@ import { ColourObject } from 'store/ColourStore';
 import * as eye from '../../../assets/eye-visibility.svg'
 import * as eye_invisible from '../../../assets/eye-invisible.svg'
 import { useuserDetails } from 'store/userDetailsStore';
+import { companyStore } from 'store/companyStore';
+import { branchStore } from 'store/branchStore';
 
 const UserSetup = ({ setPopup }, props: any) => {
   const history = useHistory();
   const { auth, setAuth } = useAuth()
   const { self, edituserDetail } = useuserDetails()
+  const { company, setcompany, loadcompany, postcomAPI } = companyStore()
+  const { branch, setbranch, loadbranch, postbranch } = branchStore()
+
 
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
+  const [passwordShown, setpasswordShown] = useState(false);
+
+
+
 
   const [ispopup, setispopup] = useState(false)
+  const [companypopup, setcompanypopup] = useState(false)
+  const [branchpopup, setbranchpopup] = useState(false)
 
-  const [passwordShown, setpasswordShown] = useState(false);
 
   const [company_name, setcompany_name] = useState('')
   const [branch_name, setbranch_name] = useState('')
@@ -41,6 +51,18 @@ const UserSetup = ({ setPopup }, props: any) => {
   const [phoneno, setphoneno] = useState('')
   const [usertype, setusertype] = useState('')
   const [password, setpassword] = useState('')
+
+  const [company_title, setcompany_title] = useState('')
+  const [locations, setlocations] = useState('')
+  const [contact_number, setcontact_number] = useState('')
+  const [company_size, setcompany_size] = useState('')
+  const [address, setaddress] = useState('')
+
+  const [branch_branch_name, setbranch_branch_name] = useState('')
+  const [company_ref, setcompany_ref] = useState('')
+
+
+
 
   const [companynamevalid, setcompanynamevalid] = useState(false)
   const [branchvalid, setbranchvalid] = useState(false)
@@ -113,7 +135,17 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   useEffect(() => {
 
-    
+    if (!Colour) {
+      loadColour();
+    }
+
+    if (!company) {
+      loadcompany();
+    }
+
+    if (!branch) {
+      loadbranch();
+    }
 
     CommonAPi(
       {
@@ -151,9 +183,7 @@ const UserSetup = ({ setPopup }, props: any) => {
         }
       })
 
-    if (!Colour) {
-      loadColour();
-    }
+
   }, [])
 
   const CompanyName = () => {
@@ -253,6 +283,7 @@ const UserSetup = ({ setPopup }, props: any) => {
 
   return (
     <>
+
       {(newuserorlinkaccount) ?
         <>
           <Popup
@@ -501,7 +532,11 @@ console.log("OTP not matched")
                             sendcheck={preSendValidator}
                             value={company_name?.value}
                             onChange={setcompany_name}
-                            options={CompanyName()}
+                            options={
+                              (company) && company.map((obj: any) => {
+                                return { "key": obj.id, "value": obj.company_title }
+                              })
+                            }
                           />
                         </div>
 
@@ -515,7 +550,11 @@ console.log("OTP not matched")
                             sendcheck={preSendValidator}
                             value={branch_name?.value}
                             onChange={setbranch_name}
-                            options={BranchName()}
+                            options={
+                              (branch) && branch.map((obj: any) => {
+                                return { "key": obj.id, "value": obj.branch_name }
+                              })
+                            }
                           />
                         </div>
 
@@ -640,6 +679,204 @@ console.log("OTP not matched")
                       </>
                     }
 
+                    {company_branch_selector === "NO" &&
+                      <>
+                        {companypopup ?
+                          <Popup
+                            popup_type={"confirm"}
+                            title={"Add / Edit Task?"}
+                            desc1={"The following Task will be placed!"}
+                            desc2={"Please click 'Confirm' to proceed?"}
+                            confirmClick={() => {
+
+                              let data = {
+                                "company_title": company_title,
+                                "locations": locations,
+                                "contact_number": contact_number,
+                                "company_size": company_size,
+                                "address": address,
+                              }
+
+                              postcomAPI(data)
+                              setbranchpopup(true)
+                              setcompanypopup(false)
+                            }}
+                            cancelClick={() => {
+                              console.log("***CANCEL***")
+                              setcompanypopup(false)
+                            }}
+                          />
+                          :
+                          <Popup
+                            title={"Add / Edit Company"}
+                            popup_body={
+                              <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+                                <div className="addedit_task_div_wrapper">
+                                  <div className="addedit_task_container1">
+
+                                    <div className="inputfield_sub_container">
+                                      <McInput
+                                        label={"COMPANY TITLE"}
+                                        id="company_title_data"
+                                        name={`data.company_title`}
+                                        inputtype="Text"
+                                        type="text"
+                                        min_length="3"
+                                        required={true}
+                                        value={company_title}
+                                        onChange={setcompany_title}
+                                      />
+                                    </div>
+
+                                    <div className="inputfield_sub_container">
+                                      <McInput
+                                        label={"LOCATION"}
+                                        id="locations_data"
+                                        name={`data.locations`}
+                                        inputtype="Text"
+                                        type="text"
+                                        min_length="3"
+                                        required={true}
+                                        value={locations}
+                                        onChange={setlocations}
+                                      />
+                                    </div>
+
+                                    <div className="inputfield_sub_container">
+                                      <McInput
+                                        label={"CONTACT"}
+                                        id="contact_number_data"
+                                        name={`data.contact_number`}
+                                        inputtype="Text"
+                                        type="text"
+                                        min_length="3"
+                                        required={true}
+                                        value={contact_number}
+                                        onChange={setcontact_number}
+                                      />
+                                    </div>
+
+                                    <div className="inputfield_sub_container">
+                                      <McInput
+                                        label={"COMPANY SIZE"}
+                                        id="company_size_data"
+                                        name={`data.company_size`}
+                                        inputtype="Text"
+                                        type="text"
+                                        min_length="3"
+                                        required={true}
+                                        value={company_size}
+                                        onChange={setcompany_size}
+                                      />
+                                    </div>
+
+                                    <div className="inputfield_sub_container">
+                                      <McInput
+                                        label={"ADDRESS"}
+                                        id="address_data"
+                                        name={`data.address`}
+                                        inputtype="Text"
+                                        type="text"
+                                        min_length="3"
+                                        required={true}
+                                        value={address}
+                                        onChange={setaddress}
+                                      />
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </form >
+                            }
+                            confirmClick={() => {
+                              setcompanypopup(true)
+                              Validate()
+                            }}
+                            cancelClick={() => {
+                              setPopup()
+                            }}
+                          />
+                        }
+
+                        {branchpopup &&
+                          <>
+                            <Popup
+                              popup_type={"confirm"}
+                              title={"Add / Edit Task?"}
+                              desc1={"The following Task will be placed!"}
+                              desc2={"Please click 'Confirm' to proceed?"}
+                              confirmClick={() => {
+                                console.log("***send***")
+
+                                let data = {
+                                  "company_ref": company_ref?.value,
+                                  "branch_name": branch_branch_name,
+                                }
+
+                                postbranch(data)
+                                setcompany_branch_selector("YES")
+                              }}
+                              cancelClick={() => {
+                                console.log("***CANCEL***")
+                                // setispopup(false)
+                              }}
+                            />
+                            :
+                            <Popup
+                              title={"Add / Edit Branch"}
+                              popup_body={
+                                <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+                                  <div className="addedit_task_div_wrapper">
+                                    <div className="addedit_task_container1">
+
+                                      <div className="inputfield_sub_container">
+                                        <McInput
+                                          type={"picker"}
+                                          name={"COMPANY REF"}
+                                          id="project_ref_data"
+                                          required={true}
+                                          value={company_ref?.value}
+                                          onChange={setcompany_ref}
+                                          options={
+                                            (company) && company.map((obj: any) => {
+                                              return { "key": obj.id, "value": obj.company_title }
+                                            })
+                                          }
+                                        />
+                                      </div>
+
+                                      <div className="inputfield_sub_container">
+                                        <McInput
+                                          label={"BRANCH NAME"}
+                                          id="branch_name_data"
+                                          name={`data.branch_name`}
+                                          inputtype="Text"
+                                          type="text"
+                                          min_length="3"
+                                          required={true}
+                                          value={branch_branch_name}
+                                          onChange={setbranch_branch_name}
+                                        />
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </form >
+                              }
+                              confirmClick={() => {
+                                setbranchpopup(true)
+                                // Validate()
+                              }}
+                              cancelClick={() => {
+                                setPopup()
+                              }}
+                            />
+                          </>
+                        }
+                      </>
+                    }
+
+
                   </form>
 
                 </>
@@ -651,11 +888,11 @@ console.log("OTP not matched")
               }}
               cancelClick={setPopup}
 
-
             />
           }
         </>
       }
+
 
     </>
   );

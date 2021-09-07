@@ -188,6 +188,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "remarks": remarks,
               "image_link": image_link,
 
+              "f_domain": f_domain?.value,
+
               "ios": ios,
               "portrait": Boolean(portrait),
               "landscape": Boolean(landscape),
