@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../../../components/app.css'
 import { useForm } from 'react-hook-form';
 import Popup from 'components/Common/Popup'
-import { createProject, fileupload, taskAdd } from 'utils/api';
+import { fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
 import { useAuth } from 'store/authStore';
 import { ColourObject } from 'store/ColourStore';
@@ -14,51 +14,31 @@ import { branchStore } from 'store/branchStore';
 
 
 const AddEditProject = ({ setPopup }) => {
-  const { auth } = useAuth();
+  // STORE******
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const { projectField, setprojectField, loadProjectbyUserID, loadProjectsDetail, postprojectField } = projectStore()
   const { company, setcompany, loadcompany } = companyStore()
   const { branch, setbranch, loadbranch } = branchStore()
+  // *********
 
-
-  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
-
-  const [backendresponse_popup, setbackendresponse_popup] = useState(false);
-  const [backendresponse, setbackendresponse] = useState('');
+  const { auth } = useAuth();
 
   const [slotvalid, setSlotvalid] = useState(false)
   const [titlevalid, setTitlevalid] = useState(false)
   const [descriptionvaild, setDescriptionvaild] = useState(false)
-  const [passwordvalid, setpasswordvalid] = useState(false)
 
   const [preSendValidator, setPreSendValidator] = useState(false)
 
-  const [inputvalue, setinputvalue] = useState("")
   const [dataUri, setDataUri] = useState('');
   const [ispopup, setispopup] = useState(false)
-  const [list, setlist] = useState([{
-    "project_type": "",
-    "title": "",
-    "description": "",
-    "file_links": "",
-    "assignee": "",
-    "updated_by": "",
-  }])
-
 
   const [company_ref, setcompany_ref] = useState('')
   const [branch_ref, setbranch_ref] = useState('')
   const [design, setdesign] = useState('')
-  const [development, setdevelopment] = useState('')
-  const [marketting, setmarketting] = useState('')
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [logo, setlogo] = useState('')
-  const [start_date, setstart_date] = useState('')
-  const [end_date, setend_date] = useState('')
-  const [status, setstatus] = useState('')
-  const [progress, setprogress] = useState('')
-  const [frontend_url, setfrontend_url] = useState('')
-  const [backend_url, setbackend_url] = useState('')
+
 
 
   useEffect(() => {
@@ -136,12 +116,6 @@ const AddEditProject = ({ setPopup }) => {
               "title": title,
               "description": description,
               "logo": logo,
-              "start_date": start_date,
-              "end_date": end_date,
-              "status": status,
-              "progress": progress,
-              "frontend_url": frontend_url,
-              "backend_url": backend_url,
             }
             postprojectField(data)
           }}
@@ -201,7 +175,11 @@ const AddEditProject = ({ setPopup }) => {
                     sendcheck={preSendValidator}
                     value={design}
                     onChange={setdesign}
-                    options={{"key":"1","value":"design"}}
+                    options={[
+                      { "key": "1", "value": "design" },
+                      { "key": "2", "value": "development" },
+                      { "key": "3", "value": "marketting" },
+                    ]}
                   />
                 </div>
 
@@ -248,97 +226,6 @@ const AddEditProject = ({ setPopup }) => {
                     onchange={setlogo}
                   />
                 </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"START DATE"}
-                    id="start_date_data"
-                    name={`data.start_date`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={start_date}
-                    onChange={setstart_date}
-                  />
-                </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"END DATE"}
-                    id="end_date_data"
-                    name={`data.end_date`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={end_date}
-                    onChange={setend_date}
-                  />
-                </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"STATUS"}
-                    id="status_data"
-                    name={`data.status`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={status}
-                    onChange={setstatus}
-                  />
-                </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"PROGRESS"}
-                    id="progress_data"
-                    name={`data.progress`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={progress}
-                    onChange={setprogress}
-                  />
-                </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"FRONT-END URL"}
-                    id="frontend_url_data"
-                    name={`data.frontend_url`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={frontend_url}
-                    onChange={setfrontend_url}
-                  />
-                </div>
-
-                <div className="inputfield_sub_container">
-                  <McInput
-                    label={"BACK-END URL"}
-                    id="backend_url_data"
-                    name={`data.backend_url`}
-                    inputtype="Text"
-                    type="text"
-                    min_length="3"
-                    required={true}
-                    sendcheck={preSendValidator}
-                    value={backend_url}
-                    onChange={setbackend_url}
-                  />
-                </div>
-
               </form>
             </>
           }
