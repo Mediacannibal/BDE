@@ -67,7 +67,7 @@ export const companyStore = () => {
           console.log(err)
         })
     },
-    async posttask(data: any) {
+    async postcomAPI(data: any) {
       await postcompany(data)
         .then(res => {
           console.log('posttask posttask', res)

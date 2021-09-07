@@ -215,8 +215,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
           popup_body={
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="addedit_task_div_wrapper">
-
-
                 <div className="inputbox_divider">
 
                   <div className="inputfield_sub_container">
