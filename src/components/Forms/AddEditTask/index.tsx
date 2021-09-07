@@ -189,8 +189,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "image_link": image_link,
 
               "ios": ios,
-              "portrait": portrait,
-              "landscape": landscape,
+              "portrait": Boolean(portrait),
+              "landscape": Boolean(landscape),
               "android": android,
               "browser": browser,
 
@@ -199,8 +199,6 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
               "path": path,
               "request_data": request_data,
               "response_data": response_data,
-
-              "isDisabled":false,
             }
 
             posttask(data)
