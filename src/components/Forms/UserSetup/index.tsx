@@ -38,7 +38,7 @@ const UserSetup = ({ setPopup }, props: any) => {
 
 
   const [ispopup, setispopup] = useState(false)
-  const [companypopup, setcompanypopup] = useState(false)
+  const [companypopup, setcompanypopup] = useState(true)
   const [branchpopup, setbranchpopup] = useState(false)
 
 
@@ -681,32 +681,8 @@ console.log("OTP not matched")
 
                     {company_branch_selector === "NO" &&
                       <>
-                        {companypopup ?
-                          <Popup
-                            popup_type={"confirm"}
-                            title={"Add / Edit Task?"}
-                            desc1={"The following Task will be placed!"}
-                            desc2={"Please click 'Confirm' to proceed?"}
-                            confirmClick={() => {
 
-                              let data = {
-                                "company_title": company_title,
-                                "locations": locations,
-                                "contact_number": contact_number,
-                                "company_size": company_size,
-                                "address": address,
-                              }
-
-                              postcomAPI(data)
-                              setbranchpopup(true)
-                              setcompanypopup(false)
-                            }}
-                            cancelClick={() => {
-                              console.log("***CANCEL***")
-                              setcompanypopup(false)
-                            }}
-                          />
-                          :
+                        {companypopup &&
                           <Popup
                             title={"Add / Edit Company"}
                             popup_body={
@@ -789,8 +765,17 @@ console.log("OTP not matched")
                               </form >
                             }
                             confirmClick={() => {
-                              setcompanypopup(true)
-                              Validate()
+                              let data = {
+                                "company_title": company_title,
+                                "locations": locations,
+                                "contact_number": contact_number,
+                                "company_size": company_size,
+                                "address": address,
+                              }
+
+                              postcomAPI(data)
+                              setcompanypopup(false)
+                              setbranchpopup(true)
                             }}
                             cancelClick={() => {
                               setPopup()
@@ -798,84 +783,67 @@ console.log("OTP not matched")
                           />
                         }
 
-                        {branchpopup &&
-                          <>
-                            <Popup
-                              popup_type={"confirm"}
-                              title={"Add / Edit Task?"}
-                              desc1={"The following Task will be placed!"}
-                              desc2={"Please click 'Confirm' to proceed?"}
-                              confirmClick={() => {
-                                console.log("***send***")
 
-                                let data = {
-                                  "company_ref": company_ref?.value,
-                                  "branch_name": branch_branch_name,
-                                }
-
-                                postbranch(data)
-                                setcompany_branch_selector("YES")
-                              }}
-                              cancelClick={() => {
-                                console.log("***CANCEL***")
-                                // setispopup(false)
-                              }}
-                            />
-                            :
-                            <Popup
-                              title={"Add / Edit Branch"}
-                              popup_body={
-                                <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
-                                  <div className="addedit_task_div_wrapper">
-                                    <div className="addedit_task_container1">
-
-                                      <div className="inputfield_sub_container">
-                                        <McInput
-                                          type={"picker"}
-                                          name={"COMPANY REF"}
-                                          id="project_ref_data"
-                                          required={true}
-                                          value={company_ref?.value}
-                                          onChange={setcompany_ref}
-                                          options={
-                                            (company) && company.map((obj: any) => {
-                                              return { "key": obj.id, "value": obj.company_title }
-                                            })
-                                          }
-                                        />
-                                      </div>
-
-                                      <div className="inputfield_sub_container">
-                                        <McInput
-                                          label={"BRANCH NAME"}
-                                          id="branch_name_data"
-                                          name={`data.branch_name`}
-                                          inputtype="Text"
-                                          type="text"
-                                          min_length="3"
-                                          required={true}
-                                          value={branch_branch_name}
-                                          onChange={setbranch_branch_name}
-                                        />
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </form >
-                              }
-                              confirmClick={() => {
-                                setbranchpopup(true)
-                                // Validate()
-                              }}
-                              cancelClick={() => {
-                                setPopup()
-                              }}
-                            />
-                          </>
-                        }
                       </>
                     }
 
+                    {branchpopup &&
+                      <Popup
+                        title={"Add / Edit Branch"}
+                        popup_body={
+                          <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="addedit_task_div_wrapper">
+                              <div className="addedit_task_container1">
+
+                                <div className="inputfield_sub_container">
+                                  <McInput
+                                    type={"picker"}
+                                    name={"COMPANY REF"}
+                                    id="project_ref_data"
+                                    required={true}
+                                    value={company_ref?.value}
+                                    onChange={setcompany_ref}
+                                    options={
+                                      (company) && company.map((obj: any) => {
+                                        return { "key": obj.id, "value": obj.company_title }
+                                      })
+                                    }
+                                  />
+                                </div>
+
+                                <div className="inputfield_sub_container">
+                                  <McInput
+                                    label={"BRANCH NAME"}
+                                    id="branch_name_data"
+                                    name={`data.branch_name`}
+                                    inputtype="Text"
+                                    type="text"
+                                    min_length="3"
+                                    required={true}
+                                    value={branch_branch_name}
+                                    onChange={setbranch_branch_name}
+                                  />
+                                </div>
+
+                              </div>
+                            </div>
+                          </form >
+                        }
+                        confirmClick={() => {
+                          let data = {
+                            "company_ref": company_ref?.key,
+                            "branch_name": branch_branch_name,
+                          }
+
+                          postbranch(data)
+                          setbranchpopup(false)
+                          setcompany_branch_selector("YES")
+                        }}
+                        cancelClick={() => {
+                          setPopup()
+                        }}
+                      />
+                    }
 
                   </form>
 
