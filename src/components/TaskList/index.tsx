@@ -23,12 +23,15 @@ import { getChatID } from 'utils/GlobalFunctions'
 import AddEditUserList from 'components/Forms/UserListForm'
 import McCard from 'components/Common/McCard'
 import { taskStore } from '../../store/taskStore';
+import { assigntaskStore } from 'store/assigntaskStore'
+import AssignLogForm from 'components/Forms/AssignLogForm'
 
 const TaskList = (props: any) => {
   const { auth } = useAuth()
   const { userDetail, loaduserDetail } = useuserDetails()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const { taskField, settaskField, loadTaskDetail, loadTaskDetail_byvalues, loadTaskDetail_withcallback } = taskStore()
+  const { assigntaskField, loadassigntaskDetail } = assigntaskStore()
 
   const history = useHistory()
   const [spinner, setspinner] = useState(true)
@@ -37,9 +40,16 @@ const TaskList = (props: any) => {
   const [addEditTaskTimeLog_popup, setaddEditTaskTimeLog_popup] = useState(false)
   const [timeSpent_popup, settimeSpent_popup] = useState(false)
   const [userlistForm_popup, setuserlistForm_popup] = useState(false)
+
+  const [assignlogForm_popup, setassignlogForm_popup] = useState(false)
+
+
   const [up_arrow, setup_arrow] = useState(true)
   const isFirstRender = useRef(true)
 
+
+  const [projecttask, setprojecttask] = useState('')
+  const [seleted_projectId, setseleted_projectId] = useState('')
   const [seleted_taskId, setseleted_taskId] = useState('')
   const [seleted_taskName, setseleted_taskName] = useState('')
   const [seleted_timeSpent, setseleted_timeSpent] = useState('')
@@ -67,6 +77,7 @@ const TaskList = (props: any) => {
     isFirstRender.current = false
     // console.log("FIRST RENDER", isFirstRender.current)
     props.setheader_options(screen_header_elements)
+
     if (!userDetail) {
       loaduserDetail()
     }
@@ -76,6 +87,10 @@ const TaskList = (props: any) => {
       loadColour();
     }
 
+    if (!assigntaskField) {
+      loadassigntaskDetail();
+    }
+
     if (!taskField) {
       loadTaskDetail_withcallback((list: any) => {
         setproject_list(list.map(
@@ -83,7 +98,7 @@ const TaskList = (props: any) => {
             ({ "key": element.id, "value": element.project_ref })
         ).reduce(
           (unique: any, item: any) => {
-            console.log(unique);
+            // console.log(unique);
             const getifunique = (list: any, obj: any) => {
               let found = false
               list.map((obj1: any) => {
@@ -447,10 +462,155 @@ const TaskList = (props: any) => {
           />
         )}
 
+        {assignlogForm_popup && (
+          <AssignLogForm
+            setPopup={() => {
+              setassignlogForm_popup(false)
+            }}
+            project_task={projecttask}
+            projectid={seleted_projectId}
+            taskid={seleted_taskId}
+          />
+        )}
+
         <div className='body' style={{ backgroundColor: Colour.primary }}>
+
           <div className="my_tasksTitle">
             My Tasks
           </div>
+
+
+
+          <div>
+
+            {(assigntaskField) && assigntaskField.map((element: any) => {
+              console.log("++++===+++===+++ :", element);
+
+              let assigned_by = element?.assigned_by;
+              let assigned_to = element?.assigned_to;
+              let assisted_by = element?.assisted_by;
+
+              return (
+                <McCard
+                  card_body={
+                    <>
+                      <div className="task_type_project">
+
+                        <div className="task_title_domain">
+                          <div
+                            className='task_domain' style={{ color: colourObj.color_1 }}>
+                            {element.domain + ':'}
+                          </div>
+
+                          <div className={getClassname(element.priority)}
+                            onClick={() => {
+                              let temp = (taskField) && taskField
+                              let objIndex = (taskField) && taskField.findIndex(obj => obj.id == element.id)
+                              temp[objIndex].assisted_by = 'blabla'
+                              // let temp = listItems1
+                              // temp.forEach((ele :any,index:any) => {
+                              //   if(ele.id === element.id){
+                              //      let x = ele
+                              //      x.title = "skdfgad"
+                              //      temp[index] = x
+                              //   }
+                              // });
+                              settaskField(temp)
+                              // setlistItems1({...listItems1, abc:"new value"});
+                              //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
+                              // console.log("TESTEST!!: ", listItems1);
+
+                              history.replace(
+                                {
+                                  pathname: `/TaskDetails/${getChatID("task", element.id)}`,
+                                  state: element
+                                }
+                              )
+
+                            }}
+                          >
+                            {element.title}
+                          </div>
+
+                        </div>
+
+                        <div className="task_typeProject_wrap">
+                          <div className='task_type' style={{ color: colourObj.color_1 }}>
+                            {element.task_type}
+                          </div>
+
+                          <div className="task_project"
+                            onClick={() => {
+                              history.replace(
+                                {
+                                  pathname: `/TaskDetails/${getChatID("project", element.id)}`,
+                                  state: element
+                                }
+                              )
+                            }}
+                          >
+                            {element.assign_log.project_ref}
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div className="task_description_assignee">
+                        <div className="task_description_timeSpent">
+                          <div
+                            className='screen_header_element'
+                            onClick={() => {
+                              setaddEditTaskTimeLog_popup(true)
+                              setseleted_taskId(element.id)
+                            }}
+                          >
+                            <img className='header_icon' src={play} />
+
+                            {element.description}
+                          </div>
+
+                          {element.time_spent !== undefined || null ?
+                            <div className="task_timeSpent"
+                              onClick={() => {
+                                settimeSpent_popup(true)
+                                setseleted_taskName(element.title)
+                                setseleted_taskId(element.id)
+                                setseleted_timeSpent(element.time_spent)
+                              }}>
+                              {element.time_spent}
+                            </div>
+                            :
+                            <div>-</div>
+                          }
+                        </div>
+
+                        <div className="task_assignees_wrap">
+                          <div className="task_assignee">
+                            {getphotoimage(assigned_by)}
+                            {getphotoimage(assigned_to)}
+                            {getphotoimage(assisted_by)}
+                          </div>
+
+                          <img
+                            onClick={() => {
+                              setuserlistForm_popup(true)
+                              setseleted_taskId(element.id)
+                            }}
+                            className='header_icon'
+                            src={add}
+                          />
+                        </div>
+                      </div>
+
+                    </>
+                  }
+                />
+              )
+            })
+            }
+
+          </div>
+
 
           {false ? (
             <>
@@ -460,6 +620,10 @@ const TaskList = (props: any) => {
             </>
           ) : (
             <>
+              <div className="my_tasksTitle">
+                Other Tasks
+              </div>
+
               <form className="inputfield_main_container">
                 <div className="mc_filter">
                   <div className='inputfield_sub_container'>
@@ -593,10 +757,13 @@ const TaskList = (props: any) => {
                 }
               /> */}
 
-              <div >
+
+
+              <div>
+
                 {(taskField) && taskField.map((element: any) => {
-                  // console.log(">>>>>>>>>>>> taskField taskField <<<<<<<<<<<<<<< :",element);
-                  
+                  // console.log("++++===+++===+++ :", element);
+
                   let assigned_by = element?.assigned_by;
                   let assigned_to = element?.assigned_to;
                   let assisted_by = element?.assisted_by;
@@ -702,129 +869,17 @@ const TaskList = (props: any) => {
                                 {getphotoimage(assisted_by)}
                               </div>
 
-                              <img
+                              <button
                                 onClick={() => {
-                                  setuserlistForm_popup(true)
+                                  console.log("++++===TASKTASK+++===+++ :", "TASK", element.id, element.project_id);
+
+                                  setassignlogForm_popup(true)
+                                  setprojecttask("TASK")
                                   setseleted_taskId(element.id)
+                                  setseleted_projectId(element.project_id)
                                 }}
-                                className='header_icon'
-                                src={add}
-                              />
-                            </div>
-                          </div>
+                              >ASSIGN</button>
 
-                        </>
-                      }
-                    />
-                  )
-                })
-                }
-
-                {(taskField) && taskField.map((element: any) => {
-
-                  return (
-                    <McCard
-                      card_body={
-                        <>
-                          <div className="task_type_project">
-
-                            <div className="task_title_domain">
-                              <div
-                                className='task_domain' style={{ color: colourObj.color_1 }}>
-                                {element.domain + ':'}
-                              </div>
-
-                              <div className={getClassname(element.priority)}
-                                onClick={() => {
-                                  let temp = (taskField) && taskField
-                                  let objIndex = (taskField) && taskField.findIndex(obj => obj.id == element.id)
-                                  temp[objIndex].assisted_by = 'blabla'
-                                  // let temp = listItems1
-                                  // temp.forEach((ele :any,index:any) => {
-                                  //   if(ele.id === element.id){
-                                  //      let x = ele
-                                  //      x.title = "skdfgad"
-                                  //      temp[index] = x
-                                  //   }
-                                  // });
-                                  settaskField(temp)
-                                  // setlistItems1({...listItems1, abc:"new value"});
-                                  //  setlistItems1(Object.assign({}, listItems1, {title: 'Updated Data'}))
-                                  // console.log("TESTEST!!: ", listItems1);
-
-                                  history.replace(
-                                    {
-                                      pathname: `/TaskDetails/${getChatID("task", element.id)}`,
-                                      state: element
-                                    }
-                                  )
-
-                                }}
-                              >
-                                {element.title}
-                              </div>
-
-                            </div>
-
-                            <div className="task_typeProject_wrap">
-                              <div className='task_type' style={{ color: colourObj.color_1 }}>
-                                {element.task_type}
-                              </div>
-
-                              <div className="task_project"
-                                onClick={() => {
-                                  history.replace(
-                                    {
-                                      pathname: `/TaskDetails/${getChatID("project", element.id)}`,
-                                      state: element
-                                    }
-                                  )
-                                }}
-                              >
-                                {element.project_ref}
-                              </div>
-                            </div>
-
-                          </div>
-
-                          <div className="task_description_assignee">
-                            <div className="task_description_timeSpent">
-                              <div
-                                className='screen_header_element'
-                                onClick={() => {
-                                  setaddEditTaskTimeLog_popup(true)
-                                  setseleted_taskId(element.id)
-                                }}
-                              >
-                                <img className='header_icon' src={play} />
-
-                                {element.description}
-                              </div>
-
-                              {element.time_spent !== undefined || null ?
-                                <div className="task_timeSpent"
-                                  onClick={() => {
-                                    settimeSpent_popup(true)
-                                    setseleted_taskName(element.title)
-                                    setseleted_taskId(element.id)
-                                    setseleted_timeSpent(element.time_spent)
-                                  }}>
-                                  {element.time_spent}
-                                </div>
-                                :
-                                <div>-</div>
-                              }
-                            </div>
-
-                            <div className="task_assignees_wrap">
-                              <img
-                                onClick={() => {
-                                  setuserlistForm_popup(true)
-                                  setseleted_taskId(element.id)
-                                }}
-                                className='header_icon'
-                                src={add}
-                              />
                             </div>
                           </div>
 

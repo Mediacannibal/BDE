@@ -141,6 +141,8 @@ const HomeScreen = (props: any) => {
   }
 
   const renderBody2 = (element: any) => {
+    // console.log("home <><><><> ?? ]]] ", element);
+
     return (
       <tr key={element.id} className={getClassname(element.priority)}
         onClick={() => {
@@ -168,7 +170,7 @@ const HomeScreen = (props: any) => {
       return (
         <>
           <div className="assign_wrap">
-            <img className='user_icon' src={(obj[0]?.photo_url === null) ? defaultusericon : obj[0]?.photo_url} />
+            <img className='user_icon' src={(obj === null) ? defaultusericon : obj} />
           </div>
         </>
       )
