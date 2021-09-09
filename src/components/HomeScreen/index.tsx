@@ -141,7 +141,7 @@ const HomeScreen = (props: any) => {
   }
 
   const renderBody2 = (element: any) => {
-    // console.log("home <><><><> ?? ]]] ", element);
+    console.log("home <><><><> ?? ]]] ", element);
 
     return (
       <tr key={element.id} className={getClassname(element.priority)}
@@ -158,7 +158,7 @@ const HomeScreen = (props: any) => {
         <td>{element.priority}</td>
         <td>{element.status}</td>
         <td>{element.title}</td>
-        <td>{getphotoimage(element.assign_log.user?.photo_url)}</td>
+        <td>{getphotoimage(element.assign_log.assigned_by?.photo_url)}</td>
       </tr>
     )
   }

@@ -1,30 +1,181 @@
-assigned_by_id: 140
-assigned_to_id: 3
-assisted_by_id: null
-created_at: "2021-07-09T14:27:38.023753Z"
-created_by_id: 140
-deleted_at: null
-deleted_by_id: null
-dependencies: null
-description: "It is dummy task data"
-domain: "UI"
-end_date: null
-id: 44
-image_link: null
-isDisabled: true
-linked_logs: ""
-milestone: false
-open_id: null
-open_type: null
-parent_child: null
-priority: "Normal"
-progress: null
-project_ref_id: 1
-remarks: null
-start_date: null
-status: null
-task_type: "UPDATE"
-time_spent: "4 days, 01:12:17.000"
-title: "Dummy Task"
-updated_at: "2021-07-19T17:04:06.854079Z"
-updated_by_id: 140
+[
+    {
+        "id": 150,
+        "project_ref": "qwergthj",
+        "project_id": 38,
+        "priority": "Low",
+        "task_type": "UPDATE",
+        "status": "animal11.......>>>",
+        "title": "fefefeff",
+        "domain": "UI",
+        "description": "dummy",
+        "remarks": "null",
+        "image_link": "null",
+        "linked_logs": "null",
+        "time_spent": "null",
+        "parent_child": "null",
+        "dependencies": "null",
+        "milestone": false,
+        "start_date": null,
+        "end_date": null,
+        "progress": null,
+        "assigned_by": null,
+        "assigned_to": null,
+        "assisted_by": null,
+        "created_by": "GV-113252283217862949302",
+        "created_at": "2021-09-03T19:32:45.855977Z",
+        "updated_by": "GV-113252283217862949302",
+        "updated_at": "2021-09-03T19:32:45.855977Z",
+        "deleted_by": null,
+        "deleted_at": null,
+        "FrontendTaskRef": [],
+        "BackendTaskRef": [],
+        "assign_log": [
+            {
+                "id": 43,
+                "project_ref": 38,
+                "project_id": "qwergthj",
+                "project_task_id": 150,
+                "project_task": "TASK",
+                "user": {
+                    "id": 3,
+                    "username_id": 4,
+                    "google_id": "GV-113252283217862949302",
+                    "facebook_id": null,
+                    "app_id": null,
+                    "user_identity": null,
+                    "company_name": "akash",
+                    "branch_name": "branch_data",
+                    "firstname": "Data",
+                    "lastname": "Setup",
+                    "email": "data@mediacannibal.com",
+                    "address": "",
+                    "dob": "1000-01-01",
+                    "is_active": false,
+                    "user_type": "NORMAL",
+                    "gender": null,
+                    "auth_type": "GOOGLE",
+                    "photo_url": "https://lh3.googleusercontent.com/a/AATXAJzKNWtRHtgkGJwJn2esv2x_AS2EdKnEV1m563pE=s96-c",
+                    "image": "avatar/none.png",
+                    "dial_code": null,
+                    "phone": null,
+                    "deleted_by_id": null,
+                    "created_by_id": null,
+                    "owned_by_id": null,
+                    "updated_by_id": null,
+                    "deleted_at": null,
+                    "created_at": "2021-08-09T10:15:06.453751Z",
+                    "updated_at": "2021-09-01T11:20:26.598583Z"
+                },
+                "assign_message": "",
+                "description": null,
+                "status": "FINISHED",
+                "created_by": "GV-1132522832178629493021",
+                "assigned_by": {
+                    "id": 3,
+                    "username_id": 4,
+                    "google_id": "GV-113252283217862949302",
+                    "facebook_id": null,
+                    "app_id": null,
+                    "user_identity": null,
+                    "company_name": "akash",
+                    "branch_name": "branch_data",
+                    "firstname": "Data",
+                    "lastname": "Setup",
+                    "email": "data@mediacannibal.com",
+                    "address": "",
+                    "dob": "1000-01-01",
+                    "is_active": false,
+                    "user_type": "NORMAL",
+                    "gender": null,
+                    "auth_type": "GOOGLE",
+                    "photo_url": "https://lh3.googleusercontent.com/a/AATXAJzKNWtRHtgkGJwJn2esv2x_AS2EdKnEV1m563pE=s96-c",
+                    "image": "avatar/none.png",
+                    "dial_code": null,
+                    "phone": null,
+                    "deleted_by_id": null,
+                    "created_by_id": null,
+                    "owned_by_id": null,
+                    "updated_by_id": null,
+                    "deleted_at": null,
+                    "created_at": "2021-08-09T10:15:06.453751Z",
+                    "updated_at": "2021-09-01T11:20:26.598583Z"
+                },
+                "created_at": "2021-09-08T18:45:16.753173Z",
+                "updated_at": "2021-09-08T18:45:16.753173Z"
+            },
+            {
+                "id": 44,
+                "project_ref": 38,
+                "project_id": "qwergthj",
+                "project_task_id": 150,
+                "project_task": "TASK",
+                "user": {
+                    "id": 3,
+                    "username_id": 4,
+                    "google_id": "GV-113252283217862949302",
+                    "facebook_id": null,
+                    "app_id": null,
+                    "user_identity": null,
+                    "company_name": "akash",
+                    "branch_name": "branch_data",
+                    "firstname": "Data",
+                    "lastname": "Setup",
+                    "email": "data@mediacannibal.com",
+                    "address": "",
+                    "dob": "1000-01-01",
+                    "is_active": false,
+                    "user_type": "NORMAL",
+                    "gender": null,
+                    "auth_type": "GOOGLE",
+                    "photo_url": "https://lh3.googleusercontent.com/a/AATXAJzKNWtRHtgkGJwJn2esv2x_AS2EdKnEV1m563pE=s96-c",
+                    "image": "avatar/none.png",
+                    "dial_code": null,
+                    "phone": null,
+                    "deleted_by_id": null,
+                    "created_by_id": null,
+                    "owned_by_id": null,
+                    "updated_by_id": null,
+                    "deleted_at": null,
+                    "created_at": "2021-08-09T10:15:06.453751Z",
+                    "updated_at": "2021-09-01T11:20:26.598583Z"
+                },
+                "assign_message": "dwqdw",
+                "description": null,
+                "status": "FINISHED",
+                "created_by": null,
+                "assigned_by": {
+                    "id": 1,
+                    "username_id": 2,
+                    "google_id": "GV-1132522832178629493021",
+                    "facebook_id": null,
+                    "app_id": null,
+                    "user_identity": null,
+                    "company_name": null,
+                    "branch_name": null,
+                    "firstname": "Data11",
+                    "lastname": "Setup11",
+                    "email": "11data@mediacannibal.com",
+                    "address": null,
+                    "dob": "1000-01-01",
+                    "is_active": false,
+                    "user_type": "NORMAL",
+                    "gender": null,
+                    "auth_type": "GOOGLE",
+                    "photo_url": "https://lh3.googleusercontent.com/a/AATXAJzKNWtRHtgkGJwJn2esv2x_AS2EdKnEV1m563pE=s96-c",
+                    "image": "avatar/none.png",
+                    "dial_code": null,
+                    "phone": null,
+                    "deleted_by_id": null,
+                    "created_by_id": null,
+                    "owned_by_id": null,
+                    "updated_by_id": null,
+                    "deleted_at": null,
+                    "created_at": "2021-08-05T12:54:35.645514Z",
+                    "updated_at": "2021-08-05T12:54:35.645514Z"
+                },
+                "created_at": "2021-09-08T18:49:40.178504Z",
+                "updated_at": "2021-09-08T18:52:47.239702Z"
+            }
+        ]
+    }

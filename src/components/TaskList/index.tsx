@@ -120,13 +120,15 @@ const TaskList = (props: any) => {
 
 
   const getphotoimage = (obj: any) => {
+    console.log("ooooooo", obj);
+
     if (obj === null || obj?.length === 0)
       return null
     else
       return (
         <>
           <div className="assign_wrap">
-            <img className='user_icon' src={(obj?.photo_url === null) ? defaultusericon : obj?.photo_url} />
+            <img className='user_icon' src={(obj === null) ? defaultusericon : obj} />
           </div>
         </>
       )
@@ -479,14 +481,12 @@ const TaskList = (props: any) => {
             My Tasks
           </div>
 
-
-
           <div>
 
             {(assigntaskField) && assigntaskField.map((element: any) => {
               console.log("++++===+++===+++ :", element);
 
-              let assigned_by = element?.assigned_by;
+              let assigned_by = element?.assign_log.assigned_by?.photo_url;
               let assigned_to = element?.assigned_to;
               let assisted_by = element?.assisted_by;
 
@@ -587,8 +587,8 @@ const TaskList = (props: any) => {
                         <div className="task_assignees_wrap">
                           <div className="task_assignee">
                             {getphotoimage(assigned_by)}
-                            {getphotoimage(assigned_to)}
-                            {getphotoimage(assisted_by)}
+                            {/* {getphotoimage(assigned_to)}
+                            {getphotoimage(assisted_by)} */}
                           </div>
 
                           <img
@@ -764,9 +764,10 @@ const TaskList = (props: any) => {
                 {(taskField) && taskField.map((element: any) => {
                   // console.log("++++===+++===+++ :", element);
 
-                  let assigned_by = element?.assigned_by;
-                  let assigned_to = element?.assigned_to;
-                  let assisted_by = element?.assisted_by;
+                  let a = element.assign_log;
+                  let assigned_to = a.map((obj: any) => {
+                    return getphotoimage(obj?.user.photo_url)
+                  })
 
                   return (
                     <McCard
@@ -864,9 +865,10 @@ const TaskList = (props: any) => {
 
                             <div className="task_assignees_wrap">
                               <div className="task_assignee">
-                                {getphotoimage(assigned_by)}
-                                {getphotoimage(assigned_to)}
-                                {getphotoimage(assisted_by)}
+                                {assigned_to}
+
+                                {/* {getphotoimage(assigned_by)}
+                                {getphotoimage(assisted_by)} */}
                               </div>
 
                               <button
