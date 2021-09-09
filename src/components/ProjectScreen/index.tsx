@@ -169,9 +169,13 @@ const ProjectScreen = (props: any) => {
     return (
       <div className="project_tables">
         <div className="internal_table" style={{ color: colourObj.color_1 }}>
+
+
           <div className="project_table_icons">
             <div className="project_subtitle" style={{ color: colourObj.color_1 }}>Active Tasks:</div>
+
             <div className="project_task_options">
+
               <div className="visibility_toggle" onClick={() => {
                 history.replace('/TaskList');
               }}>
@@ -192,7 +196,6 @@ const ProjectScreen = (props: any) => {
               </div>
 
               <div className="visibility_toggle" onClick={() => {
-                setpopup2(true);
                 setseleted_projectName(project_data.project_data.title);
                 setseleted_projectTaskType("FEATURE");
               }}>
@@ -203,7 +206,6 @@ const ProjectScreen = (props: any) => {
               </div>
 
               <div className="visibility_toggle" onClick={() => {
-                setpopup2(true);
                 setseleted_projectName(project_data.project_data.title);
                 setseleted_projectTaskType("BUG");
               }}>
@@ -212,8 +214,10 @@ const ProjectScreen = (props: any) => {
                   <p className="label" style={{ color: colourObj.color_1 }}>Report Bug</p>
                 </div>
               </div>
+
             </div>
           </div>
+
 
           <table id='internal_table' style={{ color: colourObj.color_1 }}>
             <thead>

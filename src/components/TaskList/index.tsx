@@ -90,6 +90,9 @@ const TaskList = (props: any) => {
     if (!assigntaskField) {
       loadassigntaskDetail();
     }
+    if (!taskField) {
+      loadTaskDetail()
+    }
 
     if (!taskField) {
       loadTaskDetail_withcallback((list: any) => {
@@ -586,7 +589,7 @@ const TaskList = (props: any) => {
 
                         <div className="task_assignees_wrap">
                           <div className="task_assignee">
-                            {getphotoimage(assigned_by)}
+                            Assigned by : {getphotoimage(assigned_by)}
                             {/* {getphotoimage(assigned_to)}
                             {getphotoimage(assisted_by)} */}
                           </div>
@@ -865,7 +868,7 @@ const TaskList = (props: any) => {
 
                             <div className="task_assignees_wrap">
                               <div className="task_assignee">
-                                {assigned_to}
+                                Assigned to :{assigned_to}
 
                                 {/* {getphotoimage(assigned_by)}
                                 {getphotoimage(assisted_by)} */}

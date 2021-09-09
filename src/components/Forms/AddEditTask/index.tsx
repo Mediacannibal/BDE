@@ -543,6 +543,8 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
             // setassignee(a)
           }}
           cancelClick={() => {
+            console.log("***cancel***")
+            setPopup(false)
             setispopup(false)
           }}
         />
