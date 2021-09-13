@@ -3,6 +3,7 @@ import './style.css'
 import '../../components/app.css'
 import { useHistory } from 'react-router-dom';
 import * as add from '../../assets/add.svg'
+import * as edit from '../../assets/edit.png'
 import { ProgressBar } from 'components/Common/Spinner';
 import AddEditProject from 'components/Forms/AddEditProject';
 import Card from 'components/Common/Card';
@@ -24,14 +25,13 @@ const HomeScreen = (props: any) => {
   const { taskField, settaskField, loadTaskDetail } = taskStore()
   const { assignprojectField, loadassignprojectDetail } = assignprojectStore()
   const { assigntaskField, loadassigntaskDetail } = assigntaskStore()
-
-
   // *******
 
   const history = useHistory();
 
   const [popup, setpopup] = useState(false)
   const [spinner, setspinner] = useState(false)
+  const [editContainer, seteditContainer] = useState(false)
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -119,6 +119,21 @@ const HomeScreen = (props: any) => {
         }}
       >
         <td>{element.title}</td>
+        <td>
+          <div className="table_edit_delete_main">
+            <div className='table_edit_delete'>
+              {editContainer ? null :
+                <>
+                  <img onClick={() => {
+                    // setuser_popup(true)
+                    // editrow_user(element, index)
+                  }}
+                    className='table_icon' src={edit} />
+                </>
+              }
+            </div>
+          </div>
+        </td>
       </tr>
     )
   }
@@ -159,6 +174,21 @@ const HomeScreen = (props: any) => {
         <td>{element.status}</td>
         <td>{element.title}</td>
         <td>{getphotoimage(element.assign_log.assigned_by?.photo_url)}</td>
+        <td>
+          <div className="table_edit_delete_main">
+            <div className='table_edit_delete'>
+              {editContainer ? null :
+                <>
+                  <img onClick={() => {
+                    // setuser_popup(true)
+                    // editrow_user(element, index)
+                  }}
+                    className='table_icon' src={edit} />
+                </>
+              }
+            </div>
+          </div>
+        </td>
       </tr>
     )
   }

@@ -99,6 +99,10 @@
     padding: 1vh 0;
 }
 
+.user-scroll {
+    position: fixed;
+}
+
 .screen_header_element {
     display: flex;
     padding-right: calc(0.25vw + 0.75vh + 0.25vmin);
