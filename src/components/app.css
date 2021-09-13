@@ -596,6 +596,10 @@ tr:nth-child(even) {
     height: 0.2vh;
 }
 
+.band-margin {
+    margin: 1vh 0;
+}
+
 /* filter */
 
 .mc_filter {
