@@ -218,132 +218,136 @@ const AddEditTask = ({ setPopup, projectName, projectTaskType }) => {
             <form className="inputfield_main_container" onSubmit={handleSubmit(onSubmit)}>
               <div className="addedit_task_div_wrapper">
                 <div className="inputbox_divider">
+                  <div className="side-by-input">
 
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      type={"picker"}
-                      name={"PROJECT"}
-                      id="project_ref_data"
-                      required={true}
-                      value={project_ref?.value}
-                      onChange={setproject_ref}
-                      options={
-                        (company) && company.map((obj: any) => {
-                          return { "key": obj.id, "value": obj.company_title }
-                        })
-                      }
-                    />
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref_data"
+                        required={true}
+                        value={project_ref?.value}
+                        onChange={setproject_ref}
+                        options={
+                          (company) && company.map((obj: any) => {
+                            return { "key": obj.id, "value": obj.company_title }
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PRIORITY"}
+                        id="priority_data"
+                        required={true}
+                        value={priority?.value}
+                        onChange={setpriority}
+                        options={[
+                          { "key": "0", "value": "Low" },
+                          { "key": "1", "value": "Normal" },
+                          { "key": "2", "value": "High" },
+                          { "key": "3", "value": "Urgent" },
+                          { "key": "4", "value": "Emergency" },
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"TASK TYPE"}
+                        id="task_type_data"
+                        required={true}
+                        value={task_type?.value}
+                        onChange={settask_type}
+                        options={[
+                          { "key": "1", "value": "FEATURE" },
+                          { "key": "2", "value": "TEST" },
+                          { "key": "3", "value": "BUG" },
+                          { "key": "4", "value": "UPDATE" },
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"DOMAIN"}
+                        id="domain_data"
+                        required={true}
+                        value={domain?.value}
+                        onChange={setdomain}
+                        options={[
+                          { "key": "0", "value": "frontend" },
+                          { "key": "1", "value": "backend" },
+                          { "key": "0", "value": "UI" },
+                          { "key": "0", "value": "dev ops" }
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"TITLE"}
+                        id="title_data"
+                        name={`data.title`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        value={title}
+                        onChange={settitle}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"DESCRIPTION"}
+                        id="description_data"
+                        name={`data.description`}
+                        inputtype="Text"
+                        type="textarea"
+                        min_length="3"
+                        required={true}
+                        value={description}
+                        onChange={setdescription}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"REMARKS"}
+                        id="remarks_data"
+                        name={`data.remarks`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        value={remarks}
+                        onChange={setremarks}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"IMAGE"}
+                        id="image_link_data"
+                        name={`data.image_link`}
+                        inputtype="file"
+                        type="file"
+                        min_length="3"
+                        required={true}
+                        value={image_link}
+                        onChange={setimage_link}
+                      />
+                    </div>
+
                   </div>
 
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      type={"picker"}
-                      name={"PRIORITY"}
-                      id="priority_data"
-                      required={true}
-                      value={priority?.value}
-                      onChange={setpriority}
-                      options={[
-                        { "key": "0", "value": "Low" },
-                        { "key": "1", "value": "Normal" },
-                        { "key": "2", "value": "High" },
-                        { "key": "3", "value": "Urgent" },
-                        { "key": "4", "value": "Emergency" },
-                      ]}
-                    />
-                  </div>
 
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      type={"picker"}
-                      name={"TASK TYPE"}
-                      id="task_type_data"
-                      required={true}
-                      value={task_type?.value}
-                      onChange={settask_type}
-                      options={[
-                        { "key": "1", "value": "FEATURE" },
-                        { "key": "2", "value": "TEST" },
-                        { "key": "3", "value": "BUG" },
-                        { "key": "4", "value": "UPDATE" },
-                      ]}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      type={"picker"}
-                      name={"DOMAIN"}
-                      id="domain_data"
-                      required={true}
-                      value={domain?.value}
-                      onChange={setdomain}
-                      options={[
-                        { "key": "0", "value": "frontend" },
-                        { "key": "1", "value": "backend" },
-                        { "key": "0", "value": "UI" },
-                        { "key": "0", "value": "dev ops" }
-                      ]}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"TITLE"}
-                      id="title_data"
-                      name={`data.title`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={title}
-                      onChange={settitle}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"DESCRIPTION"}
-                      id="description_data"
-                      name={`data.description`}
-                      inputtype="Text"
-                      type="textarea"
-                      min_length="3"
-                      required={true}
-                      value={description}
-                      onChange={setdescription}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"REMARKS"}
-                      id="remarks_data"
-                      name={`data.remarks`}
-                      inputtype="Text"
-                      type="text"
-                      min_length="3"
-                      required={true}
-                      value={remarks}
-                      onChange={setremarks}
-                    />
-                  </div>
-
-                  <div className="inputfield_sub_container">
-                    <McInput
-                      label={"IMAGE"}
-                      id="image_link_data"
-                      name={`data.image_link`}
-                      inputtype="file"
-                      type="file"
-                      min_length="3"
-                      required={true}
-                      value={image_link}
-                      onChange={setimage_link}
-                    />
-                  </div>
-
-                  <div className="inputbox_divider">
+                  <div className="side-by-input">
 
                     {(domain?.value === "UI") &&
                       <>

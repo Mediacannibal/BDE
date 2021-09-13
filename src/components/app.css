@@ -150,6 +150,7 @@
 
 .inputfield_sub_container {
     padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
+    cursor: pointer;
 }
 
 .textinput_box {}
