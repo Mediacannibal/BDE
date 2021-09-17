@@ -54,7 +54,7 @@ export const branchStore = () => {
       await getbranch()
         .then(data => {
           setbranch(data.data)
-          console.log('branch branch :', data)
+          // console.log('branch branch :', data)
         })
         .catch(err => {
           console.log(err)
@@ -63,7 +63,7 @@ export const branchStore = () => {
     async postbranch(data: any) {
       await postbranch(data)
         .then(res => {
-          console.log("posttask posttask", res)
+          // console.log("posttask posttask", res)
           setbranch((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {

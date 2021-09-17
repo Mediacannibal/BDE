@@ -156,7 +156,7 @@ const HomeScreen = (props: any) => {
   }
 
   const renderBody2 = (element: any) => {
-    console.log("home <><><><> ?? ]]] ", element);
+    // console.log("home <><><><> ?? ]]] ", element);
 
     return (
       <tr key={element.id} className={getClassname(element.priority)}

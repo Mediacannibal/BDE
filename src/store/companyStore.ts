@@ -61,7 +61,7 @@ export const companyStore = () => {
       await getcompany()
         .then(data => {
           setcompany(data.data)
-          console.log('company company :', data)
+          // console.log('company company :', data)
         })
         .catch(err => {
           console.log(err)
@@ -70,7 +70,7 @@ export const companyStore = () => {
     async postcomAPI(data: any) {
       await postcompany(data)
         .then(res => {
-          console.log('posttask posttask', res)
+          // console.log('posttask posttask', res)
           setcompany((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {

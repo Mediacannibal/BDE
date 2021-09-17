@@ -158,6 +158,7 @@
     width: calc(0.3vw + 0.9vh + 0.3vmin);
     height: calc(0.3vw + 0.9vh + 0.3vmin);
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .user_menu {

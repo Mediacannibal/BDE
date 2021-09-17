@@ -114,7 +114,7 @@ export const useuserDetails = () => {
         async edituserDetail(id: any, data: any) {
             await edituser(id, data)
                 .then(res => {
-                    console.log("responce responce responce : >>>> :", res.data.result.user_details);
+                    // console.log("responce responce responce : >>>> :", res.data.result.user_details);
                     localStorage.setItem('UserDetails', JSON.stringify(res.data.result.user_details));
                     setuserDetail(oldarr => {
                         return (
