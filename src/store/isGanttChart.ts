@@ -118,7 +118,7 @@ export const ganttChartDetails = () => {
         },
         async (data: any, errorresponse: any) => {
           if (data.status === 200) {
-            // console.log('Project Tasks: ', data.data.results)
+            console.log('Project Tasks: ', data.data.results)
             setisGantt(data.data.results)
           } else {
             console.log('error ' + JSON.stringify(data))

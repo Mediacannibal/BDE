@@ -19,15 +19,17 @@ import UpDownArrow from 'components/Common/updownArrow';
 import { getChatID } from 'utils/GlobalFunctions'
 import AppGantt from 'components/ChatProcess/AppGantt';
 import { ganttChartDetails } from 'store/isGanttChart';
+import { taskStore } from 'store/taskStore';
 
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
-  const history = useHistory();
-
-  const [spinner, setspinner] = useState(true)
+  const { taskField, loadTaskDetail } = taskStore()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const { isGantt, loadGanttDetail } = ganttChartDetails()
+
+  const history = useHistory();
+  const [spinner, setspinner] = useState(true)
 
   const [listItems, setlistItems] = useState([])
 
@@ -58,6 +60,10 @@ const ProjectScreen = (props: any) => {
 
     if (!isGantt) {
       loadGanttDetail()
+    }
+
+    if (!taskField) {
+      loadTaskDetail()
     }
 
     CommonAPi(
@@ -285,10 +291,12 @@ const ProjectScreen = (props: any) => {
               classname="fullwidth"
               card_title="Branch: "
               card_body={(isGantt) && isGantt.map((element: any, key: any) => {
-                // console.log("isGantt:::::::::", element);
+                console.log("isGantt:::::::::", element);
                 return (
                   <div className="project_wrapper">
+
                     <div className="project_details">
+
                       <div className="project_left_container">
                         <img className='project_image' src={add} />
                       </div>
@@ -352,6 +360,7 @@ const ProjectScreen = (props: any) => {
 
                         </div>
                       </div>
+
                     </div>
 
                     {ganttChart &&
@@ -368,6 +377,7 @@ const ProjectScreen = (props: any) => {
                         setproject_taskTables(!project_taskTables)
                       }}>{project_taskTables === true ? 'Chart' : 'Table'}
                     </button>
+
                   </div>
                 );
               })}
