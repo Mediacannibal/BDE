@@ -94,7 +94,7 @@ export const assignprojectStore = () => {
       await getassignprojecttask("PROJECT")
         .then(data => {
           setassignprojectField(data.data)
-          console.log('assignprojectField assignprojectField :', data)
+          // console.log('assignprojectField assignprojectField :', data)
         })
         .catch(err => {
           console.log(err)

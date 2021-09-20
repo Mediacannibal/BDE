@@ -13,6 +13,7 @@ import * as bug from '../../assets/bug.svg'
 import * as tested from '../../assets/tested.svg'
 import * as add from '../../assets/add.svg'
 import * as team from '../../assets/team.svg'
+import * as edit from '../../assets/edit.png'
 import AddEditUserList from '../Forms/UserListForm';
 import { ColourObject } from 'store/ColourStore'
 import UpDownArrow from 'components/Common/updownArrow';
@@ -43,6 +44,7 @@ const ProjectScreen = (props: any) => {
 
   const [ganttChart, setganttChart] = useState(false)
   const [pro_Tasks, setpro_Tasks] = useState([])
+  const [editContainer, seteditContainer] = useState(false)
 
 
   const [project_taskTables, setproject_taskTables] = useState(true)
@@ -166,6 +168,21 @@ const ProjectScreen = (props: any) => {
         <td>{element.status}</td>
         <td>{element.title}</td>
         <td>{element.assigned_to}</td>
+        <td>
+          <div className="table_edit_delete_main">
+            <div className='table_edit_delete'>
+              {editContainer ? null :
+                <>
+                  <img onClick={() => {
+                    // setuser_popup(true)
+                    // editrow_user(element, index)
+                  }}
+                    className='table_icon' src={edit} />
+                </>
+              }
+            </div>
+          </div>
+        </td>
       </tr >
     )
   }

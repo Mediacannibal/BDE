@@ -9,14 +9,13 @@ import * as add from 'assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog'
 import * as play from 'assets/play.svg'
 import * as defaultusericon from '../../assets/user_icon.svg'
+import * as edit from '../../assets/edit.png'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
 import { useAuth } from 'store/authStore'
 import { useuserDetails } from 'store/userDetailsStore'
 import McInput from 'components/Common/McInput'
-import * as up_down_arrow from 'assets/up_down.svg'
 import Footer from '../Common/Footer'
 import TimeSpent from 'components/TimeSpent'
-import UpDownArrow from 'components/Common/updownArrow'
 import { ColourObject } from 'store/ColourStore'
 import { useForm } from 'react-hook-form';
 import { getChatID } from 'utils/GlobalFunctions'
@@ -65,6 +64,9 @@ const TaskList = (props: any) => {
   const [task_domain, settask_domain] = useState('')
 
   const [project_list, setproject_list] = useState([])
+
+  const [editContainer, seteditContainer] = useState(false)
+
 
   useEffect(() => {
     if (!isFirstRender.current) {
@@ -605,6 +607,19 @@ const TaskList = (props: any) => {
                         </div>
                       </div>
 
+                      <div className="table_edit_delete_main">
+                        <div className='table_edit_delete'>
+                          {editContainer ? null :
+                            <>
+                              <img onClick={() => {
+                                // setuser_popup(true)
+                                // editrow_user(element, index)
+                              }}
+                                className='table_icon' src={edit} />
+                            </>
+                          }
+                        </div>
+                      </div>
                     </>
                   }
                 />
@@ -885,6 +900,20 @@ const TaskList = (props: any) => {
                                 }}
                               >ASSIGN</button>
 
+                            </div>
+                          </div>
+
+                          <div className="table_edit_delete_main">
+                            <div className='table_edit_delete'>
+                              {editContainer ? null :
+                                <>
+                                  <img onClick={() => {
+                                    // setuser_popup(true)
+                                    // editrow_user(element, index)
+                                  }}
+                                    className='table_icon' src={edit} />
+                                </>
+                              }
                             </div>
                           </div>
 

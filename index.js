@@ -27,7 +27,7 @@ import { registerServiceWorker } from "./register-sw";
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function (reg) {
-    console.log('Service Worker Registered!', reg);
+    // console.log('Service Worker Registered!', reg);
 
     reg.pushManager.getSubscription().then(function (sub) {
       if (sub === null) {

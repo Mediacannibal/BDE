@@ -99,6 +99,10 @@
     padding: 1vh 0;
 }
 
+.user-scroll {
+    position: fixed;
+}
+
 .screen_header_element {
     display: flex;
     padding-right: calc(0.25vw + 0.75vh + 0.25vmin);
@@ -146,6 +150,7 @@
 
 .inputfield_sub_container {
     padding: calc(0.3vw + 0.9vh + 0.3vmin) 0;
+    cursor: pointer;
 }
 
 .textinput_box {}
@@ -590,6 +595,10 @@ tr:nth-child(even) {
     /* background-color: var(--color_10); */
     width: 100%;
     height: 0.2vh;
+}
+
+.band-margin {
+    margin: 1vh 0;
 }
 
 /* filter */

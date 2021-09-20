@@ -512,7 +512,7 @@ const UserManagement = (props: any) => {
         />
       }
 
-      <div className="body">
+      <div className="body user-scroll">
         {spinner ?
           <div className="spinner_fullscreen_div">
             <ProgressBar />

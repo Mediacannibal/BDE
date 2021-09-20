@@ -113,7 +113,7 @@ export const taskStore = () => {
       await gettask("", "", "", " ")
         .then(data => {
           settaskField(data.data)
-          console.log('Main Tasks :', data)
+          // console.log('Main Tasks :', data)
         })
         .catch(err => {
           console.log(err)
@@ -124,7 +124,7 @@ export const taskStore = () => {
       await gettask(Project, Domain, Task, Priority)
         .then(data => {
           settaskField(data.data)
-          console.log('Project, Domain, Task, Priority :', data)
+          // console.log('Project, Domain, Task, Priority :', data)
         })
         .catch(err => {
           console.log(err)
@@ -135,7 +135,7 @@ export const taskStore = () => {
         .then(data => {
           settaskField(data.data)
           callback(data.data)
-          console.log('Main Tasks :', data)
+          // console.log('Main Tasks :', data)
         })
         .catch(err => {
           console.log(err)
@@ -144,7 +144,7 @@ export const taskStore = () => {
     async posttask(data: any) {
       await posttask(data)
         .then(res => {
-          console.log("posttask posttask", res)
+          // console.log("posttask posttask", res)
           settaskField((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {

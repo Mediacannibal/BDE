@@ -2,7 +2,9 @@
     display: flex;
 }
 
-.inputbox_divider {}
+.inputbox_divider {
+    display: flex;
+}
 
 .addedit_task_div_wrapper {
     display: flex;

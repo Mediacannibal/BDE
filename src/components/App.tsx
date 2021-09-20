@@ -31,6 +31,7 @@ import TaskTimeLog from './TaskTimeLog';
 import AppGantt from './ChatProcess/AppGantt';
 import { getToken, onMessageListener } from '../../firebase';
 import MeetingRoom from './MeetingScreen/MeetingRoom';
+import ServerStatus from './ServerStatus'
 
 const dashboard_screen = [
   { path: '/Home', component: HomeScreen },
@@ -51,6 +52,7 @@ const dashboard_screen = [
   { path: '/report', component: Report },
   { path: '/AppGantt', component: AppGantt },
   { path: '/Meeting', component: MeetingScreen },
+  { path: '/ServerStatus', component: ServerStatus },
 ]
 
 const fullpage_screen = [

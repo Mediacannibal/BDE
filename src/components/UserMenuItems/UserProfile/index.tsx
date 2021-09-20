@@ -50,15 +50,14 @@ const UserProfile = () => {
 
               <div className="user_warp">
                 <div className="user_sub_container1" style={{ color: colourObj.color_5 }}>
-                  <img className='user_profile_picture' src={profile_picture} />
 
                   <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
                     <div className="user_profile_text" style={{ color: colourObj.color_21 }}>My Profile</div>
                   </div>
 
-                  <div className="user_band" style={{ backgroundColor: colourObj.color_1 }}>
+                  <img className='user_profile_picture' src={profile_picture} />
 
-                  </div>
+                  <div className="user_band band-margin" style={{ backgroundColor: colourObj.color_1 }}></div>
 
                   <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
                     <div className="user_details_text" style={{ color: colourObj.color_1 }}>User Type:</div>
@@ -77,50 +76,55 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              <div className="user_warp">
+              <div className="wrap-flex">
 
-                <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Company</div>
+                <div className="user_warp">
+
+                  <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Company</div>
+                    </div>
+
+                    <div className="user_band band-margin" style={{ backgroundColor: colourObj.color_1 }}></div>
+
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_details_text" style={{ color: colourObj.color_1 }}>Company Name:</div>
+                    </div>
+
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_details_text" style={{ color: colourObj.color_1 }}>Branch Name:</div>
+                    </div>
+
                   </div>
 
-                  <div className="user_band" style={{ color: colourObj.color_21 }}>
-
-                  </div>
-
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Company Name:</div>
-                  </div>
-
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Branch Name:</div>
-                  </div>
                 </div>
 
-                <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
+                <div className="user_warp">
 
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Project</div>
-                  </div>
+                  <div className="user_sub_container2" style={{ color: colourObj.color_5 }}>
 
-                  <div className="user_band" style={{ color: colourObj.color_21 }}>
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_profile_text" style={{ color: colourObj.color_21 }}>Project</div>
+                    </div>
 
-                  </div>
+                    <div className="user_band band-margin" style={{ backgroundColor: colourObj.color_1 }}></div>
 
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Project:</div>
-                  </div>
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Project:</div>
+                    </div>
 
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Task:</div>
-                  </div>
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_details_text" style={{ color: colourObj.color_1 }}>Active Task:</div>
+                    </div>
 
-                  <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
-                    <div className="user_details_text" style={{ color: colourObj.color_1 }}>Project History:</div>
+                    <div className='user_sub_details' style={{ color: colourObj.color_4 }}>
+                      <div className="user_details_text" style={{ color: colourObj.color_1 }}>Project History:</div>
+                    </div>
                   </div>
                 </div>
 
               </div>
+
             </div>
           </div>
         </div>

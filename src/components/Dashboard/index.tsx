@@ -68,7 +68,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
 
   useEffect(() => {
     // console.log("screenlocation: ", location.pathname);
-    console.log("self +++++++++++", self, JSON.parse(String(localStorage.getItem('UserDetails'))).user_type);
+    // console.log("self +++++++++++", self, JSON.parse(String(localStorage.getItem('UserDetails'))).user_type);
 
     if (!auth) {
       history.push("/")
@@ -118,6 +118,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
     { path: '/AppGantt', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Gantt Chart' },
     { path: '/UserManagement', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Users' },
     { path: '/report', auth: 'ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Analytics Report' },
+    { path: '/ServerStatus', auth: 'NORMAL,ADMIN,PROJECTADMIN,SUPERUSER', icon: team, title: 'Server Status' },
   ]
 
   return (

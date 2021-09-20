@@ -93,7 +93,7 @@ export const projectStore = () => {
       await getproject()
         .then(data => {
           setprojectField(data.data)
-          console.log('Project Tasks :', data.data)
+          // console.log('Project Tasks :', data.data)
         })
         .catch(err => {
           console.log(err)
@@ -104,7 +104,7 @@ export const projectStore = () => {
       await getprojectDetails()
         .then(data => {
           setprojectField(data.data)
-          console.log('ProjectsDetail ProjectsDetail :', data.data)
+          // console.log('ProjectsDetail ProjectsDetail :', data.data)
         })
         .catch(err => {
           console.log(err)
@@ -114,7 +114,7 @@ export const projectStore = () => {
     async postprojectField(data: any) {
       await postproject(data)
         .then(res => {
-          console.log("postprojectField postprojectField", res)
+          // console.log("postprojectField postprojectField", res)
           setprojectField((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {
