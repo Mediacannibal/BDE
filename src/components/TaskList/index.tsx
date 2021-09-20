@@ -125,7 +125,7 @@ const TaskList = (props: any) => {
 
 
   const getphotoimage = (obj: any) => {
-    console.log("ooooooo", obj);
+    // console.log("ooooooo", obj);
 
     if (obj === null || obj?.length === 0)
       return null
@@ -489,7 +489,7 @@ const TaskList = (props: any) => {
           <div>
 
             {(assigntaskField) && assigntaskField.map((element: any) => {
-              console.log("++++===+++===+++ :", element);
+              // console.log("++++===+++===+++ :", element);
 
               let assigned_by = element?.assign_log.assigned_by?.photo_url;
               let assigned_to = element?.assigned_to;
