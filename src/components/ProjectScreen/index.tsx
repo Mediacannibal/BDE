@@ -21,13 +21,17 @@ import { getChatID } from 'utils/GlobalFunctions'
 import AppGantt from 'components/ChatProcess/AppGantt';
 import { ganttChartDetails } from 'store/isGanttChart';
 import { taskStore } from 'store/taskStore';
+import McInput from 'components/Common/McInput';
+import Popup from 'components/Common/Popup';
+import { companyStore } from 'store/companyStore';
 
 
 const ProjectScreen = (props: any) => {
   const { auth } = useAuth();
-  const { taskField, loadTaskDetail } = taskStore()
+  const { taskField, edittask, loadTaskDetail } = taskStore()
   const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
   const { isGantt, loadGanttDetail } = ganttChartDetails()
+  const { company, setcompany, loadcompany } = companyStore()
 
   const history = useHistory();
   const [spinner, setspinner] = useState(true)
@@ -51,6 +55,55 @@ const ProjectScreen = (props: any) => {
 
   const [users, setusers] = useState('')
 
+  const [editdata, seteditdata] = useState({});
+  const [i_id, seti_id] = useState('');
+  const [task_listItems, settask_listItems] = useState([
+    {
+      "project_ref": "",
+      "priority": "",
+      "task_type": "",
+      "status": "",
+      "domain": "",
+      "title": "",
+      "description": "",
+      "remarks": "",
+      "image_link": "",
+      "linked_logs": "",
+      "time_spent": "",
+      "parent_child": "",
+      "open_id": "",
+      "open_type": "",
+      "dependencies": "",
+      "milestone": "",
+      "progress": "",
+      "start_date": "",
+      "end_date": "",
+    }
+  ])
+
+  const [edittask_popup, setedittask_popup] = useState(false);
+  const [editrow, seteditrow] = useState(false);
+
+  const [project_ref, setproject_ref] = useState({})
+  const [priority, setpriority] = useState({})
+  const [task_type, settask_type] = useState({})
+  const [domain, setdomain] = useState({})
+  const [title, settitle] = useState('')
+  const [description, setdescription] = useState('')
+  const [status, setstatus] = useState('')
+  const [remarks, setremarks] = useState('')
+  const [image_link, setimage_link] = useState('')
+  const [linked_logs, setlinked_logs] = useState('')
+  const [time_spent, settime_spent] = useState('')
+  const [parent_child, setparent_child] = useState('')
+  const [open_id, setopen_id] = useState('')
+  const [open_type, setopen_type] = useState('')
+  const [dependencies, setdependencies] = useState('')
+  const [milestone, setmilestone] = useState(false)
+  const [progress, setprogress] = useState('')
+  const [start_date, setstart_date] = useState('')
+  const [end_date, setend_date] = useState('')
+
   useEffect(() => {
     props.setheader_options(screen_header_elements)
 
@@ -58,6 +111,10 @@ const ProjectScreen = (props: any) => {
 
     if (!Colour) {
       loadColour();
+    }
+
+    if (!company) {
+      loadcompany();
     }
 
     if (!isGantt) {
@@ -130,6 +187,25 @@ const ProjectScreen = (props: any) => {
     }
   }
 
+  const editrow_projecttask = (element: any, ind: any) => {
+    (taskField) && taskField.map((obj: any, index: any) => {
+      // console.log(">>", obj)
+
+      if (element.id === obj.id) {
+        seteditdata(obj)
+        seti_id(obj.id)
+        setproject_ref({ "value": obj.project_ref })
+        setpriority({ "value": obj.priority })
+        settask_type({ "value": obj.task_type })
+        setdomain({ "value": obj.domain })
+        settitle(obj.title)
+        setdescription(obj.description)
+        setremarks(obj.remarks)
+        setimage_link(obj.image_link)
+      }
+    })
+  }
+
   const renderHeader = () => {
     let headerElement = ['domain', 'Task Type', 'priority', 'status', 'title', 'assignee']
 
@@ -147,43 +223,44 @@ const ProjectScreen = (props: any) => {
     })
   }
 
-  const renderBody = (element: any) => {
+  const renderBody = (element: any, index: any) => {
     return (
-      <tr key={element.id}
-        className={getClassname(element.priority)}
-        onClick={() => {
-          // setpopup2(true)
-          setseleted_taskid(element.id)
-
-          history.replace(
-            {
-              pathname: `/TaskDetails/${getChatID("project", element.id)}`,
-              state: element
-            }
-          )
-        }}>
-        <td>{element.domain}</td>
-        <td>{element.task_type}</td>
-        <td>{element.priority}</td>
-        <td>{element.status}</td>
-        <td>{element.title}</td>
-        <td>{element.assigned_to}</td>
-        <td>
-          <div className="table_edit_delete_main">
-            <div className='table_edit_delete'>
-              {editContainer ? null :
-                <>
-                  <img onClick={() => {
-                    // setuser_popup(true)
-                    // editrow_user(element, index)
-                  }}
-                    className='table_icon' src={edit} />
-                </>
+      <>
+        <tr key={element.id}
+          className={getClassname(element.priority)}
+          onClick={() => {
+            // setpopup2(true)
+            setseleted_taskid(element.id)
+            history.replace(
+              {
+                pathname: `/TaskDetails/${getChatID("project", element.id)}`,
+                state: element
               }
-            </div>
+            )
+          }}>
+          <td>{element.domain}</td>
+          <td>{element.task_type}</td>
+          <td>{element.priority}</td>
+          <td>{element.status}</td>
+          <td>{element.title}</td>
+          <td>{element.assigned_to}</td>
+
+        </tr >
+        <div className="table_edit_delete_main">
+          <div className='table_edit_delete'>
+            {editContainer ? null :
+              <>
+                <img onClick={() => {
+                  // console.log("element, indexelement, index,", element, index);
+                  editrow_projecttask(element, index)
+                  setedittask_popup(true)
+                }}
+                  className='table_icon' src={edit} />
+              </>
+            }
           </div>
-        </td>
-      </tr >
+        </div>
+      </>
     )
   }
 
@@ -308,7 +385,7 @@ const ProjectScreen = (props: any) => {
               classname="fullwidth"
               card_title="Branch: "
               card_body={(isGantt) && isGantt.map((element: any, key: any) => {
-                console.log("isGantt:::::::::", element);
+                // console.log("isGantt:::::::::", element);
                 return (
                   <div className="project_wrapper">
 
@@ -403,6 +480,211 @@ const ProjectScreen = (props: any) => {
         }
       </div>
       <Footer />
+
+
+      {edittask_popup &&
+        <Popup
+          title={editrow ? "Edit Game" : "Add New Game"}
+          popup_body={
+            <form className="inputfield_main_container" >
+              <div className="addedit_task_div_wrapper">
+                <div className="inputbox_divider">
+                  <div className="side-by-input">
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PROJECT"}
+                        id="project_ref_data"
+                        required={true}
+                        value={project_ref?.value}
+                        onChange={setproject_ref}
+                        options={
+                          (company) && company.map((obj: any) => {
+                            return { "key": obj.id, "value": obj.company_title }
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"PRIORITY"}
+                        id="priority_data"
+                        required={true}
+                        value={priority?.value}
+                        onChange={setpriority}
+                        options={[
+                          { "key": "0", "value": "Low" },
+                          { "key": "1", "value": "Normal" },
+                          { "key": "2", "value": "High" },
+                          { "key": "3", "value": "Urgent" },
+                          { "key": "4", "value": "Emergency" },
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"TASK TYPE"}
+                        id="task_type_data"
+                        required={true}
+                        value={task_type?.value}
+                        onChange={settask_type}
+                        options={[
+                          { "key": "1", "value": "FEATURE" },
+                          { "key": "2", "value": "TEST" },
+                          { "key": "3", "value": "BUG" },
+                          { "key": "4", "value": "UPDATE" },
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        type={"picker"}
+                        name={"DOMAIN"}
+                        id="domain_data"
+                        required={true}
+                        value={domain?.value}
+                        onChange={setdomain}
+                        options={[
+                          { "key": "0", "value": "frontend" },
+                          { "key": "1", "value": "backend" },
+                          { "key": "0", "value": "UI" },
+                          { "key": "0", "value": "dev ops" }
+                        ]}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"TITLE"}
+                        id="title_data"
+                        name={`data.title`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        value={title}
+                        onChange={settitle}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"DESCRIPTION"}
+                        id="description_data"
+                        name={`data.description`}
+                        inputtype="Text"
+                        type="textarea"
+                        min_length="3"
+                        required={true}
+                        value={description}
+                        onChange={setdescription}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"REMARKS"}
+                        id="remarks_data"
+                        name={`data.remarks`}
+                        inputtype="Text"
+                        type="text"
+                        min_length="3"
+                        required={true}
+                        value={remarks}
+                        onChange={setremarks}
+                      />
+                    </div>
+
+                    <div className="inputfield_sub_container">
+                      <McInput
+                        label={"IMAGE"}
+                        id="image_link_data"
+                        name={`data.image_link`}
+                        inputtype="file"
+                        type="file"
+                        min_length="3"
+                        required={true}
+                        value={image_link}
+                        onChange={setimage_link}
+                      />
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </form >
+          }
+
+          confirmClick={() => {
+            settask_listItems(task_listItems.map((obj) => {
+              console.log("object===", obj.id, editdata.id);
+
+              const getupdatedobj = () => {
+                let a = obj
+                a.project_ref = project_ref?.key;
+                a.priority = priority?.value;
+                a.task_type = task_type?.value;
+                // a.status = domain?.value
+                a.domain = domain?.value
+                a.title = String(document.getElementById("title_data").value);
+                a.description = String(document.getElementById("description_data").value);
+                a.remarks = String(document.getElementById("remarks_data").value);
+                a.image_link = String(document.getElementById("image_link_data").value);
+                // a.linked_logs = String(document.getElementById("input_i_misctextbox").value);
+                // a.time_spent = String(document.getElementById("input_color_fieldbox").value)
+                // a.parent_child = String(document.getElementById("input_locationstextbox").value);
+                // a.open_id = String(document.getElementById("input_i_mediatextbox").value);
+                // a.open_type = String(document.getElementById("input_i_misctextbox").value);
+                // a.dependencies = String(document.getElementById("input_color_fieldbox").value)
+                // a.milestone = String(document.getElementById("input_locationstextbox").value);
+                // a.progress = String(document.getElementById("input_i_mediatextbox").value);
+                // a.start_date = String(document.getElementById("input_i_misctextbox").value);
+                // a.end_date = String(document.getElementById("input_color_fieldbox").value)
+                return a;
+              }
+              return obj.id == editdata.id ? getupdatedobj() : obj;
+            }))
+
+            let data = {
+              project_ref: project_ref?.key,
+              priority: priority?.value,
+              task_type: task_type?.value,
+              // status: String(document.getElementById("input_i_stitletextbox").value),
+              domain: domain?.value,
+              title: String(document.getElementById("title_data").value),
+              description: String(document.getElementById("description_data").value),
+              remarks: String(document.getElementById("remarks_data").value),
+              image_link: String(document.getElementById("image_link_data").value),
+              // linked_logs: String(document.getElementById("input_i_misctextbox").value),
+              // time_spent: String(document.getElementById("input_color_fieldbox").value),
+              // parent_child: String(document.getElementById("input_locationstextbox").value),
+              // open_id: String(document.getElementById("input_i_mediatextbox").value),
+              // open_type: String(document.getElementById("input_i_misctextbox").value),
+              // dependencies: String(document.getElementById("input_color_fieldbox").value),
+              // milestone: String(document.getElementById("input_locationstextbox").value),
+              // progress: String(document.getElementById("input_i_mediatextbox").value),
+              // start_date: String(document.getElementById("input_i_misctextbox").value),
+              // end_date: String(document.getElementById("input_color_fieldbox").value),
+            }
+
+            edittask(i_id, data)
+            seteditrow(false)
+            setedittask_popup(false)
+          }}
+          cancelClick={() => {
+            setedittask_popup(false)
+            seteditrow(false)
+          }}
+        />
+      }
+
     </div >
 
   );
