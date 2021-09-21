@@ -409,16 +409,6 @@ const TaskList = (props: any) => {
   }
 
 
-
-
-  const { register, handleSubmit, errors, reset } = useForm();
-
-  const onSubmit = (data: any, e: { target: { reset: () => void; }; }) => {
-    e.target.reset(); // reset after form submit
-    // console.log(data);
-  };
-  // console.log(errors);
-
   return (
     <>
       <div className='main'>

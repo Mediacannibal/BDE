@@ -65,7 +65,6 @@ export class taskItems {
     isDisabled: String
     updated_at: String
     updated_by: String
-
   }) {
     this.id = o.id
     this.project_ref = o.project_ref
@@ -97,7 +96,6 @@ export class taskItems {
     this.isDisabled = o.isDisabled
     this.updated_at = o.updated_at
     this.updated_by = o.updated_by
-
   }
 }
 
