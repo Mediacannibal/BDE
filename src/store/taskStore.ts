@@ -1,6 +1,7 @@
 import { Store, useStore } from './Store'
 import gettask from '../utils/api/gettask'
 import posttask from '../utils/api/posttask'
+import edittask from '../utils/api/edittask'
 export class taskItems {
   id: String
   project_ref: String
@@ -146,6 +147,47 @@ export const taskStore = () => {
         .then(res => {
           // console.log("posttask posttask", res)
           settaskField((oldArray: any) => [...oldArray, res.data])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async edittask(id: any, data: any) {
+      await edittask(id, data)
+        .then(res => {
+          // console.log("responce responce responce : >>>> :", res.data.result.user_details);
+          localStorage.setItem('UserDetails', JSON.stringify(res.data.result.user_details));
+          settaskField(oldarr => {
+            return (
+              oldarr &&
+              oldarr.map((obj: any) => {
+                const getobj = (o: any) => {
+                  let x = o
+                  x.project_ref = data.project_ref
+                  x.priority = data.priority
+                  x.task_type = data.task_type
+                  x.status = data.status
+                  x.domain = data.domain
+                  x.title = data.title
+                  x.description = data.description
+                  x.remarks = data.remarks
+                  x.image_link = data.image_link
+                  x.linked_logs = data.linked_logs
+                  x.time_spent = data.time_spent
+                  x.parent_child = data.parent_child
+                  x.open_id = data.open_id
+                  x.open_type = data.open_type
+                  x.dependencies = data.dependencies
+                  x.milestone = data.milestone
+                  x.progress = data.progress
+                  x.start_date = data.start_date
+                  x.end_date = data.end_date
+                  return x
+                }
+                return String(obj.id) === String(id) ? getobj(obj) : obj
+              })
+            )
+          })
         })
         .catch(err => {
           console.log(err)
