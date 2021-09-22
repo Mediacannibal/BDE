@@ -153,8 +153,7 @@ export const taskStore = () => {
     async edittask(id: any, data: any) {
       await edittask(id, data)
         .then(res => {
-          // console.log("responce responce responce : >>>> :", res.data.result.user_details);
-          localStorage.setItem('UserDetails', JSON.stringify(res.data.result.user_details));
+          console.log(res);
           settaskField(oldarr => {
             return (
               oldarr &&

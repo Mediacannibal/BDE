@@ -2,6 +2,8 @@ import { Store, useStore } from './Store'
 import getproject from '../utils/api/getproject'
 import getprojectDetails from '../utils/api/getprojectDetails'
 import postproject from '../utils/api/postproject'
+import editproject from '../utils/api/editproject'
+
 
 export class projectItems {
   id: String
@@ -116,6 +118,41 @@ export const projectStore = () => {
         .then(res => {
           // console.log("postprojectField postprojectField", res)
           setprojectField((oldArray: any) => [...oldArray, res.data])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    async editproject(id: any, data: any) {
+      await editproject(id, data)
+        .then(res => {
+          console.log(res);
+          setprojectField(oldarr => {
+            return (
+              oldarr &&
+              oldarr.map((obj: any) => {
+                const getobj = (o: any) => {
+                  let x = o
+                  x.company_ref = data.company_ref
+                  x.branch_ref = data.branch_ref
+                  x.design = data.design
+                  x.development = data.development
+                  x.marketting = data.marketting
+                  x.title = data.title
+                  x.logo = data.logo
+                  x.start_date = data.start_date
+                  x.end_date = data.end_date
+                  x.status = data.status
+                  x.progress = data.progress
+                  x.frontend_url = data.frontend_url
+                  x.backend_url = data.backend_url
+                  return x
+                }
+                return String(obj.id) === String(id) ? getobj(obj) : obj
+              })
+            )
+          })
         })
         .catch(err => {
           console.log(err)
