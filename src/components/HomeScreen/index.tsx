@@ -119,21 +119,6 @@ const HomeScreen = (props: any) => {
         }}
       >
         <td>{element.title}</td>
-        <td>
-          <div className="table_edit_delete_main">
-            <div className='table_edit_delete'>
-              {editContainer ? null :
-                <>
-                  <img onClick={() => {
-                    // setuser_popup(true)
-                    // editrow_user(element, index)
-                  }}
-                    className='table_icon' src={edit} />
-                </>
-              }
-            </div>
-          </div>
-        </td>
       </tr>
     )
   }
@@ -174,21 +159,6 @@ const HomeScreen = (props: any) => {
         <td>{element.status}</td>
         <td>{element.title}</td>
         <td>{getphotoimage(element.assign_log.assigned_by?.photo_url)}</td>
-        <td>
-          <div className="table_edit_delete_main">
-            <div className='table_edit_delete'>
-              {editContainer ? null :
-                <>
-                  <img onClick={() => {
-                    // setuser_popup(true)
-                    // editrow_user(element, index)
-                  }}
-                    className='table_icon' src={edit} />
-                </>
-              }
-            </div>
-          </div>
-        </td>
       </tr>
     )
   }

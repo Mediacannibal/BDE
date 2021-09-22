@@ -50,7 +50,7 @@ const UserSettings = ({ setPopup }) => {
                 card_body={
                   <div className="color_container" style={{}}>
                     <div className="color_sub_container">
-                      {Colour.map((obj: any) => {
+                      {(Colour) && Colour.map((obj: any) => {
                         return (
                           (!obj.selected) ?
                             <div className="color_box_selected"
@@ -59,7 +59,7 @@ const UserSettings = ({ setPopup }) => {
                               }}
                               onClick={() => {
                                 let newcolour = Colour
-                                newcolour = newcolour.map(
+                                newcolour = (newcolour) && newcolour.map(
                                   (t: any) => {
                                     const fun = () => {
                                       let a = t;
@@ -122,8 +122,7 @@ const UserSettings = ({ setPopup }) => {
                         let newcolour = Colour
                         let colorobj = colourObj
 
-
-                        newcolour = newcolour.map(
+                        newcolour = (newcolour) && newcolour.map(
                           // (t:any) => t
                           (t: any) => {
                             const fun = () => {
@@ -140,8 +139,6 @@ const UserSettings = ({ setPopup }) => {
 
                         setColour(newcolour)
                         setcolourObj(colorobj)
-
-
                         setPopup()
                       }} />
                   </div>
