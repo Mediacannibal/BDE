@@ -42,6 +42,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const { userDetail, loaduserDetail, self } = useuserDetails();
   const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
   const { taskField, settaskField, loadTaskDetail } = taskStore()
+  
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState(self?.user_type)
@@ -242,36 +243,38 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
                   </div>
                 </div>
 
-                {current_task !== undefined && (
-                  <div className="taskName_wrapper">
+                {current_task !== undefined &&
+                  (
+                    <div className="taskName_wrapper">
 
-                    <div className="taskName">
-                      {current_task.task_name}
+                      <div className="taskName">
+                        {current_task.task_name}
+                      </div>
+
+                      {startorpausetask ? (
+                        <img
+                          onClick={() => {
+                            setstartorpausetaskid(current_task.task_ref)
+                            setaddEditTaskTimeLog_popup(true)
+                          }}
+                          className='header_icon'
+                          src={play}
+                        />
+                      ) : (
+                        <img
+                          onClick={() => {
+                            setstartorpausetaskid(current_task.task_ref)
+                            setaddEditTaskTimeLog_popup(true)
+                          }}
+                          className='header_icon'
+                          src={pause}
+                        />
+                      )}
+                      <img className='header_icon' src={stop} />
+
                     </div>
-
-                    {startorpausetask ? (
-                      <img
-                        onClick={() => {
-                          setstartorpausetaskid(current_task.task_ref)
-                          setaddEditTaskTimeLog_popup(true)
-                        }}
-                        className='header_icon'
-                        src={play}
-                      />
-                    ) : (
-                      <img
-                        onClick={() => {
-                          setstartorpausetaskid(current_task.task_ref)
-                          setaddEditTaskTimeLog_popup(true)
-                        }}
-                        className='header_icon'
-                        src={pause}
-                      />
-                    )}
-                    <img className='header_icon' src={stop} />
-
-                  </div>
-                )}
+                  )
+                }
 
               </div>
             </div>

@@ -54,9 +54,9 @@ export const taskTimeLogStore = () => {
     settaskTimeLogField,
 
     async loadTaskTimeLogDetail() {
-      await gettasktimelog()
+      await gettasktimelog("", "")
         .then(data => {
-          settaskTimeLogField(data.data.results[0])
+          settaskTimeLogField(data.data.results)
           // console.log('Task Time Log :', data.data.results)
         })
         .catch(err => {

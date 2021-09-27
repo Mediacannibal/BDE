@@ -12,14 +12,19 @@ import { useAuth } from 'store/authStore';
 import Card from '../Common/Card';
 import Footer from '../Common/Footer';
 import UpDownArrow from 'components/Common/updownArrow';
+import { taskTimeLogStore } from 'store/tasktimelogStore';
+import McInput from 'components/Common/McInput';
+import { taskStore } from 'store/taskStore';
 
 const TaskTimeLog = (props: any) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { Colour, colourObj, setcolourObj, setColour, loadColour } = ColourObject()
+  const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
+  const { taskField, settaskField, loadTaskDetail, loadTaskDetail_byvalues, loadTaskDetail_withcallback, edittask } = taskStore()
 
   const [listItems, setlistItems] = useState([])
   const [companybranchTitle, setcompanybranchTitle] = useState(false)
-  const { Colour, setColour, loadColour } = ColourObject()
 
   const [spinner, setspinner] = useState(true)
 
@@ -30,6 +35,8 @@ const TaskTimeLog = (props: any) => {
   const [task_Ids, settask_Ids] = useState('')
   const [users, setusers] = useState('')
 
+  const [project_list, setproject_list] = useState([])
+  const [project_ref, setproject_ref] = useState('')
 
   useEffect(() => {
 
@@ -41,6 +48,34 @@ const TaskTimeLog = (props: any) => {
       loadColour();
     }
 
+    if (!taskTimeLogField) {
+      loadTaskTimeLogDetail();
+    }
+
+    if (!taskField) {
+      loadTaskDetail_withcallback((list: any) => {
+        setproject_list(list.map(
+          (element: any) =>
+            ({ "key": element.id, "value": element.project_ref })
+        ).reduce(
+          (unique: any, item: any) => {
+            // console.log(unique);
+            const getifunique = (list: any, obj: any) => {
+              let found = false
+              list.map((obj1: any) => {
+                if (obj1.value === obj.value)
+                  found = true;
+              })
+              return found
+            }
+            let check = getifunique(unique, item)
+            return check ? unique : [...unique, item]
+          },
+          [],
+        ))
+      });
+    }
+
     CommonAPi(
       {
         path: `tasks/tasktimelog/?task_ids=${task_Ids}&users=${users}`,
@@ -50,7 +85,7 @@ const TaskTimeLog = (props: any) => {
       async (data: any, errorresponse: any) => {
         if (data.status === 200) {
           setspinner(false)
-          // console.log("Project Tasks: ", data.data.results)
+          console.log("Project Tasks: ", data.data.results)
           setlistItems(data.data.results)
         } else {
           setspinner(false)
@@ -110,55 +145,104 @@ const TaskTimeLog = (props: any) => {
     )
   }
 
+  const Tasktimelog = (data: any) => {
+
+
+  }
+
   return (
     <div className="main">
 
-      {companybranchTitle &&
-        <div className="companybranch_container">
-          <div className="companybranch_wrapper">
-            {listItems.map((element: any, key: any) => {
-              return (
-                <div className="companybranch_subwrapper">
-                  <div className="header_title" >
-                    {"Company: " + element.company}
+      <div>
+
+        {companybranchTitle &&
+          <div className="companybranch_container">
+            <div className="companybranch_wrapper">
+              {listItems.map((element: any, key: any) => {
+                return (
+                  <div className="companybranch_subwrapper">
+                    <div className="header_title" >
+                      {"Company: " + element.company}
+                    </div>
+                    <div className="header_title" >
+                      {"Branch: " + element.branch}
+                    </div>
                   </div>
-                  <div className="header_title" >
-                    {"Branch: " + element.branch}
-                  </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
+          </div>
+        }
+
+        <div className="mc_filter">
+          <div className='inputfield_sub_container'>
+            <McInput
+              type={'picker'}
+              name={'Project'}
+              id='task_project_data'
+              value={project_ref?.value}
+              onChange={(data: any) => {
+                setproject_ref(data)
+              }}
+              options={project_list}
+            />
           </div>
         </div>
-      }
 
-      <div className="body" style={{ backgroundColor: Colour.primary }}>
-        {spinner ?
-          <div className="spinner_fullscreen_div">
-            <ProgressBar />
-          </div>
-          :
-          <>
-            <Card
-              // card_title={Projecttitle}
-              card_body={
-                <div className="internal_table">
-                  <table id='internal_table'>
-                    <thead>
-                      <tr>{renderHeader()}</tr>
-                    </thead>
-                    <tbody>
-                      {
-                        listItems.map(renderBody)
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              }
-            />
-          </>
-        }
+        <div className="body" style={{ backgroundColor: Colour.primary }}>
+          {spinner ?
+            <div className="spinner_fullscreen_div">
+              <ProgressBar />
+            </div>
+            :
+            <>
+              <Card
+                // card_title={Projecttitle}
+                card_body={
+                  (taskTimeLogField) && taskTimeLogField.map((element: any) => {
+                    console.log(">>>>>", element);
+
+                    return (
+                      <>
+
+                        <div className="project_wrapper">
+                          <div className="project_details">
+
+                            <div className="project_center_container">
+                              <div className="project_title" style={{ color: colourObj.color_1 }}  >
+                                {element.company}
+                              </div>
+                              <div className="project_description" style={{ color: colourObj.color_1 }}>
+                                {element.branch}
+                              </div>
+                            </div>
+
+                            <div className="internal_table">
+                              <table id='internal_table'>
+                                <thead>
+                                  <tr>{renderHeader()}</tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    listItems.map(renderBody)
+                                  }
+                                </tbody>
+                              </table>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </>
+                    )
+                  })
+                }
+              />
+            </>
+          }
+        </div>
       </div>
+
       <Footer />
     </div >
   )
