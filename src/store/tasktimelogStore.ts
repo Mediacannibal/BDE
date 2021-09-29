@@ -1,6 +1,6 @@
-import gettasktimelog from 'utils/api/gettasktimelog'
 import { Store, useStore } from './Store'
-
+import gettasktimelog from 'utils/api/gettasktimelog'
+import posttasktimelog from 'utils/api/posttasktimelog'
 export class taskTimeLogItems {
   id: String
   company: String
@@ -57,7 +57,18 @@ export const taskTimeLogStore = () => {
       await gettasktimelog("", "")
         .then(data => {
           settaskTimeLogField(data.data.results)
-          // console.log('Task Time Log :', data.data.results)
+          console.log('Task Time Log :', data.data.results)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    async posttasktimelog(data: any) {
+      await posttasktimelog(data)
+        .then(res => {
+          // console.log("posttask posttask", res)
+          settaskTimeLogField((oldArray: any) => [...oldArray, res.data])
         })
         .catch(err => {
           console.log(err)

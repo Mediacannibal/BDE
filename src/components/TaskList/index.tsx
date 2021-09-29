@@ -8,6 +8,7 @@ import AddEditTask from 'components/Forms/AddEditTask'
 import * as add from 'assets/add.svg'
 import AddEditTaskLog from 'components/Forms/AddEditTaskLog'
 import * as play from 'assets/play.svg'
+import * as pause from 'assets/pause.svg'
 import * as defaultusericon from '../../assets/user_icon.svg'
 import * as edit from '../../assets/edit.png'
 import AddEditTaskTimeLog from 'components/Forms/AddEditTaskTimeLog'
@@ -118,6 +119,10 @@ const TaskList = (props: any) => {
   const [progress, setprogress] = useState('')
   const [start_date, setstart_date] = useState('')
   const [end_date, setend_date] = useState('')
+
+  const [play_pause, setplay_pause] = useState(true)
+  const [startorpausetask1, setstartorpausetask1] = useState('')
+
 
 
   useEffect(() => {
@@ -297,7 +302,7 @@ const TaskList = (props: any) => {
               setaddEditTaskTimeLog_popup(false)
             }}
             taskid={seleted_taskId}
-            startorpausetask={true}
+            startorpausetask={startorpausetask1}
           />
         )}
 
@@ -341,7 +346,7 @@ const TaskList = (props: any) => {
           <div>
 
             {(assigntaskField) && assigntaskField.map((element: any) => {
-              // console.log("++++===+++===+++ :", element);
+              console.log("++++===+++===+++ :", element);
 
               let assigned_by = element?.assign_log.assigned_by?.photo_url;
               let assigned_to = element?.assigned_to;
@@ -414,17 +419,39 @@ const TaskList = (props: any) => {
 
                       <div className="task_description_assignee">
                         <div className="task_description_timeSpent">
-                          <div
-                            className='screen_header_element'
-                            onClick={() => {
-                              setaddEditTaskTimeLog_popup(true)
-                              setseleted_taskId(element.id)
-                            }}
-                          >
-                            <img className='header_icon' src={play} />
 
-                            {element.description}
-                          </div>
+                          {element.description}
+
+                          <>
+                            {play_pause ?
+                              <div
+                                className='screen_header_element'
+                                onClick={() => {
+                                  setaddEditTaskTimeLog_popup(true)
+                                  setseleted_taskId(element.id)
+                                  setstartorpausetask1("true")
+                                  setplay_pause(!play_pause)
+                                }}
+                              >
+                                <img className='header_icon' src={play} />
+                              </div>
+                              :
+                              <>
+                                {seleted_taskId === element.id &&
+                                  <div
+                                    className='screen_header_element'
+                                    onClick={() => {
+                                      setaddEditTaskTimeLog_popup(true)
+                                      setseleted_taskId(element.id)
+                                      setstartorpausetask1("false")
+                                      setplay_pause(!play_pause)
+                                    }}
+                                  >
+                                    <img className='header_icon' src={pause} />
+                                  </div>}
+                              </>
+                            }
+                          </>
 
                           {element.time_spent !== undefined || null ?
                             <div className="task_timeSpent"

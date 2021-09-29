@@ -42,7 +42,7 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
   const { userDetail, loaduserDetail, self } = useuserDetails();
   const { taskTimeLogField, settaskTimeLogField, loadTaskTimeLogDetail } = taskTimeLogStore()
   const { taskField, settaskField, loadTaskDetail } = taskStore()
-  
+
 
   const [menu_open, setMenu_open] = useState(true)
   const [usertype, setusertype] = useState(self?.user_type)
@@ -87,6 +87,8 @@ const Dashboard = ({ screen, screen_name, header_options }, props: any) => {
       loadTaskTimeLogDetail();
       setstartorpausetask(false)
     }
+
+    taskTimeLog()
   }, [])
 
   const taskTimeLog = () => {

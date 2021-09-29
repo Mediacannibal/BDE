@@ -5,15 +5,18 @@ import '../../../components/app.css'
 import Popup from 'components/Common/Popup'
 import { createTasktimelog } from 'utils/api';
 import { useAuth } from 'store/authStore';
+import { taskTimeLogStore } from 'store/tasktimelogStore';
 
 const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
   const { auth } = useAuth();
-  const history = useHistory();
+  const { taskTimeLogField, loadTaskTimeLogDetail, posttasktimelog } = taskTimeLogStore()
+
 
   const [backendresponse_popup, setbackendresponse_popup] = useState(false);
   const [backendresponse, setbackendresponse] = useState('');
 
   useEffect(() => {
+    console.log(">>>>>>>>>>>>", setPopup, taskid, startorpausetask);
 
   }, [])
 
@@ -31,20 +34,21 @@ const AddEditTaskTimeLog = ({ setPopup, taskid, startorpausetask }) => {
         }
         // console.log('seleted_taskid: ', taskid)
         data.push(object)
+        posttasktimelog(object)
         // console.log("***SUBMIT***", data)
-        createTasktimelog(async (data: any, errorresponse: any) => {
-          if (data.status === 200) {
-            // console.log('Sucess========= ' + JSON.stringify(data));
-            window.location.reload()
-            // alert("successfully added")
-            setbackendresponse("Successfully Added!")
-            setbackendresponse_popup(true)
-          } else {
-            setbackendresponse("Failed, Please Try Again!")
-            console.log('error ' + JSON.stringify(data));
-            console.log('error ' + JSON.stringify(errorresponse));
-          }
-        }, auth, data[0])
+        // createTasktimelog(async (data: any, errorresponse: any) => {
+        //   if (data.status === 200) {
+        //     // console.log('Sucess========= ' + JSON.stringify(data));
+        //     window.location.reload()
+        //     // alert("successfully added")
+        //     setbackendresponse("Successfully Added!")
+        //     setbackendresponse_popup(true)
+        //   } else {
+        //     setbackendresponse("Failed, Please Try Again!")
+        //     console.log('error ' + JSON.stringify(data));
+        //     console.log('error ' + JSON.stringify(errorresponse));
+        //   }
+        // }, auth, data[0])
         // console.log("***SENT***")
         setPopup()
       }}
