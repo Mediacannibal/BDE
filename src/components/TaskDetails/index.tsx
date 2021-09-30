@@ -61,7 +61,7 @@ const TaskDetails = () => {
 
   let location = useLocation();
 
-  const [chatSocket] = useState(new WebSocket(`wss://apimccbdechat.mediacannibal.com/ws/chat/${id}/`))
+  const [chatSocket] = useState(new WebSocket(`wss://apimccbdechat.mediacannibal.co/ws/chat/${id}/`))
   const loaduserChatDetail = (auth: any, id: any) => {
     CommonAPi(
       {

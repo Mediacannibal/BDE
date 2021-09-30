@@ -63,7 +63,7 @@ const ApiRecords = (props: any) => {
           />
         </div>
 
-        <iframe src={String(frame((projectField) && projectField)) ? String(frame((projectField) && projectField)) : "https://apimcbde.mediacannibal.com/docs/"} name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
+        <iframe src={String(frame((projectField) && projectField)) ? String(frame((projectField) && projectField)) : "https://apimcbde.mediacannibal.co/docs/"} name="targetframe" height="100%" width="100%" title="API-RECORDS"></iframe>
 
       </div>
     </div>

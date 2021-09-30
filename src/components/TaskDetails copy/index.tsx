@@ -20,7 +20,7 @@ import Footer from '../Common/Footer';
 import { fileupload } from 'utils/api';
 import McInput from 'components/Common/McInput';
 
-const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.com/ws/chat/roomName/");
+const chatSocket: WebSocket = new WebSocket("wss://apimccbdechat.mediacannibal.co/ws/chat/roomName/");
 
 const TaskDetails = () => {
   const { auth } = useAuth();

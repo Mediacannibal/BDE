@@ -199,43 +199,34 @@ const TaskTimeLog = (props: any) => {
               <Card
                 // card_title={Projecttitle}
                 card_body={
-                  (taskTimeLogField) && taskTimeLogField.map((element: any) => {
-                    console.log(">>>>>", element);
+                  <div className="project_wrapper">
+                    <div className="project_details">
 
-                    return (
-                      <>
-
-                        <div className="project_wrapper">
-                          <div className="project_details">
-
-                            <div className="project_center_container">
+                      {/* <div className="project_center_container">
                               <div className="project_title" style={{ color: colourObj.color_1 }}  >
                                 {element.company}
                               </div>
                               <div className="project_description" style={{ color: colourObj.color_1 }}>
                                 {element.branch}
                               </div>
-                            </div>
+                            </div> */}
 
-                            <div className="internal_table">
-                              <table id='internal_table'>
-                                <thead>
-                                  <tr>{renderHeader()}</tr>
-                                </thead>
-                                <tbody>
-                                  {
-                                    listItems.map(renderBody)
-                                  }
-                                </tbody>
-                              </table>
-                            </div>
+                      <div className="internal_table">
+                        <table id='internal_table'>
+                          <thead>
+                            <tr>{renderHeader()}</tr>
+                          </thead>
+                          <tbody>
+                            {
+                              (taskTimeLogField) && taskTimeLogField.map(renderBody)
+                            }
+                          </tbody>
+                        </table>
+                      </div>
 
-                          </div>
-                        </div>
+                    </div>
+                  </div>
 
-                      </>
-                    )
-                  })
                 }
               />
             </>
