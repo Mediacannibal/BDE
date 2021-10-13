@@ -15,23 +15,14 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// Retrieve firebase messaging
-const messaging = firebase.messaging();
-
+firebase.initializeApp(firebaseConfig);
+// const messaging = firebase.messaging();
+let messaging = null;
+if (firebase.messaging.isSupported()){
+    messaging = firebase.messaging();
+}
 messaging.onBackgroundMessage(function (payload) {
   console.log('serviceworker captured message', payload.notification);
-  const OneSignal = window.OneSignal;
-  if (window.Notification && Notification.permission === "granted") {
-    OneSignal.push(() => {
-      OneSignal.init({
-        appId: "YOUR-APP-ID"
-      })
-    });
-  }
-  else {
-    alert(JSON.stringify(message.notification));
-  }
-
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
