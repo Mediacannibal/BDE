@@ -1,7 +1,6 @@
-<<<<<<< HEAD:docs/app~db300d2f.eddcd641a7b14719e70f.js.LICENSE.txt
 /**
  * @license
- * Copyright 2017 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +15,9 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 5d14c17ab145bad7355ad96c18749c8b25ff9253:docs/app~db300d2f.ad5498a8fc0884e03b09.js.LICENSE.txt
 /**
  * @license
- * Copyright 2018 Google LLC
+ * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
