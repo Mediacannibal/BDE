@@ -1,4 +1,3 @@
-<<<<<<< HEAD:docs/app~db300d2f.eddcd641a7b14719e70f.js.LICENSE.txt
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -16,8 +15,6 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 5d14c17ab145bad7355ad96c18749c8b25ff9253:docs/app~db300d2f.ad5498a8fc0884e03b09.js.LICENSE.txt
 /**
  * @license
  * Copyright 2018 Google LLC
